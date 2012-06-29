@@ -1,0 +1,3 @@
+[submodule "ProGitRepository"]
+	path = ProGitRepository
+	url = git://github.com/progit/progit.git
