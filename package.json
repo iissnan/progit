@@ -2,7 +2,8 @@
     "name" : "ProGit",
     "version" : "0.0.1",
     "dependencies" : {
-
+        "jade" : "0.26.2",
+        "markdown" : ">0.1.0"
     },
     "engine" : "0.6.6",
     "main" : "server.js"

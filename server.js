@@ -1,6 +1,5 @@
 var http = require('http');
 
-
 var server = http.createServer().listen(8000);
 
 server.on('request', function(req, res){
