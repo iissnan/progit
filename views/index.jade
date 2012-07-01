@@ -5,5 +5,6 @@ html
         title Contents
     body
         ul
-            each content in Contents
-                li=content
+            each content, i in Contents
+                li
+                    a(target="_blank", href="0#{i+1}") #{content}
