@@ -7,6 +7,7 @@ var md = require('markdown');
 var DIR_NAME_PGREPO = 'ProGitRepository';
 var PATH_PGREPO = __dirname + '/' + DIR_NAME_PGREPO + '/';
 var PATH_FIGURE = PATH_PGREPO + 'figures/';
+var PATH_VIEW = __dirname + '/' + 'views/';
 
 var app = express.createServer().listen(8000);
 
@@ -42,7 +43,12 @@ app.get('/:charpterId?', function(req, res){
                                                 });
                                             };
 
-                                            res.send(resolve_figures(md.markdown.toHTML(data)));
+                                            //res.send(resolve_figures(md.markdown.toHTML(data)));
+                                            res.render('layout.jade', {
+                                                layout:false,
+                                                content : resolve_figures(md.markdown.toHTML(data)),
+                                                menu : '<ul><li><a target="_blank" href="01">01-introduction</a></li><li><a target="_blank" href="02">02-git-basics</a></li><li><a target="_blank" href="03">03-git-branching</a></li><li><a target="_blank" href="04">04-git-server</a></li><li><a target="_blank" href="05">05-distributed-git</a></li><li><a target="_blank" href="06">06-git-tools</a></li><li><a target="_blank" href="07">07-customizing-git</a></li><li><a target="_blank" href="08">08-git-and-other-scms</a></li><li><a target="_blank" href="09">09-git-internals</a></li></ul>'
+                                            });
                                         } else {
                                             res.send(500);
                                         }
@@ -60,6 +66,26 @@ app.get('/:charpterId?', function(req, res){
             }
         });
     }
+});
+
+
+// Routing Static files
+app.get('/static/(:type)/(:filename)', function(req, res){
+    console.log(req.params);
+    var PATH_STATIC = __dirname + '/static/';
+    var PATH_FILE = path.join(PATH_STATIC, req.params.type, req.params.filename);
+    console.log(PATH_FILE);
+    fs.readFile(PATH_FILE, function(err, data){
+        if (!err) {
+            console.log(res.contentType(PATH_FILE));
+            res.contentType(PATH_FILE);
+            res.send(data);
+        } else {
+            // pass
+            res.send(err.message);
+            //res.send(404);
+        }
+    });
 });
 
 app.get('/figures/:figure_name', function(req, res){

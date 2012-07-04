@@ -1,0 +1,58 @@
+!!! 5
+html
+    head
+        meta(charset="utf-8")
+        title Twitter Bootstrap
+        link(rel="stylesheet", href="/static/css/bootstrap.css")
+
+    body(style="padding-top:60px")
+        div.navbar.navbar-fixed-top
+            div.navbar-inner
+                div.container
+                    a.brand(href="/") Pro Git
+                    ul.nav
+                      li.active
+                        a Home
+
+        div.container
+            div.row
+                div.span8
+                    !{content}
+                div.span4
+                    ul.nav.nav-list(style="position:fixed;width:300px")
+                        li.active
+                            a(href="01")
+                                i.icon-book.icon-white
+                                |  01-introduction
+                        li
+                            a(href="02")
+                                i.icon-book
+                                |  02-git-basics
+                        li
+                            a(href="03")
+                                i.icon-book
+                                |  03-git-branching
+                        li
+                            a(href="04")
+                                i.icon-book
+                                |  04-git-server
+                        li
+                            a(href="05")
+                                i.icon-book
+                                |  05-distributed-git
+                        li
+                            a(href="06")
+                                i.icon-book
+                                |  06-git-tools
+                        li
+                            a(href="07")
+                                i.icon-book
+                                |  07-customizing-git
+                        li
+                            a(href="08")
+                                i.icon-book
+                                |  08-git-and-other-scms
+                        li
+                            a(href="09")
+                                i.icon-book
+                                |  09-git-internals
