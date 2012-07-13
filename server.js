@@ -11,6 +11,20 @@ var PATH_VIEW = __dirname + '/' + 'views/';
 
 var app = express.createServer().listen(8000);
 
+app.get("/favicon.ico", function(req, res){
+    var favicon = path.join(__dirname, "/favicon.ico");
+    console.log(favicon);
+    fs.readFile(favicon, function(err, data){
+        if (!err) {
+            res.contentType(favicon);
+            res.sendfile(favicon);
+        } else {
+            res.send(404);
+        }
+    });
+});
+
+
 app.get('/:charpterId?', function(req, res){
     var dir_zh = PATH_PGREPO + 'zh/';
     if (!req.params.charpterId) {
@@ -104,5 +118,8 @@ app.get('/figures/:figure_name', function(req, res){
         });
     }
 });
+
+
+
 
 console.log('ProGit Server Running on the port 8000');
