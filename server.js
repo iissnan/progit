@@ -24,6 +24,15 @@ app.get("/favicon.ico", function(req, res){
     });
 });
 
+app.get("/:first?", function(req, res){
+    if (!req.params.first || req.params.first === "home") {
+        res.send("Home Page");
+    }
+    if (req.params.first === "about") {
+        res.send("About Page");
+    }
+});
+
 
 app.get('/:charpterId?', function(req, res){
     var dir_zh = PATH_PGREPO + 'zh/';
