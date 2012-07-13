@@ -2,6 +2,7 @@
     "name" : "ProGit",
     "version" : "0.0.1",
     "dependencies" : {
+        "express" : ">0.1.0",
         "jade" : "0.26.2",
         "markdown" : ">0.1.0"
     },
