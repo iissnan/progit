@@ -11,6 +11,22 @@ var PATH_VIEW = __dirname + '/' + 'views/';
 
 var app = express.createServer().listen(8000);
 
+// 配置信息
+app.configure(function(){});
+
+app.configure("development", function(){
+    app.use(express.static(__dirname + "/static"));
+    app.use(express.errorHandler({dumpException:true, showStack: true}));
+});
+
+app.configure("production", function(){
+    var oneYear = 31557600000;
+    app.use(express.static(__dirname + "/static"));
+    app.use(express.errorHandler());
+});
+
+
+// 路由
 app.get("/favicon.ico", function(req, res){
     var favicon = path.join(__dirname, "/favicon.ico");
     console.log(favicon);
