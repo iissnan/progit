@@ -15,18 +15,22 @@ var app = express.createServer().listen(8000);
 app.configure(function(){});
 
 app.configure("development", function(){
-    app.use(express.static(__dirname + "/static"));
+    app.use(express.static(__dirname + "/public"));
+    app.use(express.favicon(__dirname + "/public/favicon.ico"));
     app.use(express.errorHandler({dumpException:true, showStack: true}));
 });
 
 app.configure("production", function(){
     var oneYear = 31557600000;
-    app.use(express.static(__dirname + "/static"));
+    app.use(express.static(__dirname + "/public"));
+    app.use(express.favicon(__dirname + "/public/favicon.ico"));
     app.use(express.errorHandler());
 });
 
 
 // 路由
+
+/*
 app.get("/favicon.ico", function(req, res){
     var favicon = path.join(__dirname, "/favicon.ico");
     console.log(favicon);
@@ -39,7 +43,9 @@ app.get("/favicon.ico", function(req, res){
         }
     });
 });
+*/
 
+/*
 app.get("/:first?", function(req, res){
     if (!req.params.first || req.params.first === "home") {
         res.send("Home Page");
@@ -48,6 +54,7 @@ app.get("/:first?", function(req, res){
         res.send("About Page");
     }
 });
+*/
 
 
 app.get('/:charpterId?', function(req, res){
@@ -108,6 +115,7 @@ app.get('/:charpterId?', function(req, res){
 });
 
 
+/*
 // Routing Static files
 app.get('/static/(:type)/(:filename)', function(req, res){
     console.log(req.params);
@@ -143,8 +151,7 @@ app.get('/figures/:figure_name', function(req, res){
         });
     }
 });
-
-
+*/
 
 
 console.log('ProGit Server Running on the port 8000');
