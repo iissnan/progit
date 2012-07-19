@@ -15,41 +15,23 @@ var app = express.createServer().listen(8000);
 app.configure(function(){});
 
 app.configure("development", function(){
-    app.use(express.static(__dirname + "/static"));
+    app.use(express.static(__dirname + "/public"));
+    app.use(express.favicon(__dirname + "/public/favicon.ico"));
     app.use(express.errorHandler({dumpException:true, showStack: true}));
 });
 
 app.configure("production", function(){
     var oneYear = 31557600000;
-    app.use(express.static(__dirname + "/static"));
+    app.use(express.static(__dirname + "/public"));
+    app.use(express.favicon(__dirname + "/public/favicon.ico"), {maxAge : oneYear});
     app.use(express.errorHandler());
 });
 
 // 路由
-var routePatter = /^\/(?:about)?$/;
-
-app.get("/favicon.ico", function(req, res){
-    var favicon = path.join(__dirname, "/favicon.ico");
-    console.log(favicon);
-    fs.readFile(favicon, function(err, data){
-        if (!err) {
-            res.contentType(favicon);
-            res.sendfile(favicon);
-        } else {
-            res.send(404);
-        }
-    });
+var routePattern = /^\/(?:about)?$/;
+app.get(/^\/([a-zA-Z]{1,2})(\/([0-9][1-9])?)?$/, function(req, res){
+    
 });
-
-app.get("/:first?", function(req, res){
-    if (!req.params.first || req.params.first === "home") {
-        res.send("Home Page");
-    }
-    if (req.params.first === "about") {
-        res.send("About Page");
-    }
-});
-
 
 app.get('/:charpterId?', function(req, res){
     var dir_zh = PATH_PGREPO + 'zh/';
@@ -108,42 +90,6 @@ app.get('/:charpterId?', function(req, res){
     }
 });
 
-
-// Routing Static files
-app.get('/static/(:type)/(:filename)', function(req, res){
-    console.log(req.params);
-    var PATH_STATIC = __dirname + '/static/';
-    var PATH_FILE = path.join(PATH_STATIC, req.params.type, req.params.filename);
-    console.log(PATH_FILE);
-    fs.readFile(PATH_FILE, function(err, data){
-        if (!err) {
-            console.log(res.contentType(PATH_FILE));
-            res.contentType(PATH_FILE);
-            res.send(data);
-        } else {
-            // pass
-            res.send(err.message);
-            //res.send(404);
-        }
-    });
-});
-
-app.get('/figures/:figure_name', function(req, res){
-    var figureName = req.params.figure_name;
-    console.log(figureName);
-    if (figureName) {
-        var filePath = path.join(PATH_FIGURE, figureName);
-        console.log(filePath);
-        fs.readFile(filePath, function(err, data){
-            if (!err) {
-                res.contentType(filePath);
-                res.send(data);
-            } else {
-                res.send('');
-            }
-        });
-    }
-});
 
 
 /* 404 */
