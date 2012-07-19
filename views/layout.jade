@@ -4,58 +4,20 @@ html
         meta(charset="utf-8")
         title Twitter Bootstrap
         link(rel="stylesheet", href="/css/bootstrap.css")
+        link(rel="stylesheet", href="/css/common.css")
         link(rel="shortcut icon", href="/favicon.ico", type="images/x-icon")
 
-    body(style="padding-top:60px")
+    body
         div.navbar.navbar-fixed-top
             div.navbar-inner
                 div.container
-                    a.brand(href="/") Pro Git
+                    a.brand(href="/", id="brand") Pro Git
                     ul.nav
                       li.active
                         a(href="/") Home
                       li
                         a(href="/about") About
 
-        div.container
+        div.container#main
             div.row
-                div.span8
-                    !{content}
-                div.span4
-                    ul.nav.nav-list(style="position:fixed;width:300px")
-                        li.active
-                            a(href="01")
-                                i.icon-book.icon-white
-                                |  第一章 起步
-                        li
-                            a(href="02")
-                                i.icon-book
-                                |  第二章 Git 基础
-                        li
-                            a(href="03")
-                                i.icon-book
-                                |  第三章 Git 分支
-                        li
-                            a(href="04")
-                                i.icon-book
-                                |  第四章 服务器上的 Git
-                        li
-                            a(href="05")
-                                i.icon-book
-                                |  第五章 分布式 Git
-                        li
-                            a(href="06")
-                                i.icon-book
-                                |  第六章 Git工具
-                        li
-                            a(href="07")
-                                i.icon-book
-                                |  第七章 自定义Git
-                        li
-                            a(href="08")
-                                i.icon-book
-                                |  第八章 Git与其他系统
-                        li
-                            a(href="09")
-                                i.icon-book
-                                |  第九章 Git内部原理
+                != body

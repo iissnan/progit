@@ -1,11 +1,10 @@
-!!! 5
-html
-    head
-        meta(charset="utf-8")
-        title Contents
-        link(type="image/x-icon", rel="shortcut icon", href="/favicon.ico")
-    body
-        ul
-            each content, i in Contents
-                li
-                    a(target="_blank", href="0#{i+1}") #{content}
+div.span8
+    !=contents
+div.span4
+    img(src="/img/pro-git-cover.jpeg", alt="pro-git", width="200")
+    p.translations 其他语言版本
+    ul
+        li
+            a(href="/en/") 英文版
+        li
+            a(href="/zh-tw/") 繁体中文版
