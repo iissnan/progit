@@ -25,8 +25,9 @@ app.configure("production", function(){
     app.use(express.errorHandler());
 });
 
-
 // 路由
+var routePatter = /^\/(?:about)?$/;
+
 app.get("/favicon.ico", function(req, res){
     var favicon = path.join(__dirname, "/favicon.ico");
     console.log(favicon);
@@ -144,6 +145,11 @@ app.get('/figures/:figure_name', function(req, res){
     }
 });
 
+
+/* 404 */
+app.get("*", function(req, res){
+    res.send("Nothing Found", 404);
+});
 
 
 
