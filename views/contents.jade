@@ -1,4 +1,7 @@
-ul
-    each content, i in Contents
-        li
-            a(target="_blank", href="0#{i+1}") #{content}
+extends chapter
+
+block chapter-content
+    ul
+        each content, i in Contents
+            li
+                a(target="_blank", href="0#{i+1}") #{content}
