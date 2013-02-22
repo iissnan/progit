@@ -71,7 +71,16 @@ app.get("/:translate", function (req, res, next) {
 });
 
 app.get("/:translate/:chapter", function (req, res, next) {
-
+    var translate = req.params.translate,
+        chapter = req.params.chapter;
+    var chapterDir = path.join(PATH_PGREPO, translate, "/" + chapter);
+    fs.readdir(chapterDir, function (err, files) {
+        if (err) {
+            res.send(500);
+        } else {
+            getChapterContent(path.join(chapterDir,files[0]), res);
+        }
+    });
 });
 
 /* Not Routes matched, show 404 */
@@ -94,7 +103,7 @@ function showChapterList(translate, res){
         if (exists) {
             res.render('index', {chapters : getChapterList(translate)});
         } else {
-            res.send(404);
+            res.send(500);
         }
     });
 }
@@ -106,6 +115,8 @@ function showChapterList(translate, res){
  */
 function getChapterList(translate){
     var translateDirectory = path.join(PATH_PGREPO, translate);
+
+    // 章节映射 hard-code
     var chapterMapping = {
         "01-introduction": {
             "en" : "Introduction",
@@ -146,7 +157,11 @@ function getChapterList(translate){
     };
     var chapters = fs.readdirSync(translateDirectory);
     chapters = chapters.map(function(chapter, i) {
-        return i + " " + chapterMapping[chapter][translate];
+        return { 
+            "title" : i + " " + chapterMapping[chapter][translate],
+            "url" : chapter,
+            "translate": translate
+        };
     });
 
     return chapters;
@@ -156,8 +171,23 @@ function getChapterList(translate){
  * 获取章节内容
  * @param file
  */
-function getChapterContent(file){
-
+function getChapterContent(file, res){
+    fs.exists(file, function(exists) { 
+        if (exists) {
+            fs.readFile(file, function (err, data) {
+                if (err) { 
+                    console.log(err);
+                    res.send(500);
+                } else {
+                    console.log(data.toString());
+                    res.render('chapter', {content: md.markdown.toHTML(data.toString())});
+                }
+            });
+        } else {
+            console.log(file);
+            res.send(500);
+        }
+    });
 }
 
 app.listen(8000);
