@@ -179,8 +179,13 @@ function getChapterContent(file, res){
                     console.log(err);
                     res.send(500);
                 } else {
-                    console.log(data.toString());
-                    res.render('chapter', {content: md.markdown.toHTML(data.toString())});
+                    var resolve_figures = function (text) {
+                        return text.replace(/Insert ([^\.]+).png/g, function (all, figure) {
+                            return '<img src="../../figures/' + figure + '-tn.png"></br>';
+                        })
+                    };
+                    var content = resolve_figures(md.markdown.toHTML(data.toString()));
+                    res.render('chapter', {content: content});
                 }
             });
         } else {
