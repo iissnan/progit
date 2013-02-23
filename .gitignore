@@ -3,3 +3,4 @@
 *.iml
 node_modules
 components
+public/vendor
