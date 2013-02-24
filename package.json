@@ -1,0 +1,7 @@
+{
+    "name": "pages.for.pro.git.book",
+    "version": "0.0.1",
+    "devDependencies": {
+        "markdown": "latest"
+    }
+}
