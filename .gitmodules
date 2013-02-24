@@ -1,0 +1,3 @@
+[submodule "book_src"]
+	path = book_src
+	url = git://github.com/progit/progit.git
