@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+img, fieldset{
+    border: 0;
+}
+
+ul, ol{
+    list-style: none;
+}
+
+body{
+    font: 13px/1.5 Heveltica, Arial, sans-serif;
+}
+
+.toc li{margin: 10px auto;}
+.toc .headline1{}
+.toc .headline2{margin-left: 20px;}
+.toc .headline3{margin-left: 40px;}
+.toc .headline4{margin-left: 60px;}
+.toc .headline5{margin-left: 80px;}
+
