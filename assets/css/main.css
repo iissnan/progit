@@ -14,15 +14,10 @@ ul, ol{
 body{
     padding-top: 50px;
     background: #F0EFE7;
-    font: 13px/1.62 "Georgia", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+    font: 13px/1.62  "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
 }
 
 #brand{
-    width: 106px;
-    font:30px/1 Georgia, "Times New Romon", sans-serif;
-    padding-left: 40px;
-    text-indent: -9999px;
-    background: url(../img/logo.png) no-repeat 0 50%;
 }
 
 .navbar .nav > li{
@@ -61,4 +56,8 @@ body{
 .sub-nav .nav-header{
     font-size: 20px;
     line-height: 1.5;
+}
+
+.book-info{
+    margin-top: 30px;
 }

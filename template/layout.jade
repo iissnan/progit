@@ -5,9 +5,12 @@ html
         title #{title}
 
         - if (typeof isIndex !== "undefined")
+            isIndex = true
             hrefPrefix = "assets"
         - else
+            isIndex = false
             hrefPrefix = "../assets"
+
         link(rel="stylesheet", type="text/css", href="#{hrefPrefix}/vendor/bootstrap/css/bootstrap.min.css")
         link(rel="stylesheet", type="text/css", href="#{hrefPrefix}/css/main.css")
         link(rel="shortcut icon", href="#{hrefPrefix}/favicon.ico", type="images/x-icon")
@@ -17,7 +20,7 @@ html
                 div.container
                     ul.nav
                         li
-                            - if (typeof isIndex !== "undefined")
+                            - if (isIndex)
                                 a(href="index.html") 首页
                             - else
                                 a(href="../index.html") 首页
@@ -30,12 +33,24 @@ html
         div.container#main
             div.wrap
                 div.row
-                    div.span9
-                        !{content}
+                    - if (isIndex)
+                        div.span5
+                            !{content}
+                    - else
+                        div.span9
+                            !{content}
 
-                    div.span2
-                        - if (typeof sidebar !== "undefined")
-                            !{sidebar}
+                    - if (isIndex)
+                        div.span4.offset2
+                            div.book-info
+                                p
+                                    a(href="http://github.com/progit/progit") Pro Git书籍源码
+                                p
+                                    img.img-polaroid(src="assets/img/pro-git-cover.jpeg", alt="Pro Git")
+                    - else
+                        div.span2
+                            - if (typeof sidebar !== "undefined")
+                                !{sidebar}
 
         script(src="#{hrefPrefix}/vendor/jquery/jquery.min.js")
         script(src="#{hrefPrefix}/vendor/bootstrap/js/bootstrap.min.js")
