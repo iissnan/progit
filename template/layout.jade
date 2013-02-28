@@ -4,7 +4,7 @@ html
         meta(charset="utf-8")
         title #{title}
 
-        - if (isIndex)
+        - if (typeof isIndex !== "undefined")
             href = "assets/css/main.css"
         - else
             href = "../assets/css/main.css"
@@ -12,3 +12,9 @@ html
     body
         div.wrap
             !{content}
+
+            -if (typeof prev !== "undefined")
+                a(href="#{prev}") 上一页
+
+            -if (typeof next !== "undefined")
+                a(href="#{next}") 下一页
