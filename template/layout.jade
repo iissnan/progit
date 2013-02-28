@@ -20,14 +20,12 @@ html
                             a(href="/") Home
         div.container#main
             div.row
-                div.wrap
+                div.span9
                     !{content}
 
-                    ul.pager
-                        -if (typeof prev !== "undefined")
-                            li.previous
-                                a(href="#{prev}") &larr; 上一页
+                div.span3
+                    - if (typeof sidebar !== "undefined")
+                        !{sidebar}
 
-                        -if (typeof next !== "undefined")
-                            li.next
-                                a(href="#{next}") 下一页 &rarr;
+        script(src="#{hrefPrefix}/vendor/jquery/jquery.min.js")
+        script(scr="#{hrefPrefix}/vendor/bootstrap/js/bootstrap.min.js")

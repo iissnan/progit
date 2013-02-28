@@ -14,7 +14,7 @@ ul, ol{
 body{
     padding-top: 50px;
     background: #F0EFE7;
-    font: 13px/1.62 "Georgia", "Hiragino Kaku Gothic Pro", "Microsoft YaHei", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font: 13px/1.62 "Georgia", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
 }
 
 #brand{
@@ -25,7 +25,6 @@ body{
     background: url(../img/logo.png) no-repeat 0 50%;
 }
 
-/* navbar */
 .navbar .nav > li{
     margin-right: 15px;
 }
@@ -60,3 +59,10 @@ body{
     margin-left: 80px;
 }
 
+.sub-nav{
+    position: fixed;
+}
+.sub-nav .nav-header{
+    font-size: 20px;
+    line-height: 1.5;
+}
