@@ -30,7 +30,6 @@ body{
 }
 
 #main{
-    padding: 20px;
     background: #fff;
 }
 .wrap{
@@ -59,9 +58,6 @@ body{
     margin-left: 80px;
 }
 
-.sub-nav{
-    position: fixed;
-}
 .sub-nav .nav-header{
     font-size: 20px;
     line-height: 1.5;

@@ -16,16 +16,26 @@ html
             div.navbar-inner
                 div.container
                     ul.nav
-                        li.active
-                            a(href="/") Home
-        div.container#main
-            div.row
-                div.span9
-                    !{content}
+                        li
+                            - if (typeof isIndex !== "undefined")
+                                a(href="index.html") 首页
+                            - else
+                                a(href="../index.html") 首页
+                        li.dropdown
+                            a.dropdown-toggle(data-toggle="dropdown", href="#") 章节列表
+                                b.caret
+                            ul.dropdown-menu(role="menu")
+                                !{chapterLinks}
 
-                div.span3
-                    - if (typeof sidebar !== "undefined")
-                        !{sidebar}
+        div.container#main
+            div.wrap
+                div.row
+                    div.span9
+                        !{content}
+
+                    div.span2
+                        - if (typeof sidebar !== "undefined")
+                            !{sidebar}
 
         script(src="#{hrefPrefix}/vendor/jquery/jquery.min.js")
-        script(scr="#{hrefPrefix}/vendor/bootstrap/js/bootstrap.min.js")
+        script(src="#{hrefPrefix}/vendor/bootstrap/js/bootstrap.min.js")
