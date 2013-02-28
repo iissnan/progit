@@ -3,7 +3,12 @@ html
     head
         meta(charset="utf-8")
         title #{title}
-        link(rel="stylesheet", type="text/css", href="../assets/css/main.css")
+
+        - if (isIndex)
+            href = "assets/css/main.css"
+        - else
+            href = "../assets/css/main.css"
+        link(rel="stylesheet", type="text/css", href="#{href}")
     body
         div.wrap
             !{content}
