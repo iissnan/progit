@@ -5,16 +5,29 @@ html
         title #{title}
 
         - if (typeof isIndex !== "undefined")
-            href = "assets/css/main.css"
+            hrefPrefix = "assets"
         - else
-            href = "../assets/css/main.css"
-        link(rel="stylesheet", type="text/css", href="#{href}")
+            hrefPrefix = "../assets"
+        link(rel="stylesheet", type="text/css", href="#{hrefPrefix}/vendor/bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet", type="text/css", href="#{hrefPrefix}/css/main.css")
+        link(rel="shortcut icon", href="#{hrefPrefix}/favicon.ico", type="images/x-icon")
     body
-        div.wrap
-            !{content}
+        div.navbar.navbar-fixed-top.navbar-inverse
+            div.navbar-inner
+                div.container
+                    ul.nav
+                        li.active
+                            a(href="/") Home
+        div.container#main
+            div.row
+                div.wrap
+                    !{content}
 
-            -if (typeof prev !== "undefined")
-                a(href="#{prev}") 上一页
+                    ul.pager
+                        -if (typeof prev !== "undefined")
+                            li.previous
+                                a(href="#{prev}") &larr; 上一页
 
-            -if (typeof next !== "undefined")
-                a(href="#{next}") 下一页
+                        -if (typeof next !== "undefined")
+                            li.next
+                                a(href="#{next}") 下一页 &rarr;

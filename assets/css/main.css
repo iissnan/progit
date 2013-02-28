@@ -12,13 +12,51 @@ ul, ol{
 }
 
 body{
-    font: 13px/1.5 Heveltica, Arial, sans-serif;
+    padding-top: 50px;
+    background: #F0EFE7;
+    font: 13px/1.62 "Georgia", "Hiragino Kaku Gothic Pro", "Microsoft YaHei", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 }
 
-.toc li{margin: 10px auto;}
-.toc .headline1{}
-.toc .headline2{margin-left: 20px;}
-.toc .headline3{margin-left: 40px;}
-.toc .headline4{margin-left: 60px;}
-.toc .headline5{margin-left: 80px;}
+#brand{
+    width: 106px;
+    font:30px/1 Georgia, "Times New Romon", sans-serif;
+    padding-left: 40px;
+    text-indent: -9999px;
+    background: url(../img/logo.png) no-repeat 0 50%;
+}
+
+/* navbar */
+.navbar .nav > li{
+    margin-right: 15px;
+}
+
+#main{
+    padding: 20px;
+    background: #fff;
+}
+.wrap{
+    padding: 20px;
+}
+
+.toc li{
+    margin: 10px auto;
+    line-height: 1.62;
+}
+.toc .headline1{
+    margin: 25px 0 10px;
+    font-size: 30px;
+}
+.toc .headline2{
+    margin-left: 20px;
+    font-size: 14px;
+}
+.toc .headline3{
+    margin-left: 40px;
+}
+.toc .headline4{
+    margin-left: 60px;
+}
+.toc .headline5{
+    margin-left: 80px;
+}
 
