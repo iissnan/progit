@@ -1,0 +1,211 @@
+<!DOCTYPE doctype><html><head><meta charset="utf-8"/><title>test</title><link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap/css/bootstrap.min.css"/><link rel="stylesheet" type="text/css" href="../assets/css/main.css"/><link rel="shortcut icon" href="../assets/favicon.ico" type="images/x-icon"/></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li><a href="../index.html">首页</a></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">章节列表<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="span9"><h2>维护及数据恢复</h2>
+
+<p>你时不时的需要进行一些清理工作 ── 如减小一个仓库的大小，清理导入的库，或是恢复丢失的数据。本节将描述这类使用场景。</p>
+
+<h3>维护</h3>
+
+<p>Git 会不定时地自动运行称为 &quot;auto gc&quot; 的命令。大部分情况下该命令什么都不处理。不过要是存在太多松散对象 (loose object, 不在 packfile 中的对象) 或 packfile，Git 会进行调用 <code>git gc</code> 命令。 <code>gc</code> 指垃圾收集 (garbage collect)，此命令会做很多工作：收集所有松散对象并将它们存入 packfile，合并这些 packfile 进一个大的 packfile，然后将不被任何 commit 引用并且已存在一段时间 (数月) 的对象删除。</p>
+
+<p>可以手工运行 auto gc 命令：</p>
+
+<pre><code>$ git gc --auto</code></pre>
+
+<p>再次强调，这个命令一般什么都不干。如果有 7,000 个左右的松散对象或是 50 个以上的 packfile，Git 才会真正调用 gc 命令。可能通过修改配置中的 <code>gc.auto</code> 和 <code>gc.autopacklimit</code> 来调整这两个阈值。</p>
+
+<p><code>gc</code> 还会将所有引用 (references) 并入一个单独文件。假设仓库中包含以下分支和标签：</p>
+
+<pre><code>$ find .git/refs -type f
+.git/refs/heads/experiment
+.git/refs/heads/master
+.git/refs/tags/v1.0
+.git/refs/tags/v1.1</code></pre>
+
+<p>这时如果运行 <code>git gc</code>, <code>refs</code> 下的所有文件都会消失。Git 会将这些文件挪到 <code>.git/packed-refs</code> 文件中去以提高效率，该文件是这个样子的：</p>
+
+<pre><code>$ cat .git/packed-refs
+# pack-refs with: peeled
+cac0cab538b970a37ea1e769cbbde608743bc96d refs/heads/experiment
+ab1afef80fac8e34258ff41fc1b867c702daa24b refs/heads/master
+cac0cab538b970a37ea1e769cbbde608743bc96d refs/tags/v1.0
+9585191f37f7b0fb9444f35a9bf50de191beadc2 refs/tags/v1.1
+^1a410efbd13591db07496601ebc7a059dd55cfe9</code></pre>
+
+<p>当更新一个引用时，Git 不会修改这个文件，而是在 <code>refs/heads</code> 下写入一个新文件。当查找一个引用的 SHA 时，Git 首先在 <code>refs</code> 目录下查找，如果未找到则到 <code>packed-refs</code> 文件中去查找。因此如果在 <code>refs</code> 目录下找不到一个引用，该引用可能存到 <code>packed-refs</code> 文件中去了。</p>
+
+<p>请留意文件最后以 <code>^</code> 开头的那一行。这表示该行上一行的那个标签是一个 annotated 标签，而该行正是那个标签所指向的 commit 。</p>
+
+<h3>数据恢复</h3>
+
+<p>在使用 Git 的过程中，有时会不小心丢失 commit 信息。这一般出现在以下情况下：强制删除了一个分支而后又想重新使用这个分支，hard-reset 了一个分支从而丢弃了分支的部分 commit。如果这真的发生了，有什么办法把丢失的 commit 找回来呢？</p>
+
+<p>下面的示例演示了对 test 仓库主分支进行 hard-reset 到一个老版本的 commit 的操作，然后恢复丢失的 commit 。首先查看一下当前的仓库状态：</p>
+
+<pre><code>$ git log --pretty=oneline
+ab1afef80fac8e34258ff41fc1b867c702daa24b modified repo a bit
+484a59275031909e19aadb7c92262719cfcdf19a added repo.rb
+1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
+cac0cab538b970a37ea1e769cbbde608743bc96d second commit
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+
+<p>接着将 <code>master</code> 分支移回至中间的一个 commit：</p>
+
+<pre><code>$ git reset --hard 1a410efbd13591db07496601ebc7a059dd55cfe9
+HEAD is now at 1a410ef third commit
+$ git log --pretty=oneline
+1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
+cac0cab538b970a37ea1e769cbbde608743bc96d second commit
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+
+<p>这样就丢弃了最新的两个 commit ── 包含这两个 commit 的分支不存在了。现在要做的是找出最新的那个 commit 的 SHA，然后添加一个指它它的分支。关键在于找出最新的 commit 的 SHA ── 你不大可能记住了这个 SHA，是吧？</p>
+
+<p>通常最快捷的办法是使用 <code>git reflog</code> 工具。当你 (在一个仓库下) 工作时，Git 会在你每次修改了 HEAD 时悄悄地将改动记录下来。当你提交或修改分支时，reflog 就会更新。<code>git update-ref</code> 命令也可以更新 reflog，这是在本章前面的 &quot;Git References&quot; 部分我们使用该命令而不是手工将 SHA 值写入 ref 文件的理由。任何时间运行 <code>git reflog</code> 命令可以查看当前的状态：</p>
+
+<pre><code>$ git reflog
+1a410ef HEAD@{0}: 1a410efbd13591db07496601ebc7a059dd55cfe9: updating HEAD
+ab1afef HEAD@{1}: ab1afef80fac8e34258ff41fc1b867c702daa24b: updating HEAD</code></pre>
+
+<p>可以看到我们签出的两个 commit ，但没有更多的相关信息。运行 <code>git log -g</code> 会输出 reflog 的正常日志，从而显示更多有用信息：</p>
+
+<pre><code>$ git log -g
+commit 1a410efbd13591db07496601ebc7a059dd55cfe9
+Reflog: HEAD@{0} (Scott Chacon &lt;schacon@gmail.com&gt;)
+Reflog message: updating HEAD
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri May 22 18:22:37 2009 -0700
+
+    third commit
+
+commit ab1afef80fac8e34258ff41fc1b867c702daa24b
+Reflog: HEAD@{1} (Scott Chacon &lt;schacon@gmail.com&gt;)
+Reflog message: updating HEAD
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri May 22 18:15:24 2009 -0700
+
+     modified repo a bit</code></pre>
+
+<p>看起来弄丢了的 commit 是底下那个，这样在那个 commit 上创建一个新分支就能把它恢复过来。比方说，可以在那个 commit (ab1afef) 上创建一个名为 <code>recover-branch</code> 的分支：</p>
+
+<pre><code>$ git branch recover-branch ab1afef
+$ git log --pretty=oneline recover-branch
+ab1afef80fac8e34258ff41fc1b867c702daa24b modified repo a bit
+484a59275031909e19aadb7c92262719cfcdf19a added repo.rb
+1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
+cac0cab538b970a37ea1e769cbbde608743bc96d second commit
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+
+<p>酷！这样有了一个跟原来 <code>master</code> 一样的 <code>recover-branch</code> 分支，最新的两个 commit 又找回来了。接着，假设引起 commit 丢失的原因并没有记录在 reflog 中 ── 可以通过删除 <code>recover-branch</code> 和 reflog 来模拟这种情况。这样最新的两个 commit 不会被任何东西引用到：</p>
+
+<pre><code>$ git branch -D recover-branch
+$ rm -Rf .git/logs/</code></pre>
+
+<p>因为 reflog 数据是保存在 <code>.git/logs/</code> 目录下的，这样就没有 reflog 了。现在要怎样恢复 commit 呢？办法之一是使用 <code>git fsck</code> 工具，该工具会检查仓库的数据完整性。如果指定 <code>--ful</code> 选项，该命令显示所有未被其他对象引用 (指向) 的所有对象：</p>
+
+<pre><code>$ git fsck --full
+dangling blob d670460b4b4aece5915caf5c68d12f560a9fe3e4
+dangling commit ab1afef80fac8e34258ff41fc1b867c702daa24b
+dangling tree aea790b9a58f6cf6f2804eeac9f0abbe9631e4c9
+dangling blob 7108f7ecb345ee9d0084193f147cdad4d2998293</code></pre>
+
+<p>本例中，可以从 dangling commit 找到丢失了的 commit。用相同的方法就可以恢复它，即创建一个指向该 SHA 的分支。</p>
+
+<h3>移除对象</h3>
+
+<p>Git 有许多过人之处，不过有一个功能有时却会带来问题：<code>git clone</code> 会将包含每一个文件的所有历史版本的整个项目下载下来。如果项目包含的仅仅是源代码的话这并没有什么坏处，毕竟 Git 可以非常高效地压缩此类数据。不过如果有人在某个时刻往项目中添加了一个非常大的文件，那们即便他在后来的提交中将此文件删掉了，所有的签出都会下载这个大文件。因为历史记录中引用了这个文件，它会一直存在着。</p>
+
+<p>当你将 Subversion 或 Perforce 仓库转换导入至 Git 时这会成为一个很严重的问题。在此类系统中，(签出时) 不会下载整个仓库历史，所以这种情形不大会有不良后果。如果你从其他系统导入了一个仓库，或是发觉一个仓库的尺寸远超出预计，可以用下面的方法找到并移除大 (尺寸) 对象。</p>
+
+<p>警告：此方法会破坏提交历史。为了移除对一个大文件的引用，从最早包含该引用的 tree 对象开始之后的所有 commit 对象都会被重写。如果在刚导入一个仓库并在其他人在此基础上开始工作之前这么做，那没有什么问题 ── 否则你不得不通知所有协作者 (贡献者) 去衍合你新修改的 commit 。</p>
+
+<p>为了演示这点，往 test 仓库中加入一个大文件，然后在下次提交时将它删除，接着找到并将这个文件从仓库中永久删除。首先，加一个大文件进去：</p>
+
+<pre><code>$ curl http://kernel.org/pub/software/scm/git/git-1.6.3.1.tar.bz2 &gt; git.tbz2
+$ git add git.tbz2
+$ git commit -am &#39;added git tarball&#39;
+[master 6df7640] added git tarball
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 git.tbz2</code></pre>
+
+<p>喔，你并不想往项目中加进一个这么大的 tar 包。最后还是去掉它：</p>
+
+<pre><code>$ git rm git.tbz2
+rm &#39;git.tbz2&#39;
+$ git commit -m &#39;oops - removed large tarball&#39;
+[master da3f30d] oops - removed large tarball
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 git.tbz2</code></pre>
+
+<p>对仓库进行 <code>gc</code> 操作，并查看占用了空间：</p>
+
+<pre><code>$ git gc
+Counting objects: 21, done.
+Delta compression using 2 threads.
+Compressing objects: 100% (16/16), done.
+Writing objects: 100% (21/21), done.
+Total 21 (delta 3), reused 15 (delta 1)</code></pre>
+
+<p>可以运行 <code>count-objects</code> 以查看使用了多少空间：</p>
+
+<pre><code>$ git count-objects -v
+count: 4
+size: 16
+in-pack: 21
+packs: 1
+size-pack: 2016
+prune-packable: 0
+garbage: 0</code></pre>
+
+<p><code>size-pack</code> 是以千字节为单位表示的 packfiles 的大小，因此已经使用了 2MB 。而在这次提交之前仅用了 2K 左右 ── 显然在这次提交时删除文件并没有真正将其从历史记录中删除。每当有人复制这个仓库去取得这个小项目时，都不得不复制所有 2MB 数据，而这仅仅因为你曾经不小心加了个大文件。当我们来解决这个问题。</p>
+
+<p>首先要找出这个文件。在本例中，你知道是哪个文件。假设你并不知道这一点，要如何找出哪个 (些) 文件占用了这么多的空间？如果运行 <code>git gc</code>，所有对象会存入一个 packfile 文件；运行另一个底层命令 <code>git verify-pack</code> 以识别出大对象，对输出的第三列信息即文件大小进行排序，还可以将输出定向到 <code>tail</code> 命令，因为你只关心排在最后的那几个最大的文件：</p>
+
+<pre><code>$ git verify-pack -v .git/objects/pack/pack-3f8c0...bb.idx | sort -k 3 -n | tail -3
+e3f094f522629ae358806b17daf78246c27c007b blob   1486 734 4667
+05408d195263d853f09dca71d55116663690c27c blob   12908 3478 1189
+7a9eb2fba2b1811321254ac360970fc169ba2330 blob   2056716 2056872 5401</code></pre>
+
+<p>最底下那个就是那个大文件：2MB 。要查看这到底是哪个文件，可以使用第 7 章中已经简单使用过的 <code>rev-list</code> 命令。若给 <code>rev-list</code> 命令传入 <code>--objects</code> 选项，它会列出所有 commit SHA 值，blob SHA 值及相应的文件路径。可以这样查看 blob 的文件名：</p>
+
+<pre><code>$ git rev-list --objects --all | grep 7a9eb2fb
+7a9eb2fba2b1811321254ac360970fc169ba2330 git.tbz2</code></pre>
+
+<p>接下来要将该文件从历史记录的所有 tree 中移除。很容易找出哪些 commit 修改了这个文件：</p>
+
+<pre><code>$ git log --pretty=oneline -- git.tbz2
+da3f30d019005479c99eb4c3406225613985a1db oops - removed large tarball
+6df764092f3e7c8f5f94cbe08ee5cf42e92a0289 added git tarball</code></pre>
+
+<p>必须重写从 <code>6df76</code> 开始的所有 commit 才能将文件从 Git 历史中完全移除。这么做需要用到第 6 章中用过的 <code>filter-branch</code> 命令：</p>
+
+<pre><code>$ git filter-branch --index-filter \
+   &#39;git rm --cached --ignore-unmatch git.tbz2&#39; -- 6df7640^..
+Rewrite 6df764092f3e7c8f5f94cbe08ee5cf42e92a0289 (1/2)rm &#39;git.tbz2&#39;
+Rewrite da3f30d019005479c99eb4c3406225613985a1db (2/2)
+Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
+
+<p><code>--index-filter</code> 选项类似于第 6 章中使用的 <code>--tree-filter</code> 选项，但这里不是传入一个命令去修改磁盘上签出的文件，而是修改暂存区域或索引。不能用 <code>rm file</code> 命令来删除一个特定文件，而是必须用 <code>git rm --cached</code> 来删除它 ── 即从索引而不是磁盘删除它。这样做是出于速度考虑 ── 由于 Git 在运行你的 filter 之前无需将所有版本签出到磁盘上，这个操作会快得多。也可以用 <code>--tree-filter</code> 来完成相同的操作。<code>git rm</code> 的 <code>--ignore-unmatch</code> 选项指定当你试图删除的内容并不存在时不显示错误。最后，因为你清楚问题是从哪个 commit 开始的，使用 <code>filter-branch</code> 重写自 <code>6df7640</code> 这个 commit 开始的所有历史记录。不这么做的话会重写所有历史记录，花费不必要的更多时间。</p>
+
+<p>现在历史记录中已经不包含对那个文件的引用了。不过 reflog 以及运行 <code>filter-branch</code> 时 Git 往 <code>.git/refs/original</code> 添加的一些 refs 中仍有对它的引用，因此需要将这些引用删除并对仓库进行 repack 操作。在进行 repack 前需要将所有对这些 commits 的引用去除：</p>
+
+<pre><code>$ rm -Rf .git/refs/original
+$ rm -Rf .git/logs/
+$ git gc
+Counting objects: 19, done.
+Delta compression using 2 threads.
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (19/19), done.
+Total 19 (delta 3), reused 16 (delta 1)</code></pre>
+
+<p>看一下节省了多少空间。</p>
+
+<pre><code>$ git count-objects -v
+count: 8
+size: 2040
+in-pack: 19
+packs: 1
+size-pack: 7
+prune-packable: 0
+garbage: 0</code></pre>
+
+<p>repack 后仓库的大小减小到了 7K ，远小于之前的 2MB 。从 size 值可以看出大文件对象还在松散对象中，其实并没有消失，不过这没有关系，重要的是在再进行推送或复制，这个对象不会再传送出去。如果真的要完全把这个对象删除，可以运行 <code>git prune --expire</code> 命令。</p>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">Git 内部原理</li><li><a href="ch9_1.html">底层命令 (Plumbing) 和高层命令 (Porcelain)</a></li><li><a href="ch9_2.html">Git 对象</a></li><li><a href="ch9_3.html">Git References</a></li><li><a href="ch9_4.html">Packfiles</a></li><li><a href="ch9_5.html">The Refspec</a></li><li><a href="ch9_6.html">传输协议</a></li><li><a href="ch9_7.html">维护及数据恢复</a></li><li><a href="ch9_8.html">总结</a></li></ul></div></div></div></div><script src="../assets/vendor/jquery/jquery.min.js"></script><script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>

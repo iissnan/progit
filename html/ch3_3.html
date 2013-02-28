@@ -1,0 +1,40 @@
+<!DOCTYPE doctype><html><head><meta charset="utf-8"/><title>test</title><link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap/css/bootstrap.min.css"/><link rel="stylesheet" type="text/css" href="../assets/css/main.css"/><link rel="shortcut icon" href="../assets/favicon.ico" type="images/x-icon"/></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li><a href="../index.html">首页</a></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">章节列表<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="span9"><h2>分支的管理</h2>
+
+<p>到目前为止，你已经学会了如何创建、合并和删除分支。除此之外，我们还需要学习如何管理分支，在日后的常规工作中会经常用到下面介绍的管理命令。</p>
+
+<p><code>git branch</code> 命令不仅仅能创建和删除分支，如果不加任何参数，它会给出当前所有分支的清单：</p>
+
+<pre><code>$ git branch
+  iss53
+* master
+  testing</code></pre>
+
+<p>注意看 <code>master</code> 分支前的 <code>*</code> 字符：它表示当前所在的分支。也就是说，如果现在提交更新，<code>master</code> 分支将随着开发进度前移。若要查看各个分支最后一个提交对象的信息，运行 <code>git branch -v</code>：</p>
+
+<pre><code>$ git branch -v
+  iss53   93b412c fix javascript issue
+* master  7a98805 Merge branch &#39;iss53&#39;
+  testing 782fd34 add scott to the author list in the readmes</code></pre>
+
+<p>要从该清单中筛选出你已经（或尚未）与当前分支合并的分支，可以用 <code>--merge</code> 和 <code>--no-merged</code> 选项（Git 1.5.6 以上版本）。比如用 <code>git branch --merge</code> 查看哪些分支已被并入当前分支（译注：也就是说哪些分支是当前分支的直接上游。）：</p>
+
+<pre><code>$ git branch --merged
+  iss53
+* master</code></pre>
+
+<p>之前我们已经合并了 <code>iss53</code>，所以在这里会看到它。一般来说，列表中没有 <code>*</code> 的分支通常都可以用 <code>git branch -d</code> 来删掉。原因很简单，既然已经把它们所包含的工作整合到了其他分支，删掉也不会损失什么。</p>
+
+<p>另外可以用 <code>git branch --no-merged</code> 查看尚未合并的工作：</p>
+
+<pre><code>$ git branch --no-merged
+  testing</code></pre>
+
+<p>它会显示还未合并进来的分支。由于这些分支中还包含着尚未合并进来的工作成果，所以简单地用 <code>git branch -d</code> 删除该分支会提示错误，因为那样做会丢失数据：</p>
+
+<pre><code>$ git branch -d testing
+error: The branch &#39;testing&#39; is not an ancestor of your current HEAD.
+If you are sure you want to delete it, run &#39;git branch -D testing&#39;.</code></pre>
+
+<p>不过，如果你确实想要删除该分支上的改动，可以用大写的删除选项 <code>-D</code> 强制执行，就像上面提示信息中给出的那样。</p>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">Git 分支</li><li><a href="ch3_1.html">何谓分支</a></li><li><a href="ch3_2.html">分支的新建与合并</a></li><li><a href="ch3_3.html">分支的管理</a></li><li><a href="ch3_4.html">利用分支进行开发的工作流程</a></li><li><a href="ch3_5.html">远程分支</a></li><li><a href="ch3_6.html">分支的衍合</a></li><li><a href="ch3_7.html">小结</a></li></ul></div></div></div></div><script src="../assets/vendor/jquery/jquery.min.js"></script><script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>

@@ -1,0 +1,43 @@
+<!DOCTYPE doctype><html><head><meta charset="utf-8"/><title>test</title><link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap/css/bootstrap.min.css"/><link rel="stylesheet" type="text/css" href="../assets/css/main.css"/><link rel="shortcut icon" href="../assets/favicon.ico" type="images/x-icon"/></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li><a href="../index.html">首页</a></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">章节列表<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="span9"><h2>GitWeb</h2>
+
+<p>现在我们的项目已经有了可读可写和只读的连接方式，不过如果能有一个简单的 web 界面访问就更好了。Git 自带一个叫做 GitWeb 的 CGI 脚本，运行效果可以到 <code>http://git.kernel.org</code> 这样的站点体验下（见图 4-1）。</p>
+
+<p><img src="../book_src/figures/18333fig0401-tn.png"></br> 
+Figure 4-1. 基于网页的 GitWeb 用户界面</p>
+
+<p>如果想看看自己项目的效果，不妨用 Git 自带的一个命令，可以使用类似 <code>lighttpd</code> 或 <code>webrick</code> 这样轻量级的服务器启动一个临时进程。如果是在 Linux 主机上，通常都预装了 <code>lighttpd</code> ，可以到项目目录中键入 <code>git instaweb</code> 来启动。如果用的是 Mac ，Leopard 预装了 Ruby，所以 <code>webrick</code> 应该是最好的选择。如果要用 lighttpd 以外的程序来启动 <code>git instaweb</code>，可以通过 <code>--httpd</code> 选项指定：</p>
+
+<pre><code>$ git instaweb --httpd=webrick
+[2009-02-21 10:02:21] INFO  WEBrick 1.3.1
+[2009-02-21 10:02:21] INFO  ruby 1.8.6 (2008-03-03) [universal-darwin9.0]</code></pre>
+
+<p>这会在 1234 端口开启一个 HTTPD 服务，随之在浏览器中显示该页，十分简单。关闭服务时，只需在原来的命令后面加上 <code>--stop</code> 选项就可以了：</p>
+
+<pre><code>$ git instaweb --httpd=webrick --stop</code></pre>
+
+<p>如果需要为团队或者某个开源项目长期运行 GitWeb，那么 CGI 脚本就要由正常的网页服务来运行。一些 Linux 发行版可以通过 <code>apt</code> 或 <code>yum</code> 安装一个叫做 <code>gitweb</code> 的软件包，不妨首先尝试一下。我们将快速介绍一下手动安装 GitWeb 的流程。首先，你需要 Git 的源码，其中带有 GitWeb，并能生成定制的 CGI 脚本：</p>
+
+<pre><code>$ git clone git://git.kernel.org/pub/scm/git/git.git
+$ cd git/
+$ make GITWEB_PROJECTROOT=&quot;/opt/git&quot; \
+        prefix=/usr gitweb/gitweb.cgi
+$ sudo cp -Rf gitweb /var/www/</code></pre>
+
+<p>注意，通过指定 <code>GITWEB_PROJECTROOT</code> 变量告诉编译命令 Git 仓库的位置。然后，设置 Apache 以 CGI 方式运行该脚本，添加一个 VirtualHost 配置：</p>
+
+<pre><code>&lt;VirtualHost *:80&gt;
+    ServerName gitserver
+    DocumentRoot /var/www/gitweb
+    &lt;Directory /var/www/gitweb&gt;
+        Options ExecCGI +FollowSymLinks +SymLinksIfOwnerMatch
+        AllowOverride All
+        order allow,deny
+        Allow from all
+        AddHandler cgi-script cgi
+        DirectoryIndex gitweb.cgi
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code></pre>
+
+<p>不难想象，GitWeb 可以使用任何兼容 CGI 的网页服务来运行；如果偏向使用其他 web 服务器，配置也不会很麻烦。现在，通过 <code>http://gitserver</code> 就可以在线访问仓库了，在 <code>http://git.server</code> 上还可以通过 HTTP 克隆和获取仓库的内容。</p>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">服务器上的 Git</li><li><a href="ch4_1.html">协议</a></li><li><a href="ch4_2.html">在服务器上部署 Git</a></li><li><a href="ch4_3.html">生成 SSH 公钥</a></li><li><a href="ch4_4.html">架设服务器</a></li><li><a href="ch4_5.html">公共访问</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git 守护进程</a></li><li><a href="ch4_10.html">Git 托管服务</a></li><li><a href="ch4_11.html">小结</a></li></ul></div></div></div></div><script src="../assets/vendor/jquery/jquery.min.js"></script><script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>

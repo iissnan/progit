@@ -1,0 +1,37 @@
+<!DOCTYPE doctype><html><head><meta charset="utf-8"/><title>test</title><link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap/css/bootstrap.min.css"/><link rel="stylesheet" type="text/css" href="../assets/css/main.css"/><link rel="shortcut icon" href="../assets/favicon.ico" type="images/x-icon"/></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li><a href="../index.html">首页</a></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">章节列表<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="span9"><h2>取得项目的 Git 仓库</h2>
+
+<p>有两种取得 Git 项目仓库的方法。第一种是在现存的目录下，通过导入所有文件来创建新的 Git 仓库。第二种是从已有的 Git 仓库克隆出一个新的镜像仓库来。</p>
+
+<h3>在工作目录中初始化新仓库</h3>
+
+<p>要对现有的某个项目开始用 Git 管理，只需到此项目所在的目录，执行：</p>
+
+<pre><code>$ git init</code></pre>
+
+<p>初始化后，在当前目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。不过目前，仅仅是按照既有的结构框架初始化好了里边所有的文件和目录，但我们还没有开始跟踪管理项目中的任何一个文件。（在第九章我们会详细说明刚才创建的 <code>.git</code> 目录中究竟有哪些文件，以及都起些什么作用。）</p>
+
+<p>如果当前目录下有几个文件想要纳入版本控制，需要先用 git add 命令告诉 Git 开始对这些文件进行跟踪，然后提交：</p>
+
+<pre><code>$ git add *.c
+$ git add README
+$ git commit -m &#39;initial project version&#39;</code></pre>
+
+<p>稍后我们再逐一解释每条命令的意思。不过现在，你已经得到了一个实际维护着若干文件的 Git 仓库。</p>
+
+<h3>从现有仓库克隆</h3>
+
+<p>如果想对某个开源项目出一份力，可以先把该项目的 Git 仓库复制一份出来，这就需要用到 git clone 命令。如果你熟悉其他的 VCS 比如 Subversion，你可能已经注意到这里使用的是 clone 而不是 checkout。这是个非常重要的差别，Git 收取的是项目历史的所有数据（每一个文件的每一个版本），服务器上有的数据克隆之后本地也都有了。实际上，即便服务器的磁盘发生故障，用任何一个克隆出来的客户端都可以重建服务器上的仓库，回到当初克隆时的状态（虽然可能会丢失某些服务器端的挂钩设置，但所有版本的数据仍旧还在，有关细节请参考第四章）。</p>
+
+<p>克隆仓库的命令格式为 <code>git clone [url]</code>。比如，要克隆 Ruby 语言的 Git 代码仓库 Grit，可以用下面的命令：</p>
+
+<pre><code>$ git clone git://github.com/schacon/grit.git</code></pre>
+
+<p>这会在当前目录下创建一个名为“grit”的目录，其中包含一个 <code>.git</code> 的目录，用于保存下载下来的所有版本记录，然后从中取出最新版本的文件拷贝。如果进入这个新建的 <code>grit</code> 目录，你会看到项目中的所有文件已经在里边了，准备好后续的开发和使用。如果希望在克隆的时候，自己定义要新建的项目目录名称，可以在上面的命令末尾指定新的名字：</p>
+
+<pre><code>$ git clone git://github.com/schacon/grit.git mygrit</code></pre>
+
+<p>唯一的差别就是，现在新建的目录成了 mygrit，其他的都和上边的一样。</p>
+
+<p>Git 支持许多数据传输协议。之前的例子使用的是 <code>git://</code> 协议，不过你也可以用 <code>http(s)://</code> 或者 <code>user@server:/path.git</code> 表示的 SSH 传输协议。我们会在第四章详细介绍所有这些协议在服务器端该如何配置使用，以及各种方式之间的利弊。</p>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">Git 基础</li><li><a href="ch2_1.html">取得项目的 Git 仓库</a></li><li><a href="ch2_2.html">记录每次更新到仓库</a></li><li><a href="ch2_3.html">查看提交历史</a></li><li><a href="ch2_4.html">撤消操作</a></li><li><a href="ch2_5.html">远程仓库的使用</a></li><li><a href="ch2_6.html">打标签</a></li><li><a href="ch2_7.html">技巧和窍门</a></li><li><a href="ch2_8.html">小结</a></li></ul></div></div></div></div><script src="../assets/vendor/jquery/jquery.min.js"></script><script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>
