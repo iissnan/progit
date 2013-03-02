@@ -1,0 +1,44 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>ProGit - 服务器上的 Git - 公共访问</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li><a href="../../index.html">首页</a></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">目录<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li><!--<li class="divider-vertical"></li><li><a href="../../index.en.html">Home</a></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Tables Of Content<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li>abcd</li></ul></li>--></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span9"><h2>公共访问</h2>
+
+<p>匿名的读取权限该怎么实现呢？也许除了内部私有的项目之外，你还需要托管一些开源项目。或者因为要用一些自动化的服务器来进行编译，或者有一些经常变化的服务器群组，而又不想整天生成新的 SSH 密钥 — 总之，你需要简单的匿名读取权限。</p>
+
+<p>或许对小型的配置来说最简单的办法就是运行一个静态 web 服务，把它的根目录设定为 Git 仓库所在的位置，然后开启本章第一节提到的 <code>post-update</code> 挂钩。这里继续使用之前的例子。假设仓库处于 <code>/opt/git</code> 目录，主机上运行着 Apache 服务。重申一下，任何 web 服务程序都可以达到相同效果；作为范例，我们将用一些基本的 Apache 设定来展示大体需要的步骤。</p>
+
+<p>首先，开启挂钩：</p>
+
+<pre><code>$ cd project.git
+$ mv hooks/post-update.sample hooks/post-update
+$ chmod a+x hooks/post-update</code></pre>
+
+<p>如果用的是 Git 1.6 之前的版本，则可以省略 <code>mv</code> 命令 — Git 是从较晚的版本才开始在挂钩实例的结尾添加 .sample 后缀名的。</p>
+
+<p><code>post-update</code> 挂钩是做什么的呢？其内容大致如下：</p>
+
+<pre><code>$ cat .git/hooks/post-update 
+#!/bin/sh
+exec git-update-server-info</code></pre>
+
+<p>意思是当通过 SSH 向服务器推送时，Git 将运行这个 <code>git-update-server-info</code> 命令来更新匿名 HTTP 访问获取数据时所需要的文件。</p>
+
+<p>接下来，在 Apache 配置文件中添加一个 VirtualHost 条目，把文档根目录设为 Git 项目所在的根目录。这里我们假定 DNS 服务已经配置好，会把对 <code>.gitserver</code> 的请求发送到这台主机：</p>
+
+<pre><code>&lt;VirtualHost *:80&gt;
+    ServerName git.gitserver
+    DocumentRoot /opt/git
+    &lt;Directory /opt/git/&gt;
+        Order allow, deny
+        allow from all
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code></pre>
+
+<p>另外，需要把 <code>/opt/git</code> 目录的 Unix 用户组设定为 <code>www-data</code> ，这样 web 服务才可以读取仓库内容，因为运行 CGI 脚本的  Apache 实例进程默认就是以该用户的身份起来的：</p>
+
+<pre><code>$ chgrp -R www-data /opt/git</code></pre>
+
+<p>重启 Apache 之后，就可以通过项目的 URL 来克隆该目录下的仓库了。</p>
+
+<pre><code>$ git clone http://git.gitserver/project.git</code></pre>
+
+<p>这一招可以让你在几分钟内为相当数量的用户架设好基于 HTTP 的读取权限。另一个提供非授权访问的简单方法是开启一个 Git 守护进程，不过这将要求该进程作为后台进程常驻 — 接下来的这一节就要讨论这方面的细节。</p>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">服务器上的 Git</li><li><a href="ch4_1.html">协议</a></li><li><a href="ch4_2.html">在服务器上部署 Git</a></li><li><a href="ch4_3.html">生成 SSH 公钥</a></li><li><a href="ch4_4.html">架设服务器</a></li><li><a href="ch4_5.html">公共访问</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git 守护进程</a></li><li><a href="ch4_10.html">Git 托管服务</a></li><li><a href="ch4_11.html">小结</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>

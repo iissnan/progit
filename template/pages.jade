@@ -1,0 +1,23 @@
+extends layout
+
+block header
+    link(rel="stylesheet", type="text/css", href="../../assets/vendor/bootstrap/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="../../assets/css/main.css")
+    link(rel="shortcut icon", type="images/x-icon", href="../../assets/img/favicon.ico")
+
+block prepend navZh
+    li
+        a(href="../../index.html") 首页
+block prepend navEn
+    li
+        a(href="../../index.en.html") Home
+
+block row
+    div.span9
+        !{content}
+    div.span2
+        !{sidebar}
+
+block prepend scripts
+    script(src="../../assets/vendor/jquery/jquery.min.js")
+    script(src="../../assets/vendor/bootstrap/js/bootstrap.min.js")

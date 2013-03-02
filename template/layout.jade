@@ -1,56 +1,35 @@
-!!! doctype
+doctype 5
 html
     head
         meta(charset="utf-8")
         title #{title}
 
-        - if (typeof isIndex !== "undefined")
-            isIndex = true
-            hrefPrefix = "assets"
-        - else
-            isIndex = false
-            hrefPrefix = "../assets"
+        block header
 
-        link(rel="stylesheet", type="text/css", href="#{hrefPrefix}/vendor/bootstrap/css/bootstrap.min.css")
-        link(rel="stylesheet", type="text/css", href="#{hrefPrefix}/css/main.css")
-        link(rel="shortcut icon", href="#{hrefPrefix}/favicon.ico", type="images/x-icon")
     body
         div.navbar.navbar-fixed-top.navbar-inverse
             div.navbar-inner
                 div.container
                     ul.nav
-                        li
-                            - if (isIndex)
-                                a(href="index.html") 首页
-                            - else
-                                a(href="../index.html") 首页
-                        li.dropdown
-                            a.dropdown-toggle(data-toggle="dropdown", href="#") 章节列表
-                                b.caret
-                            ul.dropdown-menu(role="menu")
-                                !{chapterLinks}
+                        block navZh
+                            li.dropdown
+                                a.dropdown-toggle(data-toggle="dropdown", href="#") 目录
+                                    b.caret
+                                ul.dropdown-menu(role="menu")
+                                    !{chapterLinks}
+
+                        //
+                            li.divider-vertical
+
+                            block navEn
+                                li.dropdown
+                                    a.dropdown-toggle(data-toggle="dropdown", href="#") Tables Of Content
+                                        b.caret
+                                    ul.dropdown-menu(role="menu")
+                                        li abcd
 
         div.container#main
-            div.wrap
-                div.row
-                    - if (isIndex)
-                        div.span5
-                            !{content}
-                    - else
-                        div.span9
-                            !{content}
+            div.wrap.clearfix
+                block row
 
-                    - if (isIndex)
-                        div.span4.offset2
-                            div.book-info
-                                p
-                                    a(href="http://github.com/progit/progit") Pro Git书籍源码
-                                p
-                                    img.img-polaroid(src="assets/img/pro-git-cover.jpeg", alt="Pro Git")
-                    - else
-                        div.span2
-                            - if (typeof sidebar !== "undefined")
-                                !{sidebar}
-
-        script(src="#{hrefPrefix}/vendor/jquery/jquery.min.js")
-        script(src="#{hrefPrefix}/vendor/bootstrap/js/bootstrap.min.js")
+        block scripts
