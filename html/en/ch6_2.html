@@ -1,0 +1,156 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Tools - Interactive Staging</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="divider-vertical"></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span9"><h2>Interactive Staging</h2>
+
+<p>Git comes with a couple of scripts that make some command-line tasks easier. Here, you’ll look at a few interactive commands that can help you easily craft your commits to include only certain combinations and parts of files. These tools are very helpful if you modify a bunch of files and then decide that you want those changes to be in several focused commits rather than one big messy commit. This way, you can make sure your commits are logically separate changesets and can be easily reviewed by the developers working with you.
+If you run <code>git add</code> with the <code>-i</code> or <code>--interactive</code> option, Git goes into an interactive shell mode, displaying something like this:</p>
+
+<pre><code>$ git add -i
+           staged     unstaged path
+  1:    unchanged        +0/-1 TODO
+  2:    unchanged        +1/-1 index.html
+  3:    unchanged        +5/-1 lib/simplegit.rb
+
+*** Commands ***
+  1: status     2: update      3: revert     4: add untracked
+  5: patch      6: diff        7: quit       8: help
+What now&gt;</code></pre>
+
+<p>You can see that this command shows you a much different view of your staging area — basically the same information you get with <code>git status</code> but a bit more succinct and informative. It lists the changes you’ve staged on the left and unstaged changes on the right.</p>
+
+<p>After this comes a Commands section. Here you can do a number of things, including staging files, unstaging files, staging parts of files, adding untracked files, and seeing diffs of what has been staged.</p>
+
+<h3>Staging and Unstaging Files</h3>
+
+<p>If you type <code>2</code> or <code>u</code> at the <code>What now&gt;</code> prompt, the script prompts you for which files you want to stage:</p>
+
+<pre><code>What now&gt; 2
+           staged     unstaged path
+  1:    unchanged        +0/-1 TODO
+  2:    unchanged        +1/-1 index.html
+  3:    unchanged        +5/-1 lib/simplegit.rb
+Update&gt;&gt;</code></pre>
+
+<p>To stage the TODO and index.html files, you can type the numbers:</p>
+
+<pre><code>Update&gt;&gt; 1,2
+           staged     unstaged path
+* 1:    unchanged        +0/-1 TODO
+* 2:    unchanged        +1/-1 index.html
+  3:    unchanged        +5/-1 lib/simplegit.rb
+Update&gt;&gt;</code></pre>
+
+<p>The <code>*</code> next to each file means the file is selected to be staged. If you press Enter after typing nothing at the <code>Update&gt;&gt;</code> prompt, Git takes anything selected and stages it for you:</p>
+
+<pre><code>Update&gt;&gt;
+updated 2 paths
+
+*** Commands ***
+  1: status     2: update      3: revert     4: add untracked
+  5: patch      6: diff        7: quit       8: help
+What now&gt; 1
+           staged     unstaged path
+  1:        +0/-1      nothing TODO
+  2:        +1/-1      nothing index.html
+  3:    unchanged        +5/-1 lib/simplegit.rb</code></pre>
+
+<p>Now you can see that the TODO and index.html files are staged and the simplegit.rb file is still unstaged. If you want to unstage the TODO file at this point, you use the <code>3</code> or <code>r</code> (for revert) option:</p>
+
+<pre><code>*** Commands ***
+  1: status     2: update      3: revert     4: add untracked
+  5: patch      6: diff        7: quit       8: help
+What now&gt; 3
+           staged     unstaged path
+  1:        +0/-1      nothing TODO
+  2:        +1/-1      nothing index.html
+  3:    unchanged        +5/-1 lib/simplegit.rb
+Revert&gt;&gt; 1
+           staged     unstaged path
+* 1:        +0/-1      nothing TODO
+  2:        +1/-1      nothing index.html
+  3:    unchanged        +5/-1 lib/simplegit.rb
+Revert&gt;&gt; [enter]
+reverted one path</code></pre>
+
+<p>Looking at your Git status again, you can see that you’ve unstaged the TODO file:</p>
+
+<pre><code>*** Commands ***
+  1: status     2: update      3: revert     4: add untracked
+  5: patch      6: diff        7: quit       8: help
+What now&gt; 1
+           staged     unstaged path
+  1:    unchanged        +0/-1 TODO
+  2:        +1/-1      nothing index.html
+  3:    unchanged        +5/-1 lib/simplegit.rb</code></pre>
+
+<p>To see the diff of what you’ve staged, you can use the <code>6</code> or <code>d</code> (for diff) command. It shows you a list of your staged files, and you can select the ones for which you would like to see the staged diff. This is much like specifying <code>git diff --cached</code> on the command line:</p>
+
+<pre><code>*** Commands ***
+  1: status     2: update      3: revert     4: add untracked
+  5: patch      6: diff        7: quit       8: help
+What now&gt; 6
+           staged     unstaged path
+  1:        +1/-1      nothing index.html
+Review diff&gt;&gt; 1
+diff --git a/index.html b/index.html
+index 4d07108..4335f49 100644
+--- a/index.html
++++ b/index.html
+@@ -16,7 +16,7 @@ Date Finder
+
+ &lt;p id=&quot;out&quot;&gt;...&lt;/p&gt;
+
+-&lt;div id=&quot;footer&quot;&gt;contact : support@github.com&lt;/div&gt;
++&lt;div id=&quot;footer&quot;&gt;contact : email.support@github.com&lt;/div&gt;
+
+ &lt;script type=&quot;text/javascript&quot;&gt;</code></pre>
+
+<p>With these basic commands, you can use the interactive add mode to deal with your staging area a little more easily.</p>
+
+<h3>Staging Patches</h3>
+
+<p>It’s also possible for Git to stage certain parts of files and not the rest. For example, if you make two changes to your simplegit.rb file and want to stage one of them and not the other, doing so is very easy in Git. From the interactive prompt, type <code>5</code> or <code>p</code> (for patch). Git will ask you which files you would like to partially stage; then, for each section of the selected files, it will display hunks of the file diff and ask if you would like to stage them, one by one:</p>
+
+<pre><code>diff --git a/lib/simplegit.rb b/lib/simplegit.rb
+index dd5ecc4..57399e0 100644
+--- a/lib/simplegit.rb
++++ b/lib/simplegit.rb
+@@ -22,7 +22,7 @@ class SimpleGit
+   end
+
+   def log(treeish = &#39;master&#39;)
+-    command(&quot;git log -n 25 #{treeish}&quot;)
++    command(&quot;git log -n 30 #{treeish}&quot;)
+   end
+
+   def blame(path)
+Stage this hunk [y,n,a,d,/,j,J,g,e,?]?</code></pre>
+
+<p>You have a lot of options at this point. Typing <code>?</code> shows a list of what you can do:</p>
+
+<pre><code>Stage this hunk [y,n,a,d,/,j,J,g,e,?]? ?
+y - stage this hunk
+n - do not stage this hunk
+a - stage this and all the remaining hunks in the file
+d - do not stage this hunk nor any of the remaining hunks in the file
+g - select a hunk to go to
+/ - search for a hunk matching the given regex
+j - leave this hunk undecided, see next undecided hunk
+J - leave this hunk undecided, see next hunk
+k - leave this hunk undecided, see previous undecided hunk
+K - leave this hunk undecided, see previous hunk
+s - split the current hunk into smaller hunks
+e - manually edit the current hunk
+? - print help</code></pre>
+
+<p>Generally, you’ll type <code>y</code> or <code>n</code> if you want to stage each hunk, but staging all of them in certain files or skipping a hunk decision until later can be helpful too. If you stage one part of the file and leave another part unstaged, your status output will look like this:</p>
+
+<pre><code>What now&gt; 1
+           staged     unstaged path
+  1:    unchanged        +0/-1 TODO
+  2:        +1/-1      nothing index.html
+  3:        +1/-1        +4/-0 lib/simplegit.rb</code></pre>
+
+<p>The status of the simplegit.rb file is interesting. It shows you that a couple of lines are staged and a couple are unstaged. You’ve partially staged this file. At this point, you can exit the interactive adding script and run <code>git commit</code> to commit the partially staged files.</p>
+
+<p>Finally, you don’t need to be in interactive add mode to do the partial-file staging — you can start the same script by using <code>git add -p</code> or <code>git add --patch</code> on the command line.</p>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">Git Tools</li><li><a href="ch6_1.html">Revision Selection</a></li><li><a href="ch6_2.html">Interactive Staging</a></li><li><a href="ch6_3.html">Stashing</a></li><li><a href="ch6_4.html">Rewriting History</a></li><li><a href="ch6_5.html">Debugging with Git</a></li><li><a href="ch6_6.html">Submodules</a></li><li><a href="ch6_7.html">Subtree Merging</a></li><li><a href="ch6_8.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>

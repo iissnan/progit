@@ -1,0 +1,259 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Customizing Git - Git Attributes</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="divider-vertical"></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span9"><h2>Git Attributes</h2>
+
+<p>Some of these settings can also be specified for a path, so that Git applies those settings only for a subdirectory or subset of files. These path-specific settings are called Git attributes and are set either in a <code>.gitattributes</code> file in one of your directories (normally the root of your project) or in the <code>.git/info/attributes</code> file if you don’t want the attributes file committed with your project.</p>
+
+<p>Using attributes, you can do things like specify separate merge strategies for individual files or directories in your project, tell Git how to diff non-text files, or have Git filter content before you check it into or out of Git. In this section, you’ll learn about some of the attributes you can set on your paths in your Git project and see a few examples of using this feature in practice.</p>
+
+<h3>Binary Files</h3>
+
+<p>One cool trick for which you can use Git attributes is telling Git which files are binary (in cases it otherwise may not be able to figure out) and giving Git special instructions about how to handle those files. For instance, some text files may be machine generated and not diffable, whereas some binary files can be diffed — you’ll see how to tell Git which is which.</p>
+
+<h4>Identifying Binary Files</h4>
+
+<p>Some files look like text files but for all intents and purposes are to be treated as binary data. For instance, Xcode projects on the Mac contain a file that ends in <code>.pbxproj</code>, which is basically a JSON (plain text javascript data format) dataset written out to disk by the IDE that records your build settings and so on. Although it’s technically a text file, because it’s all ASCII, you don’t want to treat it as such because it’s really a lightweight database — you can’t merge the contents if two people changed it, and diffs generally aren’t helpful. The file is meant to be consumed by a machine. In essence, you want to treat it like a binary file.</p>
+
+<p>To tell Git to treat all <code>pbxproj</code> files as binary data, add the following line to your <code>.gitattributes</code> file:</p>
+
+<pre><code>*.pbxproj -crlf -diff</code></pre>
+
+<p>Now, Git won’t try to convert or fix CRLF issues; nor will it try to compute or print a diff for changes in this file when you run git show or git diff on your project. In the 1.6 series of Git, you can also use a macro that is provided that means <code>-crlf -diff</code>:</p>
+
+<pre><code>*.pbxproj binary</code></pre>
+
+<h4>Diffing Binary Files</h4>
+
+<p>In the 1.6 series of Git, you can use the Git attributes functionality to effectively diff binary files. You do this by telling Git how to convert your binary data to a text format that can be compared via the normal diff.</p>
+
+<h5>MS Word files</h5>
+
+<p>Because this is a pretty cool and not widely known feature, I’ll go over a few examples. First, you’ll use this technique to solve one of the most annoying problems known to humanity: version-controlling Word documents. Everyone knows that Word is the most horrific editor around; but, oddly, everyone uses it. If you want to version-control Word documents, you can stick them in a Git repository and commit every once in a while; but what good does that do? If you run <code>git diff</code> normally, you only see something like this:</p>
+
+<pre><code>$ git diff
+diff --git a/chapter1.doc b/chapter1.doc
+index 88839c4..4afcb7c 100644
+Binary files a/chapter1.doc and b/chapter1.doc differ</code></pre>
+
+<p>You can’t directly compare two versions unless you check them out and scan them manually, right? It turns out you can do this fairly well using Git attributes. Put the following line in your <code>.gitattributes</code> file:</p>
+
+<pre><code>*.doc diff=word</code></pre>
+
+<p>This tells Git that any file that matches this pattern (.doc) should use the &quot;word&quot; filter when you try to view a diff that contains changes. What is the &quot;word&quot; filter? You have to set it up. Here you’ll configure Git to use the <code>strings</code> program to convert Word documents into readable text files, which it will then diff properly:</p>
+
+<pre><code>$ git config diff.word.textconv strings</code></pre>
+
+<p>This command adds a section to your <code>.git/config</code> that looks like this:</p>
+
+<pre><code>[diff &quot;word&quot;]
+	textconv = strings</code></pre>
+
+<p>Side note: There are different kinds of <code>.doc</code> files. Some use an UTF-16 encoding or other &quot;codepages&quot; and <code>strings</code> won’t find anything useful in there. Your mileage may vary.</p>
+
+<p>Now Git knows that if it tries to do a diff between two snapshots, and any of the files end in <code>.doc</code>, it should run those files through the &quot;word&quot; filter, which is defined as the <code>strings</code> program. This effectively makes nice text-based versions of your Word files before attempting to diff them.</p>
+
+<p>Here’s an example. I put Chapter 1 of this book into Git, added some text to a paragraph, and saved the document. Then, I ran <code>git diff</code> to see what changed:</p>
+
+<pre><code>$ git diff
+diff --git a/chapter1.doc b/chapter1.doc
+index c1c8a0a..b93c9e4 100644
+--- a/chapter1.doc
++++ b/chapter1.doc
+@@ -8,7 +8,8 @@ re going to cover Version Control Systems (VCS) and Git basics
+ re going to cover how to get it and set it up for the first time if you don
+ t already have it on your system.
+ In Chapter Two we will go over basic Git usage - how to use Git for the 80%
+-s going on, modify stuff and contribute changes. If the book spontaneously
++s going on, modify stuff and contribute changes. If the book spontaneously
++Let&#39;s see if this works.</code></pre>
+
+<p>Git successfully and succinctly tells me that I added the string &quot;Let’s see if this works&quot;, which is correct. It’s not perfect — it adds a bunch of random stuff at the end — but it certainly works. If you can find or write a Word-to-plain-text converter that works well enough, that solution will likely be incredibly effective. However, <code>strings</code> is available on most Mac and Linux systems, so it may be a good first try to do this with many binary formats.</p>
+
+<h5>OpenDocument Text files</h5>
+
+<p>The same approach that we used for MS Word files (<code>*.doc</code>) can be used for OpenDocument Text files (<code>*.odt</code>) created by OpenOffice.org.</p>
+
+<p>Add the following line to your <code>.gitattributes</code> file:</p>
+
+<pre><code>*.odt diff=odt</code></pre>
+
+<p>Now set up the <code>odt</code> diff filter in <code>.git/config</code>:</p>
+
+<pre><code>[diff &quot;odt&quot;]
+	binary = true
+	textconv = /usr/local/bin/odt-to-txt</code></pre>
+
+<p>OpenDocument files are actually zip’ped directories containing multiple files (the content in an XML format, stylesheets, images, etc.). We’ll need to write a script to extract the content and return it as plain text. Create a file <code>/usr/local/bin/odt-to-txt</code> (you are free to put it into a different directory) with the following content:</p>
+
+<pre><code>#! /usr/bin/env perl
+# Simplistic OpenDocument Text (.odt) to plain text converter.
+# Author: Philipp Kempgen
+
+if (! defined($ARGV[0])) {
+	print STDERR &quot;No filename given!\n&quot;;
+	print STDERR &quot;Usage: $0 filename\n&quot;;
+	exit 1;
+}
+
+my $content = &#39;&#39;;
+open my $fh, &#39;-|&#39;, &#39;unzip&#39;, &#39;-qq&#39;, &#39;-p&#39;, $ARGV[0], &#39;content.xml&#39; or die $!;
+{
+	local $/ = undef;  # slurp mode
+	$content = &lt;$fh&gt;;
+}
+close $fh;
+$_ = $content;
+s/&lt;text:span\b[^&gt;]*&gt;//g;           # remove spans
+s/&lt;text:h\b[^&gt;]*&gt;/\n\n*****  /g;   # headers
+s/&lt;text:list-item\b[^&gt;]*&gt;\s*&lt;text:p\b[^&gt;]*&gt;/\n    --  /g;  # list items
+s/&lt;text:list\b[^&gt;]*&gt;/\n\n/g;       # lists
+s/&lt;text:p\b[^&gt;]*&gt;/\n  /g;          # paragraphs
+s/&lt;[^&gt;]+&gt;//g;                      # remove all XML tags
+s/\n{2,}/\n\n/g;                   # remove multiple blank lines
+s/\A\n+//;                         # remove leading blank lines
+print &quot;\n&quot;, $_, &quot;\n\n&quot;;</code></pre>
+
+<p>And make it executable</p>
+
+<pre><code>chmod +x /usr/local/bin/odt-to-txt</code></pre>
+
+<p>Now <code>git diff</code> will be able to tell you what changed in <code>.odt</code> files.</p>
+
+<h5>Image files</h5>
+
+<p>Another interesting problem you can solve this way involves diffing image files. One way to do this is to run PNG files through a filter that extracts their EXIF information — metadata that is recorded with most image formats. If you download and install the <code>exiftool</code> program, you can use it to convert your images into text about the metadata, so at least the diff will show you a textual representation of any changes that happened:</p>
+
+<pre><code>$ echo &#39;*.png diff=exif&#39; &gt;&gt; .gitattributes
+$ git config diff.exif.textconv exiftool</code></pre>
+
+<p>If you replace an image in your project and run <code>git diff</code>, you see something like this:</p>
+
+<pre><code>diff --git a/image.png b/image.png
+index 88839c4..4afcb7c 100644
+--- a/image.png
++++ b/image.png
+@@ -1,12 +1,12 @@
+ ExifTool Version Number         : 7.74
+-File Size                       : 70 kB
+-File Modification Date/Time     : 2009:04:17 10:12:35-07:00
++File Size                       : 94 kB
++File Modification Date/Time     : 2009:04:21 07:02:43-07:00
+ File Type                       : PNG
+ MIME Type                       : image/png
+-Image Width                     : 1058
+-Image Height                    : 889
++Image Width                     : 1056
++Image Height                    : 827
+ Bit Depth                       : 8
+ Color Type                      : RGB with Alpha</code></pre>
+
+<p>You can easily see that the file size and image dimensions have both changed.</p>
+
+<h3>Keyword Expansion</h3>
+
+<p>SVN- or CVS-style keyword expansion is often requested by developers used to those systems. The main problem with this in Git is that you can’t modify a file with information about the commit after you’ve committed, because Git checksums the file first. However, you can inject text into a file when it’s checked out and remove it again before it’s added to a commit. Git attributes offers you two ways to do this.</p>
+
+<p>First, you can inject the SHA-1 checksum of a blob into an <code>$Id$</code> field in the file automatically. If you set this attribute on a file or set of files, then the next time you check out that branch, Git will replace that field with the SHA-1 of the blob. It’s important to notice that it isn’t the SHA of the commit, but of the blob itself:</p>
+
+<pre><code>$ echo &#39;*.txt ident&#39; &gt;&gt; .gitattributes
+$ echo &#39;$Id$&#39; &gt; test.txt</code></pre>
+
+<p>The next time you check out this file, Git injects the SHA of the blob:</p>
+
+<pre><code>$ rm test.txt
+$ git checkout -- test.txt
+$ cat test.txt
+$Id: 42812b7653c7b88933f8a9d6cad0ca16714b9bb3 $</code></pre>
+
+<p>However, that result is of limited use. If you’ve used keyword substitution in CVS or Subversion, you can include a datestamp — the SHA isn’t all that helpful, because it’s fairly random and you can’t tell if one SHA is older or newer than another.</p>
+
+<p>It turns out that you can write your own filters for doing substitutions in files on commit/checkout. These are the &quot;clean&quot; and &quot;smudge&quot; filters. In the <code>.gitattributes</code> file, you can set a filter for particular paths and then set up scripts that will process files just before they’re checked out (&quot;smudge&quot;, see Figure 7-2) and just before they’re committed (&quot;clean&quot;, see Figure 7-3). These filters can be set to do all sorts of fun things.</p>
+
+<p><img src="../../book_src/figures/18333fig0702-tn.png"></br>
+Figure 7-2. The “smudge” filter is run on checkout.</p>
+
+<p><img src="../../book_src/figures/18333fig0703-tn.png"></br>
+Figure 7-3. The “clean” filter is run when files are staged.</p>
+
+<p>The original commit message for this functionality gives a simple example of running all your C source code through the <code>indent</code> program before committing. You can set it up by setting the filter attribute in your <code>.gitattributes</code> file to filter <code>*.c</code> files with the &quot;indent&quot; filter:</p>
+
+<pre><code>*.c     filter=indent</code></pre>
+
+<p>Then, tell Git what the &quot;indent&quot; filter does on smudge and clean:</p>
+
+<pre><code>$ git config --global filter.indent.clean indent
+$ git config --global filter.indent.smudge cat</code></pre>
+
+<p>In this case, when you commit files that match <code>*.c</code>, Git will run them through the indent program before it commits them and then run them through the <code>cat</code> program before it checks them back out onto disk. The <code>cat</code> program is basically a no-op: it spits out the same data that it gets in. This combination effectively filters all C source code files through <code>indent</code> before committing.</p>
+
+<p>Another interesting example gets <code>$Date$</code> keyword expansion, RCS style. To do this properly, you need a small script that takes a filename, figures out the last commit date for this project, and inserts the date into the file. Here is a small Ruby script that does that:</p>
+
+<pre><code>#! /usr/bin/env ruby
+data = STDIN.read
+last_date = `git log --pretty=format:&quot;%ad&quot; -1`
+puts data.gsub(&#39;$Date$&#39;, &#39;$Date: &#39; + last_date.to_s + &#39;$&#39;)</code></pre>
+
+<p>All the script does is get the latest commit date from the <code>git log</code> command, stick that into any <code>$Date$</code> strings it sees in stdin, and print the results — it should be simple to do in whatever language you’re most comfortable in. You can name this file <code>expand_date</code> and put it in your path. Now, you need to set up a filter in Git (call it <code>dater</code>) and tell it to use your <code>expand_date</code> filter to smudge the files on checkout. You’ll use a Perl expression to clean that up on commit:</p>
+
+<pre><code>$ git config filter.dater.smudge expand_date
+$ git config filter.dater.clean &#39;perl -pe &quot;s/\\\$Date[^\\\$]*\\\$/\\\$Date\\\$/&quot;&#39;</code></pre>
+
+<p>This Perl snippet strips out anything it sees in a <code>$Date$</code> string, to get back to where you started. Now that your filter is ready, you can test it by setting up a file with your <code>$Date$</code> keyword and then setting up a Git attribute for that file that engages the new filter:</p>
+
+<pre><code>$ echo &#39;# $Date$&#39; &gt; date_test.txt
+$ echo &#39;date*.txt filter=dater&#39; &gt;&gt; .gitattributes</code></pre>
+
+<p>If you commit those changes and check out the file again, you see the keyword properly substituted:</p>
+
+<pre><code>$ git add date_test.txt .gitattributes
+$ git commit -m &quot;Testing date expansion in Git&quot;
+$ rm date_test.txt
+$ git checkout date_test.txt
+$ cat date_test.txt
+# $Date: Tue Apr 21 07:26:52 2009 -0700$</code></pre>
+
+<p>You can see how powerful this technique can be for customized applications. You have to be careful, though, because the <code>.gitattributes</code> file is committed and passed around with the project but the driver (in this case, <code>dater</code>) isn’t; so, it won’t work everywhere. When you design these filters, they should be able to fail gracefully and have the project still work properly.</p>
+
+<h3>Exporting Your Repository</h3>
+
+<p>Git attribute data also allows you to do some interesting things when exporting an archive of your project.</p>
+
+<h4>export-ignore</h4>
+
+<p>You can tell Git not to export certain files or directories when generating an archive. If there is a subdirectory or file that you don’t want to include in your archive file but that you do want checked into your project, you can determine those files via the <code>export-ignore</code> attribute.</p>
+
+<p>For example, say you have some test files in a <code>test/</code> subdirectory, and it doesn’t make sense to include them in the tarball export of your project. You can add the following line to your Git attributes file:</p>
+
+<pre><code>test/ export-ignore</code></pre>
+
+<p>Now, when you run git archive to create a tarball of your project, that directory won’t be included in the archive.</p>
+
+<h4>export-subst</h4>
+
+<p>Another thing you can do for your archives is some simple keyword substitution. Git lets you put the string <code>$Format:$</code> in any file with any of the <code>--pretty=format</code> formatting shortcodes, many of which you saw in Chapter 2. For instance, if you want to include a file named <code>LAST_COMMIT</code> in your project, and the last commit date was automatically injected into it when <code>git archive</code> ran, you can set up the file like this:</p>
+
+<pre><code>$ echo &#39;Last commit date: $Format:%cd$&#39; &gt; LAST_COMMIT
+$ echo &quot;LAST_COMMIT export-subst&quot; &gt;&gt; .gitattributes
+$ git add LAST_COMMIT .gitattributes
+$ git commit -am &#39;adding LAST_COMMIT file for archives&#39;</code></pre>
+
+<p>When you run <code>git archive</code>, the contents of that file when people open the archive file will look like this:</p>
+
+<pre><code>$ cat LAST_COMMIT
+Last commit date: $Format:Tue Apr 21 08:38:48 2009 -0700$</code></pre>
+
+<h3>Merge Strategies</h3>
+
+<p>You can also use Git attributes to tell Git to use different merge strategies for specific files in your project. One very useful option is to tell Git to not try to merge specific files when they have conflicts, but rather to use your side of the merge over someone else’s.</p>
+
+<p>This is helpful if a branch in your project has diverged or is specialized, but you want to be able to merge changes back in from it, and you want to ignore certain files. Say you have a database settings file called database.xml that is different in two branches, and you want to merge in your other branch without messing up the database file. You can set up an attribute like this:</p>
+
+<pre><code>database.xml merge=ours</code></pre>
+
+<p>If you merge in the other branch, instead of having merge conflicts with the database.xml file, you see something like this:</p>
+
+<pre><code>$ git merge topic
+Auto-merging database.xml
+Merge made by recursive.</code></pre>
+
+<p>In this case, database.xml stays at whatever version you originally had.</p>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">Customizing Git</li><li><a href="ch7_1.html">Git Configuration</a></li><li><a href="ch7_2.html">Git Attributes</a></li><li><a href="ch7_3.html">Git Hooks</a></li><li><a href="ch7_4.html">An Example Git-Enforced Policy</a></li><li><a href="ch7_5.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>

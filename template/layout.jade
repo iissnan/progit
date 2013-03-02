@@ -1,4 +1,4 @@
-doctype 5
+doctype
 html
     head
         meta(charset="utf-8")
@@ -11,22 +11,20 @@ html
             div.navbar-inner
                 div.container
                     ul.nav
-                        block navZh
-                            li.dropdown
-                                a.dropdown-toggle(data-toggle="dropdown", href="#") 目录
-                                    b.caret
-                                ul.dropdown-menu(role="menu")
-                                    !{chapterLinks}
+                        li.dropdown
+                            a.dropdown-toggle(data-toggle="dropdown", href="#") 简体中文版
+                                b.caret
+                            ul.dropdown-menu(role="menu")
+                                block navZh
+                                !{chapterLinksZh}
 
-                        //
-                            li.divider-vertical
-
-                            block navEn
-                                li.dropdown
-                                    a.dropdown-toggle(data-toggle="dropdown", href="#") Tables Of Content
-                                        b.caret
-                                    ul.dropdown-menu(role="menu")
-                                        li abcd
+                        li.divider-vertical
+                        li.dropdown
+                            a.dropdown-toggle(data-toggle="dropdown", href="#") 英文版
+                                b.caret
+                            ul.dropdown-menu(role="menu")
+                                block navEn
+                                !{chapterLinksEn}
 
         div.container#main
             div.wrap.clearfix

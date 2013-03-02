@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Internals - Packfiles</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="divider-vertical"></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span9"><h2>Packfiles</h2>
+
+<p>Let’s go back to the objects database for your test Git repository. At this point, you have 11 objects — 4 blobs, 3 trees, 3 commits, and 1 tag:</p>
+
+<pre><code>$ find .git/objects -type f
+.git/objects/01/55eb4229851634a0f03eb265b69f5a2d56f341 # tree 2
+.git/objects/1a/410efbd13591db07496601ebc7a059dd55cfe9 # commit 3
+.git/objects/1f/7a7a472abf3dd9643fd615f6da379c4acb3e3a # test.txt v2
+.git/objects/3c/4e9cd789d88d8d89c1073707c3585e41b0e614 # tree 3
+.git/objects/83/baae61804e65cc73a7201a7252750c76066a30 # test.txt v1
+.git/objects/95/85191f37f7b0fb9444f35a9bf50de191beadc2 # tag
+.git/objects/ca/c0cab538b970a37ea1e769cbbde608743bc96d # commit 2
+.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4 # &#39;test content&#39;
+.git/objects/d8/329fc1cc938780ffdd9f94e0d364e0ea74f579 # tree 1
+.git/objects/fa/49b077972391ad58037050f2a75f74e3671e92 # new.txt
+.git/objects/fd/f4fc3344e67ab068f836878b6c4951e3b15f3d # commit 1</code></pre>
+
+<p>Git compresses the contents of these files with zlib, and you’re not storing much, so all these files collectively take up only 925 bytes. You’ll add some larger content to the repository to demonstrate an interesting feature of Git. Add the repo.rb file from the Grit library you worked with earlier — this is about a 12K source code file:</p>
+
+<pre><code>$ curl https://raw.github.com/mojombo/grit/master/lib/grit/repo.rb &gt; repo.rb
+$ git add repo.rb
+$ git commit -m &#39;added repo.rb&#39;
+[master 484a592] added repo.rb
+ 3 files changed, 459 insertions(+), 2 deletions(-)
+ delete mode 100644 bak/test.txt
+ create mode 100644 repo.rb
+ rewrite test.txt (100%)</code></pre>
+
+<p>If you look at the resulting tree, you can see the SHA-1 value your repo.rb file got for the blob object:</p>
+
+<pre><code>$ git cat-file -p master^{tree}
+100644 blob fa49b077972391ad58037050f2a75f74e3671e92      new.txt
+100644 blob 9bc1dc421dcd51b4ac296e3e5b6e2a99cf44391e      repo.rb
+100644 blob e3f094f522629ae358806b17daf78246c27c007b      test.txt</code></pre>
+
+<p>You can then check how big is that object on your disk:</p>
+
+<pre><code>$ du -b .git/objects/9b/c1dc421dcd51b4ac296e3e5b6e2a99cf44391e
+4102	.git/objects/9b/c1dc421dcd51b4ac296e3e5b6e2a99cf44391e</code></pre>
+
+<p>Now, modify that file a little, and see what happens:</p>
+
+<pre><code>$ echo &#39;# testing&#39; &gt;&gt; repo.rb 
+$ git commit -am &#39;modified repo a bit&#39;
+[master ab1afef] modified repo a bit
+ 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+
+<p>Check the tree created by that commit, and you see something interesting:</p>
+
+<pre><code>$ git cat-file -p master^{tree}
+100644 blob fa49b077972391ad58037050f2a75f74e3671e92      new.txt
+100644 blob 05408d195263d853f09dca71d55116663690c27c      repo.rb
+100644 blob e3f094f522629ae358806b17daf78246c27c007b      test.txt</code></pre>
+
+<p>The blob is now a different blob, which means that although you added only a single line to the end of a 400-line file, Git stored that new content as a completely new object:</p>
+
+<pre><code>$ du -b .git/objects/05/408d195263d853f09dca71d55116663690c27c
+4109	.git/objects/05/408d195263d853f09dca71d55116663690c27c</code></pre>
+
+<p>You have two nearly identical 4K objects on your disk. Wouldn’t it be nice if Git could store one of them in full but then the second object only as the delta between it and the first?</p>
+
+<p>It turns out that it can. The initial format in which Git saves objects on disk is called a loose object format. However, occasionally Git packs up several of these objects into a single binary file called a packfile in order to save space and be more efficient. Git does this if you have too many loose objects around, if you run the <code>git gc</code> command manually, or if you push to a remote server. To see what happens, you can manually ask Git to pack up the objects by calling the <code>git gc</code> command:</p>
+
+<pre><code>$ git gc
+Counting objects: 17, done.
+Delta compression using 2 threads.
+Compressing objects: 100% (13/13), done.
+Writing objects: 100% (17/17), done.
+Total 17 (delta 1), reused 10 (delta 0)</code></pre>
+
+<p>If you look in your objects directory, you’ll find that most of your objects are gone, and a new pair of files has appeared:</p>
+
+<pre><code>$ find .git/objects -type f
+.git/objects/71/08f7ecb345ee9d0084193f147cdad4d2998293
+.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4
+.git/objects/info/packs
+.git/objects/pack/pack-7a16e4488ae40c7d2bc56ea2bd43e25212a66c45.idx
+.git/objects/pack/pack-7a16e4488ae40c7d2bc56ea2bd43e25212a66c45.pack</code></pre>
+
+<p>The objects that remain are the blobs that aren’t pointed to by any commit — in this case, the &quot;what is up, doc?&quot; example and the &quot;test content&quot; example blobs you created earlier. Because you never added them to any commits, they’re considered dangling and aren’t packed up in your new packfile.</p>
+
+<p>The other files are your new packfile and an index. The packfile is a single file containing the contents of all the objects that were removed from your filesystem. The index is a file that contains offsets into that packfile so you can quickly seek to a specific object. What is cool is that although the objects on disk before you ran the <code>gc</code> were collectively about 8K in size, the new packfile is only 4K. You’ve halved your disk usage by packing your objects.</p>
+
+<p>How does Git do this? When Git packs objects, it looks for files that are named and sized similarly, and stores just the deltas from one version of the file to the next. You can look into the packfile and see what Git did to save space. The <code>git verify-pack</code> plumbing command allows you to see what was packed up:</p>
+
+<pre><code>$ git verify-pack -v \
+  .git/objects/pack/pack-7a16e4488ae40c7d2bc56ea2bd43e25212a66c45.idx
+0155eb4229851634a0f03eb265b69f5a2d56f341 tree   71 76 5400
+05408d195263d853f09dca71d55116663690c27c blob   12908 3478 874
+09f01cea547666f58d6a8d809583841a7c6f0130 tree   106 107 5086
+1a410efbd13591db07496601ebc7a059dd55cfe9 commit 225 151 322
+1f7a7a472abf3dd9643fd615f6da379c4acb3e3a blob   10 19 5381
+3c4e9cd789d88d8d89c1073707c3585e41b0e614 tree   101 105 5211
+484a59275031909e19aadb7c92262719cfcdf19a commit 226 153 169
+83baae61804e65cc73a7201a7252750c76066a30 blob   10 19 5362
+9585191f37f7b0fb9444f35a9bf50de191beadc2 tag    136 127 5476
+9bc1dc421dcd51b4ac296e3e5b6e2a99cf44391e blob   7 18 5193 1 \
+  05408d195263d853f09dca71d55116663690c27c
+ab1afef80fac8e34258ff41fc1b867c702daa24b commit 232 157 12
+cac0cab538b970a37ea1e769cbbde608743bc96d commit 226 154 473
+d8329fc1cc938780ffdd9f94e0d364e0ea74f579 tree   36 46 5316
+e3f094f522629ae358806b17daf78246c27c007b blob   1486 734 4352
+f8f51d7d8a1760462eca26eebafde32087499533 tree   106 107 749
+fa49b077972391ad58037050f2a75f74e3671e92 blob   9 18 856
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d commit 177 122 627
+chain length = 1: 1 object
+pack-7a16e4488ae40c7d2bc56ea2bd43e25212a66c45.pack: ok</code></pre>
+
+<p>Here, the <code>9bc1d</code> blob, which if you remember was the first version of your repo.rb file, is referencing the <code>05408</code> blob, which was the second version of the file. The third column in the output is the size of the object’s content, so you can see that the content of <code>05408</code> takes up 12K, but that of <code>9bc1d</code> only takes up 7 bytes. What is also interesting is that the second version of the file is the one that is stored intact, whereas the original version is stored as a delta — this is because you’re most likely to need faster access to the most recent version of the file.</p>
+
+<p>The really nice thing about this is that it can be repacked at any time. Git will occasionally repack your database automatically, always trying to save more space. You can also manually repack at any time by running <code>git gc</code> by hand.</p>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">Git Internals</li><li><a href="ch9_1.html">Plumbing and Porcelain</a></li><li><a href="ch9_2.html">Git Objects</a></li><li><a href="ch9_3.html">Git References</a></li><li><a href="ch9_4.html">Packfiles</a></li><li><a href="ch9_5.html">The Refspec</a></li><li><a href="ch9_6.html">Transfer Protocols</a></li><li><a href="ch9_7.html">Maintenance and Data Recovery</a></li><li><a href="ch9_8.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>

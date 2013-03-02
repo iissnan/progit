@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Tools - Subtree Merging</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="divider-vertical"></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span9"><h2>Subtree Merging</h2>
+
+<p>Now that you’ve seen the difficulties of the submodule system, let’s look at an alternate way to solve the same problem. When Git merges, it looks at what it has to merge together and then chooses an appropriate merging strategy to use. If you’re merging two branches, Git uses a <em>recursive</em> strategy. If you’re merging more than two branches, Git picks the <em>octopus</em> strategy. These strategies are automatically chosen for you because the recursive strategy can handle complex three-way merge situations — for example, more than one common ancestor — but it can only handle merging two branches. The octopus merge can handle multiple branches but is more cautious to avoid difficult conflicts, so it’s chosen as the default strategy if you’re trying to merge more than two branches.</p>
+
+<p>However, there are other strategies you can choose as well. One of them is the <em>subtree</em> merge, and you can use it to deal with the subproject issue. Here you’ll see how to do the same rack embedding as in the last section, but using subtree merges instead.</p>
+
+<p>The idea of the subtree merge is that you have two projects, and one of the projects maps to a subdirectory of the other one and vice versa. When you specify a subtree merge, Git is smart enough to figure out that one is a subtree of the other and merge appropriately — it’s pretty amazing.</p>
+
+<p>You first add the Rack application to your project. You add the Rack project as a remote reference in your own project and then check it out into its own branch:</p>
+
+<pre><code>$ git remote add rack_remote git@github.com:schacon/rack.git
+$ git fetch rack_remote
+warning: no common commits
+remote: Counting objects: 3184, done.
+remote: Compressing objects: 100% (1465/1465), done.
+remote: Total 3184 (delta 1952), reused 2770 (delta 1675)
+Receiving objects: 100% (3184/3184), 677.42 KiB | 4 KiB/s, done.
+Resolving deltas: 100% (1952/1952), done.
+From git@github.com:schacon/rack
+ * [new branch]      build      -&gt; rack_remote/build
+ * [new branch]      master     -&gt; rack_remote/master
+ * [new branch]      rack-0.4   -&gt; rack_remote/rack-0.4
+ * [new branch]      rack-0.9   -&gt; rack_remote/rack-0.9
+$ git checkout -b rack_branch rack_remote/master
+Branch rack_branch set up to track remote branch refs/remotes/rack_remote/master.
+Switched to a new branch &quot;rack_branch&quot;</code></pre>
+
+<p>Now you have the root of the Rack project in your <code>rack_branch</code> branch and your own project in the <code>master</code> branch. If you check out one and then the other, you can see that they have different project roots:</p>
+
+<pre><code>$ ls
+AUTHORS	       KNOWN-ISSUES   Rakefile      contrib	       lib
+COPYING	       README         bin           example	       test
+$ git checkout master
+Switched to branch &quot;master&quot;
+$ ls
+README</code></pre>
+
+<p>You want to pull the Rack project into your <code>master</code> project as a subdirectory. You can do that in Git with <code>git read-tree</code>. You’ll learn more about <code>read-tree</code> and its friends in Chapter 9, but for now know that it reads the root tree of one branch into your current staging area and working directory. You just switched back to your <code>master</code> branch, and you pull the <code>rack</code> branch into the <code>rack</code> subdirectory of your <code>master</code> branch of your main project:</p>
+
+<pre><code>$ git read-tree --prefix=rack/ -u rack_branch</code></pre>
+
+<p>When you commit, it looks like you have all the Rack files under that subdirectory — as though you copied them in from a tarball. What gets interesting is that you can fairly easily merge changes from one of the branches to the other. So, if the Rack project updates, you can pull in upstream changes by switching to that branch and pulling:</p>
+
+<pre><code>$ git checkout rack_branch
+$ git pull</code></pre>
+
+<p>Then, you can merge those changes back into your master branch. You can use <code>git merge -s subtree</code> and it will work fine; but Git will also merge the histories together, which you probably don’t want. To pull in the changes and prepopulate the commit message, use the <code>--squash</code> and <code>--no-commit</code> options as well as the <code>-s subtree</code> strategy option:</p>
+
+<pre><code>$ git checkout master
+$ git merge --squash -s subtree --no-commit rack_branch
+Squash commit -- not updating HEAD
+Automatic merge went well; stopped before committing as requested</code></pre>
+
+<p>All the changes from your Rack project are merged in and ready to be committed locally. You can also do the opposite — make changes in the <code>rack</code> subdirectory of your master branch and then merge them into your <code>rack_branch</code> branch later to submit them to the maintainers or push them upstream.</p>
+
+<p>To get a diff between what you have in your <code>rack</code> subdirectory and the code in your <code>rack_branch</code> branch — to see if you need to merge them — you can’t use the normal <code>diff</code> command. Instead, you must run <code>git diff-tree</code> with the branch you want to compare to:</p>
+
+<pre><code>$ git diff-tree -p rack_branch</code></pre>
+
+<p>Or, to compare what is in your <code>rack</code> subdirectory with what the <code>master</code> branch on the server was the last time you fetched, you can run</p>
+
+<pre><code>$ git diff-tree -p rack_remote/master</code></pre>
+
+</div><div class="span2"><ul class="nav nav-list sub-nav affix"><li class="nav-header">Git Tools</li><li><a href="ch6_1.html">Revision Selection</a></li><li><a href="ch6_2.html">Interactive Staging</a></li><li><a href="ch6_3.html">Stashing</a></li><li><a href="ch6_4.html">Rewriting History</a></li><li><a href="ch6_5.html">Debugging with Git</a></li><li><a href="ch6_6.html">Submodules</a></li><li><a href="ch6_7.html">Subtree Merging</a></li><li><a href="ch6_8.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script></body></html>
