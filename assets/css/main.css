@@ -7,14 +7,10 @@ img, fieldset{
     border: 0;
 }
 
-ul, ol{
-    list-style: none;
-}
-
 body{
     padding-top: 50px;
     background: #F0EFE7;
-    font: 13px/1.62  "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+    font: 13px/1.62  "WenQuanYi Micro Hei", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
 }
 
 #brand{
@@ -29,11 +25,13 @@ body{
 }
 .wrap{
     padding: 20px;
+    min-height: 500px;
 }
 
 .toc li{
     margin: 10px auto;
     line-height: 1.62;
+    list-style: none;
 }
 .toc .headline1{
     margin: 25px 0 10px;
@@ -53,9 +51,19 @@ body{
     margin-left: 80px;
 }
 
+.sub-nav{
+    width: 220px;
+}
 .sub-nav .nav-header{
+    padding: 3px 0;
     font-size: 20px;
     line-height: 1.5;
+}
+.sub-nav > .active > a,
+.sub-nav > .active > a:hover,
+.sub-nav > .active > a:focus {
+    background: #08c;
+    color: #fff;
 }
 
 .book-info{
