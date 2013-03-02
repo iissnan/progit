@@ -11,15 +11,15 @@
 
 <h3>检查当前文件状态</h3>
 
-<p>要确定哪些文件当前处于什么状态，可以用 git status 命令。如果在克隆仓库之后立即执行此命令，会看到类似这样的输出：</p>
+<p>要确定哪些文件当前处于什么状态，可以用 <code>git status</code> 命令。如果在克隆仓库之后立即执行此命令，会看到类似这样的输出：</p>
 
 <pre><code>$ git status
 # On branch master
 nothing to commit (working directory clean)</code></pre>
 
-<p>这说明你现在的工作目录相当干净。换句话说，当前没有任何跟踪着的文件，也没有任何文件在上次提交后更改过。此外，上面的信息还表明，当前目录下没有出现任何处于未跟踪的新文件，否则 Git 会在这里列出来。最后，该命令还显示了当前所在的分支是 master，这是默认的分支名称，实际是可以修改的，现在先不用考虑。下一章我们就会详细讨论分支和引用。</p>
+<p>这说明你现在的工作目录相当干净。换句话说，所有已跟踪文件在上次提交后都未被更改过。此外，上面的信息还表明，当前目录下没有出现任何处于未跟踪的新文件，否则 Git 会在这里列出来。最后，该命令还显示了当前所在的分支是 <code>master</code>，这是默认的分支名称，实际是可以修改的，现在先不用考虑。下一章我们就会详细讨论分支和引用。</p>
 
-<p>现在让我们用 vim 编辑一个新文件 README，保存退出后运行 <code>git status</code> 会看到该文件出现在未跟踪文件列表中：</p>
+<p>现在让我们用 vim 创建一个新文件 README，保存退出后运行 <code>git status</code> 会看到该文件出现在未跟踪文件列表中：</p>
 
 <pre><code>$ vim README
 $ git status
@@ -30,7 +30,7 @@ $ git status
 #	README
 nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
 
-<p>就是在“Untracked files”这行下面。Git 不会自动将之纳入跟踪范围，除非你明明白白地告诉它“我需要跟踪该文件”，因而不用担心把临时文件什么的也归入版本管理。不过现在的例子中，我们确实想要跟踪管理 README 这个文件。</p>
+<p>在状态报告中可以看到新建的<code>README</code>文件出现在“Untracked files”下面。未跟踪的文件意味着Git在之前的快照（提交）中没有这些文件；Git 不会自动将之纳入跟踪范围，除非你明明白白地告诉它“我需要跟踪该文件”，因而不用担心把临时文件什么的也归入版本管理。不过现在的例子中，我们确实想要跟踪管理 README 这个文件。</p>
 
 <h3>跟踪新文件</h3>
 
@@ -67,7 +67,7 @@ nothing added to commit but untracked files present (use &quot;git add&quot; to 
 #	modified:   benchmarks.rb
 #</code></pre>
 
-<p>文件 benchmarks.rb 出现在 “Changes not staged for commit” 这行下面，说明已跟踪文件的内容发生了变化，但还没有放到暂存区。要暂存这次更新，需要运行 <code>git add</code> 命令（这是个多功能命令，根据目标文件的状态不同，此命令的效果也不同：可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等）。现在让我们运行 <code>git add</code> 将 benchmarks.rb 放到暂存区，然后再看看 <code>git status</code> 的输出：</p>
+<p>文件 <code>benchmarks.rb</code> 出现在 “Changes not staged for commit” 这行下面，说明已跟踪文件的内容发生了变化，但还没有放到暂存区。要暂存这次更新，需要运行 <code>git add</code> 命令（这是个多功能命令，根据目标文件的状态不同，此命令的效果也不同：可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等）。现在让我们运行 <code>git add</code> 将 benchmarks.rb 放到暂存区，然后再看看 <code>git status</code> 的输出：</p>
 
 <pre><code>$ git add benchmarks.rb
 $ git status
@@ -79,7 +79,7 @@ $ git status
 #	modified:   benchmarks.rb
 #</code></pre>
 
-<p>现在两个文件都已暂存，下次提交时就会一并记录到仓库。假设此时，你想要在 benchmarks.rb 里再加条注释，重新编辑存盘后，准备好提交。不过且慢，再运行 <code>git status</code> 看看：</p>
+<p>现在两个文件都已暂存，下次提交时就会一并记录到仓库。假设此时，你想要在 <code>benchmarks.rb</code> 里再加条注释，重新编辑存盘后，准备好提交。不过且慢，再运行 <code>git status</code> 看看：</p>
 
 <pre><code>$ vim benchmarks.rb 
 $ git status
@@ -96,7 +96,7 @@ $ git status
 #	modified:   benchmarks.rb
 #</code></pre>
 
-<p>怎么回事？benchmarks.rb 文件出现了两次！一次算未暂存，一次算已暂存，这怎么可能呢？好吧，实际上 Git 只不过暂存了你运行 git add 命令时的版本，如果现在提交，那么提交的是添加注释前的版本，而非当前工作目录中的版本。所以，运行了 <code>git add</code> 之后又作了修订的文件，需要重新运行 <code>git add</code> 把最新版本重新暂存起来：</p>
+<p>怎么回事？ <code>benchmarks.rb</code> 文件出现了两次！一次算未暂存，一次算已暂存，这怎么可能呢？好吧，实际上 Git 只不过暂存了你运行 <code>git add</code> 命令时的版本，如果现在提交，那么提交的是添加注释前的版本，而非当前工作目录中的版本。所以，运行了 <code>git add</code> 之后又作了修订的文件，需要重新运行 <code>git add</code> 把最新版本重新暂存起来：</p>
 
 <pre><code>$ git add benchmarks.rb
 $ git status
@@ -110,21 +110,21 @@ $ git status
 
 <h3>忽略某些文件</h3>
 
-<p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。来看一个实际的例子：</p>
+<p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 <code>.gitignore</code> 的文件，列出要忽略的文件模式。来看一个实际的例子：</p>
 
 <pre><code>$ cat .gitignore
 *.[oa]
 *~</code></pre>
 
-<p>第一行告诉 Git 忽略所有以 .o 或 .a 结尾的文件。一般这类对象文件和存档文件都是编译过程中出现的，我们用不着跟踪它们的版本。第二行告诉 Git 忽略所有以波浪符（<code>~</code>）结尾的文件，许多文本编辑软件（比如 Emacs）都用这样的文件名保存副本。此外，你可能还需要忽略 log，tmp 或者 pid 目录，以及自动生成的文档等等。要养成一开始就设置好 .gitignore 文件的习惯，以免将来误提交这类无用的文件。</p>
+<p>第一行告诉 Git 忽略所有以 <code>.o</code> 或 <code>.a</code> 结尾的文件。一般这类对象文件和存档文件都是编译过程中出现的，我们用不着跟踪它们的版本。第二行告诉 Git 忽略所有以波浪符（<code>~</code>）结尾的文件，许多文本编辑软件（比如 Emacs）都用这样的文件名保存副本。此外，你可能还需要忽略 <code>log</code>，<code>tmp</code> 或者 <code>pid</code> 目录，以及自动生成的文档等等。要养成一开始就设置好 <code>.gitignore</code> 文件的习惯，以免将来误提交这类无用的文件。</p>
 
-<p>文件 .gitignore 的格式规范如下：</p>
+<p>文件 <code>.gitignore</code> 的格式规范如下：</p>
 
-<ul><li>所有空行或者以注释符号 ＃ 开头的行都会被 Git 忽略。</li><li>可以使用标准的 glob 模式匹配。</li><li>匹配模式最后跟反斜杠（<code>/</code>）说明要忽略的是目录。</li><li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（<code>!</code>）取反。</li></ul>
+<ul><li>所有空行或者以注释符号 <code>＃</code> 开头的行都会被 Git 忽略。</li><li>可以使用标准的 glob 模式匹配。</li><li>匹配模式最后跟反斜杠（<code>/</code>）说明要忽略的是目录。</li><li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（<code>!</code>）取反。</li></ul>
 
 <p>所谓的 glob 模式是指 shell 所使用的简化了的正则表达式。星号（<code>*</code>）匹配零个或多个任意字符；<code>[abc]</code> 匹配任何一个列在方括号中的字符（这个例子要么匹配一个 a，要么匹配一个 b，要么匹配一个 c）；问号（<code>?</code>）只匹配一个任意字符；如果在方括号中使用短划线分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如 <code>[0-9]</code> 表示匹配所有 0 到 9 的数字）。</p>
 
-<p>我们再看一个 .gitignore 文件的例子：</p>
+<p>我们再看一个 <code>.gitignore</code> 文件的例子：</p>
 
 <pre><code># 此为注释 – 将被 Git 忽略
 *.a       # 忽略所有 .a 结尾的文件
@@ -137,7 +137,7 @@ doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</code></pre
 
 <p>实际上 <code>git status</code> 的显示比较简单，仅仅是列出了修改过的文件，如果要查看具体修改了什么地方，可以用 <code>git diff</code> 命令。稍后我们会详细介绍 <code>git diff</code>，不过现在，它已经能回答我们的两个问题了：当前做的哪些更新还没有暂存？有哪些更新已经暂存起来准备好了下次提交？ <code>git diff</code> 会使用文件补丁的格式显示具体添加和删除的行。</p>
 
-<p>假如再次修改 README 文件后暂存，然后编辑 benchmarks.rb 文件后先别暂存，运行 <code>status</code> 命令，会看到：</p>
+<p>假如再次修改 <code>README</code> 文件后暂存，然后编辑 <code>benchmarks.rb</code> 文件后先别暂存，运行 <code>status</code> 命令将会看到：</p>
 
 <pre><code>$ git status
 # On branch master

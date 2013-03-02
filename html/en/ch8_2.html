@@ -18,7 +18,7 @@ selse = Someo Nelse &lt;selse@geemail.com&gt;</code></pre>
 <p>To get a list of the author names that SVN uses, you can run this:</p>
 
 <pre><code>$ svn log --xml | grep -P &quot;^&lt;author&quot; | sort -u | \
-      perl -pe &#39;s/&lt;author&gt;(.*?)&lt;\/author&gt;/$1 = /&#39;</code></pre>
+      perl -pe &#39;s/&lt;author&gt;(.*?)&lt;\/author&gt;/$1 = /&#39; &gt; users.txt</code></pre>
 
 <p>That gives you the log output in XML format — you can look for the authors, create a unique list, and then strip out the XML. (Obviously this only works on a machine with <code>grep</code>, <code>sort</code>, and <code>perl</code> installed.) Then, redirect that output into your users.txt file so you can add the equivalent Git user data next to each entry.</p>
 

@@ -17,7 +17,8 @@ selse = Someo Nelse &lt;selse@geemail.com&gt;</code></pre>
 
 <p>通过该命令可以获得 SVN 作者的列表：</p>
 
-<pre><code>$ svn log --xml | grep author | sort -u | perl -pe &#39;s/.&gt;(.?)&lt;./$1 = /&#39;</code></pre>
+<pre><code>$ svn log --xml | grep -P &quot;^&lt;author&quot; | sort -u | \
+      perl -pe &#39;s/&lt;author&gt;(.*?)&lt;\/author&gt;/$1 = /&#39; &gt; users.txt</code></pre>
 
 <p>它将输出 XML 格式的日志——你可以找到作者，建立一个单独的列表，然后从 XML 中抽取出需要的信息。（显而易见，本方法要求主机上安装了<code>grep</code>，<code>sort</code> 和 <code>perl</code>.）然后把输出重定向到 user.txt 文件，然后就可以在每一项的后面添加相应的 Git 用户数据。</p>
 

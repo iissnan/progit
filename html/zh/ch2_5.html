@@ -45,7 +45,7 @@ $ git remote -v
 origin	git://github.com/schacon/ticgit.git
 pb	git://github.com/paulboone/ticgit.git</code></pre>
 
-<p>现在可以用字串 pb 指代对应的仓库地址了。比如说，要抓取所有 Paul 有的，但本地仓库没有的信息，可以运行 <code>git fetch pb</code>：</p>
+<p>现在可以用字符串 <code>pb</code> 指代对应的仓库地址了。比如说，要抓取所有 Paul 有的，但本地仓库没有的信息，可以运行 <code>git fetch pb</code>：</p>
 
 <pre><code>$ git fetch pb
 remote: Counting objects: 58, done.
@@ -121,7 +121,7 @@ From git://github.com/paulboone/ticgit
 
 <h3>远程仓库的删除和重命名</h3>
 
-<p>在新版 Git 中可以用 <code>git remote rename</code> 命令修改某个远程仓库在本地的简短名称，比如想把 <code>pb</code> 改成 <code>paul</code>，可以这么运行：</p>
+<p>在新版 Git 中可以用 <code>git remote rename</code> 命令修改某个远程仓库在本地的简称，比如想把 <code>pb</code> 改成 <code>paul</code>，可以这么运行：</p>
 
 <pre><code>$ git remote rename pb paul
 $ git remote
