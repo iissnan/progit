@@ -1,68 +1,149 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Basics - Tips and Tricks</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Tips and Tricks</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git on the Server - Gitosis</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Gitosis</h2>
 
-<p>Before we finish this chapter on basic Git, a few little tips and tricks may make your Git experience a bit simpler, easier, or more familiar. Many people use Git without using any of these tips, and we won’t refer to them or assume you’ve used them later in the book; but you should probably know how to do them.</p>
+<p>Keeping all users’ public keys in the <code>authorized_keys</code> file for access works well only for a while. When you have hundreds of users, it’s much more of a pain to manage that process. You have to shell onto the server each time, and there is no access control — everyone in the file has read and write access to every project.</p>
 
-<h3>Auto-Completion</h3>
+<p>At this point, you may want to turn to a widely used software project called Gitosis. Gitosis is basically a set of scripts that help you manage the <code>authorized_keys</code> file as well as implement some simple access controls. The really interesting part is that the UI for this tool for adding people and determining access isn’t a web interface but a special Git repository. You set up the information in that project; and when you push it, Gitosis reconfigures the server based on that, which is cool.</p>
 
-<p>If you use the Bash shell, Git comes with a nice auto-completion script you can enable. Download the Git source code, and look in the <code>contrib/completion</code> directory; there should be a file called <code>git-completion.bash</code>. Copy this file to your home directory, and add this to your <code>.bashrc</code> file:</p>
+<p>Installing Gitosis isn’t the simplest task ever, but it’s not too difficult. It’s easiest to use a Linux server for it — these examples use a stock Ubuntu 8.10 server.</p>
 
-<pre><code>source ~/.git-completion.bash</code></pre>
+<p>Gitosis requires some Python tools, so first you have to install the Python setuptools package, which Ubuntu provides as python-setuptools:</p>
 
-<p>If you want to set up Git to automatically have Bash shell completion for all users, copy this script to the <code>/opt/local/etc/bash_completion.d</code> directory on Mac systems or to the <code>/etc/bash_completion.d/</code> directory on Linux systems. This is a directory of scripts that Bash will automatically load to provide shell completions.</p>
+<pre><code>$ apt-get install python-setuptools</code></pre>
 
-<p>If you’re using Windows with Git Bash, which is the default when installing Git on Windows with msysGit, auto-completion should be preconfigured.</p>
+<p>Next, you clone and install Gitosis from the project’s main site:</p>
 
-<p>Press the Tab key when you’re writing a Git command, and it should return a set of suggestions for you to pick from:</p>
+<pre><code>$ git clone git://eagain.net/gitosis.git
+$ cd gitosis
+$ sudo python setup.py install</code></pre>
 
-<pre><code>$ git co&lt;tab&gt;&lt;tab&gt;
-commit config</code></pre>
+<p>That installs a couple of executables that Gitosis will use. Next, Gitosis wants to put its repositories under <code>/home/git</code>, which is fine. But you have already set up your repositories in <code>/opt/git</code>, so instead of reconfiguring everything, you create a symlink:</p>
 
-<p>In this case, typing <code>git co</code> and then pressing the Tab key twice suggests commit and config. Adding <code>m&lt;tab&gt;</code> completes <code>git commit</code> automatically.</p>
+<pre><code>$ ln -s /opt/git /home/git/repositories</code></pre>
 
-<p>This also works with options, which is probably more useful. For instance, if you’re running a <code>git log</code> command and can’t remember one of the options, you can start typing it and press Tab to see what matches:</p>
+<p>Gitosis is going to manage your keys for you, so you need to remove the current file, re-add the keys later, and let Gitosis control the <code>authorized_keys</code> file automatically. For now, move the <code>authorized_keys</code> file out of the way:</p>
 
-<pre><code>$ git log --s&lt;tab&gt;
---shortstat  --since=  --src-prefix=  --stat   --summary</code></pre>
+<pre><code>$ mv /home/git/.ssh/authorized_keys /home/git/.ssh/ak.bak</code></pre>
 
-<p>That’s a pretty nice trick and may save you some time and documentation reading.</p>
+<p>Next you need to turn your shell back on for the &#39;git&#39; user, if you changed it to the <code>git-shell</code> command. People still won’t be able to log in, but Gitosis will control that for you. So, let’s change this line in your <code>/etc/passwd</code> file</p>
 
-<h3>Git Aliases</h3>
+<pre><code>git:x:1000:1000::/home/git:/usr/bin/git-shell</code></pre>
 
-<p>Git doesn’t infer your command if you type it in partially. If you don’t want to type the entire text of each of the Git commands, you can easily set up an alias for each command using <code>git config</code>. Here are a couple of examples you may want to set up:</p>
+<p>back to this:</p>
 
-<pre><code>$ git config --global alias.co checkout
-$ git config --global alias.br branch
-$ git config --global alias.ci commit
-$ git config --global alias.st status</code></pre>
+<pre><code>git:x:1000:1000::/home/git:/bin/sh</code></pre>
 
-<p>This means that, for example, instead of typing <code>git commit</code>, you just need to type <code>git ci</code>. As you go on using Git, you’ll probably use other commands frequently as well; in this case, don’t hesitate to create new aliases.</p>
+<p>Now it’s time to initialize Gitosis. You do this by running the <code>gitosis-init</code> command with your personal public key. If your public key isn’t on the server, you’ll have to copy it there:</p>
 
-<p>This technique can also be very useful in creating commands that you think should exist. For example, to correct the usability problem you encountered with unstaging a file, you can add your own unstage alias to Git:</p>
+<pre><code>$ sudo -H -u git gitosis-init &lt; /tmp/id_dsa.pub
+Initialized empty Git repository in /opt/git/gitosis-admin.git/
+Reinitialized existing Git repository in /opt/git/gitosis-admin.git/</code></pre>
 
-<pre><code>$ git config --global alias.unstage &#39;reset HEAD --&#39;</code></pre>
+<p>This lets the user with that key modify the main Git repository that controls the Gitosis setup. Next, you have to manually set the execute bit on the <code>post-update</code> script for your new control repository.</p>
 
-<p>This makes the following two commands equivalent:</p>
+<pre><code>$ sudo chmod 755 /opt/git/gitosis-admin.git/hooks/post-update</code></pre>
 
-<pre><code>$ git unstage fileA
-$ git reset HEAD fileA</code></pre>
+<p>You’re ready to roll. If you’re set up correctly, you can try to SSH into your server as the user for which you added the public key to initialize Gitosis. You should see something like this:</p>
 
-<p>This seems a bit clearer. It’s also common to add a <code>last</code> command, like this:</p>
+<pre><code>$ ssh git@gitserver
+PTY allocation request failed on channel 0
+fatal: unrecognized command &#39;gitosis-serve schacon@quaternion&#39;
+  Connection to gitserver closed.</code></pre>
 
-<pre><code>$ git config --global alias.last &#39;log -1 HEAD&#39;</code></pre>
+<p>That means Gitosis recognized you but shut you out because you’re not trying to do any Git commands. So, let’s do an actual Git command — you’ll clone the Gitosis control repository:</p>
 
-<p>This way, you can see the last commit easily:</p>
+<pre><code># on your local computer
+$ git clone git@gitserver:gitosis-admin.git</code></pre>
 
-<pre><code>$ git last
-commit 66938dae3329c7aebe598c2246a8e6af90d04646
-Author: Josh Goebel &lt;dreamer3@example.com&gt;
-Date:   Tue Aug 26 19:48:51 2008 +0800
+<p>Now you have a directory named <code>gitosis-admin</code>, which has two major parts:</p>
 
-    test for current head
+<pre><code>$ cd gitosis-admin
+$ find .
+./gitosis.conf
+./keydir
+./keydir/scott.pub</code></pre>
 
-    Signed-off-by: Scott Chacon &lt;schacon@example.com&gt;</code></pre>
+<p>The <code>gitosis.conf</code> file is the control file you use to specify users, repositories, and permissions. The <code>keydir</code> directory is where you store the public keys of all the users who have any sort of access to your repositories — one file per user. The name of the file in <code>keydir</code> (in the previous example, <code>scott.pub</code>) will be different for you — Gitosis takes that name from the description at the end of the public key that was imported with the <code>gitosis-init</code> script.</p>
 
-<p>As you can tell, Git simply replaces the new command with whatever you alias it to. However, maybe you want to run an external command, rather than a Git subcommand. In that case, you start the command with a <code>!</code> character. This is useful if you write your own tools that work with a Git repository. We can demonstrate by aliasing <code>git visual</code> to run <code>gitk</code>:</p>
+<p>If you look at the <code>gitosis.conf</code> file, it should only specify information about the <code>gitosis-admin</code> project that you just cloned:</p>
 
-<pre><code>$ git config --global alias.visual &#39;!gitk&#39;</code></pre>
+<pre><code>$ cat gitosis.conf
+[gitosis]
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Basics</li><li><a href="ch2_1.html">Getting a Git Repository</a></li><li><a href="ch2_2.html">Recording Changes to the Repository</a></li><li><a href="ch2_3.html">Viewing the Commit History</a></li><li><a href="ch2_4.html">Undoing Things</a></li><li><a href="ch2_5.html">Working with Remotes</a></li><li><a href="ch2_6.html">Tagging</a></li><li><a href="ch2_7.html">Tips and Tricks</a></li><li><a href="ch2_8.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+[group gitosis-admin]
+writable = gitosis-admin
+members = scott</code></pre>
+
+<p>It shows you that the &#39;scott&#39; user — the user with whose public key you initialized Gitosis — is the only one who has access to the <code>gitosis-admin</code> project.</p>
+
+<p>Now, let’s add a new project for you. You’ll add a new section called <code>mobile</code> where you’ll list the developers on your mobile team and projects that those developers need access to. Because &#39;scott&#39; is the only user in the system right now, you’ll add him as the only member, and you’ll create a new project called <code>iphone_project</code> to start on:</p>
+
+<pre><code>[group mobile]
+writable = iphone_project
+members = scott</code></pre>
+
+<p>Whenever you make changes to the <code>gitosis-admin</code> project, you have to commit the changes and push them back up to the server in order for them to take effect:</p>
+
+<pre><code>$ git commit -am &#39;add iphone_project and mobile group&#39;
+[master]: created 8962da8: &quot;changed name&quot;
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+$ git push
+Counting objects: 5, done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 272 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To git@gitserver:/opt/git/gitosis-admin.git
+   fb27aec..8962da8  master -&gt; master</code></pre>
+
+<p>You can make your first push to the new <code>iphone_project</code> project by adding your server as a remote to your local version of the project and pushing. You no longer have to manually create a bare repository for new projects on the server — Gitosis creates them automatically when it sees the first push:</p>
+
+<pre><code>$ git remote add origin git@gitserver:iphone_project.git
+$ git push origin master
+Initialized empty Git repository in /opt/git/iphone_project.git/
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 230 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@gitserver:iphone_project.git
+ * [new branch]      master -&gt; master</code></pre>
+
+<p>Notice that you don’t need to specify the path (in fact, doing so won’t work), just a colon and then the name of the project — Gitosis finds it for you.</p>
+
+<p>You want to work on this project with your friends, so you’ll have to re-add their public keys. But instead of appending them manually to the <code>~/.ssh/authorized_keys</code> file on your server, you’ll add them, one key per file, into the <code>keydir</code> directory. How you name the keys determines how you refer to the users in the <code>gitosis.conf</code> file. Let’s re-add the public keys for John, Josie, and Jessica:</p>
+
+<pre><code>$ cp /tmp/id_rsa.john.pub keydir/john.pub
+$ cp /tmp/id_rsa.josie.pub keydir/josie.pub
+$ cp /tmp/id_rsa.jessica.pub keydir/jessica.pub</code></pre>
+
+<p>Now you can add them all to your &#39;mobile&#39; team so they have read and write access to <code>iphone_project</code>:</p>
+
+<pre><code>[group mobile]
+writable = iphone_project
+members = scott john josie jessica</code></pre>
+
+<p>After you commit and push that change, all four users will be able to read from and write to that project.</p>
+
+<p>Gitosis has simple access controls as well. If you want John to have only read access to this project, you can do this instead:</p>
+
+<pre><code>[group mobile]
+writable = iphone_project
+members = scott josie jessica
+
+[group mobile_ro]
+readonly = iphone_project
+members = john</code></pre>
+
+<p>Now John can clone the project and get updates, but Gitosis won’t allow him to push back up to the project. You can create as many of these groups as you want, each containing different users and projects. You can also specify another group as one of the members (using <code>@</code> as prefix), to inherit all of its members automatically:</p>
+
+<pre><code>[group mobile_committers]
+members = scott josie jessica
+
+[group mobile]
+writable  = iphone_project
+members   = @mobile_committers
+
+[group mobile_2]
+writable  = another_iphone_project
+members   = @mobile_committers john</code></pre>
+
+<p>If you have any issues, it may be useful to add <code>loglevel=DEBUG</code> under the <code>[gitosis]</code> section. If you’ve lost push access by pushing a messed-up configuration, you can manually fix the file on the server under <code>/home/git/.gitosis.conf</code> — the file from which Gitosis reads its info. A push to the project takes the <code>gitosis.conf</code> file you just pushed up and sticks it there. If you edit that file manually, it remains like that until the next successful push to the <code>gitosis-admin</code> project.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git on the Server</li><li><a href="ch2_1.html">The Protocols</a></li><li><a href="ch2_2.html">Getting Git on a Server</a></li><li><a href="ch2_3.html">Generating Your SSH Public Key</a></li><li><a href="ch2_4.html">Setting Up the Server</a></li><li><a href="ch2_5.html">Public Access</a></li><li><a href="ch2_6.html">GitWeb</a></li><li><a href="ch2_7.html">Gitosis</a></li><li><a href="ch2_8.html">Gitolite</a></li><li><a href="ch2_9.html">Git Daemon</a></li><li><a href="ch2_10.html">Hosted Git</a></li><li><a href="ch2_11.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

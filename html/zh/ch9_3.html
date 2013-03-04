@@ -1,129 +1,64 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git 内部原理 - Git References</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git References</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - 起步 - Git 基础</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git 基础 </a></li><li><a href="ch2_0.html">2 服务器上的 Git </a></li><li><a href="ch3_0.html">3 自定义 Git </a></li><li><a href="ch4_0.html">4 Git 内部原理 </a></li><li><a href="ch5_0.html">5 Git 分支 </a></li><li><a href="ch6_0.html">6 Git 与其他系统 </a></li><li><a href="ch7_0.html">7 Git 工具 </a></li><li><a href="ch8_0.html">8 分布式 Git </a></li><li><a href="ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Git Basics </a></li><li><a href="../en/ch2_0.html">2 Git on the Server </a></li><li><a href="../en/ch3_0.html">3 Customizing Git </a></li><li><a href="../en/ch4_0.html">4 Git Internals </a></li><li><a href="../en/ch5_0.html">5 Git Branching </a></li><li><a href="../en/ch6_0.html">6 Git and Other Systems </a></li><li><a href="../en/ch7_0.html">7 Git Tools </a></li><li><a href="../en/ch8_0.html">8 Distributed Git </a></li><li><a href="../en/ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git 基础</h2>
 
-<p>你可以执行像 <code>git log 1a410e</code> 这样的命令来查看完整的历史，但是这样你就要记得 <code>1a410e</code> 是你最后一次提交，这样才能在提交历史中找到这些对象。你需要一个文件来用一个简单的名字来记录这些 SHA-1 值，这样你就可以用这些指针而不是原来的 SHA-1 值去检索了。</p>
+<p>那么，简单地说，Git 究竟是怎样的一个系统呢？请注意，接下来的内容非常重要，若是理解了 Git 的思想和基本工作原理，用起来就会知其所以然，游刃有余。在开始学习 Git 的时候，请不要尝试把各种概念和其他版本控制系统（诸如 Subversion 和 Perforce 等）相比拟，否则容易混淆每个操作的实际意义。Git 在保存和处理各种信息的时候，虽然操作起来的命令形式非常相近，但它与其他版本控制系统的做法颇为不同。理解这些差异将有助于你准确地使用 Git 提供的各种工具。</p>
 
-<p>在 Git 中，我们称之为“引用”（references 或者 refs，译者注）。你可以在 <code>.git/refs</code> 目录下面找到这些包含 SHA-1 值的文件。在这个项目里，这个目录还没不包含任何文件，但是包含这样一个简单的结构：</p>
+<h3>直接记录快照，而非差异比较</h3>
 
-<pre><code>$ find .git/refs
-.git/refs
-.git/refs/heads
-.git/refs/tags
-$ find .git/refs -type f
-$</code></pre>
+<p>Git 和其他版本控制系统的主要差别在于，Git 只关心文件数据的整体是否发生变化，而大多数其他系统则只关心文件内容的具体差异。这类系统（CVS，Subversion，Perforce，Bazaar 等等）每次记录有哪些文件作了更新，以及都更新了哪些行的什么内容，请看图 1-4。</p>
 
-<p>如果想要创建一个新的引用帮助你记住最后一次提交，技术上你可以这样做：</p>
+<p><img src="../../book_src/figures/18333fig0104-tn.png"></br> 
+图 1-4. 其他系统在每个版本中记录着各个文件的具体差异</p>
 
-<pre><code>$ echo &quot;1a410efbd13591db07496601ebc7a059dd55cfe9&quot; &gt; .git/refs/heads/master</code></pre>
+<p>Git 并不保存这些前后变化的差异数据。实际上，Git 更像是把变化的文件作快照后，记录在一个微型的文件系统中。每次提交更新时，它会纵览一遍所有文件的指纹信息并对文件作一快照，然后保存一个指向这次快照的索引。为提高性能，若文件没有变化，Git 不会再次保存，而只对上次保存的快照作一链接。Git 的工作方式就像图 1-5 所示。</p>
 
-<p>现在，你就可以在 Git 命令中使用你刚才创建的引用而不是 SHA-1 值：</p>
+<p><img src="../../book_src/figures/18333fig0105-tn.png"></br> 
+图 1-5. Git 保存每次更新时的文件快照</p>
 
-<pre><code>$ git log --pretty=oneline  master
-1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
-cac0cab538b970a37ea1e769cbbde608743bc96d second commit
-fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+<p>这是 Git 同其他系统的重要区别。它完全颠覆了传统版本控制的套路，并对各个环节的实现方式作了新的设计。Git 更像是个小型的文件系统，但它同时还提供了许多以此为基础的超强工具，而不只是一个简单的 VCS。稍后在第三章讨论 Git 分支管理的时候，我们会再看看这样的设计究竟会带来哪些好处。</p>
 
-<p>当然，我们并不鼓励你直接修改这些引用文件。如果你确实需要更新一个引用，Git 提供了一个安全的命令 <code>update-ref</code>：</p>
+<h3>近乎所有操作都是本地执行</h3>
 
-<pre><code>$ git update-ref refs/heads/master 1a410efbd13591db07496601ebc7a059dd55cfe9</code></pre>
+<p>在 Git 中的绝大多数操作都只需要访问本地文件和资源，不用连网。但如果用 CVCS 的话，差不多所有操作都需要连接网络。因为 Git 在本地磁盘上就保存着所有当前项目的历史更新，所以处理起来速度飞快。</p>
 
-<p>基本上 Git 中的一个分支其实就是一个指向某个工作版本一条 HEAD 记录的指针或引用。你可以用这条命令创建一个指向第二次提交的分支：</p>
+<p>举个例子，如果要浏览项目的历史更新摘要，Git 不用跑到外面的服务器上去取数据回来，而直接从本地数据库读取后展示给你看。所以任何时候你都可以马上翻阅，无需等待。如果想要看当前版本的文件和一个月前的版本之间有何差异，Git 会取出一个月前的快照和当前文件作一次差异运算，而不用请求远程服务器来做这件事，或是把老版本的文件拉到本地来作比较。</p>
 
-<pre><code>$ git update-ref refs/heads/test cac0ca</code></pre>
+<p>用 CVCS 的话，没有网络或者断开 VPN 你就无法做任何事情。但用 Git 的话，就算你在飞机或者火车上，都可以非常愉快地频繁提交更新，等到了有网络的时候再上传到远程仓库。同样，在回家的路上，不用连接 VPN 你也可以继续工作。换作其他版本控制系统，这么做几乎不可能，抑或非常麻烦。比如 Perforce，如果不连到服务器，几乎什么都做不了（译注：默认无法发出命令 <code>p4 edit file</code> 开始编辑文件，因为 Perforce 需要联网通知系统声明该文件正在被谁修订。但实际上手工修改文件权限可以绕过这个限制，只是完成后还是无法提交更新。）；如果是 Subversion 或 CVS，虽然可以编辑文件，但无法提交更新，因为数据库在网络上。看上去好像这些都不是什么大问题，但实际体验过之后，你就会惊喜地发现，这其实是会带来很大不同的。</p>
 
-<p>这样你的分支将会只包含那次提交以及之前的工作：</p>
+<h3>时刻保持数据完整性</h3>
 
-<pre><code>$ git log --pretty=oneline test
-cac0cab538b970a37ea1e769cbbde608743bc96d second commit
-fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+<p>在保存到 Git 之前，所有数据都要进行内容的校验和（checksum）计算，并将此结果作为数据的唯一标识和索引。换句话说，不可能在你修改了文件或目录之后，Git 一无所知。这项特性作为 Git 的设计哲学，建在整体架构的最底层。所以如果文件在传输时变得不完整，或者磁盘损坏导致文件数据缺失，Git 都能立即察觉。</p>
 
-<p>现在，你的 Git 数据库应该看起来像图 9-4 一样。</p>
+<p>Git 使用 SHA-1 算法计算数据的校验和，通过对文件的内容或目录的结构计算出一个 SHA-1 哈希值，作为指纹字符串。该字串由 40 个十六进制字符（0-9 及 a-f）组成，看起来就像是：</p>
 
-<p><img src="../../book_src/figures/18333fig0904-tn.png"></br> 
-图 9-4. 包含分支引用的 Git 目录对象</p>
+<pre><code>24b9da6552252987aa493b52f8696cd6d3b00373</code></pre>
 
-<p>每当你执行 <code>git branch (分支名称)</code> 这样的命令，Git 基本上就是执行 <code>update-ref</code> 命令，把你现在所在分支中最后一次提交的 SHA-1 值，添加到你要创建的分支的引用。</p>
+<p>Git 的工作完全依赖于这类指纹字串，所以你会经常看到这样的哈希值。实际上，所有保存在 Git 数据库中的东西都是用此哈希值来作索引的，而不是靠文件名。  </p>
 
-<h3>HEAD 标记</h3>
+<h3>多数操作仅添加数据</h3>
 
-<p>现在的问题是，当你执行 <code>git branch (分支名称)</code> 这条命令的时候，Git 怎么知道最后一次提交的 SHA-1 值呢？答案就是 HEAD 文件。HEAD 文件是一个指向你当前所在分支的引用标识符。这样的引用标识符——它看起来并不像一个普通的引用——其实并不包含 SHA-1 值，而是一个指向另外一个引用的指针。如果你看一下这个文件，通常你将会看到这样的内容：</p>
+<p>常用的 Git 操作大多仅仅是把数据添加到数据库。因为任何一种不可逆的操作，比如删除数据，都会使回退或重现历史版本变得困难重重。在别的 VCS 中，若还未提交更新，就有可能丢失或者混淆一些修改的内容，但在 Git 里，一旦提交快照之后就完全不用担心丢失数据，特别是养成定期推送到其他仓库的习惯的话。</p>
 
-<pre><code>$ cat .git/HEAD
-ref: refs/heads/master</code></pre>
+<p>这种高可靠性令我们的开发工作安心不少，尽管去做各种试验性的尝试好了，再怎样也不会弄丢数据。至于 Git 内部究竟是如何保存和恢复数据的，我们会在第九章讨论 Git 内部原理时再作详述。</p>
 
-<p>如果你执行 <code>git checkout test</code>，Git 就会更新这个文件，看起来像这样：</p>
+<h3>文件的三种状态</h3>
 
-<pre><code>$ cat .git/HEAD
-ref: refs/heads/test</code></pre>
+<p>好，现在请注意，接下来要讲的概念非常重要。对于任何一个文件，在 Git 内都只有三种状态：已提交（committed），已修改（modified）和已暂存（staged）。已提交表示该文件已经被安全地保存在本地数据库中了；已修改表示修改了某个文件，但还没有提交保存；已暂存表示把已修改的文件放在下次提交时要保存的清单中。</p>
 
-<p>当你再执行 <code>git commit</code> 命令，它就创建了一个 commit 对象，把这个 commit 对象的父级设置为 HEAD 指向的引用的 SHA-1 值。</p>
+<p>由此我们看到 Git 管理项目时，文件流转的三个工作区域：Git 的工作目录，暂存区域，以及本地仓库。</p>
 
-<p>你也可以手动编辑这个文件，但是同样有一个更安全的方法可以这样做：<code>symbolic-ref</code>。你可以用下面这条命令读取 HEAD 的值：</p>
+<p><img src="../../book_src/figures/18333fig0106-tn.png"></br> 
+图 1-6. 工作目录，暂存区域，以及本地仓库</p>
 
-<pre><code>$ git symbolic-ref HEAD
-refs/heads/master</code></pre>
+<p>每个项目都有一个 Git 目录（译注：如果 <code>git clone</code> 出来的话，就是其中 <code>.git</code> 的目录；如果 <code>git clone --bare</code> 的话，新建的目录本身就是 Git 目录。），它是 Git 用来保存元数据和对象数据库的地方。该目录非常重要，每次克隆镜像仓库的时候，实际拷贝的就是这个目录里面的数据。</p>
 
-<p>你也可以设置 HEAD 的值：</p>
+<p>从项目中取出某个版本的所有文件和目录，用以开始后续工作的叫做工作目录。这些文件实际上都是从 Git 目录中的压缩对象数据库中提取出来的，接下来就可以在工作目录中对这些文件进行编辑。</p>
 
-<pre><code>$ git symbolic-ref HEAD refs/heads/test
-$ cat .git/HEAD
-ref: refs/heads/test</code></pre>
+<p>所谓的暂存区域只不过是个简单的文件，一般都放在 Git 目录中。有时候人们会把这个文件叫做索引文件，不过标准说法还是叫暂存区域。</p>
 
-<p>但是你不能设置成 refs 以外的形式：</p>
+<p>基本的 Git 工作流程如下：</p>
 
-<pre><code>$ git symbolic-ref HEAD test
-fatal: Refusing to point HEAD outside of refs/</code></pre>
+<ol><li>在工作目录中修改某些文件。</li><li>对修改后的文件进行快照，然后保存到暂存区域。</li><li>提交更新，将保存在暂存区域的文件快照永久转储到 Git 目录中。</li></ol>
 
-<h3>Tags</h3>
+<p>所以，我们可以从文件所处的位置来判断状态：如果是 Git 目录中保存着的特定版本文件，就属于已提交状态；如果作了修改并已放入暂存区域，就属于已暂存状态；如果自上次取出后，作了修改但还没有放到暂存区域，就是已修改状态。到第二章的时候，我们会进一步了解其中细节，并学会如何根据文件状态实施后续操作，以及怎样跳过暂存直接提交。</p>
 
-<p>你刚刚已经重温过了 Git 的三个主要对象类型，现在这是第四种。Tag 对象非常像一个 commit 对象——包含一个标签，一组数据，一个消息和一个指针。最主要的区别就是 Tag 对象指向一个 commit 而不是一个 tree。它就像是一个分支引用，但是不会变化——永远指向同一个 commit，仅仅是提供一个更加友好的名字。</p>
-
-<p>正如我们在第二章所讨论的，Tag 有两种类型：annotated 和 lightweight 。你可以类似下面这样的命令建立一个 lightweight tag：</p>
-
-<pre><code>$ git update-ref refs/tags/v1.0 cac0cab538b970a37ea1e769cbbde608743bc96d</code></pre>
-
-<p>这就是 lightweight tag 的全部 —— 一个永远不会发生变化的分支。 annotated tag 要更复杂一点。如果你创建一个 annotated tag，Git 会创建一个 tag 对象，然后写入一个指向指向它而不是直接指向 commit 的 reference。你可以这样创建一个 annotated tag（<code>-a</code> 参数表明这是一个 annotated tag）：</p>
-
-<pre><code>$ git tag -a v1.1 1a410efbd13591db07496601ebc7a059dd55cfe9 -m &#39;test tag&#39;</code></pre>
-
-<p>这是所创建对象的 SHA-1 值：</p>
-
-<pre><code>$ cat .git/refs/tags/v1.1
-9585191f37f7b0fb9444f35a9bf50de191beadc2</code></pre>
-
-<p>现在你可以运行 <code>cat-file</code> 命令检查这个 SHA-1 值：</p>
-
-<pre><code>$ git cat-file -p 9585191f37f7b0fb9444f35a9bf50de191beadc2
-object 1a410efbd13591db07496601ebc7a059dd55cfe9
-type commit
-tag v1.1
-tagger Scott Chacon &lt;schacon@gmail.com&gt; Sat May 23 16:48:58 2009 -0700
-
-test tag</code></pre>
-
-<p>值得注意的是这个对象指向你所标记的 commit 对象的 SHA-1 值。同时需要注意的是它并不是必须要指向一个 commit 对象；你可以标记任何 Git 对象。例如，在 Git 的源代码里，管理者添加了一个 GPG 公钥（这是一个 blob 对象）对它做了一个标签。你就可以运行：</p>
-
-<pre><code>$ git cat-file blob junio-gpg-pub</code></pre>
-
-<p>来查看 Git 源代码仓库中的公钥. Linux kernel 也有一个不是指向 commit 对象的 tag —— 第一个 tag 是在导入源代码的时候创建的，它指向初始 tree （initial tree，译者注）。</p>
-
-<h3>Remotes</h3>
-
-<p>你将会看到的第四种 reference 是 remote reference（远程引用，译者注）。如果你添加了一个 remote 然后推送代码过去，Git 会把你最后一次推送到这个 remote 的每个分支的值都记录在 <code>refs/remotes</code> 目录下。例如，你可以添加一个叫做 <code>origin</code> 的 remote 然后把你的 <code>master</code> 分支推送上去：</p>
-
-<pre><code>$ git remote add origin git@github.com:schacon/simplegit-progit.git
-$ git push origin master
-Counting objects: 11, done.
-Compressing objects: 100% (5/5), done.
-Writing objects: 100% (7/7), 716 bytes, done.
-Total 7 (delta 2), reused 4 (delta 1)
-To git@github.com:schacon/simplegit-progit.git
-   a11bef0..ca82a6d  master -&gt; master</code></pre>
-
-<p>然后查看 <code>refs/remotes/origin/master</code> 这个文件，你就会发现 <code>origin</code> remote 中的 <code>master</code> 分支就是你最后一次和服务器的通信。</p>
-
-<pre><code>$ cat .git/refs/remotes/origin/master
-ca82a6dff817ec66f44342007202690a93763949</code></pre>
-
-<p>Remote 应用和分支主要区别在于他们是不能被 check out 的。Git 把他们当作是标记这些了这些分支在服务器上最后状态的一种书签。</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 内部原理</li><li><a href="ch9_1.html">底层命令 (Plumbing) 和高层命令 (Porcelain)</a></li><li><a href="ch9_2.html">Git 对象</a></li><li><a href="ch9_3.html">Git References</a></li><li><a href="ch9_4.html">Packfiles</a></li><li><a href="ch9_5.html">The Refspec</a></li><li><a href="ch9_6.html">传输协议</a></li><li><a href="ch9_7.html">维护及数据恢复</a></li><li><a href="ch9_8.html">总结</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">起步</li><li><a href="ch9_1.html">关于版本控制</a></li><li><a href="ch9_2.html">Git 简史</a></li><li><a href="ch9_3.html">Git 基础</a></li><li><a href="ch9_4.html">安装 Git</a></li><li><a href="ch9_5.html">初次运行 Git 前的配置</a></li><li><a href="ch9_6.html">获取帮助</a></li><li><a href="ch9_7.html">小结</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

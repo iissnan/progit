@@ -1,37 +1,129 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git on the Server - Generating Your SSH Public Key</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Generating Your SSH Public Key</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Internals - Git References</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git References</h2>
 
-<p>That being said, many Git servers authenticate using SSH public keys. In order to provide a public key, each user in your system must generate one if they don’t already have one. This process is similar across all operating systems.
-First, you should check to make sure you don’t already have a key. By default, a user’s SSH keys are stored in that user’s <code>~/.ssh</code> directory. You can easily check to see if you have a key already by going to that directory and listing the contents:</p>
+<p>You can run something like <code>git log 1a410e</code> to look through your whole history, but you still have to remember that <code>1a410e</code> is the last commit in order to walk that history to find all those objects. You need a file in which you can store the SHA-1 value under a simple name so you can use that pointer rather than the raw SHA-1 value.</p>
 
-<pre><code>$ cd ~/.ssh
-$ ls
-authorized_keys2  id_dsa       known_hosts
-config            id_dsa.pub</code></pre>
+<p>In Git, these are called &quot;references&quot; or &quot;refs&quot;; you can find the files that contain the SHA-1 values in the <code>.git/refs</code> directory. In the current project, this directory contains no files, but it does contain a simple structure:</p>
 
-<p>You’re looking for a pair of files named something and something.pub, where the something is usually <code>id_dsa</code> or <code>id_rsa</code>. The <code>.pub</code> file is your public key, and the other file is your private key. If you don’t have these files (or you don’t even have a <code>.ssh</code> directory), you can create them by running a program called <code>ssh-keygen</code>, which is provided with the SSH package on Linux/Mac systems and comes with the MSysGit package on Windows:</p>
+<pre><code>$ find .git/refs
+.git/refs
+.git/refs/heads
+.git/refs/tags
+$ find .git/refs -type f
+$</code></pre>
 
-<pre><code>$ ssh-keygen
-Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/schacon/.ssh/id_rsa):
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in /Users/schacon/.ssh/id_rsa.
-Your public key has been saved in /Users/schacon/.ssh/id_rsa.pub.
-The key fingerprint is:
-43:c5:5b:5f:b1:f1:50:43:ad:20:a6:92:6a:1f:9a:3a schacon@agadorlaptop.local</code></pre>
+<p>To create a new reference that will help you remember where your latest commit is, you can technically do something as simple as this:</p>
 
-<p>First it confirms where you want to save the key (<code>.ssh/id_rsa</code>), and then it asks twice for a passphrase, which you can leave empty if you don’t want to type a password when you use the key.</p>
+<pre><code>$ echo &quot;1a410efbd13591db07496601ebc7a059dd55cfe9&quot; &gt; .git/refs/heads/master</code></pre>
 
-<p>Now, each user that does this has to send their public key to you or whoever is administrating the Git server (assuming you’re using an SSH server setup that requires public keys). All they have to do is copy the contents of the <code>.pub</code> file and e-mail it. The public keys look something like this:</p>
+<p>Now, you can use the head reference you just created instead of the SHA-1 value in your Git commands:</p>
 
-<pre><code>$ cat ~/.ssh/id_rsa.pub
-ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSU
-GPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3
-Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XA
-t3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/En
-mZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbx
-NrRFi9wrf+M7Q== schacon@agadorlaptop.local</code></pre>
+<pre><code>$ git log --pretty=oneline  master
+1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
+cac0cab538b970a37ea1e769cbbde608743bc96d second commit
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
 
-<p>For a more in-depth tutorial on creating an SSH key on multiple operating systems, see the GitHub guide on SSH keys at <code>http://github.com/guides/providing-your-ssh-key</code>.</p>
+<p>You aren’t encouraged to directly edit the reference files. Git provides a safer command to do this if you want to update a reference called <code>update-ref</code>:</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git on the Server</li><li><a href="ch4_1.html">The Protocols</a></li><li><a href="ch4_2.html">Getting Git on a Server</a></li><li><a href="ch4_3.html">Generating Your SSH Public Key</a></li><li><a href="ch4_4.html">Setting Up the Server</a></li><li><a href="ch4_5.html">Public Access</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git Daemon</a></li><li><a href="ch4_10.html">Hosted Git</a></li><li><a href="ch4_11.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<pre><code>$ git update-ref refs/heads/master 1a410efbd13591db07496601ebc7a059dd55cfe9</code></pre>
+
+<p>That’s basically what a branch in Git is: a simple pointer or reference to the head of a line of work. To create a branch back at the second commit, you can do this:</p>
+
+<pre><code>$ git update-ref refs/heads/test cac0ca</code></pre>
+
+<p>Your branch will contain only work from that commit down:</p>
+
+<pre><code>$ git log --pretty=oneline test
+cac0cab538b970a37ea1e769cbbde608743bc96d second commit
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+
+<p>Now, your Git database conceptually looks something like Figure 9-4.</p>
+
+<p><img src="../../book_src/figures/18333fig0904-tn.png"></br>
+Figure 9-4. Git directory objects with branch head references included.</p>
+
+<p>When you run commands like <code>git branch (branchname)</code>, Git basically runs that <code>update-ref</code> command to add the SHA-1 of the last commit of the branch you’re on into whatever new reference you want to create.</p>
+
+<h3>The HEAD</h3>
+
+<p>The question now is, when you run <code>git branch (branchname)</code>, how does Git know the SHA-1 of the last commit? The answer is the HEAD file. The HEAD file is a symbolic reference to the branch you’re currently on. By symbolic reference, I mean that unlike a normal reference, it doesn’t generally contain a SHA-1 value but rather a pointer to another reference. If you look at the file, you’ll normally see something like this:</p>
+
+<pre><code>$ cat .git/HEAD
+ref: refs/heads/master</code></pre>
+
+<p>If you run <code>git checkout test</code>, Git updates the file to look like this:</p>
+
+<pre><code>$ cat .git/HEAD
+ref: refs/heads/test</code></pre>
+
+<p>When you run <code>git commit</code>, it creates the commit object, specifying the parent of that commit object to be whatever SHA-1 value the reference in HEAD points to.</p>
+
+<p>You can also manually edit this file, but again a safer command exists to do so: <code>symbolic-ref</code>. You can read the value of your HEAD via this command:</p>
+
+<pre><code>$ git symbolic-ref HEAD
+refs/heads/master</code></pre>
+
+<p>You can also set the value of HEAD:</p>
+
+<pre><code>$ git symbolic-ref HEAD refs/heads/test
+$ cat .git/HEAD
+ref: refs/heads/test</code></pre>
+
+<p>You can’t set a symbolic reference outside of the refs style:</p>
+
+<pre><code>$ git symbolic-ref HEAD test
+fatal: Refusing to point HEAD outside of refs/</code></pre>
+
+<h3>Tags</h3>
+
+<p>You’ve just gone over Git’s three main object types, but there is a fourth. The tag object is very much like a commit object — it contains a tagger, a date, a message, and a pointer. The main difference is that a tag object points to a commit rather than a tree. It’s like a branch reference, but it never moves — it always points to the same commit but gives it a friendlier name.</p>
+
+<p>As discussed in Chapter 2, there are two types of tags: annotated and lightweight. You can make a lightweight tag by running something like this:</p>
+
+<pre><code>$ git update-ref refs/tags/v1.0 cac0cab538b970a37ea1e769cbbde608743bc96d</code></pre>
+
+<p>That is all a lightweight tag is — a branch that never moves. An annotated tag is more complex, however. If you create an annotated tag, Git creates a tag object and then writes a reference to point to it rather than directly to the commit. You can see this by creating an annotated tag (<code>-a</code> specifies that it’s an annotated tag):</p>
+
+<pre><code>$ git tag -a v1.1 1a410efbd13591db07496601ebc7a059dd55cfe9 -m &#39;test tag&#39;</code></pre>
+
+<p>Here’s the object SHA-1 value it created:</p>
+
+<pre><code>$ cat .git/refs/tags/v1.1
+9585191f37f7b0fb9444f35a9bf50de191beadc2</code></pre>
+
+<p>Now, run the <code>cat-file</code> command on that SHA-1 value:</p>
+
+<pre><code>$ git cat-file -p 9585191f37f7b0fb9444f35a9bf50de191beadc2
+object 1a410efbd13591db07496601ebc7a059dd55cfe9
+type commit
+tag v1.1
+tagger Scott Chacon &lt;schacon@gmail.com&gt; Sat May 23 16:48:58 2009 -0700
+
+test tag</code></pre>
+
+<p>Notice that the object entry points to the commit SHA-1 value that you tagged. Also notice that it doesn’t need to point to a commit; you can tag any Git object. In the Git source code, for example, the maintainer has added their GPG public key as a blob object and then tagged it. You can view the public key by running</p>
+
+<pre><code>$ git cat-file blob junio-gpg-pub</code></pre>
+
+<p>in the Git source code repository. The Linux kernel repository also has a non-commit-pointing tag object — the first tag created points to the initial tree of the import of the source code.</p>
+
+<h3>Remotes</h3>
+
+<p>The third type of reference that you’ll see is a remote reference. If you add a remote and push to it, Git stores the value you last pushed to that remote for each branch in the <code>refs/remotes</code> directory. For instance, you can add a remote called <code>origin</code> and push your <code>master</code> branch to it:</p>
+
+<pre><code>$ git remote add origin git@github.com:schacon/simplegit-progit.git
+$ git push origin master
+Counting objects: 11, done.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (7/7), 716 bytes, done.
+Total 7 (delta 2), reused 4 (delta 1)
+To git@github.com:schacon/simplegit-progit.git
+   a11bef0..ca82a6d  master -&gt; master</code></pre>
+
+<p>Then, you can see what the <code>master</code> branch on the <code>origin</code> remote was the last time you communicated with the server, by checking the <code>refs/remotes/origin/master</code> file:</p>
+
+<pre><code>$ cat .git/refs/remotes/origin/master
+ca82a6dff817ec66f44342007202690a93763949</code></pre>
+
+<p>Remote references differ from branches (<code>refs/heads</code> references) mainly in that they can’t be checked out. Git moves them around as bookmarks to the last known state of where those branches were on those servers.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Internals</li><li><a href="ch4_1.html">Plumbing and Porcelain</a></li><li><a href="ch4_2.html">Git Objects</a></li><li><a href="ch4_3.html">Git References</a></li><li><a href="ch4_4.html">Packfiles</a></li><li><a href="ch4_5.html">The Refspec</a></li><li><a href="ch4_6.html">Transfer Protocols</a></li><li><a href="ch4_7.html">Maintenance and Data Recovery</a></li><li><a href="ch4_8.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

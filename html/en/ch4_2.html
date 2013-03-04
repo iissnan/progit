@@ -1,55 +1,256 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git on the Server - Getting Git on a Server</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Getting Git on a Server</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Internals - Git Objects</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git Objects</h2>
 
-<p>In order to initially set up any Git server, you have to export an existing repository into a new bare repository — a repository that doesn’t contain a working directory. This is generally straightforward to do.
-In order to clone your repository to create a new bare repository, you run the clone command with the <code>--bare</code> option. By convention, bare repository directories end in <code>.git</code>, like so:</p>
+<p>Git is a content-addressable filesystem. Great. What does that mean?
+It means that at the core of Git is a simple key-value data store. You can insert any kind of content into it, and it will give you back a key that you can use to retrieve the content again at any time. To demonstrate, you can use the plumbing command <code>hash-object</code>, which takes some data, stores it in your <code>.git</code> directory, and gives you back the key the data is stored as. First, you initialize a new Git repository and verify that there is nothing in the <code>objects</code> directory:</p>
 
-<pre><code>$ git clone --bare my_project my_project.git
-Initialized empty Git repository in /opt/projects/my_project.git/</code></pre>
+<pre><code>$ mkdir test
+$ cd test
+$ git init
+Initialized empty Git repository in /tmp/test/.git/
+$ find .git/objects
+.git/objects
+.git/objects/info
+.git/objects/pack
+$ find .git/objects -type f
+$</code></pre>
 
-<p>The output for this command is a little confusing. Since <code>clone</code> is basically a <code>git init</code> then a <code>git fetch</code>, we see some output from the <code>git init</code> part, which creates an empty directory. The actual object transfer gives no output, but it does happen. You should now have a copy of the Git directory data in your <code>my_project.git</code> directory.</p>
+<p>Git has initialized the <code>objects</code> directory and created <code>pack</code> and <code>info</code> subdirectories in it, but there are no regular files. Now, store some text in your Git database:</p>
 
-<p>This is roughly equivalent to something like</p>
+<pre><code>$ echo &#39;test content&#39; | git hash-object -w --stdin
+d670460b4b4aece5915caf5c68d12f560a9fe3e4</code></pre>
 
-<pre><code>$ cp -Rf my_project/.git my_project.git</code></pre>
+<p>The <code>-w</code> tells <code>hash-object</code> to store the object; otherwise, the command simply tells you what the key would be. <code>--stdin</code> tells the command to read the content from stdin; if you don’t specify this, <code>hash-object</code> expects the path to a file. The output from the command is a 40-character checksum hash. This is the SHA-1 hash — a checksum of the content you’re storing plus a header, which you’ll learn about in a bit. Now you can see how Git has stored your data:</p>
 
-<p>There are a couple of minor differences in the configuration file; but for your purpose, this is close to the same thing. It takes the Git repository by itself, without a working directory, and creates a directory specifically for it alone.</p>
+<pre><code>$ find .git/objects -type f
+.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4</code></pre>
 
-<h3>Putting the Bare Repository on a Server</h3>
+<p>You can see a file in the <code>objects</code> directory. This is how Git stores the content initially — as a single file per piece of content, named with the SHA-1 checksum of the content and its header. The subdirectory is named with the first 2 characters of the SHA, and the filename is the remaining 38 characters.</p>
 
-<p>Now that you have a bare copy of your repository, all you need to do is put it on a server and set up your protocols. Let’s say you’ve set up a server called <code>git.example.com</code> that you have SSH access to, and you want to store all your Git repositories under the <code>/opt/git</code> directory. You can set up your new repository by copying your bare repository over:</p>
+<p>You can pull the content back out of Git with the <code>cat-file</code> command. This command is sort of a Swiss army knife for inspecting Git objects. Passing <code>-p</code> to it instructs the <code>cat-file</code> command to figure out the type of content and display it nicely for you:</p>
 
-<pre><code>$ scp -r my_project.git user@git.example.com:/opt/git</code></pre>
+<pre><code>$ git cat-file -p d670460b4b4aece5915caf5c68d12f560a9fe3e4
+test content</code></pre>
 
-<p>At this point, other users who have SSH access to the same server which has read-access to the <code>/opt/git</code> directory can clone your repository by running</p>
+<p>Now, you can add content to Git and pull it back out again. You can also do this with content in files. For example, you can do some simple version control on a file. First, create a new file and save its contents in your database:</p>
 
-<pre><code>$ git clone user@git.example.com:/opt/git/my_project.git</code></pre>
+<pre><code>$ echo &#39;version 1&#39; &gt; test.txt
+$ git hash-object -w test.txt
+83baae61804e65cc73a7201a7252750c76066a30</code></pre>
 
-<p>If a user SSHs into a server and has write access to the <code>/opt/git/my_project.git</code> directory, they will also automatically have push access.  Git will automatically add group write permissions to a repository properly if you run the <code>git init</code> command with the <code>--shared</code> option.</p>
+<p>Then, write some new content to the file, and save it again:</p>
 
-<pre><code>$ ssh user@git.example.com
-$ cd /opt/git/my_project.git
-$ git init --bare --shared</code></pre>
+<pre><code>$ echo &#39;version 2&#39; &gt; test.txt
+$ git hash-object -w test.txt
+1f7a7a472abf3dd9643fd615f6da379c4acb3e3a</code></pre>
 
-<p>You see how easy it is to take a Git repository, create a bare version, and place it on a server to which you and your collaborators have SSH access. Now you’re ready to collaborate on the same project.</p>
+<p>Your database contains the two new versions of the file as well as the first content you stored there:</p>
 
-<p>It’s important to note that this is literally all you need to do to run a useful Git server to which several people have access — just add SSH-able accounts on a server, and stick a bare repository somewhere that all those users have read and write access to. You’re ready to go — nothing else needed.</p>
+<pre><code>$ find .git/objects -type f
+.git/objects/1f/7a7a472abf3dd9643fd615f6da379c4acb3e3a
+.git/objects/83/baae61804e65cc73a7201a7252750c76066a30
+.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4</code></pre>
 
-<p>In the next few sections, you’ll see how to expand to more sophisticated setups. This discussion will include not having to create user accounts for each user, adding public read access to repositories, setting up web UIs, using the Gitosis tool, and more. However, keep in mind that to collaborate with a couple of people on a private project, all you <em>need</em> is an SSH server and a bare repository.</p>
+<p>Now you can revert the file back to the first version</p>
 
-<h3>Small Setups</h3>
+<pre><code>$ git cat-file -p 83baae61804e65cc73a7201a7252750c76066a30 &gt; test.txt
+$ cat test.txt
+version 1</code></pre>
 
-<p>If you’re a small outfit or are just trying out Git in your organization and have only a few developers, things can be simple for you. One of the most complicated aspects of setting up a Git server is user management. If you want some repositories to be read-only to certain users and read/write to others, access and permissions can be a bit difficult to arrange.</p>
+<p>or the second version:</p>
 
-<h4>SSH Access</h4>
+<pre><code>$ git cat-file -p 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a &gt; test.txt
+$ cat test.txt
+version 2</code></pre>
 
-<p>If you already have a server to which all your developers have SSH access, it’s generally easiest to set up your first repository there, because you have to do almost no work (as we covered in the last section). If you want more complex access control type permissions on your repositories, you can handle them with the normal filesystem permissions of the operating system your server runs.</p>
+<p>But remembering the SHA-1 key for each version of your file isn’t practical; plus, you aren’t storing the filename in your system — just the content. This object type is called a blob. You can have Git tell you the object type of any object in Git, given its SHA-1 key, with <code>cat-file -t</code>:</p>
 
-<p>If you want to place your repositories on a server that doesn’t have accounts for everyone on your team whom you want to have write access, then you must set up SSH access for them. We assume that if you have a server with which to do this, you already have an SSH server installed, and that’s how you’re accessing the server.</p>
+<pre><code>$ git cat-file -t 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a
+blob</code></pre>
 
-<p>There are a few ways you can give access to everyone on your team. The first is to set up accounts for everybody, which is straightforward but can be cumbersome. You may not want to run <code>adduser</code> and set temporary passwords for every user.</p>
+<h3>Tree Objects</h3>
 
-<p>A second method is to create a single &#39;git&#39; user on the machine, ask every user who is to have write access to send you an SSH public key, and add that key to the <code>~/.ssh/authorized_keys</code> file of your new &#39;git&#39; user. At that point, everyone will be able to access that machine via the &#39;git&#39; user. This doesn’t affect the commit data in any way — the SSH user you connect as doesn’t affect the commits you’ve recorded.</p>
+<p>The next type you’ll look at is the tree object, which solves the problem of storing the filename and also allows you to store a group of files together. Git stores content in a manner similar to a UNIX filesystem, but a bit simplified. All the content is stored as tree and blob objects, with trees corresponding to UNIX directory entries and blobs corresponding more or less to inodes or file contents. A single tree object contains one or more tree entries, each of which contains a SHA-1 pointer to a blob or subtree with its associated mode, type, and filename. For example, the most recent tree in the simplegit project may look something like this:</p>
 
-<p>Another way to do it is to have your SSH server authenticate from an LDAP server or some other centralized authentication source that you may already have set up. As long as each user can get shell access on the machine, any SSH authentication mechanism you can think of should work.</p>
+<pre><code>$ git cat-file -p master^{tree}
+100644 blob a906cb2a4a904a152e80877d4088654daad0c859      README
+100644 blob 8f94139338f9404f26296befa88755fc2598c289      Rakefile
+040000 tree 99f1a6d12cb4b6f19c8655fca46c3ecf317074e0      lib</code></pre>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git on the Server</li><li><a href="ch4_1.html">The Protocols</a></li><li><a href="ch4_2.html">Getting Git on a Server</a></li><li><a href="ch4_3.html">Generating Your SSH Public Key</a></li><li><a href="ch4_4.html">Setting Up the Server</a></li><li><a href="ch4_5.html">Public Access</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git Daemon</a></li><li><a href="ch4_10.html">Hosted Git</a></li><li><a href="ch4_11.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<p>The <code>master^{tree}</code> syntax specifies the tree object that is pointed to by the last commit on your <code>master</code> branch. Notice that the <code>lib</code> subdirectory isn’t a blob but a pointer to another tree:</p>
+
+<pre><code>$ git cat-file -p 99f1a6d12cb4b6f19c8655fca46c3ecf317074e0
+100644 blob 47c6340d6459e05787f644c2447d2595f5d3a54b      simplegit.rb</code></pre>
+
+<p>Conceptually, the data that Git is storing is something like Figure 9-1.</p>
+
+<p><img src="../../book_src/figures/18333fig0901-tn.png"></br>
+Figure 9-1. Simple version of the Git data model.</p>
+
+<p>You can create your own tree. Git normally creates a tree by taking the state of your staging area or index and writing a tree object from it. So, to create a tree object, you first have to set up an index by staging some files. To create an index with a single entry — the first version of your test.txt file — you can use the plumbing command <code>update-index</code>. You use this command to artificially add the earlier version of the test.txt file to a new staging area. You must pass it the <code>--add</code> option because the file doesn’t yet exist in your staging area (you don’t even have a staging area set up yet) and <code>--cacheinfo</code> because the file you’re adding isn’t in your directory but is in your database. Then, you specify the mode, SHA-1, and filename:</p>
+
+<pre><code>$ git update-index --add --cacheinfo 100644 \
+  83baae61804e65cc73a7201a7252750c76066a30 test.txt</code></pre>
+
+<p>In this case, you’re specifying a mode of <code>100644</code>, which means it’s a normal file. Other options are <code>100755</code>, which means it’s an executable file; and <code>120000</code>, which specifies a symbolic link. The mode is taken from normal UNIX modes but is much less flexible — these three modes are the only ones that are valid for files (blobs) in Git (although other modes are used for directories and submodules).</p>
+
+<p>Now, you can use the <code>write-tree</code> command to write the staging area out to a tree object. No <code>-w</code> option is needed — calling <code>write-tree</code> automatically creates a tree object from the state of the index if that tree doesn’t yet exist:</p>
+
+<pre><code>$ git write-tree
+d8329fc1cc938780ffdd9f94e0d364e0ea74f579
+$ git cat-file -p d8329fc1cc938780ffdd9f94e0d364e0ea74f579
+100644 blob 83baae61804e65cc73a7201a7252750c76066a30      test.txt</code></pre>
+
+<p>You can also verify that this is a tree object:</p>
+
+<pre><code>$ git cat-file -t d8329fc1cc938780ffdd9f94e0d364e0ea74f579
+tree</code></pre>
+
+<p>You’ll now create a new tree with the second version of test.txt and a new file as well:</p>
+
+<pre><code>$ echo &#39;new file&#39; &gt; new.txt
+$ git update-index test.txt
+$ git update-index --add new.txt</code></pre>
+
+<p>Your staging area now has the new version of test.txt as well as the new file new.txt. Write out that tree (recording the state of the staging area or index to a tree object) and see what it looks like:</p>
+
+<pre><code>$ git write-tree
+0155eb4229851634a0f03eb265b69f5a2d56f341
+$ git cat-file -p 0155eb4229851634a0f03eb265b69f5a2d56f341
+100644 blob fa49b077972391ad58037050f2a75f74e3671e92      new.txt
+100644 blob 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a      test.txt</code></pre>
+
+<p>Notice that this tree has both file entries and also that the test.txt SHA is the &quot;version 2&quot; SHA from earlier (<code>1f7a7a</code>). Just for fun, you’ll add the first tree as a subdirectory into this one. You can read trees into your staging area by calling <code>read-tree</code>. In this case, you can read an existing tree into your staging area as a subtree by using the <code>--prefix</code> option to <code>read-tree</code>:</p>
+
+<pre><code>$ git read-tree --prefix=bak d8329fc1cc938780ffdd9f94e0d364e0ea74f579
+$ git write-tree
+3c4e9cd789d88d8d89c1073707c3585e41b0e614
+$ git cat-file -p 3c4e9cd789d88d8d89c1073707c3585e41b0e614
+040000 tree d8329fc1cc938780ffdd9f94e0d364e0ea74f579      bak
+100644 blob fa49b077972391ad58037050f2a75f74e3671e92      new.txt
+100644 blob 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a      test.txt</code></pre>
+
+<p>If you created a working directory from the new tree you just wrote, you would get the two files in the top level of the working directory and a subdirectory named <code>bak</code> that contained the first version of the test.txt file. You can think of the data that Git contains for these structures as being like Figure 9-2.</p>
+
+<p><img src="../../book_src/figures/18333fig0902-tn.png"></br>
+Figure 9-2. The content structure of your current Git data.</p>
+
+<h3>Commit Objects</h3>
+
+<p>You have three trees that specify the different snapshots of your project that you want to track, but the earlier problem remains: you must remember all three SHA-1 values in order to recall the snapshots. You also don’t have any information about who saved the snapshots, when they were saved, or why they were saved. This is the basic information that the commit object stores for you.</p>
+
+<p>To create a commit object, you call <code>commit-tree</code> and specify a single tree SHA-1 and which commit objects, if any, directly preceded it. Start with the first tree you wrote:</p>
+
+<pre><code>$ echo &#39;first commit&#39; | git commit-tree d8329f
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d</code></pre>
+
+<p>Now you can look at your new commit object with <code>cat-file</code>:</p>
+
+<pre><code>$ git cat-file -p fdf4fc3
+tree d8329fc1cc938780ffdd9f94e0d364e0ea74f579
+author Scott Chacon &lt;schacon@gmail.com&gt; 1243040974 -0700
+committer Scott Chacon &lt;schacon@gmail.com&gt; 1243040974 -0700
+
+first commit</code></pre>
+
+<p>The format for a commit object is simple: it specifies the top-level tree for the snapshot of the project at that point; the author/committer information pulled from your <code>user.name</code> and <code>user.email</code> configuration settings, with the current timestamp; a blank line, and then the commit message.</p>
+
+<p>Next, you’ll write the other two commit objects, each referencing the commit that came directly before it:</p>
+
+<pre><code>$ echo &#39;second commit&#39; | git commit-tree 0155eb -p fdf4fc3
+cac0cab538b970a37ea1e769cbbde608743bc96d
+$ echo &#39;third commit&#39;  | git commit-tree 3c4e9c -p cac0cab
+1a410efbd13591db07496601ebc7a059dd55cfe9</code></pre>
+
+<p>Each of the three commit objects points to one of the three snapshot trees you created. Oddly enough, you have a real Git history now that you can view with the <code>git log</code> command, if you run it on the last commit SHA-1:</p>
+
+<pre><code>$ git log --stat 1a410e
+commit 1a410efbd13591db07496601ebc7a059dd55cfe9
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri May 22 18:15:24 2009 -0700
+
+    third commit
+
+ bak/test.txt |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit cac0cab538b970a37ea1e769cbbde608743bc96d
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri May 22 18:14:29 2009 -0700
+
+    second commit
+
+ new.txt  |    1 +
+ test.txt |    2 +-
+ 2 files changed, 2 insertions(+), 1 deletions(-)
+
+commit fdf4fc3344e67ab068f836878b6c4951e3b15f3d
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri May 22 18:09:34 2009 -0700
+
+    first commit
+
+ test.txt |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+
+<p>Amazing. You’ve just done the low-level operations to build up a Git history without using any of the front ends. This is essentially what Git does when you run the <code>git add</code> and <code>git commit</code> commands — it stores blobs for the files that have changed, updates the index, writes out trees, and writes commit objects that reference the top-level trees and the commits that came immediately before them. These three main Git objects — the blob, the tree, and the commit — are initially stored as separate files in your <code>.git/objects</code> directory. Here are all the objects in the example directory now, commented with what they store:</p>
+
+<pre><code>$ find .git/objects -type f
+.git/objects/01/55eb4229851634a0f03eb265b69f5a2d56f341 # tree 2
+.git/objects/1a/410efbd13591db07496601ebc7a059dd55cfe9 # commit 3
+.git/objects/1f/7a7a472abf3dd9643fd615f6da379c4acb3e3a # test.txt v2
+.git/objects/3c/4e9cd789d88d8d89c1073707c3585e41b0e614 # tree 3
+.git/objects/83/baae61804e65cc73a7201a7252750c76066a30 # test.txt v1
+.git/objects/ca/c0cab538b970a37ea1e769cbbde608743bc96d # commit 2
+.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4 # &#39;test content&#39;
+.git/objects/d8/329fc1cc938780ffdd9f94e0d364e0ea74f579 # tree 1
+.git/objects/fa/49b077972391ad58037050f2a75f74e3671e92 # new.txt
+.git/objects/fd/f4fc3344e67ab068f836878b6c4951e3b15f3d # commit 1</code></pre>
+
+<p>If you follow all the internal pointers, you get an object graph something like Figure 9-3.</p>
+
+<p><img src="../../book_src/figures/18333fig0903-tn.png"></br>
+Figure 9-3. All the objects in your Git directory.</p>
+
+<h3>Object Storage</h3>
+
+<p>I mentioned earlier that a header is stored with the content. Let’s take a minute to look at how Git stores its objects. You’ll see how to store a blob object — in this case, the string &quot;what is up, doc?&quot; — interactively in the Ruby scripting language. You can start up interactive Ruby mode with the <code>irb</code> command:</p>
+
+<pre><code>$ irb
+&gt;&gt; content = &quot;what is up, doc?&quot;
+=&gt; &quot;what is up, doc?&quot;</code></pre>
+
+<p>Git constructs a header that starts with the type of the object, in this case a blob. Then, it adds a space followed by the size of the content and finally a null byte:</p>
+
+<pre><code>&gt;&gt; header = &quot;blob #{content.length}\0&quot;
+=&gt; &quot;blob 16\000&quot;</code></pre>
+
+<p>Git concatenates the header and the original content and then calculates the SHA-1 checksum of that new content. You can calculate the SHA-1 value of a string in Ruby by including the SHA1 digest library with the <code>require</code> command and then calling <code>Digest::SHA1.hexdigest()</code> with the string:</p>
+
+<pre><code>&gt;&gt; store = header + content
+=&gt; &quot;blob 16\000what is up, doc?&quot;
+&gt;&gt; require &#39;digest/sha1&#39;
+=&gt; true
+&gt;&gt; sha1 = Digest::SHA1.hexdigest(store)
+=&gt; &quot;bd9dbf5aae1a3862dd1526723246b20206e5fc37&quot;</code></pre>
+
+<p>Git compresses the new content with zlib, which you can do in Ruby with the zlib library. First, you need to require the library and then run <code>Zlib::Deflate.deflate()</code> on the content:</p>
+
+<pre><code>&gt;&gt; require &#39;zlib&#39;
+=&gt; true
+&gt;&gt; zlib_content = Zlib::Deflate.deflate(store)
+=&gt; &quot;x\234K\312\311OR04c(\317H,Q\310,V(-\320QH\311O\266\a\000_\034\a\235&quot;</code></pre>
+
+<p>Finally, you’ll write your zlib-deflated content to an object on disk. You’ll determine the path of the object you want to write out (the first two characters of the SHA-1 value being the subdirectory name, and the last 38 characters being the filename within that directory). In Ruby, you can use the <code>FileUtils.mkdir_p()</code> function to create the subdirectory if it doesn’t exist. Then, open the file with <code>File.open()</code> and write out the previously zlib-compressed content to the file with a <code>write()</code> call on the resulting file handle:</p>
+
+<pre><code>&gt;&gt; path = &#39;.git/objects/&#39; + sha1[0,2] + &#39;/&#39; + sha1[2,38]
+=&gt; &quot;.git/objects/bd/9dbf5aae1a3862dd1526723246b20206e5fc37&quot;
+&gt;&gt; require &#39;fileutils&#39;
+=&gt; true
+&gt;&gt; FileUtils.mkdir_p(File.dirname(path))
+=&gt; &quot;.git/objects/bd&quot;
+&gt;&gt; File.open(path, &#39;w&#39;) { |f| f.write zlib_content }
+=&gt; 32</code></pre>
+
+<p>That’s it — you’ve created a valid Git blob object. All Git objects are stored the same way, just with different types — instead of the string blob, the header will begin with commit or tree. Also, although the blob content can be nearly anything, the commit and tree content are very specifically formatted.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Internals</li><li><a href="ch4_1.html">Plumbing and Porcelain</a></li><li><a href="ch4_2.html">Git Objects</a></li><li><a href="ch4_3.html">Git References</a></li><li><a href="ch4_4.html">Packfiles</a></li><li><a href="ch4_5.html">The Refspec</a></li><li><a href="ch4_6.html">Transfer Protocols</a></li><li><a href="ch4_7.html">Maintenance and Data Recovery</a></li><li><a href="ch4_8.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

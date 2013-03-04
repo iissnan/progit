@@ -1,40 +1,59 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Branching - Branch Management</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Branch Management</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Customizing Git - Git Hooks</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git Hooks</h2>
 
-<p>Now that you’ve created, merged, and deleted some branches, let’s look at some branch-management tools that will come in handy when you begin using branches all the time.</p>
+<p>Like many other Version Control Systems, Git has a way to fire off custom scripts when certain important actions occur. There are two groups of these hooks: client side and server side. The client-side hooks are for client operations such as committing and merging. The server-side hooks are for Git server operations such as receiving pushed commits. You can use these hooks for all sorts of reasons, and you’ll learn about a few of them here.</p>
 
-<p>The <code>git branch</code> command does more than just create and delete branches. If you run it with no arguments, you get a simple listing of your current branches:</p>
+<h3>Installing a Hook</h3>
 
-<pre><code>$ git branch
-  iss53
-* master
-  testing</code></pre>
+<p>The hooks are all stored in the <code>hooks</code> subdirectory of the Git directory. In most projects, that’s <code>.git/hooks</code>. By default, Git populates this directory with a bunch of example scripts, many of which are useful by themselves; but they also document the input values of each script. All the examples are written as shell scripts, with some Perl thrown in, but any properly named executable scripts will work fine — you can write them in Ruby or Python or what have you. For post-1.6 versions of Git, these example hook files end with .sample; you’ll need to rename them. For pre-1.6 versions of Git, the example files are named properly but are not executable.</p>
 
-<p>Notice the <code>*</code> character that prefixes the <code>master</code> branch: it indicates the branch that you currently have checked out. This means that if you commit at this point, the <code>master</code> branch will be moved forward with your new work. To see the last commit on each branch, you can run <code>git branch -v</code>:</p>
+<p>To enable a hook script, put a file in the <code>hooks</code> subdirectory of your Git directory that is named appropriately and is executable. From that point forward, it should be called. I’ll cover most of the major hook filenames here.</p>
 
-<pre><code>$ git branch -v
-  iss53   93b412c fix javascript issue
-* master  7a98805 Merge branch &#39;iss53&#39;
-  testing 782fd34 add scott to the author list in the readmes</code></pre>
+<h3>Client-Side Hooks</h3>
 
-<p>Another useful option to figure out what state your branches are in is to filter this list to branches that you have or have not yet merged into the branch you’re currently on. The useful <code>--merged</code> and <code>--no-merged</code> options have been available in Git since version 1.5.6 for this purpose. To see which branches are already merged into the branch you’re on, you can run <code>git branch --merged</code>:</p>
+<p>There are a lot of client-side hooks. This section splits them into committing-workflow hooks, e-mail-workflow scripts, and the rest of the client-side scripts.</p>
 
-<pre><code>$ git branch --merged
-  iss53
-* master</code></pre>
+<h4>Committing-Workflow Hooks</h4>
 
-<p>Because you already merged in <code>iss53</code> earlier, you see it in your list. Branches on this list without the <code>*</code> in front of them are generally fine to delete with <code>git branch -d</code>; you’ve already incorporated their work into another branch, so you’re not going to lose anything.</p>
+<p>The first four hooks have to do with the committing process. The <code>pre-commit</code> hook is run first, before you even type in a commit message. It’s used to inspect the snapshot that’s about to be committed, to see if you’ve forgotten something, to make sure tests run, or to examine whatever you need to inspect in the code. Exiting non-zero from this hook aborts the commit, although you can bypass it with <code>git commit --no-verify</code>. You can do things like check for code style (run lint or something equivalent), check for trailing whitespace (the default hook does exactly that), or check for appropriate documentation on new methods.</p>
 
-<p>To see all the branches that contain work you haven’t yet merged in, you can run <code>git branch --no-merged</code>:</p>
+<p>The <code>prepare-commit-msg</code> hook is run before the commit message editor is fired up but after the default message is created. It lets you edit the default message before the commit author sees it. This hook takes a few options: the path to the file that holds the commit message so far, the type of commit, and the commit SHA-1 if this is an amended commit. This hook generally isn’t useful for normal commits; rather, it’s good for commits where the default message is auto-generated, such as templated commit messages, merge commits, squashed commits, and amended commits. You may use it in conjunction with a commit template to programmatically insert information.</p>
 
-<pre><code>$ git branch --no-merged
-  testing</code></pre>
+<p>The <code>commit-msg</code> hook takes one parameter, which again is the path to a temporary file that contains the current commit message. If this script exits non-zero, Git aborts the commit process, so you can use it to validate your project state or commit message before allowing a commit to go through. In the last section of this chapter, I’ll demonstrate using this hook to check that your commit message is conformant to a required pattern.</p>
 
-<p>This shows your other branch. Because it contains work that isn’t merged in yet, trying to delete it with <code>git branch -d</code> will fail:</p>
+<p>After the entire commit process is completed, the <code>post-commit</code> hook runs. It doesn’t take any parameters, but you can easily get the last commit by running <code>git log -1 HEAD</code>. Generally, this script is used for notification or something similar.</p>
 
-<pre><code>$ git branch -d testing
-error: The branch &#39;testing&#39; is not an ancestor of your current HEAD.
-If you are sure you want to delete it, run &#39;git branch -D testing&#39;.</code></pre>
+<p>The committing-workflow client-side scripts can be used in just about any workflow. They’re often used to enforce certain policies, although it’s important to note that these scripts aren’t transferred during a clone. You can enforce policy on the server side to reject pushes of commits that don’t conform to some policy, but it’s entirely up to the developer to use these scripts on the client side. So, these are scripts to help developers, and they must be set up and maintained by them, although they can be overridden or modified by them at any time.</p>
 
-<p>If you really do want to delete the branch and lose that work, you can force it with <code>-D</code>, as the helpful message points out.</p>
+<h4>E-mail Workflow Hooks</h4>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Branching</li><li><a href="ch3_1.html">What a Branch Is</a></li><li><a href="ch3_2.html">Basic Branching and Merging</a></li><li><a href="ch3_3.html">Branch Management</a></li><li><a href="ch3_4.html">Branching Workflows</a></li><li><a href="ch3_5.html">Remote Branches</a></li><li><a href="ch3_6.html">Rebasing</a></li><li><a href="ch3_7.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<p>You can set up three client-side hooks for an e-mail-based workflow. They’re all invoked by the <code>git am</code> command, so if you aren’t using that command in your workflow, you can safely skip to the next section. If you’re taking patches over e-mail prepared by <code>git format-patch</code>, then some of these may be helpful to you.</p>
+
+<p>The first hook that is run is <code>applypatch-msg</code>. It takes a single argument: the name of the temporary file that contains the proposed commit message. Git aborts the patch if this script exits non-zero. You can use this to make sure a commit message is properly formatted or to normalize the message by having the script edit it in place.</p>
+
+<p>The next hook to run when applying patches via <code>git am</code> is <code>pre-applypatch</code>. It takes no arguments and is run after the patch is applied, so you can use it to inspect the snapshot before making the commit. You can run tests or otherwise inspect the working tree with this script. If something is missing or the tests don’t pass, exiting non-zero also aborts the <code>git am</code> script without committing the patch.</p>
+
+<p>The last hook to run during a <code>git am</code> operation is <code>post-applypatch</code>. You can use it to notify a group or the author of the patch you pulled in that you’ve done so. You can’t stop the patching process with this script.</p>
+
+<h4>Other Client Hooks</h4>
+
+<p>The <code>pre-rebase</code> hook runs before you rebase anything and can halt the process by exiting non-zero. You can use this hook to disallow rebasing any commits that have already been pushed. The example <code>pre-rebase</code> hook that Git installs does this, although it assumes that next is the name of the branch you publish. You’ll likely need to change that to whatever your stable, published branch is.</p>
+
+<p>After you run a successful <code>git checkout</code>, the <code>post-checkout</code> hook runs; you can use it to set up your working directory properly for your project environment. This may mean moving in large binary files that you don’t want source controlled, auto-generating documentation, or something along those lines.</p>
+
+<p>Finally, the <code>post-merge</code> hook runs after a successful <code>merge</code> command. You can use it to restore data in the working tree that Git can’t track, such as permissions data. This hook can likewise validate the presence of files external to Git control that you may want copied in when the working tree changes.</p>
+
+<h3>Server-Side Hooks</h3>
+
+<p>In addition to the client-side hooks, you can use a couple of important server-side hooks as a system administrator to enforce nearly any kind of policy for your project. These scripts run before and after pushes to the server. The pre hooks can exit non-zero at any time to reject the push as well as print an error message back to the client; you can set up a push policy that’s as complex as you wish.</p>
+
+<h4>pre-receive and post-receive</h4>
+
+<p>The first script to run when handling a push from a client is <code>pre-receive</code>. It takes a list of references that are being pushed from stdin; if it exits non-zero, none of them are accepted. You can use this hook to do things like make sure none of the updated references are non-fast-forwards; or to check that the user doing the pushing has create, delete, or push access or access to push updates to all the files they’re modifying with the push.</p>
+
+<p>The <code>post-receive</code> hook runs after the entire process is completed and can be used to update other services or notify users. It takes the same stdin data as the <code>pre-receive</code> hook. Examples include e-mailing a list, notifying a continuous integration server, or updating a ticket-tracking system — you can even parse the commit messages to see if any tickets need to be opened, modified, or closed. This script can’t stop the push process, but the client doesn’t disconnect until it has completed; so, be careful when you try to do anything that may take a long time.</p>
+
+<h4>update</h4>
+
+<p>The update script is very similar to the <code>pre-receive</code> script, except that it’s run once for each branch the pusher is trying to update. If the pusher is trying to push to multiple branches, <code>pre-receive</code> runs only once, whereas update runs once per branch they’re pushing to. Instead of reading from stdin, this script takes three arguments: the name of the reference (branch), the SHA-1 that reference pointed to before the push, and the SHA-1 the user is trying to push. If the update script exits non-zero, only that reference is rejected; other references can still be updated.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Customizing Git</li><li><a href="ch3_1.html">Git Configuration</a></li><li><a href="ch3_2.html">Git Attributes</a></li><li><a href="ch3_3.html">Git Hooks</a></li><li><a href="ch3_4.html">An Example Git-Enforced Policy</a></li><li><a href="ch3_5.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

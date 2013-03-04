@@ -1,155 +1,343 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git 工具 - 交互式暂存</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>交互式暂存</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git 与其他系统 - 迁移到 Git</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git 基础 </a></li><li><a href="ch2_0.html">2 服务器上的 Git </a></li><li><a href="ch3_0.html">3 自定义 Git </a></li><li><a href="ch4_0.html">4 Git 内部原理 </a></li><li><a href="ch5_0.html">5 Git 分支 </a></li><li><a href="ch6_0.html">6 Git 与其他系统 </a></li><li><a href="ch7_0.html">7 Git 工具 </a></li><li><a href="ch8_0.html">8 分布式 Git </a></li><li><a href="ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Git Basics </a></li><li><a href="../en/ch2_0.html">2 Git on the Server </a></li><li><a href="../en/ch3_0.html">3 Customizing Git </a></li><li><a href="../en/ch4_0.html">4 Git Internals </a></li><li><a href="../en/ch5_0.html">5 Git Branching </a></li><li><a href="../en/ch6_0.html">6 Git and Other Systems </a></li><li><a href="../en/ch7_0.html">7 Git Tools </a></li><li><a href="../en/ch8_0.html">8 Distributed Git </a></li><li><a href="../en/ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>迁移到 Git</h2>
 
-<p>Git提供了很多脚本来辅助某些命令行任务。这里，你将看到一些交互式命令，它们帮助你方便地构建只包含特定组合和部分文件的提交。在你修改了一大批文件然后决定将这些变更分布在几个各有侧重的提交而不是单个又大又乱的提交时，这些工具非常有用。用这种方法，你可以确保你的提交在逻辑上划分为相应的变更集，以便于供和你一起工作的开发者审阅。如果你运行<code>git add</code>时加上<code>-i</code>或者<code>--interactive</code>选项，Git就进入了一个交互式的shell模式，显示一些类似于下面的信息：</p>
+<p>如果在其他版本控制系统中保存了某项目的代码而后决定转而使用 Git，那么该项目必须经历某种形式的迁移。本节将介绍 Git 中包含的一些针对常见系统的导入脚本，并将展示编写自定义的导入脚本的方法。</p>
 
-<pre><code>$ git add -i
-           staged     unstaged path
-  1:    unchanged        +0/-1 TODO
-  2:    unchanged        +1/-1 index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
+<h3>导入</h3>
 
-*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; </code></pre>
+<p>你将学习到如何从专业重量级的版本控制系统中导入数据—— Subversion 和 Perforce —— 因为据我所知这二者的用户是（向 Git）转换的主要群体，而且 Git 为此二者附带了高质量的转换工具。</p>
 
-<p>你会看到这个命令以一个完全不同的视图显示了你的暂存区——主要是你通过<code>git status</code>得到的那些信息但是稍微简洁但信息更加丰富一些。它在左侧列出了你暂存的变更，在右侧列出了未被暂存的变更。</p>
+<h3>Subversion</h3>
 
-<p>在这之后是一个命令区。这里你可以做很多事情，包括暂存文件，撤回文件，暂存部分文件，加入未被追踪的文件，查看暂存文件的差别。</p>
+<p>读过前一节有关 <code>git svn</code> 的内容以后，你应该能轻而易举的根据其中的指导来 <code>git svn clone</code> 一个仓库了；然后，停止 Subversion 的使用，向一个新 Git server 推送，并开始使用它。想保留历史记录，所花的时间应该不过就是从 Subversion 服务器拉取数据的时间（可能要等上好一会就是了）。</p>
 
-<h3>暂存和撤回文件</h3>
+<p>然而，这样的导入并不完美；而且还要花那么多时间，不如干脆一次把它做对！首当其冲的任务是作者信息。在 Subversion，每个提交者在都在主机上有一个用户名，记录在提交信息中。上节例子中多处显示了 <code>schacon</code> ，比如 <code>blame</code> 的输出以及 <code>git svn log</code>。如果想让这条信息更好的映射到 Git 作者数据里，则需要 从 Subversion 用户名到 Git 作者的一个映射关系。建立一个叫做 <code>user.txt</code> 的文件，用如下格式表示映射关系：</p>
 
-<p>如果你在<code>What now&gt;</code>的提示后输入<code>2</code>或者<code>u</code>，这个脚本会提示你那些文件你想要暂存：</p>
+<pre><code>schacon = Scott Chacon &lt;schacon@geemail.com&gt;
+selse = Someo Nelse &lt;selse@geemail.com&gt;</code></pre>
 
-<pre><code>What now&gt; 2
-           staged     unstaged path
-  1:    unchanged        +0/-1 TODO
-  2:    unchanged        +1/-1 index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
-Update&gt;&gt;</code></pre>
+<p>通过该命令可以获得 SVN 作者的列表：</p>
 
-<p>如果想暂存TODO和index.html，你可以输入相应的编号：</p>
+<pre><code>$ svn log --xml | grep -P &quot;^&lt;author&quot; | sort -u | \
+      perl -pe &#39;s/&lt;author&gt;(.*?)&lt;\/author&gt;/$1 = /&#39; &gt; users.txt</code></pre>
 
-<pre><code>Update&gt;&gt; 1,2
-           staged     unstaged path
-* 1:    unchanged        +0/-1 TODO
-* 2:    unchanged        +1/-1 index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
-Update&gt;&gt;</code></pre>
+<p>它将输出 XML 格式的日志——你可以找到作者，建立一个单独的列表，然后从 XML 中抽取出需要的信息。（显而易见，本方法要求主机上安装了<code>grep</code>，<code>sort</code> 和 <code>perl</code>.）然后把输出重定向到 user.txt 文件，然后就可以在每一项的后面添加相应的 Git 用户数据。</p>
 
-<p>每个文件旁边的<code>*</code>表示选中的文件将被暂存。如果你在<code>update&gt;&gt;</code>提示后直接敲入回车，Git会替你把所有选中的内容暂存：</p>
+<p>为 <code>git svn</code> 提供该文件可以然它更精确的映射作者数据。你还可以在 <code>clone</code> 或者 <code>init</code>后面添加 <code>--no-metadata</code> 来阻止 <code>git svn</code> 包含那些 Subversion 的附加信息。这样 <code>import</code> 命令就变成了：</p>
 
-<pre><code>Update&gt;&gt; 
-updated 2 paths
+<pre><code>$ git-svn clone http://my-project.googlecode.com/svn/ \
+      --authors-file=users.txt --no-metadata -s my_project</code></pre>
 
-*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; 1
-           staged     unstaged path
-  1:        +0/-1      nothing TODO
-  2:        +1/-1      nothing index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb</code></pre>
+<p>现在 <code>my_project</code> 目录下导入的 Subversion 应该比原来整洁多了。原来的 commit 看上去是这样：</p>
 
-<p>现在你可以看到TODO和index.html文件被暂存了同时simplegit.rb文件仍然未被暂存。如果这时你想要撤回TODO文件，就使用<code>3</code>或者<code>r</code>（代表revert，恢复）选项：</p>
+<pre><code>commit 37efa680e8473b615de980fa935944215428a35a
+Author: schacon &lt;schacon@4c93b258-373f-11de-be05-5f7a86268029&gt;
+Date:   Sun May 3 00:12:22 2009 +0000
 
-<pre><code>*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; 3
-           staged     unstaged path
-  1:        +0/-1      nothing TODO
-  2:        +1/-1      nothing index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
-Revert&gt;&gt; 1
-           staged     unstaged path
-* 1:        +0/-1      nothing TODO
-  2:        +1/-1      nothing index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
-Revert&gt;&gt; [enter]
-reverted one path</code></pre>
+    fixed install - go to trunk
 
-<p>再次查看Git的状态，你会看到你已经撤回了TODO文件</p>
+    git-svn-id: https://my-project.googlecode.com/svn/trunk@94 4c93b258-373f-11de-
+    be05-5f7a86268029</code></pre>
 
-<pre><code>*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; 1
-           staged     unstaged path
-  1:    unchanged        +0/-1 TODO
-  2:        +1/-1      nothing index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb</code></pre>
+<p>现在是这样：</p>
 
-<p>要查看你暂存内容的差异，你可以使用<code>6</code>或者<code>d</code>（表示diff）命令。它会显示你暂存文件的列表，你可以选择其中的几个，显示其被暂存的差异。这跟你在命令行下指定<code>git diff --cached</code>非常相似：</p>
+<pre><code>commit 03a8785f44c8ea5cdb0e8834b7c8e6c469be2ff2
+Author: Scott Chacon &lt;schacon@geemail.com&gt;
+Date:   Sun May 3 00:12:22 2009 +0000
 
-<pre><code>*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; 6
-           staged     unstaged path
-  1:        +1/-1      nothing index.html
-Review diff&gt;&gt; 1
-diff --git a/index.html b/index.html
-index 4d07108..4335f49 100644
---- a/index.html
-+++ b/index.html
-@@ -16,7 +16,7 @@ Date Finder
+    fixed install - go to trunk</code></pre>
 
- &lt;p id=&quot;out&quot;&gt;...&lt;/p&gt;
+<p>不仅作者一项干净了不少，<code>git-svn-id</code> 也就此消失了。</p>
 
--&lt;div id=&quot;footer&quot;&gt;contact : support@github.com&lt;/div&gt;
-+&lt;div id=&quot;footer&quot;&gt;contact : email.support@github.com&lt;/div&gt;
+<p>你还需要一点 <code>post-import（导入后）</code> 清理工作。最起码的，应该清理一下 <code>git svn</code> 创建的那些怪异的索引结构。首先要移动标签，把它们从奇怪的远程分支变成实际的标签，然后把剩下的分支移动到本地。</p>
 
- &lt;script type=&quot;text/javascript&quot;&gt;</code></pre>
+<p>要把标签变成合适的 Git 标签，运行</p>
 
-<p>通过这些基本命令，你可以使用交互式增加模式更加方便地处理暂存区。</p>
+<pre><code>$ cp -Rf .git/refs/remotes/tags/* .git/refs/tags/
+$ rm -Rf .git/refs/remotes/tags</code></pre>
 
-<h3>暂存补丁</h3>
+<p>该命令将原本以 <code>tag/</code> 开头的远程分支的索引变成真正的（轻巧的）标签。</p>
 
-<p>只让Git暂存文件的某些部分而忽略其他也是有可能的。例如，你对simplegit.rb文件作了两处修改但是只想暂存其中一个而忽略另一个，在Git中实现这一点非常容易。在交互式的提示符下，输入<code>5</code>或者<code>p</code>（表示patch，补丁）。Git会询问哪些文件你希望部分暂存；然后对于被选中文件的每一节，他会逐个显示文件的差异区块并询问你是否希望暂存他们：</p>
+<p>接下来，把 <code>refs/remotes</code> 下面剩下的索引变成本地分支：</p>
 
-<pre><code>diff --git a/lib/simplegit.rb b/lib/simplegit.rb
-index dd5ecc4..57399e0 100644
---- a/lib/simplegit.rb
-+++ b/lib/simplegit.rb
-@@ -22,7 +22,7 @@ class SimpleGit
-   end
+<pre><code>$ cp -Rf .git/refs/remotes/* .git/refs/heads/
+$ rm -Rf .git/refs/remotes</code></pre>
 
-   def log(treeish = &#39;master&#39;)
--    command(&quot;git log -n 25 #{treeish}&quot;)
-+    command(&quot;git log -n 30 #{treeish}&quot;)
-   end
+<p>现在所有的旧分支都变成真正的 Git 分支，所有的旧标签也变成真正的 Git 标签。最后一项工作就是把新建的 Git 服务器添加为远程服务器并且向它推送。下面是新增远程服务器的例子：</p>
 
-   def blame(path)
-Stage this hunk [y,n,a,d,/,j,J,g,e,?]? </code></pre>
+<pre><code>$ git remote add origin git@my-git-server:myrepository.git</code></pre>
 
-<p>此处你有很多选择。输入<code>?</code>可以显示列表：</p>
+<p>为了让所有的分支和标签都得到上传，我们使用这条命令：</p>
 
-<pre><code>Stage this hunk [y,n,a,d,/,j,J,g,e,?]? ?
-y - stage this hunk
-n - do not stage this hunk
-a - stage this and all the remaining hunks in the file
-d - do not stage this hunk nor any of the remaining hunks in the file
-g - select a hunk to go to
-/ - search for a hunk matching the given regex
-j - leave this hunk undecided, see next undecided hunk
-J - leave this hunk undecided, see next hunk
-k - leave this hunk undecided, see previous undecided hunk
-K - leave this hunk undecided, see previous hunk
-s - split the current hunk into smaller hunks
-e - manually edit the current hunk
-? - print help</code></pre>
+<pre><code>$ git push origin --all</code></pre>
 
-<p>如果你想暂存各个区块，通常你会输入<code>y</code>或者<code>n</code>，但是暂存特定文件里的全部区块或者暂时跳过对一个区块的处理同样也很有用。如果你暂存了文件的一个部分而保留另外一个部分不被暂存，你的状态输出看起来会是这样：</p>
+<p>所有的分支和标签现在都应该整齐干净的躺在新的 Git 服务器里了。</p>
 
-<pre><code>What now&gt; 1
-           staged     unstaged path
-  1:    unchanged        +0/-1 TODO
-  2:        +1/-1      nothing index.html
-  3:        +1/-1        +4/-0 lib/simplegit.rb</code></pre>
+<h3>Perforce</h3>
 
-<p>simplegit.rb的状态非常有意思。它显示有几行被暂存了，有几行没有。你部分地暂存了这个文件。在这时，你可以退出交互式脚本然后运行<code>git commit</code>来提交部分暂存的文件。</p>
+<p>你将了解到的下一个被导入的系统是 Perforce. Git 发行的时候同时也附带了一个 Perforce 导入脚本，不过它是包含在源码的 <code>contrib</code> 部分——而不像 <code>git svn</code> 那样默认可用。运行它之前必须获取 Git 的源码，可以在 git.kernel.org 下载：</p>
 
-<p>最后你也可以不通过交互式增加的模式来实现部分文件暂存——你可以在命令行下通过<code>git add -p</code>或者<code>git add --patch</code>来启动同样的脚本。</p>
+<pre><code>$ git clone git://git.kernel.org/pub/scm/git/git.git
+$ cd git/contrib/fast-import</code></pre>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 工具</li><li><a href="ch6_1.html">修订版本（Revision）选择</a></li><li><a href="ch6_2.html">交互式暂存</a></li><li><a href="ch6_3.html">储藏（Stashing）</a></li><li><a href="ch6_4.html">重写历史</a></li><li><a href="ch6_5.html">使用 Git 调试</a></li><li><a href="ch6_6.html">子模块</a></li><li><a href="ch6_7.html">子树合并</a></li><li><a href="ch6_8.html">总结</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<p>在这个 <code>fast-import</code> 目录下，应该有一个叫做 <code>git-p4</code> 的 Python 可执行脚本。主机上必须装有 Python 和 <code>p4</code> 工具该导入才能正常进行。例如，你要从 Perforce 公共代码仓库（译注： Perforce Public Depot，Perforce 官方提供的代码寄存服务）导入 Jam 工程。为了设定客户端，我们要把 P4PORT 环境变量 export 到 Perforce 仓库：</p>
+
+<pre><code>$ export P4PORT=public.perforce.com:1666</code></pre>
+
+<p>运行 <code>git-p4 clone</code> 命令将从 Perforce 服务器导入 Jam 项目，我们需要给出仓库和项目的路径以及导入的目标路径：</p>
+
+<pre><code>$ git-p4 clone //public/jam/src@all /opt/p4import
+Importing from //public/jam/src@all into /opt/p4import
+Reinitialized existing Git repository in /opt/p4import/.git/
+Import destination: refs/remotes/p4/master
+Importing revision 4409 (100%)</code></pre>
+
+<p>现在去 <code>/opt/p4import</code> 目录运行一下 <code>git log</code> ，就能看到导入的成果：</p>
+
+<pre><code>$ git log -2
+commit 1fd4ec126171790efd2db83548b85b1bbbc07dc2
+Author: Perforce staff &lt;support@perforce.com&gt;
+Date:   Thu Aug 19 10:18:45 2004 -0800
+
+    Drop &#39;rc3&#39; moniker of jam-2.5.  Folded rc2 and rc3 RELNOTES into
+    the main part of the document.  Built new tar/zip balls.
+
+    Only 16 months later.
+
+    [git-p4: depot-paths = &quot;//public/jam/src/&quot;: change = 4409]
+
+commit ca8870db541a23ed867f38847eda65bf4363371d
+Author: Richard Geiger &lt;rmg@perforce.com&gt;
+Date:   Tue Apr 22 20:51:34 2003 -0800
+
+    Update derived jamgram.c
+
+    [git-p4: depot-paths = &quot;//public/jam/src/&quot;: change = 3108]</code></pre>
+
+<p>每一个 commit 里都有一个 <code>git-p4</code> 标识符。这个标识符可以保留，以防以后需要引用 Perforce 的修改版本号。然而，如果想删除这些标识符，现在正是时候——在开启新仓库之前。可以通过 <code>git filter-branch</code> 来批量删除这些标识符：</p>
+
+<pre><code>$ git filter-branch --msg-filter &#39;
+        sed -e &quot;/^\[git-p4:/d&quot;
+&#39;
+Rewrite 1fd4ec126171790efd2db83548b85b1bbbc07dc2 (123/123)
+Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
+
+<p>现在运行一下 <code>git log</code>，你会发现这些 commit 的 SHA-1 校验值都发生了改变，而那些 <code>git-p4</code> 字串则从提交信息里消失了：</p>
+
+<pre><code>$ git log -2
+commit 10a16d60cffca14d454a15c6164378f4082bc5b0
+Author: Perforce staff &lt;support@perforce.com&gt;
+Date:   Thu Aug 19 10:18:45 2004 -0800
+
+    Drop &#39;rc3&#39; moniker of jam-2.5.  Folded rc2 and rc3 RELNOTES into
+    the main part of the document.  Built new tar/zip balls.
+
+    Only 16 months later.
+
+commit 2b6c6db311dd76c34c66ec1c40a49405e6b527b2
+Author: Richard Geiger &lt;rmg@perforce.com&gt;
+Date:   Tue Apr 22 20:51:34 2003 -0800
+
+    Update derived jamgram.c</code></pre>
+
+<p>至此导入已经完成，可以开始向新的 Git 服务器推送了。</p>
+
+<h3>自定导入脚本</h3>
+
+<p>如果先前的系统不是 Subversion 或 Perforce 之一，先上网找一下有没有与之对应的导入脚本——导入 CVS，Clear Case，Visual Source Safe，甚至存档目录的导入脚本已经存在。假如这些工具都不适用，或者使用的工具很少见，抑或你需要导入过程具有更多可制定性，则应该使用 <code>git fast-import</code>。该命令从标准输入读取简单的指令来写入具体的 Git 数据。这样创建 Git 对象比运行纯 Git 命令或者手动写对象要简单的多（更多相关内容见第九章）。通过它，你可以编写一个导入脚本来从导入源读取必要的信息，同时在标准输出直接输出相关指示。你可以运行该脚本并把它的输出管道连接到 <code>git fast-import</code>。</p>
+
+<p>下面演示一下如何编写一个简单的导入脚本。假设你在进行一项工作，并且按时通过把工作目录复制为以时间戳 <code>back_YY_MM_DD</code> 命名的目录来进行备份，现在你需要把它们导入 Git 。目录结构如下：</p>
+
+<pre><code>$ ls /opt/import_from
+back_2009_01_02
+back_2009_01_04
+back_2009_01_14
+back_2009_02_03
+current</code></pre>
+
+<p>为了导入到一个 Git 目录，我们首先回顾一下 Git 储存数据的方式。你可能还记得，Git 本质上是一个 commit 对象的链表，每一个对象指向一个内容的快照。而这里需要做的工作就是告诉 <code>fast-import</code> 内容快照的位置，什么样的 commit 数据指向它们，以及它们的顺序。我们采取一次处理一个快照的策略，为每一个内容目录建立对应的 commit ，每一个 commit 与之前的建立链接。</p>
+
+<p>正如在第七章 &quot;Git 执行策略一例&quot; 一节中一样，我们将使用 Ruby 来编写这个脚本，因为它是我日常使用的语言而且阅读起来简单一些。你可以用任何其他熟悉的语言来重写这个例子——它仅需要把必要的信息打印到标准输出而已。同时，如果你在使用 Windows，这意味着你要特别留意不要在换行的时候引入回车符（译注：carriage returns，Windows 换行时加入的符号，通常说的 <code>\r</code> ）—— Git 的 fast-import 对仅使用换行符（LF）而非 Windows 的回车符（CRLF）要求非常严格。</p>
+
+<p>首先，进入目标目录并且找到所有子目录，每一个子目录将作为一个快照被导入为一个 commit。我们将依次进入每一个子目录并打印所需的命令来导出它们。脚本的主循环大致是这样：</p>
+
+<pre><code>last_mark = nil
+
+# 循环遍历所有目录
+Dir.chdir(ARGV[0]) do
+  Dir.glob(&quot;*&quot;).each do |dir|
+    next if File.file?(dir)
+
+    # 进入目标目录
+    Dir.chdir(dir) do 
+      last_mark = print_export(dir, last_mark)
+    end
+  end
+end</code></pre>
+
+<p>我们在每一个目录里运行 <code>print_export</code> ，它会取出上一个快照的索引和标记并返回本次快照的索引和标记；由此我们就可以正确的把二者连接起来。&quot;标记（mark）&quot; 是 <code>fast-import</code> 中对 commit 标识符的叫法；在创建 commit 的同时，我们逐一赋予一个标记以便以后在把它连接到其他 commit 时使用。因此，在 <code>print_export</code> 方法中要做的第一件事就是根据目录名生成一个标记：</p>
+
+<pre><code>mark = convert_dir_to_mark(dir)</code></pre>
+
+<p>实现该函数的方法是建立一个目录的数组序列并使用数组的索引值作为标记，因为标记必须是一个整数。这个方法大致是这样的：</p>
+
+<pre><code>$marks = []
+def convert_dir_to_mark(dir)
+  if !$marks.include?(dir)
+    $marks &lt;&lt; dir
+  end
+  ($marks.index(dir) + 1).to_s
+end</code></pre>
+
+<p>有了整数来代表每个 commit，我们现在需要提交附加信息中的日期。由于日期是用目录名表示的，我们就从中解析出来。<code>print_export</code> 文件的下一行将是：</p>
+
+<pre><code>date = convert_dir_to_date(dir)</code></pre>
+
+<p>而 <code>convert_dir_to_date</code> 则定义为</p>
+
+<pre><code>def convert_dir_to_date(dir)
+  if dir == &#39;current&#39;
+    return Time.now().to_i
+  else
+    dir = dir.gsub(&#39;back_&#39;, &#39;&#39;)
+    (year, month, day) = dir.split(&#39;_&#39;)
+    return Time.local(year, month, day).to_i
+  end
+end</code></pre>
+
+<p>它为每个目录返回一个整型值。提交附加信息里最后一项所需的是提交者数据，我们在一个全局变量中直接定义之：</p>
+
+<pre><code>$author = &#39;Scott Chacon &lt;schacon@example.com&gt;&#39;</code></pre>
+
+<p>我们差不多可以开始为导入脚本输出提交数据了。第一项信息指明我们定义的是一个 commit 对象以及它所在的分支，随后是我们生成的标记，提交者信息以及提交备注，然后是前一个 commit 的索引，如果有的话。代码大致这样：</p>
+
+<pre><code># 打印导入所需的信息
+puts &#39;commit refs/heads/master&#39;
+puts &#39;mark :&#39; + mark
+puts &quot;committer #{$author} #{date} -0700&quot;
+export_data(&#39;imported from &#39; + dir)
+puts &#39;from :&#39; + last_mark if last_mark</code></pre>
+
+<p>时区（-0700）处于简化目的使用硬编码。如果是从其他版本控制系统导入，则必须以变量的形式指明时区。
+提交备注必须以特定格式给出：</p>
+
+<pre><code>data (size)\n(contents)</code></pre>
+
+<p>该格式包含了单词 data，所读取数据的大小，一个换行符，最后是数据本身。由于随后指明文件内容的时候要用到相同的格式，我们写一个辅助方法，<code>export_data</code>：</p>
+
+<pre><code>def export_data(string)
+  print &quot;data #{string.size}\n#{string}&quot;
+end</code></pre>
+
+<p>唯一剩下的就是每一个快照的内容了。这简单的很，因为它们分别处于一个目录——你可以输出 <code>deleeall</code> 命令，随后是目录中每个文件的内容。Git 会正确的记录每一个快照：</p>
+
+<pre><code>puts &#39;deleteall&#39;
+Dir.glob(&quot;**/*&quot;).each do |file| next if !File.file?(file)
+  inline_data(file)
+end</code></pre>
+
+<p>注意：由于很多系统把每次修订看作一个 commit 到另一个 commit 的变化量，fast-import 也可以依据每次提交获取一个命令来指出哪些文件被添加，删除或者修改过，以及修改的内容。我们将需要计算快照之间的差别并且仅仅给出这项数据，不过该做法要复杂很多——还如不直接把所有数据丢给 Git 然它自己搞清楚。假如前面这个方法更适用于你的数据，参考 <code>fast-import</code> 的 man 帮助页面来了解如何以这种方式提供数据。</p>
+
+<p>列举新文件内容或者指明带有新内容的已修改文件的格式如下：</p>
+
+<pre><code>M 644 inline path/to/file
+data (size)
+(file contents)</code></pre>
+
+<p>这里，644 是权限模式（加入有可执行文件，则需要探测之并设定为 755），而 inline 说明我们在本行结束之后立即列出文件的内容。我们的 <code>inline_data</code> 方法大致是：</p>
+
+<pre><code>def inline_data(file, code = &#39;M&#39;, mode = &#39;644&#39;)
+  content = File.read(file)
+  puts &quot;#{code} #{mode} inline #{file}&quot;
+  export_data(content)
+end</code></pre>
+
+<p>我们重用了前面定义过的 <code>export_data</code>，因为这里和指明提交注释的格式如出一辙。</p>
+
+<p>最后一项工作是返回当前的标记以便下次循环的使用。</p>
+
+<pre><code>return mark</code></pre>
+
+<p>注意：如果你在用 Windows，一定记得添加一项额外的步骤。前面提过，Windows 使用 CRLF 作为换行字符而 Git fast-import 只接受 LF。为了绕开这个问题来满足 git fast-import，你需要让 ruby 用 LF 取代 CRLF：</p>
+
+<pre><code>$stdout.binmode</code></pre>
+
+<p>搞定了。现在运行该脚本，你将得到如下内容：</p>
+
+<pre><code>$ ruby import.rb /opt/import_from 
+commit refs/heads/master
+mark :1
+committer Scott Chacon &lt;schacon@geemail.com&gt; 1230883200 -0700
+data 29
+imported from back_2009_01_02deleteall
+M 644 inline file.rb
+data 12
+version two
+commit refs/heads/master
+mark :2
+committer Scott Chacon &lt;schacon@geemail.com&gt; 1231056000 -0700
+data 29
+imported from back_2009_01_04from :1
+deleteall
+M 644 inline file.rb
+data 14
+version three
+M 644 inline new.rb
+data 16
+new version one
+(...)</code></pre>
+
+<p>要运行导入脚本，在需要导入的目录把该内容用管道定向到 <code>git fast-import</code>。你可以建立一个空目录然后运行 <code>git init</code> 作为开头，然后运行该脚本：</p>
+
+<pre><code>$ git init
+Initialized empty Git repository in /opt/import_to/.git/
+$ ruby import.rb /opt/import_from | git fast-import
+git-fast-import statistics:
+---------------------------------------------------------------------
+Alloc&#39;d objects:       5000
+Total objects:           18 (         1 duplicates                  )
+      blobs  :            7 (         1 duplicates          0 deltas)
+      trees  :            6 (         0 duplicates          1 deltas)
+      commits:            5 (         0 duplicates          0 deltas)
+      tags   :            0 (         0 duplicates          0 deltas)
+Total branches:           1 (         1 loads     )
+      marks:           1024 (         5 unique    )
+      atoms:              3
+Memory total:          2255 KiB
+       pools:          2098 KiB
+     objects:           156 KiB
+---------------------------------------------------------------------
+pack_report: getpagesize()            =       4096
+pack_report: core.packedGitWindowSize =   33554432
+pack_report: core.packedGitLimit      =  268435456
+pack_report: pack_used_ctr            =          9
+pack_report: pack_mmap_calls          =          5
+pack_report: pack_open_windows        =          1 /          1
+pack_report: pack_mapped              =       1356 /       1356
+---------------------------------------------------------------------</code></pre>
+
+<p>你会发现，在它成功执行完毕以后，会给出一堆有关已完成工作的数据。上例在一个分支导入了5次提交数据，包含了18个对象。现在可以运行 <code>git log</code> 来检视新的历史：</p>
+
+<pre><code>$ git log -2
+commit 10bfe7d22ce15ee25b60a824c8982157ca593d41
+Author: Scott Chacon &lt;schacon@example.com&gt;
+Date:   Sun May 3 12:57:39 2009 -0700
+
+    imported from current
+
+commit 7e519590de754d079dd73b44d695a42c9d2df452
+Author: Scott Chacon &lt;schacon@example.com&gt;
+Date:   Tue Feb 3 01:00:00 2009 -0700
+
+    imported from back_2009_02_03</code></pre>
+
+<p>就它了——一个干净整洁的 Git 仓库。需要注意的是此时没有任何内容被检出——刚开始当前目录里没有任何文件。要获取它们，你得转到 <code>master</code> 分支的所在：</p>
+
+<pre><code>$ ls
+$ git reset --hard master
+HEAD is now at 10bfe7d imported from current
+$ ls
+file.rb  lib</code></pre>
+
+<p><code>fast-import</code> 还可以做更多——处理不同的文件模式，二进制文件，多重分支与合并，标签，进展标识等等。一些更加复杂的实例可以在 Git 源码的 <code>contib/fast-import</code> 目录里找到；其中较为出众的是前面提过的 <code>git-p4</code> 脚本。</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 与其他系统</li><li><a href="ch6_1.html">Git 与 Subversion</a></li><li><a href="ch6_2.html">迁移到 Git</a></li><li><a href="ch6_3.html">总结</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

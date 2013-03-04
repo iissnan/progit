@@ -20,12 +20,15 @@ body{
     margin-right: 15px;
 }
 
-#main{
-    background: #fff;
-}
+#main{}
 .wrap{
     padding: 20px;
     min-height: 500px;
+    background: #fff;
+}
+.footer{
+    margin: 20px 0;
+    color: #888;
 }
 
 .toc li{

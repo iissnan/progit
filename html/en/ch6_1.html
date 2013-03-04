@@ -1,247 +1,339 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Tools - Revision Selection</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Revision Selection</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git and Other Systems - Git and Subversion</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git and Subversion</h2>
 
-<p>Git allows you to specify specific commits or a range of commits in several ways. They aren’t necessarily obvious but are helpful to know.</p>
+<p>Currently, the majority of open source development projects and a large number of corporate projects use Subversion to manage their source code. It’s the most popular open source VCS and has been around for nearly a decade. It’s also very similar in many ways to CVS, which was the big boy of the source-control world before that.</p>
 
-<h3>Single Revisions</h3>
+<p>One of Git’s great features is a bidirectional bridge to Subversion called <code>git svn</code>. This tool allows you to use Git as a valid client to a Subversion server, so you can use all the local features of Git and then push to a Subversion server as if you were using Subversion locally. This means you can do local branching and merging, use the staging area, use rebasing and cherry-picking, and so on, while your collaborators continue to work in their dark and ancient ways. It’s a good way to sneak Git into the corporate environment and help your fellow developers become more efficient while you lobby to get the infrastructure changed to support Git fully. The Subversion bridge is the gateway drug to the DVCS world.</p>
 
-<p>You can obviously refer to a commit by the SHA-1 hash that it’s given, but there are more human-friendly ways to refer to commits as well. This section outlines the various ways you can refer to a single commit.</p>
+<h3>git svn</h3>
 
-<h3>Short SHA</h3>
+<p>The base command in Git for all the Subversion bridging commands is <code>git svn</code>. You preface everything with that. It takes quite a few commands, so you’ll learn about the common ones while going through a few small workflows.</p>
 
-<p>Git is smart enough to figure out what commit you meant to type if you provide the first few characters, as long as your partial SHA-1 is at least four characters long and unambiguous — that is, only one object in the current repository begins with that partial SHA-1.</p>
+<p>It’s important to note that when you’re using <code>git svn</code>, you’re interacting with Subversion, which is a system that is far less sophisticated than Git. Although you can easily do local branching and merging, it’s generally best to keep your history as linear as possible by rebasing your work and avoiding doing things like simultaneously interacting with a Git remote repository.</p>
 
-<p>For example, to see a specific commit, suppose you run a <code>git log</code> command and identify the commit where you added certain functionality:</p>
+<p>Don’t rewrite your history and try to push again, and don’t push to a parallel Git repository to collaborate with fellow Git developers at the same time. Subversion can have only a single linear history, and confusing it is very easy. If you’re working with a team, and some are using SVN and others are using Git, make sure everyone is using the SVN server to collaborate — doing so will make your life easier.</p>
 
-<pre><code>$ git log
-commit 734713bc047d87bf7eac9674765ae793478c50d3
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Fri Jan 2 18:32:33 2009 -0800
+<h3>Setting Up</h3>
 
-    fixed refs handling, added gc auto, updated tests
+<p>To demonstrate this functionality, you need a typical SVN repository that you have write access to. If you want to copy these examples, you’ll have to make a writeable copy of my test repository. In order to do that easily, you can use a tool called <code>svnsync</code> that comes with more recent versions of Subversion — it should be distributed with at least 1.4. For these tests, I created a new Subversion repository on Google code that was a partial copy of the <code>protobuf</code> project, which is a tool that encodes structured data for network transmission.</p>
 
-commit d921970aadf03b3cf0e71becdaab3147ba71cdef
-Merge: 1c002dd... 35cfb2b...
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 15:08:43 2008 -0800
+<p>To follow along, you first need to create a new local Subversion repository:</p>
 
-    Merge commit &#39;phedders/rdocs&#39;
+<pre><code>$ mkdir /tmp/test-svn
+$ svnadmin create /tmp/test-svn</code></pre>
 
-commit 1c002dd4b536e7479fe34593e72e6c6c1819e53b
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 14:58:32 2008 -0800
+<p>Then, enable all users to change revprops — the easy way is to add a pre-revprop-change script that always exits 0:</p>
 
-    added some blame and merge stuff</code></pre>
+<pre><code>$ cat /tmp/test-svn/hooks/pre-revprop-change
+#!/bin/sh
+exit 0;
+$ chmod +x /tmp/test-svn/hooks/pre-revprop-change</code></pre>
 
-<p>In this case, choose <code>1c002dd....</code> If you <code>git show</code> that commit, the following commands are equivalent (assuming the shorter versions are unambiguous):</p>
+<p>You can now sync this project to your local machine by calling <code>svnsync init</code> with the to and from repositories.</p>
 
-<pre><code>$ git show 1c002dd4b536e7479fe34593e72e6c6c1819e53b
-$ git show 1c002dd4b536e7479f
-$ git show 1c002d</code></pre>
+<pre><code>$ svnsync init file:///tmp/test-svn http://progit-example.googlecode.com/svn/</code></pre>
 
-<p>Git can figure out a short, unique abbreviation for your SHA-1 values. If you pass <code>--abbrev-commit</code> to the <code>git log</code> command, the output will use shorter values but keep them unique; it defaults to using seven characters but makes them longer if necessary to keep the SHA-1 unambiguous:</p>
+<p>This sets up the properties to run the sync. You can then clone the code by running</p>
 
-<pre><code>$ git log --abbrev-commit --pretty=oneline
-ca82a6d changed the version number
-085bb3b removed unnecessary test code
-a11bef0 first commit</code></pre>
+<pre><code>$ svnsync sync file:///tmp/test-svn
+Committed revision 1.
+Copied properties for revision 1.
+Committed revision 2.
+Copied properties for revision 2.
+Committed revision 3.
+...</code></pre>
 
-<p>Generally, eight to ten characters are more than enough to be unique within a project. One of the largest Git projects, the Linux kernel, is beginning to need 12 characters out of the possible 40 to stay unique.</p>
+<p>Although this operation may take only a few minutes, if you try to copy the original repository to another remote repository instead of a local one, the process will take nearly an hour, even though there are fewer than 100 commits. Subversion has to clone one revision at a time and then push it back into another repository — it’s ridiculously inefficient, but it’s the only easy way to do this.</p>
 
-<h3>A SHORT NOTE ABOUT SHA-1</h3>
+<h3>Getting Started</h3>
 
-<p>A lot of people become concerned at some point that they will, by random happenstance, have two objects in their repository that hash to the same SHA-1 value. What then?</p>
+<p>Now that you have a Subversion repository to which you have write access, you can go through a typical workflow. You’ll start with the <code>git svn clone</code> command, which imports an entire Subversion repository into a local Git repository. Remember that if you’re importing from a real hosted Subversion repository, you should replace the <code>file:///tmp/test-svn</code> here with the URL of your Subversion repository:</p>
 
-<p>If you do happen to commit an object that hashes to the same SHA-1 value as a previous object in your repository, Git will see the previous object already in your Git database and assume it was already written. If you try to check out that object again at some point, you’ll always get the data of the first object.</p>
+<pre><code>$ git svn clone file:///tmp/test-svn -T trunk -b branches -t tags
+Initialized empty Git repository in /Users/schacon/projects/testsvnsync/svn/.git/
+r1 = b4e387bc68740b5af56c2a5faf4003ae42bd135c (trunk)
+      A    m4/acx_pthread.m4
+      A    m4/stl_hash.m4
+...
+r75 = d1957f3b307922124eec6314e15bcda59e3d9610 (trunk)
+Found possible branch point: file:///tmp/test-svn/trunk =&gt; \
+    file:///tmp/test-svn /branches/my-calc-branch, 75
+Found branch parent: (my-calc-branch) d1957f3b307922124eec6314e15bcda59e3d9610
+Following parent with do_switch
+Successfully followed parent
+r76 = 8624824ecc0badd73f40ea2f01fce51894189b01 (my-calc-branch)
+Checked out HEAD:
+ file:///tmp/test-svn/branches/my-calc-branch r76</code></pre>
 
-<p>However, you should be aware of how ridiculously unlikely this scenario is. The SHA-1 digest is 20 bytes or 160 bits. The number of randomly hashed objects needed to ensure a 50% probability of a single collision is about 2^80 (the formula for determining collision probability is <code>p = (n(n-1)/2) * (1/2^160))</code>. 2^80 is 1.2 x 10^24 or 1 million billion billion. That’s 1,200 times the number of grains of sand on the earth.</p>
+<p>This runs the equivalent of two commands — <code>git svn init</code> followed by <code>git svn fetch</code> — on the URL you provide. This can take a while. The test project has only about 75 commits and the codebase isn’t that big, so it takes just a few minutes. However, Git has to check out each version, one at a time, and commit it individually. For a project with hundreds or thousands of commits, this can literally take hours or even days to finish.</p>
 
-<p>Here’s an example to give you an idea of what it would take to get a SHA-1 collision. If all 6.5 billion humans on Earth were programming, and every second, each one was producing code that was the equivalent of the entire Linux kernel history (1 million Git objects) and pushing it into one enormous Git repository, it would take 5 years until that repository contained enough objects to have a 50% probability of a single SHA-1 object collision. A higher probability exists that every member of your programming team will be attacked and killed by wolves in unrelated incidents on the same night.</p>
+<p>The <code>-T trunk -b branches -t tags</code> part tells Git that this Subversion repository follows the basic branching and tagging conventions. If you name your trunk, branches, or tags differently, you can change these options. Because this is so common, you can replace this entire part with <code>-s</code>, which means standard layout and implies all those options. The following command is equivalent:</p>
 
-<h3>Branch References</h3>
+<pre><code>$ git svn clone file:///tmp/test-svn -s</code></pre>
 
-<p>The most straightforward way to specify a commit requires that it have a branch reference pointed at it. Then, you can use a branch name in any Git command that expects a commit object or SHA-1 value. For instance, if you want to show the last commit object on a branch, the following commands are equivalent, assuming that the <code>topic1</code> branch points to <code>ca82a6d</code>:</p>
+<p>At this point, you should have a valid Git repository that has imported your branches and tags:</p>
 
-<pre><code>$ git show ca82a6dff817ec66f44342007202690a93763949
-$ git show topic1</code></pre>
+<pre><code>$ git branch -a
+* master
+  my-calc-branch
+  tags/2.0.2
+  tags/release-2.0.1
+  tags/release-2.0.2
+  tags/release-2.0.2rc1
+  trunk</code></pre>
 
-<p>If you want to see which specific SHA a branch points to, or if you want to see what any of these examples boils down to in terms of SHAs, you can use a Git plumbing tool called <code>rev-parse</code>. You can see Chapter 9 for more information about plumbing tools; basically, <code>rev-parse</code> exists for lower-level operations and isn’t designed to be used in day-to-day operations. However, it can be helpful sometimes when you need to see what’s really going on. Here you can run <code>rev-parse</code> on your branch.</p>
+<p>It’s important to note how this tool namespaces your remote references differently. When you’re cloning a normal Git repository, you get all the branches on that remote server available locally as something like <code>origin/[branch]</code> - namespaced by the name of the remote. However, <code>git svn</code> assumes that you won’t have multiple remotes and saves all its references to points on the remote server with no namespacing. You can use the Git plumbing command <code>show-ref</code> to look at all your full reference names:</p>
 
-<pre><code>$ git rev-parse topic1
-ca82a6dff817ec66f44342007202690a93763949</code></pre>
+<pre><code>$ git show-ref
+1cbd4904d9982f386d87f88fce1c24ad7c0f0471 refs/heads/master
+aee1ecc26318164f355a883f5d99cff0c852d3c4 refs/remotes/my-calc-branch
+03d09b0e2aad427e34a6d50ff147128e76c0e0f5 refs/remotes/tags/2.0.2
+50d02cc0adc9da4319eeba0900430ba219b9c376 refs/remotes/tags/release-2.0.1
+4caaa711a50c77879a91b8b90380060f672745cb refs/remotes/tags/release-2.0.2
+1c4cb508144c513ff1214c3488abe66dcb92916f refs/remotes/tags/release-2.0.2rc1
+1cbd4904d9982f386d87f88fce1c24ad7c0f0471 refs/remotes/trunk</code></pre>
 
-<h3>RefLog Shortnames</h3>
+<p>A normal Git repository looks more like this:</p>
 
-<p>One of the things Git does in the background while you’re working away is keep a reflog — a log of where your HEAD and branch references have been for the last few months.</p>
+<pre><code>$ git show-ref
+83e38c7a0af325a9722f2fdc56b10188806d83a1 refs/heads/master
+3e15e38c198baac84223acfc6224bb8b99ff2281 refs/remotes/gitserver/master
+0a30dd3b0c795b80212ae723640d4e5d48cabdff refs/remotes/origin/master
+25812380387fdd55f916652be4881c6f11600d6f refs/remotes/origin/testing</code></pre>
 
-<p>You can see your reflog by using <code>git reflog</code>:</p>
+<p>You have two remote servers: one named <code>gitserver</code> with a <code>master</code> branch; and another named <code>origin</code> with two branches, <code>master</code> and <code>testing</code>.</p>
 
-<pre><code>$ git reflog
-734713b... HEAD@{0}: commit: fixed refs handling, added gc auto, updated
-d921970... HEAD@{1}: merge phedders/rdocs: Merge made by recursive.
-1c002dd... HEAD@{2}: commit: added some blame and merge stuff
-1c36188... HEAD@{3}: rebase -i (squash): updating HEAD
-95df984... HEAD@{4}: commit: # This is a combination of two commits.
-1c36188... HEAD@{5}: rebase -i (squash): updating HEAD
-7e05da5... HEAD@{6}: rebase -i (pick): updating HEAD</code></pre>
+<p>Notice how in the example of remote references imported from <code>git svn</code>, tags are added as remote branches, not as real Git tags. Your Subversion import looks like it has a remote named tags with branches under it.</p>
 
-<p>Every time your branch tip is updated for any reason, Git stores that information for you in this temporary history. And you can specify older commits with this data, as well. If you want to see the fifth prior value of the HEAD of your repository, you can use the <code>@{n}</code> reference that you see in the reflog output:</p>
+<h3>Committing Back to Subversion</h3>
 
-<pre><code>$ git show HEAD@{5}</code></pre>
+<p>Now that you have a working repository, you can do some work on the project and push your commits back upstream, using Git effectively as a SVN client. If you edit one of the files and commit it, you have a commit that exists in Git locally that doesn’t exist on the Subversion server:</p>
 
-<p>You can also use this syntax to see where a branch was some specific amount of time ago. For instance, to see where your <code>master</code> branch was yesterday, you can type</p>
+<pre><code>$ git commit -am &#39;Adding git-svn instructions to the README&#39;
+[master 97031e5] Adding git-svn instructions to the README
+ 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
 
-<pre><code>$ git show master@{yesterday}</code></pre>
+<p>Next, you need to push your change upstream. Notice how this changes the way you work with Subversion — you can do several commits offline and then push them all at once to the Subversion server. To push to a Subversion server, you run the <code>git svn dcommit</code> command:</p>
 
-<p>That shows you where the branch tip was yesterday. This technique only works for data that’s still in your reflog, so you can’t use it to look for commits older than a few months.</p>
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+       M      README.txt
+Committed r79
+       M      README.txt
+r79 = 938b1a547c2cc92033b74d32030e86468294a5c8 (trunk)
+No changes between current HEAD and refs/remotes/trunk
+Resetting to the latest refs/remotes/trunk</code></pre>
 
-<p>To see reflog information formatted like the <code>git log</code> output, you can run <code>git log -g</code>:</p>
+<p>This takes all the commits you’ve made on top of the Subversion server code, does a Subversion commit for each, and then rewrites your local Git commit to include a unique identifier. This is important because it means that all the SHA-1 checksums for your commits change. Partly for this reason, working with Git-based remote versions of your projects concurrently with a Subversion server isn’t a good idea. If you look at the last commit, you can see the new <code>git-svn-id</code> that was added:</p>
 
-<pre><code>$ git log -g master
-commit 734713bc047d87bf7eac9674765ae793478c50d3
-Reflog: master@{0} (Scott Chacon &lt;schacon@gmail.com&gt;)
-Reflog message: commit: fixed refs handling, added gc auto, updated
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Fri Jan 2 18:32:33 2009 -0800
+<pre><code>$ git log -1
+commit 938b1a547c2cc92033b74d32030e86468294a5c8
+Author: schacon &lt;schacon@4c93b258-373f-11de-be05-5f7a86268029&gt;
+Date:   Sat May 2 22:06:44 2009 +0000
 
-    fixed refs handling, added gc auto, updated tests
+    Adding git-svn instructions to the README
 
-commit d921970aadf03b3cf0e71becdaab3147ba71cdef
-Reflog: master@{1} (Scott Chacon &lt;schacon@gmail.com&gt;)
-Reflog message: merge phedders/rdocs: Merge made by recursive.
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 15:08:43 2008 -0800
+    git-svn-id: file:///tmp/test-svn/trunk@79 4c93b258-373f-11de-be05-5f7a86268029</code></pre>
 
-    Merge commit &#39;phedders/rdocs&#39;</code></pre>
+<p>Notice that the SHA checksum that originally started with <code>97031e5</code> when you committed now begins with <code>938b1a5</code>. If you want to push to both a Git server and a Subversion server, you have to push (<code>dcommit</code>) to the Subversion server first, because that action changes your commit data.</p>
 
-<p>It’s important to note that the reflog information is strictly local — it’s a log of what you’ve done in your repository. The references won’t be the same on someone else’s copy of the repository; and right after you initially clone a repository, you’ll have an empty reflog, as no activity has occurred yet in your repository. Running <code>git show HEAD@{2.months.ago}</code> will work only if you cloned the project at least two months ago — if you cloned it five minutes ago, you’ll get no results.</p>
+<h3>Pulling in New Changes</h3>
 
-<h3>Ancestry References</h3>
+<p>If you’re working with other developers, then at some point one of you will push, and then the other one will try to push a change that conflicts. That change will be rejected until you merge in their work. In <code>git svn</code>, it looks like this:</p>
 
-<p>The other main way to specify a commit is via its ancestry. If you place a <code>^</code> at the end of a reference, Git resolves it to mean the parent of that commit.
-Suppose you look at the history of your project:</p>
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+Merge conflict during commit: Your file or directory &#39;README.txt&#39; is probably \
+out-of-date: resource out of date; try updating at /Users/schacon/libexec/git-\
+core/git-svn line 482</code></pre>
 
-<pre><code>$ git log --pretty=format:&#39;%h %s&#39; --graph
-* 734713b fixed refs handling, added gc auto, updated tests
-*   d921970 Merge commit &#39;phedders/rdocs&#39;
-|\
-| * 35cfb2b Some rdoc changes
-* | 1c002dd added some blame and merge stuff
-|/
-* 1c36188 ignore *.gem
-* 9b29157 add open3_detach to gemspec file list</code></pre>
+<p>To resolve this situation, you can run <code>git svn rebase</code>, which pulls down any changes on the server that you don’t have yet and rebases any work you have on top of what is on the server:</p>
 
-<p>Then, you can see the previous commit by specifying <code>HEAD^</code>, which means &quot;the parent of HEAD&quot;:</p>
+<pre><code>$ git svn rebase
+       M      README.txt
+r80 = ff829ab914e8775c7c025d741beb3d523ee30bc4 (trunk)
+First, rewinding head to replay your work on top of it...
+Applying: first user change</code></pre>
 
-<pre><code>$ git show HEAD^
-commit d921970aadf03b3cf0e71becdaab3147ba71cdef
-Merge: 1c002dd... 35cfb2b...
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 15:08:43 2008 -0800
+<p>Now, all your work is on top of what is on the Subversion server, so you can successfully <code>dcommit</code>:</p>
 
-    Merge commit &#39;phedders/rdocs&#39;</code></pre>
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+       M      README.txt
+Committed r81
+       M      README.txt
+r81 = 456cbe6337abe49154db70106d1836bc1332deed (trunk)
+No changes between current HEAD and refs/remotes/trunk
+Resetting to the latest refs/remotes/trunk</code></pre>
 
-<p>You can also specify a number after the <code>^</code> — for example, <code>d921970^2</code> means &quot;the second parent of d921970.&quot; This syntax is only useful for merge commits, which have more than one parent. The first parent is the branch you were on when you merged, and the second is the commit on the branch that you merged in:</p>
+<p>It’s important to remember that unlike Git, which requires you to merge upstream work you don’t yet have locally before you can push, <code>git svn</code> makes you do that only if the changes conflict. If someone else pushes a change to one file and then you push a change to another file, your <code>dcommit</code> will work fine:</p>
 
-<pre><code>$ git show d921970^
-commit 1c002dd4b536e7479fe34593e72e6c6c1819e53b
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 14:58:32 2008 -0800
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+       M      configure.ac
+Committed r84
+       M      autogen.sh
+r83 = 8aa54a74d452f82eee10076ab2584c1fc424853b (trunk)
+       M      configure.ac
+r84 = cdbac939211ccb18aa744e581e46563af5d962d0 (trunk)
+W: d2f23b80f67aaaa1f6f5aaef48fce3263ac71a92 and refs/remotes/trunk differ, \
+  using rebase:
+:100755 100755 efa5a59965fbbb5b2b0a12890f1b351bb5493c18 \
+  015e4c98c482f0fa71e4d5434338014530b37fa6 M   autogen.sh
+First, rewinding head to replay your work on top of it...
+Nothing to do.</code></pre>
 
-    added some blame and merge stuff
+<p>This is important to remember, because the outcome is a project state that didn’t exist on either of your computers when you pushed. If the changes are incompatible but don’t conflict, you may get issues that are difficult to diagnose. This is different than using a Git server — in Git, you can fully test the state on your client system before publishing it, whereas in SVN, you can’t ever be certain that the states immediately before commit and after commit are identical.</p>
 
-$ git show d921970^2
-commit 35cfb2b795a55793d7cc56a6cc2060b4bb732548
-Author: Paul Hedderly &lt;paul+git@mjr.org&gt;
-Date:   Wed Dec 10 22:22:03 2008 +0000
+<p>You should also run this command to pull in changes from the Subversion server, even if you’re not ready to commit yourself. You can run <code>git svn fetch</code> to grab the new data, but <code>git svn rebase</code> does the fetch and then updates your local commits.</p>
 
-    Some rdoc changes</code></pre>
+<pre><code>$ git svn rebase
+       M      generate_descriptor_proto.sh
+r82 = bd16df9173e424c6f52c337ab6efa7f7643282f1 (trunk)
+First, rewinding head to replay your work on top of it...
+Fast-forwarded master to refs/remotes/trunk.</code></pre>
 
-<p>The other main ancestry specification is the <code>~</code>. This also refers to the first parent, so <code>HEAD~</code> and <code>HEAD^</code> are equivalent. The difference becomes apparent when you specify a number. <code>HEAD~2</code> means &quot;the first parent of the first parent,&quot; or &quot;the grandparent&quot; — it traverses the first parents the number of times you specify. For example, in the history listed earlier, <code>HEAD~3</code> would be</p>
+<p>Running <code>git svn rebase</code> every once in a while makes sure your code is always up to date. You need to be sure your working directory is clean when you run this, though. If you have local changes, you must either stash your work or temporarily commit it before running <code>git svn rebase</code> — otherwise, the command will stop if it sees that the rebase will result in a merge conflict.</p>
 
-<pre><code>$ git show HEAD~3
-commit 1c3618887afb5fbcbea25b7c013f4e2114448b8d
-Author: Tom Preston-Werner &lt;tom@mojombo.com&gt;
-Date:   Fri Nov 7 13:47:59 2008 -0500
+<h3>Git Branching Issues</h3>
 
-    ignore *.gem</code></pre>
+<p>When you’ve become comfortable with a Git workflow, you’ll likely create topic branches, do work on them, and then merge them in. If you’re pushing to a Subversion server via git svn, you may want to rebase your work onto a single branch each time instead of merging branches together. The reason to prefer rebasing is that Subversion has a linear history and doesn’t deal with merges like Git does, so git svn follows only the first parent when converting the snapshots into Subversion commits.</p>
 
-<p>This can also be written <code>HEAD^^^</code>, which again is the first parent of the first parent of the first parent:</p>
+<p>Suppose your history looks like the following: you created an <code>experiment</code> branch, did two commits, and then merged them back into <code>master</code>. When you <code>dcommit</code>, you see output like this:</p>
 
-<pre><code>$ git show HEAD^^^
-commit 1c3618887afb5fbcbea25b7c013f4e2114448b8d
-Author: Tom Preston-Werner &lt;tom@mojombo.com&gt;
-Date:   Fri Nov 7 13:47:59 2008 -0500
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+       M      CHANGES.txt
+Committed r85
+       M      CHANGES.txt
+r85 = 4bfebeec434d156c36f2bcd18f4e3d97dc3269a2 (trunk)
+No changes between current HEAD and refs/remotes/trunk
+Resetting to the latest refs/remotes/trunk
+COPYING.txt: locally modified
+INSTALL.txt: locally modified
+       M      COPYING.txt
+       M      INSTALL.txt
+Committed r86
+       M      INSTALL.txt
+       M      COPYING.txt
+r86 = 2647f6b86ccfcaad4ec58c520e369ec81f7c283c (trunk)
+No changes between current HEAD and refs/remotes/trunk
+Resetting to the latest refs/remotes/trunk</code></pre>
 
-    ignore *.gem</code></pre>
+<p>Running <code>dcommit</code> on a branch with merged history works fine, except that when you look at your Git project history, it hasn’t rewritten either of the commits you made on the <code>experiment</code> branch — instead, all those changes appear in the SVN version of the single merge commit.</p>
 
-<p>You can also combine these syntaxes — you can get the second parent of the previous reference (assuming it was a merge commit) by using <code>HEAD~3^2</code>, and so on.</p>
+<p>When someone else clones that work, all they see is the merge commit with all the work squashed into it; they don’t see the commit data about where it came from or when it was committed.</p>
 
-<h3>Commit Ranges</h3>
+<h3>Subversion Branching</h3>
 
-<p>Now that you can specify individual commits, let’s see how to specify ranges of commits. This is particularly useful for managing your branches — if you have a lot of branches, you can use range specifications to answer questions such as, &quot;What work is on this branch that I haven’t yet merged into my main branch?&quot;</p>
+<p>Branching in Subversion isn’t the same as branching in Git; if you can avoid using it much, that’s probably best. However, you can create and commit to branches in Subversion using git svn.</p>
 
-<h4>Double Dot</h4>
+<h4>Creating a New SVN Branch</h4>
 
-<p>The most common range specification is the double-dot syntax. This basically asks Git to resolve a range of commits that are reachable from one commit but aren’t reachable from another. For example, say you have a commit history that looks like Figure 6-1.</p>
+<p>To create a new branch in Subversion, you run <code>git svn branch [branchname]</code>:</p>
 
-<p><img src="../../book_src/figures/18333fig0601-tn.png"></br>
-Figure 6-1. Example history for range selection.</p>
+<pre><code>$ git svn branch opera
+Copying file:///tmp/test-svn/trunk at r87 to file:///tmp/test-svn/branches/opera...
+Found possible branch point: file:///tmp/test-svn/trunk =&gt; \
+  file:///tmp/test-svn/branches/opera, 87
+Found branch parent: (opera) 1f6bfe471083cbca06ac8d4176f7ad4de0d62e5f
+Following parent with do_switch
+Successfully followed parent
+r89 = 9b6fe0b90c5c9adf9165f700897518dbc54a7cbf (opera)</code></pre>
 
-<p>You want to see what is in your experiment branch that hasn’t yet been merged into your master branch. You can ask Git to show you a log of just those commits with <code>master..experiment</code> — that means &quot;all commits reachable by experiment that aren’t reachable by master.&quot; For the sake of brevity and clarity in these examples, I’ll use the letters of the commit objects from the diagram in place of the actual log output in the order that they would display:</p>
+<p>This does the equivalent of the <code>svn copy trunk branches/opera</code> command in Subversion and operates on the Subversion server. It’s important to note that it doesn’t check you out into that branch; if you commit at this point, that commit will go to <code>trunk</code> on the server, not <code>opera</code>.</p>
 
-<pre><code>$ git log master..experiment
-D
-C</code></pre>
+<h3>Switching Active Branches</h3>
 
-<p>If, on the other hand, you want to see the opposite — all commits in <code>master</code> that aren’t in <code>experiment</code> — you can reverse the branch names. <code>experiment..master</code> shows you everything in <code>master</code> not reachable from <code>experiment</code>:</p>
+<p>Git figures out what branch your dcommits go to by looking for the tip of any of your Subversion branches in your history — you should have only one, and it should be the last one with a <code>git-svn-id</code> in your current branch history.</p>
 
-<pre><code>$ git log experiment..master
-F
-E</code></pre>
+<p>If you want to work on more than one branch simultaneously, you can set up local branches to <code>dcommit</code> to specific Subversion branches by starting them at the imported Subversion commit for that branch. If you want an <code>opera</code> branch that you can work on separately, you can run</p>
 
-<p>This is useful if you want to keep the <code>experiment</code> branch up to date and preview what you’re about to merge in. Another very frequent use of this syntax is to see what you’re about to push to a remote:</p>
+<pre><code>$ git branch opera remotes/opera</code></pre>
 
-<pre><code>$ git log origin/master..HEAD</code></pre>
+<p>Now, if you want to merge your <code>opera</code> branch into <code>trunk</code> (your <code>master</code> branch), you can do so with a normal <code>git merge</code>. But you need to provide a descriptive commit message (via <code>-m</code>), or the merge will say &quot;Merge branch opera&quot; instead of something useful.</p>
 
-<p>This command shows you any commits in your current branch that aren’t in the <code>master</code> branch on your <code>origin</code> remote. If you run a <code>git push</code> and your current branch is tracking <code>origin/master</code>, the commits listed by <code>git log origin/master..HEAD</code> are the commits that will be transferred to the server.
-You can also leave off one side of the syntax to have Git assume HEAD. For example, you can get the same results as in the previous example by typing <code>git log origin/master..</code> — Git substitutes HEAD if one side is missing.</p>
+<p>Remember that although you’re using <code>git merge</code> to do this operation, and the merge likely will be much easier than it would be in Subversion (because Git will automatically detect the appropriate merge base for you), this isn’t a normal Git merge commit. You have to push this data back to a Subversion server that can’t handle a commit that tracks more than one parent; so, after you push it up, it will look like a single commit that squashed in all the work of another branch under a single commit. After you merge one branch into another, you can’t easily go back and continue working on that branch, as you normally can in Git. The <code>dcommit</code> command that you run erases any information that says what branch was merged in, so subsequent merge-base calculations will be wrong — the dcommit makes your <code>git merge</code> result look like you ran <code>git merge --squash</code>. Unfortunately, there’s no good way to avoid this situation — Subversion can’t store this information, so you’ll always be crippled by its limitations while you’re using it as your server. To avoid issues, you should delete the local branch (in this case, <code>opera</code>) after you merge it into trunk.</p>
 
-<h4>Multiple Points</h4>
+<h3>Subversion Commands</h3>
 
-<p>The double-dot syntax is useful as a shorthand; but perhaps you want to specify more than two branches to indicate your revision, such as seeing what commits are in any of several branches that aren’t in the branch you’re currently on. Git allows you to do this by using either the <code>^</code> character or <code>--not</code> before any reference from which you don’t want to see reachable commits. Thus these three commands are equivalent:</p>
+<p>The <code>git svn</code> toolset provides a number of commands to help ease the transition to Git by providing some functionality that’s similar to what you had in Subversion. Here are a few commands that give you what Subversion used to.</p>
 
-<pre><code>$ git log refA..refB
-$ git log ^refA refB
-$ git log refB --not refA</code></pre>
+<h4>SVN Style History</h4>
 
-<p>This is nice because with this syntax you can specify more than two references in your query, which you cannot do with the double-dot syntax. For instance, if you want to see all commits that are reachable from <code>refA</code> or <code>refB</code> but not from <code>refC</code>, you can type one of these:</p>
+<p>If you’re used to Subversion and want to see your history in SVN output style, you can run <code>git svn log</code> to view your commit history in SVN formatting:</p>
 
-<pre><code>$ git log refA refB ^refC
-$ git log refA refB --not refC</code></pre>
+<pre><code>$ git svn log
+------------------------------------------------------------------------
+r87 | schacon | 2009-05-02 16:07:37 -0700 (Sat, 02 May 2009) | 2 lines
 
-<p>This makes for a very powerful revision query system that should help you figure out what is in your branches.</p>
+autogen change
 
-<h4>Triple Dot</h4>
+------------------------------------------------------------------------
+r86 | schacon | 2009-05-02 16:00:21 -0700 (Sat, 02 May 2009) | 2 lines
 
-<p>The last major range-selection syntax is the triple-dot syntax, which specifies all the commits that are reachable by either of two references but not by both of them. Look back at the example commit history in Figure 6-1.
-If you want to see what is in <code>master</code> or <code>experiment</code> but not any common references, you can run</p>
+Merge branch &#39;experiment&#39;
 
-<pre><code>$ git log master...experiment
-F
-E
-D
-C</code></pre>
+------------------------------------------------------------------------
+r85 | schacon | 2009-05-02 16:00:09 -0700 (Sat, 02 May 2009) | 2 lines
 
-<p>Again, this gives you normal <code>log</code> output but shows you only the commit information for those four commits, appearing in the traditional commit date ordering.</p>
+updated the changelog</code></pre>
 
-<p>A common switch to use with the <code>log</code> command in this case is <code>--left-right</code>, which shows you which side of the range each commit is in. This helps make the data more useful:</p>
+<p>You should know two important things about <code>git svn log</code>. First, it works offline, unlike the real <code>svn log</code> command, which asks the Subversion server for the data. Second, it only shows you commits that have been committed up to the Subversion server. Local Git commits that you haven’t dcommited don’t show up; neither do commits that people have made to the Subversion server in the meantime. It’s more like the last known state of the commits on the Subversion server.</p>
 
-<pre><code>$ git log --left-right master...experiment
-&lt; F
-&lt; E
-&gt; D
-&gt; C</code></pre>
+<h4>SVN Annotation</h4>
 
-<p>With these tools, you can much more easily let Git know what commit or commits you want to inspect.</p>
+<p>Much as the <code>git svn log</code> command simulates the <code>svn log</code> command offline, you can get the equivalent of <code>svn annotate</code> by running <code>git svn blame [FILE]</code>. The output looks like this:</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Tools</li><li><a href="ch6_1.html">Revision Selection</a></li><li><a href="ch6_2.html">Interactive Staging</a></li><li><a href="ch6_3.html">Stashing</a></li><li><a href="ch6_4.html">Rewriting History</a></li><li><a href="ch6_5.html">Debugging with Git</a></li><li><a href="ch6_6.html">Submodules</a></li><li><a href="ch6_7.html">Subtree Merging</a></li><li><a href="ch6_8.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<pre><code>$ git svn blame README.txt
+ 2   temporal Protocol Buffers - Google&#39;s data interchange format
+ 2   temporal Copyright 2008 Google Inc.
+ 2   temporal http://code.google.com/apis/protocolbuffers/
+ 2   temporal
+22   temporal C++ Installation - Unix
+22   temporal =======================
+ 2   temporal
+79    schacon Committing in git-svn.
+78    schacon
+ 2   temporal To build and install the C++ Protocol Buffer runtime and the Protocol
+ 2   temporal Buffer compiler (protoc) execute the following:
+ 2   temporal</code></pre>
+
+<p>Again, it doesn’t show commits that you did locally in Git or that have been pushed to Subversion in the meantime.</p>
+
+<h4>SVN Server Information</h4>
+
+<p>You can also get the same sort of information that <code>svn info</code> gives you by running <code>git svn info</code>:</p>
+
+<pre><code>$ git svn info
+Path: .
+URL: https://schacon-test.googlecode.com/svn/trunk
+Repository Root: https://schacon-test.googlecode.com/svn
+Repository UUID: 4c93b258-373f-11de-be05-5f7a86268029
+Revision: 87
+Node Kind: directory
+Schedule: normal
+Last Changed Author: schacon
+Last Changed Rev: 87
+Last Changed Date: 2009-05-02 16:07:37 -0700 (Sat, 02 May 2009)</code></pre>
+
+<p>This is like <code>blame</code> and <code>log</code> in that it runs offline and is up to date only as of the last time you communicated with the Subversion server.</p>
+
+<h4>Ignoring What Subversion Ignores</h4>
+
+<p>If you clone a Subversion repository that has <code>svn:ignore</code> properties set anywhere, you’ll likely want to set corresponding <code>.gitignore</code> files so you don’t accidentally commit files that you shouldn’t. <code>git svn</code> has two commands to help with this issue. The first is <code>git svn create-ignore</code>, which automatically creates corresponding <code>.gitignore</code> files for you so your next commit can include them.</p>
+
+<p>The second command is <code>git svn show-ignore</code>, which prints to stdout the lines you need to put in a <code>.gitignore</code> file so you can redirect the output into your project exclude file:</p>
+
+<pre><code>$ git svn show-ignore &gt; .git/info/exclude</code></pre>
+
+<p>That way, you don’t litter the project with <code>.gitignore</code> files. This is a good option if you’re the only Git user on a Subversion team, and your teammates don’t want <code>.gitignore</code> files in the project.</p>
+
+<h3>Git-Svn Summary</h3>
+
+<p>The <code>git svn</code> tools are useful if you’re stuck with a Subversion server for now or are otherwise in a development environment that necessitates running a Subversion server. You should consider it crippled Git, however, or you’ll hit issues in translation that may confuse you and your collaborators. To stay out of trouble, try to follow these guidelines:</p>
+
+<ul><li>Keep a linear Git history that doesn’t contain merge commits made by <code>git merge</code>. Rebase any work you do outside of your mainline branch back onto it; don’t merge it in.</li><li>Don’t set up and collaborate on a separate Git server. Possibly have one to speed up clones for new developers, but don’t push anything to it that doesn’t have a <code>git-svn-id</code> entry. You may even want to add a <code>pre-receive</code> hook that checks each commit message for a <code>git-svn-id</code> and rejects pushes that contain commits without it.</li></ul>
+
+<p>If you follow those guidelines, working with a Subversion server can be more bearable. However, if it’s possible to move to a real Git server, doing so can gain your team a lot more.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git and Other Systems</li><li><a href="ch6_1.html">Git and Subversion</a></li><li><a href="ch6_2.html">Migrating to Git</a></li><li><a href="ch6_3.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

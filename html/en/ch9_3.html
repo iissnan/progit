@@ -1,129 +1,64 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Internals - Git References</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git References</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Getting Started - Git Basics</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git Basics</h2>
 
-<p>You can run something like <code>git log 1a410e</code> to look through your whole history, but you still have to remember that <code>1a410e</code> is the last commit in order to walk that history to find all those objects. You need a file in which you can store the SHA-1 value under a simple name so you can use that pointer rather than the raw SHA-1 value.</p>
+<p>So, what is Git in a nutshell? This is an important section to absorb, because if you understand what Git is and the fundamentals of how it works, then using Git effectively will probably be much easier for you. As you learn Git, try to clear your mind of the things you may know about other VCSs, such as Subversion and Perforce; doing so will help you avoid subtle confusion when using the tool. Git stores and thinks about information much differently than these other systems, even though the user interface is fairly similar; understanding those differences will help prevent you from becoming confused while using it.</p>
 
-<p>In Git, these are called &quot;references&quot; or &quot;refs&quot;; you can find the files that contain the SHA-1 values in the <code>.git/refs</code> directory. In the current project, this directory contains no files, but it does contain a simple structure:</p>
+<h3>Snapshots, Not Differences</h3>
 
-<pre><code>$ find .git/refs
-.git/refs
-.git/refs/heads
-.git/refs/tags
-$ find .git/refs -type f
-$</code></pre>
+<p>The major difference between Git and any other VCS (Subversion and friends included) is the way Git thinks about its data. Conceptually, most other systems store information as a list of file-based changes. These systems (CVS, Subversion, Perforce, Bazaar, and so on) think of the information they keep as a set of files and the changes made to each file over time, as illustrated in Figure 1-4.</p>
 
-<p>To create a new reference that will help you remember where your latest commit is, you can technically do something as simple as this:</p>
+<p><img src="../../book_src/figures/18333fig0104-tn.png"></br>
+Figure 1-4. Other systems tend to store data as changes to a base version of each file.</p>
 
-<pre><code>$ echo &quot;1a410efbd13591db07496601ebc7a059dd55cfe9&quot; &gt; .git/refs/heads/master</code></pre>
+<p>Git doesn’t think of or store its data this way. Instead, Git thinks of its data more like a set of snapshots of a mini filesystem. Every time you commit, or save the state of your project in Git, it basically takes a picture of what all your files look like at that moment and stores a reference to that snapshot. To be efficient, if files have not changed, Git doesn’t store the file again—just a link to the previous identical file it has already stored. Git thinks about its data more like Figure 1-5.</p>
 
-<p>Now, you can use the head reference you just created instead of the SHA-1 value in your Git commands:</p>
+<p><img src="../../book_src/figures/18333fig0105-tn.png"></br>
+Figure 1-5. Git stores data as snapshots of the project over time.</p>
 
-<pre><code>$ git log --pretty=oneline  master
-1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
-cac0cab538b970a37ea1e769cbbde608743bc96d second commit
-fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+<p>This is an important distinction between Git and nearly all other VCSs. It makes Git reconsider almost every aspect of version control that most other systems copied from the previous generation. This makes Git more like a mini filesystem with some incredibly powerful tools built on top of it, rather than simply a VCS. We’ll explore some of the benefits you gain by thinking of your data this way when we cover Git branching in Chapter 3.</p>
 
-<p>You aren’t encouraged to directly edit the reference files. Git provides a safer command to do this if you want to update a reference called <code>update-ref</code>:</p>
+<h3>Nearly Every Operation Is Local</h3>
 
-<pre><code>$ git update-ref refs/heads/master 1a410efbd13591db07496601ebc7a059dd55cfe9</code></pre>
+<p>Most operations in Git only need local files and resources to operate — generally no information is needed from another computer on your network.  If you’re used to a CVCS where most operations have that network latency overhead, this aspect of Git will make you think that the gods of speed have blessed Git with unworldly powers. Because you have the entire history of the project right there on your local disk, most operations seem almost instantaneous.</p>
 
-<p>That’s basically what a branch in Git is: a simple pointer or reference to the head of a line of work. To create a branch back at the second commit, you can do this:</p>
+<p>For example, to browse the history of the project, Git doesn’t need to go out to the server to get the history and display it for you—it simply reads it directly from your local database. This means you see the project history almost instantly. If you want to see the changes introduced between the current version of a file and the file a month ago, Git can look up the file a month ago and do a local difference calculation, instead of having to either ask a remote server to do it or pull an older version of the file from the remote server to do it locally.</p>
 
-<pre><code>$ git update-ref refs/heads/test cac0ca</code></pre>
+<p>This also means that there is very little you can’t do if you’re offline or off VPN. If you get on an airplane or a train and want to do a little work, you can commit happily until you get to a network connection to upload. If you go home and can’t get your VPN client working properly, you can still work. In many other systems, doing so is either impossible or painful. In Perforce, for example, you can’t do much when you aren’t connected to the server; and in Subversion and CVS, you can edit files, but you can’t commit changes to your database (because your database is offline). This may not seem like a huge deal, but you may be surprised what a big difference it can make.</p>
 
-<p>Your branch will contain only work from that commit down:</p>
+<h3>Git Has Integrity</h3>
 
-<pre><code>$ git log --pretty=oneline test
-cac0cab538b970a37ea1e769cbbde608743bc96d second commit
-fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+<p>Everything in Git is check-summed before it is stored and is then referred to by that checksum. This means it’s impossible to change the contents of any file or directory without Git knowing about it. This functionality is built into Git at the lowest levels and is integral to its philosophy. You can’t lose information in transit or get file corruption without Git being able to detect it.</p>
 
-<p>Now, your Git database conceptually looks something like Figure 9-4.</p>
+<p>The mechanism that Git uses for this checksumming is called a SHA-1 hash. This is a 40-character string composed of hexadecimal characters (0–9 and a–f) and calculated based on the contents of a file or directory structure in Git. A SHA-1 hash looks something like this:</p>
 
-<p><img src="../../book_src/figures/18333fig0904-tn.png"></br>
-Figure 9-4. Git directory objects with branch head references included.</p>
+<pre><code>24b9da6552252987aa493b52f8696cd6d3b00373</code></pre>
 
-<p>When you run commands like <code>git branch (branchname)</code>, Git basically runs that <code>update-ref</code> command to add the SHA-1 of the last commit of the branch you’re on into whatever new reference you want to create.</p>
+<p>You will see these hash values all over the place in Git because it uses them so much. In fact, Git stores everything not by file name but in the Git database addressable by the hash value of its contents.</p>
 
-<h3>The HEAD</h3>
+<h3>Git Generally Only Adds Data</h3>
 
-<p>The question now is, when you run <code>git branch (branchname)</code>, how does Git know the SHA-1 of the last commit? The answer is the HEAD file. The HEAD file is a symbolic reference to the branch you’re currently on. By symbolic reference, I mean that unlike a normal reference, it doesn’t generally contain a SHA-1 value but rather a pointer to another reference. If you look at the file, you’ll normally see something like this:</p>
+<p>When you do actions in Git, nearly all of them only add data to the Git database. It is very difficult to get the system to do anything that is not undoable or to make it erase data in any way. As in any VCS, you can lose or mess up changes you haven’t committed yet; but after you commit a snapshot into Git, it is very difficult to lose, especially if you regularly push your database to another repository.</p>
 
-<pre><code>$ cat .git/HEAD
-ref: refs/heads/master</code></pre>
+<p>This makes using Git a joy because we know we can experiment without the danger of severely screwing things up. For a more in-depth look at how Git stores its data and how you can recover data that seems lost, see Chapter 9.</p>
 
-<p>If you run <code>git checkout test</code>, Git updates the file to look like this:</p>
+<h3>The Three States</h3>
 
-<pre><code>$ cat .git/HEAD
-ref: refs/heads/test</code></pre>
+<p>Now, pay attention. This is the main thing to remember about Git if you want the rest of your learning process to go smoothly. Git has three main states that your files can reside in: committed, modified, and staged. Committed means that the data is safely stored in your local database. Modified means that you have changed the file but have not committed it to your database yet. Staged means that you have marked a modified file in its current version to go into your next commit snapshot.</p>
 
-<p>When you run <code>git commit</code>, it creates the commit object, specifying the parent of that commit object to be whatever SHA-1 value the reference in HEAD points to.</p>
+<p>This leads us to the three main sections of a Git project: the Git directory, the working directory, and the staging area.</p>
 
-<p>You can also manually edit this file, but again a safer command exists to do so: <code>symbolic-ref</code>. You can read the value of your HEAD via this command:</p>
+<p><img src="../../book_src/figures/18333fig0106-tn.png"></br>
+Figure 1-6. Working directory, staging area, and git directory.</p>
 
-<pre><code>$ git symbolic-ref HEAD
-refs/heads/master</code></pre>
+<p>The Git directory is where Git stores the metadata and object database for your project. This is the most important part of Git, and it is what is copied when you clone a repository from another computer.</p>
 
-<p>You can also set the value of HEAD:</p>
+<p>The working directory is a single checkout of one version of the project. These files are pulled out of the compressed database in the Git directory and placed on disk for you to use or modify.</p>
 
-<pre><code>$ git symbolic-ref HEAD refs/heads/test
-$ cat .git/HEAD
-ref: refs/heads/test</code></pre>
+<p>The staging area is a simple file, generally contained in your Git directory, that stores information about what will go into your next commit. It’s sometimes referred to as the index, but it’s becoming standard to refer to it as the staging area.</p>
 
-<p>You can’t set a symbolic reference outside of the refs style:</p>
+<p>The basic Git workflow goes something like this:</p>
 
-<pre><code>$ git symbolic-ref HEAD test
-fatal: Refusing to point HEAD outside of refs/</code></pre>
+<ol><li>You modify files in your working directory.</li><li>You stage the files, adding snapshots of them to your staging area.</li><li>You do a commit, which takes the files as they are in the staging area and stores that snapshot permanently to your Git directory.</li></ol>
 
-<h3>Tags</h3>
+<p>If a particular version of a file is in the git directory, it’s considered committed. If it’s modified but has been added to the staging area, it is staged. And if it was changed since it was checked out but has not been staged, it is modified. In Chapter 2, you’ll learn more about these states and how you can either take advantage of them or skip the staged part entirely.</p>
 
-<p>You’ve just gone over Git’s three main object types, but there is a fourth. The tag object is very much like a commit object — it contains a tagger, a date, a message, and a pointer. The main difference is that a tag object points to a commit rather than a tree. It’s like a branch reference, but it never moves — it always points to the same commit but gives it a friendlier name.</p>
-
-<p>As discussed in Chapter 2, there are two types of tags: annotated and lightweight. You can make a lightweight tag by running something like this:</p>
-
-<pre><code>$ git update-ref refs/tags/v1.0 cac0cab538b970a37ea1e769cbbde608743bc96d</code></pre>
-
-<p>That is all a lightweight tag is — a branch that never moves. An annotated tag is more complex, however. If you create an annotated tag, Git creates a tag object and then writes a reference to point to it rather than directly to the commit. You can see this by creating an annotated tag (<code>-a</code> specifies that it’s an annotated tag):</p>
-
-<pre><code>$ git tag -a v1.1 1a410efbd13591db07496601ebc7a059dd55cfe9 -m &#39;test tag&#39;</code></pre>
-
-<p>Here’s the object SHA-1 value it created:</p>
-
-<pre><code>$ cat .git/refs/tags/v1.1
-9585191f37f7b0fb9444f35a9bf50de191beadc2</code></pre>
-
-<p>Now, run the <code>cat-file</code> command on that SHA-1 value:</p>
-
-<pre><code>$ git cat-file -p 9585191f37f7b0fb9444f35a9bf50de191beadc2
-object 1a410efbd13591db07496601ebc7a059dd55cfe9
-type commit
-tag v1.1
-tagger Scott Chacon &lt;schacon@gmail.com&gt; Sat May 23 16:48:58 2009 -0700
-
-test tag</code></pre>
-
-<p>Notice that the object entry points to the commit SHA-1 value that you tagged. Also notice that it doesn’t need to point to a commit; you can tag any Git object. In the Git source code, for example, the maintainer has added their GPG public key as a blob object and then tagged it. You can view the public key by running</p>
-
-<pre><code>$ git cat-file blob junio-gpg-pub</code></pre>
-
-<p>in the Git source code repository. The Linux kernel repository also has a non-commit-pointing tag object — the first tag created points to the initial tree of the import of the source code.</p>
-
-<h3>Remotes</h3>
-
-<p>The third type of reference that you’ll see is a remote reference. If you add a remote and push to it, Git stores the value you last pushed to that remote for each branch in the <code>refs/remotes</code> directory. For instance, you can add a remote called <code>origin</code> and push your <code>master</code> branch to it:</p>
-
-<pre><code>$ git remote add origin git@github.com:schacon/simplegit-progit.git
-$ git push origin master
-Counting objects: 11, done.
-Compressing objects: 100% (5/5), done.
-Writing objects: 100% (7/7), 716 bytes, done.
-Total 7 (delta 2), reused 4 (delta 1)
-To git@github.com:schacon/simplegit-progit.git
-   a11bef0..ca82a6d  master -&gt; master</code></pre>
-
-<p>Then, you can see what the <code>master</code> branch on the <code>origin</code> remote was the last time you communicated with the server, by checking the <code>refs/remotes/origin/master</code> file:</p>
-
-<pre><code>$ cat .git/refs/remotes/origin/master
-ca82a6dff817ec66f44342007202690a93763949</code></pre>
-
-<p>Remote references differ from branches (<code>refs/heads</code> references) mainly in that they can’t be checked out. Git moves them around as bookmarks to the last known state of where those branches were on those servers.</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Internals</li><li><a href="ch9_1.html">Plumbing and Porcelain</a></li><li><a href="ch9_2.html">Git Objects</a></li><li><a href="ch9_3.html">Git References</a></li><li><a href="ch9_4.html">Packfiles</a></li><li><a href="ch9_5.html">The Refspec</a></li><li><a href="ch9_6.html">Transfer Protocols</a></li><li><a href="ch9_7.html">Maintenance and Data Recovery</a></li><li><a href="ch9_8.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Getting Started</li><li><a href="ch9_1.html">About Version Control</a></li><li><a href="ch9_2.html">A Short History of Git</a></li><li><a href="ch9_3.html">Git Basics</a></li><li><a href="ch9_4.html">Installing Git</a></li><li><a href="ch9_5.html">First-Time Git Setup</a></li><li><a href="ch9_6.html">Getting Help</a></li><li><a href="ch9_7.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

@@ -1,156 +1,343 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Tools - Interactive Staging</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Interactive Staging</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git and Other Systems - Migrating to Git</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Migrating to Git</h2>
 
-<p>Git comes with a couple of scripts that make some command-line tasks easier. Here, you’ll look at a few interactive commands that can help you easily craft your commits to include only certain combinations and parts of files. These tools are very helpful if you modify a bunch of files and then decide that you want those changes to be in several focused commits rather than one big messy commit. This way, you can make sure your commits are logically separate changesets and can be easily reviewed by the developers working with you.
-If you run <code>git add</code> with the <code>-i</code> or <code>--interactive</code> option, Git goes into an interactive shell mode, displaying something like this:</p>
+<p>If you have an existing codebase in another VCS but you’ve decided to start using Git, you must migrate your project one way or another. This section goes over some importers that are included with Git for common systems and then demonstrates how to develop your own custom importer.</p>
 
-<pre><code>$ git add -i
-           staged     unstaged path
-  1:    unchanged        +0/-1 TODO
-  2:    unchanged        +1/-1 index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
+<h3>Importing</h3>
 
-*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt;</code></pre>
+<p>You’ll learn how to import data from two of the bigger professionally used SCM systems — Subversion and Perforce — both because they make up the majority of users I hear of who are currently switching, and because high-quality tools for both systems are distributed with Git.</p>
 
-<p>You can see that this command shows you a much different view of your staging area — basically the same information you get with <code>git status</code> but a bit more succinct and informative. It lists the changes you’ve staged on the left and unstaged changes on the right.</p>
+<h3>Subversion</h3>
 
-<p>After this comes a Commands section. Here you can do a number of things, including staging files, unstaging files, staging parts of files, adding untracked files, and seeing diffs of what has been staged.</p>
+<p>If you read the previous section about using <code>git svn</code>, you can easily use those instructions to <code>git svn clone</code> a repository; then, stop using the Subversion server, push to a new Git server, and start using that. If you want the history, you can accomplish that as quickly as you can pull the data out of the Subversion server (which may take a while).</p>
 
-<h3>Staging and Unstaging Files</h3>
+<p>However, the import isn’t perfect; and because it will take so long, you may as well do it right. The first problem is the author information. In Subversion, each person committing has a user on the system who is recorded in the commit information. The examples in the previous section show <code>schacon</code> in some places, such as the <code>blame</code> output and the <code>git svn log</code>. If you want to map this to better Git author data, you need a mapping from the Subversion users to the Git authors. Create a file called <code>users.txt</code> that has this mapping in a format like this:</p>
 
-<p>If you type <code>2</code> or <code>u</code> at the <code>What now&gt;</code> prompt, the script prompts you for which files you want to stage:</p>
+<pre><code>schacon = Scott Chacon &lt;schacon@geemail.com&gt;
+selse = Someo Nelse &lt;selse@geemail.com&gt;</code></pre>
 
-<pre><code>What now&gt; 2
-           staged     unstaged path
-  1:    unchanged        +0/-1 TODO
-  2:    unchanged        +1/-1 index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
-Update&gt;&gt;</code></pre>
+<p>To get a list of the author names that SVN uses, you can run this:</p>
 
-<p>To stage the TODO and index.html files, you can type the numbers:</p>
+<pre><code>$ svn log --xml | grep -P &quot;^&lt;author&quot; | sort -u | \
+      perl -pe &#39;s/&lt;author&gt;(.*?)&lt;\/author&gt;/$1 = /&#39; &gt; users.txt</code></pre>
 
-<pre><code>Update&gt;&gt; 1,2
-           staged     unstaged path
-* 1:    unchanged        +0/-1 TODO
-* 2:    unchanged        +1/-1 index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
-Update&gt;&gt;</code></pre>
+<p>That gives you the log output in XML format — you can look for the authors, create a unique list, and then strip out the XML. (Obviously this only works on a machine with <code>grep</code>, <code>sort</code>, and <code>perl</code> installed.) Then, redirect that output into your users.txt file so you can add the equivalent Git user data next to each entry.</p>
 
-<p>The <code>*</code> next to each file means the file is selected to be staged. If you press Enter after typing nothing at the <code>Update&gt;&gt;</code> prompt, Git takes anything selected and stages it for you:</p>
+<p>You can provide this file to <code>git svn</code> to help it map the author data more accurately. You can also tell <code>git svn</code> not to include the metadata that Subversion normally imports, by passing <code>--no-metadata</code> to the <code>clone</code> or <code>init</code> command. This makes your <code>import</code> command look like this:</p>
 
-<pre><code>Update&gt;&gt;
-updated 2 paths
+<pre><code>$ git-svn clone http://my-project.googlecode.com/svn/ \
+      --authors-file=users.txt --no-metadata -s my_project</code></pre>
 
-*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; 1
-           staged     unstaged path
-  1:        +0/-1      nothing TODO
-  2:        +1/-1      nothing index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb</code></pre>
+<p>Now you should have a nicer Subversion import in your <code>my_project</code> directory. Instead of commits that look like this</p>
 
-<p>Now you can see that the TODO and index.html files are staged and the simplegit.rb file is still unstaged. If you want to unstage the TODO file at this point, you use the <code>3</code> or <code>r</code> (for revert) option:</p>
+<pre><code>commit 37efa680e8473b615de980fa935944215428a35a
+Author: schacon &lt;schacon@4c93b258-373f-11de-be05-5f7a86268029&gt;
+Date:   Sun May 3 00:12:22 2009 +0000
 
-<pre><code>*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; 3
-           staged     unstaged path
-  1:        +0/-1      nothing TODO
-  2:        +1/-1      nothing index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
-Revert&gt;&gt; 1
-           staged     unstaged path
-* 1:        +0/-1      nothing TODO
-  2:        +1/-1      nothing index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb
-Revert&gt;&gt; [enter]
-reverted one path</code></pre>
+    fixed install - go to trunk
 
-<p>Looking at your Git status again, you can see that you’ve unstaged the TODO file:</p>
+    git-svn-id: https://my-project.googlecode.com/svn/trunk@94 4c93b258-373f-11de-
+    be05-5f7a86268029</code></pre>
 
-<pre><code>*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; 1
-           staged     unstaged path
-  1:    unchanged        +0/-1 TODO
-  2:        +1/-1      nothing index.html
-  3:    unchanged        +5/-1 lib/simplegit.rb</code></pre>
+<p>they look like this:</p>
 
-<p>To see the diff of what you’ve staged, you can use the <code>6</code> or <code>d</code> (for diff) command. It shows you a list of your staged files, and you can select the ones for which you would like to see the staged diff. This is much like specifying <code>git diff --cached</code> on the command line:</p>
+<pre><code>commit 03a8785f44c8ea5cdb0e8834b7c8e6c469be2ff2
+Author: Scott Chacon &lt;schacon@geemail.com&gt;
+Date:   Sun May 3 00:12:22 2009 +0000
 
-<pre><code>*** Commands ***
-  1: status     2: update      3: revert     4: add untracked
-  5: patch      6: diff        7: quit       8: help
-What now&gt; 6
-           staged     unstaged path
-  1:        +1/-1      nothing index.html
-Review diff&gt;&gt; 1
-diff --git a/index.html b/index.html
-index 4d07108..4335f49 100644
---- a/index.html
-+++ b/index.html
-@@ -16,7 +16,7 @@ Date Finder
+    fixed install - go to trunk</code></pre>
 
- &lt;p id=&quot;out&quot;&gt;...&lt;/p&gt;
+<p>Not only does the Author field look a lot better, but the <code>git-svn-id</code> is no longer there, either.</p>
 
--&lt;div id=&quot;footer&quot;&gt;contact : support@github.com&lt;/div&gt;
-+&lt;div id=&quot;footer&quot;&gt;contact : email.support@github.com&lt;/div&gt;
+<p>You need to do a bit of <code>post-import</code> cleanup. For one thing, you should clean up the weird references that <code>git svn</code> set up. First you’ll move the tags so they’re actual tags rather than strange remote branches, and then you’ll move the rest of the branches so they’re local.</p>
 
- &lt;script type=&quot;text/javascript&quot;&gt;</code></pre>
+<p>To move the tags to be proper Git tags, run</p>
 
-<p>With these basic commands, you can use the interactive add mode to deal with your staging area a little more easily.</p>
+<pre><code>$ git for-each-ref refs/remotes/tags | cut -d / -f 4- | grep -v @ | while read tagname; do git tag &quot;$tagname&quot; &quot;tags/$tagname&quot;; git branch -r -d &quot;tags/$tagname&quot;; done</code></pre>
 
-<h3>Staging Patches</h3>
+<p>This takes the references that were remote branches that started with <code>tag/</code> and makes them real (lightweight) tags.</p>
 
-<p>It’s also possible for Git to stage certain parts of files and not the rest. For example, if you make two changes to your simplegit.rb file and want to stage one of them and not the other, doing so is very easy in Git. From the interactive prompt, type <code>5</code> or <code>p</code> (for patch). Git will ask you which files you would like to partially stage; then, for each section of the selected files, it will display hunks of the file diff and ask if you would like to stage them, one by one:</p>
+<p>Next, move the rest of the references under <code>refs/remotes</code> to be local branches:</p>
 
-<pre><code>diff --git a/lib/simplegit.rb b/lib/simplegit.rb
-index dd5ecc4..57399e0 100644
---- a/lib/simplegit.rb
-+++ b/lib/simplegit.rb
-@@ -22,7 +22,7 @@ class SimpleGit
-   end
+<pre><code>$ git for-each-ref refs/remotes | cut -d / -f 3- | grep -v @ | while read branchname; do git branch &quot;$branchname&quot; &quot;refs/remotes/$branchname&quot;; git branch -r -d &quot;$branchname&quot;; done</code></pre>
 
-   def log(treeish = &#39;master&#39;)
--    command(&quot;git log -n 25 #{treeish}&quot;)
-+    command(&quot;git log -n 30 #{treeish}&quot;)
-   end
+<p>Now all the old branches are real Git branches and all the old tags are real Git tags. The last thing to do is add your new Git server as a remote and push to it. Here is an example of adding your server as a remote:</p>
 
-   def blame(path)
-Stage this hunk [y,n,a,d,/,j,J,g,e,?]?</code></pre>
+<pre><code>$ git remote add origin git@my-git-server:myrepository.git</code></pre>
 
-<p>You have a lot of options at this point. Typing <code>?</code> shows a list of what you can do:</p>
+<p>Because you want all your branches and tags to go up, you can now run this:</p>
 
-<pre><code>Stage this hunk [y,n,a,d,/,j,J,g,e,?]? ?
-y - stage this hunk
-n - do not stage this hunk
-a - stage this and all the remaining hunks in the file
-d - do not stage this hunk nor any of the remaining hunks in the file
-g - select a hunk to go to
-/ - search for a hunk matching the given regex
-j - leave this hunk undecided, see next undecided hunk
-J - leave this hunk undecided, see next hunk
-k - leave this hunk undecided, see previous undecided hunk
-K - leave this hunk undecided, see previous hunk
-s - split the current hunk into smaller hunks
-e - manually edit the current hunk
-? - print help</code></pre>
+<pre><code>$ git push origin --all
+$ git push origin --tags</code></pre>
 
-<p>Generally, you’ll type <code>y</code> or <code>n</code> if you want to stage each hunk, but staging all of them in certain files or skipping a hunk decision until later can be helpful too. If you stage one part of the file and leave another part unstaged, your status output will look like this:</p>
+<p>All your branches and tags should be on your new Git server in a nice, clean import.</p>
 
-<pre><code>What now&gt; 1
-           staged     unstaged path
-  1:    unchanged        +0/-1 TODO
-  2:        +1/-1      nothing index.html
-  3:        +1/-1        +4/-0 lib/simplegit.rb</code></pre>
+<h3>Perforce</h3>
 
-<p>The status of the simplegit.rb file is interesting. It shows you that a couple of lines are staged and a couple are unstaged. You’ve partially staged this file. At this point, you can exit the interactive adding script and run <code>git commit</code> to commit the partially staged files.</p>
+<p>The next system you’ll look at importing from is Perforce. A Perforce importer is also distributed with Git. If you have a version of Git earlier than 1.7.11, then the importer is only available in the <code>contrib</code> section of the source code. In that case you must get the Git source code, which you can download from git.kernel.org:</p>
 
-<p>Finally, you don’t need to be in interactive add mode to do the partial-file staging — you can start the same script by using <code>git add -p</code> or <code>git add --patch</code> on the command line.</p>
+<pre><code>$ git clone git://git.kernel.org/pub/scm/git/git.git
+$ cd git/contrib/fast-import</code></pre>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Tools</li><li><a href="ch6_1.html">Revision Selection</a></li><li><a href="ch6_2.html">Interactive Staging</a></li><li><a href="ch6_3.html">Stashing</a></li><li><a href="ch6_4.html">Rewriting History</a></li><li><a href="ch6_5.html">Debugging with Git</a></li><li><a href="ch6_6.html">Submodules</a></li><li><a href="ch6_7.html">Subtree Merging</a></li><li><a href="ch6_8.html">Summary</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<p>In this <code>fast-import</code> directory, you should find an executable Python script named <code>git-p4</code>. You must have Python and the <code>p4</code> tool installed on your machine for this import to work. For example, you’ll import the Jam project from the Perforce Public Depot. To set up your client, you must export the P4PORT environment variable to point to the Perforce depot:</p>
+
+<pre><code>$ export P4PORT=public.perforce.com:1666</code></pre>
+
+<p>Run the <code>git-p4 clone</code> command to import the Jam project from the Perforce server, supplying the depot and project path and the path into which you want to import the project:</p>
+
+<pre><code>$ git-p4 clone //public/jam/src@all /opt/p4import
+Importing from //public/jam/src@all into /opt/p4import
+Reinitialized existing Git repository in /opt/p4import/.git/
+Import destination: refs/remotes/p4/master
+Importing revision 4409 (100%)</code></pre>
+
+<p>If you go to the <code>/opt/p4import</code> directory and run <code>git log</code>, you can see your imported work:</p>
+
+<pre><code>$ git log -2
+commit 1fd4ec126171790efd2db83548b85b1bbbc07dc2
+Author: Perforce staff &lt;support@perforce.com&gt;
+Date:   Thu Aug 19 10:18:45 2004 -0800
+
+    Drop &#39;rc3&#39; moniker of jam-2.5.  Folded rc2 and rc3 RELNOTES into
+    the main part of the document.  Built new tar/zip balls.
+
+    Only 16 months later.
+
+    [git-p4: depot-paths = &quot;//public/jam/src/&quot;: change = 4409]
+
+commit ca8870db541a23ed867f38847eda65bf4363371d
+Author: Richard Geiger &lt;rmg@perforce.com&gt;
+Date:   Tue Apr 22 20:51:34 2003 -0800
+
+    Update derived jamgram.c
+
+    [git-p4: depot-paths = &quot;//public/jam/src/&quot;: change = 3108]</code></pre>
+
+<p>You can see the <code>git-p4</code> identifier in each commit. It’s fine to keep that identifier there, in case you need to reference the Perforce change number later. However, if you’d like to remove the identifier, now is the time to do so — before you start doing work on the new repository. You can use <code>git filter-branch</code> to remove the identifier strings en masse:</p>
+
+<pre><code>$ git filter-branch --msg-filter &#39;
+        sed -e &quot;/^\[git-p4:/d&quot;
+&#39;
+Rewrite 1fd4ec126171790efd2db83548b85b1bbbc07dc2 (123/123)
+Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
+
+<p>If you run <code>git log</code>, you can see that all the SHA-1 checksums for the commits have changed, but the <code>git-p4</code> strings are no longer in the commit messages:</p>
+
+<pre><code>$ git log -2
+commit 10a16d60cffca14d454a15c6164378f4082bc5b0
+Author: Perforce staff &lt;support@perforce.com&gt;
+Date:   Thu Aug 19 10:18:45 2004 -0800
+
+    Drop &#39;rc3&#39; moniker of jam-2.5.  Folded rc2 and rc3 RELNOTES into
+    the main part of the document.  Built new tar/zip balls.
+
+    Only 16 months later.
+
+commit 2b6c6db311dd76c34c66ec1c40a49405e6b527b2
+Author: Richard Geiger &lt;rmg@perforce.com&gt;
+Date:   Tue Apr 22 20:51:34 2003 -0800
+
+    Update derived jamgram.c</code></pre>
+
+<p>Your import is ready to push up to your new Git server.</p>
+
+<h3>A Custom Importer</h3>
+
+<p>If your system isn’t Subversion or Perforce, you should look for an importer online — quality importers are available for CVS, Clear Case, Visual Source Safe, even a directory of archives. If none of these tools works for you, you have a rarer tool, or you otherwise need a more custom importing process, you should use <code>git fast-import</code>. This command reads simple instructions from stdin to write specific Git data. It’s much easier to create Git objects this way than to run the raw Git commands or try to write the raw objects (see Chapter 9 for more information). This way, you can write an import script that reads the necessary information out of the system you’re importing from and prints straightforward instructions to stdout. You can then run this program and pipe its output through <code>git fast-import</code>.</p>
+
+<p>To quickly demonstrate, you’ll write a simple importer. Suppose you work in current, you back up your project by occasionally copying the directory into a time-stamped <code>back_YYYY_MM_DD</code> backup directory, and you want to import this into Git. Your directory structure looks like this:</p>
+
+<pre><code>$ ls /opt/import_from
+back_2009_01_02
+back_2009_01_04
+back_2009_01_14
+back_2009_02_03
+current</code></pre>
+
+<p>In order to import a Git directory, you need to review how Git stores its data. As you may remember, Git is fundamentally a linked list of commit objects that point to a snapshot of content. All you have to do is tell <code>fast-import</code> what the content snapshots are, what commit data points to them, and the order they go in. Your strategy will be to go through the snapshots one at a time and create commits with the contents of each directory, linking each commit back to the previous one.</p>
+
+<p>As you did in the &quot;An Example Git Enforced Policy&quot; section of Chapter 7, we’ll write this in Ruby, because it’s what I generally work with and it tends to be easy to read. You can write this example pretty easily in anything you’re familiar with — it just needs to print the appropriate information to stdout. And, if you are running on Windows, this means you’ll need to take special care to not introduce carriage returns at the end your lines — git fast-import is very particular about just wanting line feeds (LF) not the carriage return line feeds (CRLF) that Windows uses.</p>
+
+<p>To begin, you’ll change into the target directory and identify every subdirectory, each of which is a snapshot that you want to import as a commit. You’ll change into each subdirectory and print the commands necessary to export it. Your basic main loop looks like this:</p>
+
+<pre><code>last_mark = nil
+
+# loop through the directories
+Dir.chdir(ARGV[0]) do
+  Dir.glob(&quot;*&quot;).each do |dir|
+    next if File.file?(dir)
+
+    # move into the target directory
+    Dir.chdir(dir) do
+      last_mark = print_export(dir, last_mark)
+    end
+  end
+end</code></pre>
+
+<p>You run <code>print_export</code> inside each directory, which takes the manifest and mark of the previous snapshot and returns the manifest and mark of this one; that way, you can link them properly. &quot;Mark&quot; is the <code>fast-import</code> term for an identifier you give to a commit; as you create commits, you give each one a mark that you can use to link to it from other commits. So, the first thing to do in your <code>print_export</code> method is generate a mark from the directory name:</p>
+
+<pre><code>mark = convert_dir_to_mark(dir)</code></pre>
+
+<p>You’ll do this by creating an array of directories and using the index value as the mark, because a mark must be an integer. Your method looks like this:</p>
+
+<pre><code>$marks = []
+def convert_dir_to_mark(dir)
+  if !$marks.include?(dir)
+    $marks &lt;&lt; dir
+  end
+  ($marks.index(dir) + 1).to_s
+end</code></pre>
+
+<p>Now that you have an integer representation of your commit, you need a date for the commit metadata. Because the date is expressed in the name of the directory, you’ll parse it out. The next line in your <code>print_export</code> file is</p>
+
+<pre><code>date = convert_dir_to_date(dir)</code></pre>
+
+<p>where <code>convert_dir_to_date</code> is defined as</p>
+
+<pre><code>def convert_dir_to_date(dir)
+  if dir == &#39;current&#39;
+    return Time.now().to_i
+  else
+    dir = dir.gsub(&#39;back_&#39;, &#39;&#39;)
+    (year, month, day) = dir.split(&#39;_&#39;)
+    return Time.local(year, month, day).to_i
+  end
+end</code></pre>
+
+<p>That returns an integer value for the date of each directory. The last piece of meta-information you need for each commit is the committer data, which you hardcode in a global variable:</p>
+
+<pre><code>$author = &#39;Scott Chacon &lt;schacon@example.com&gt;&#39;</code></pre>
+
+<p>Now you’re ready to begin printing out the commit data for your importer. The initial information states that you’re defining a commit object and what branch it’s on, followed by the mark you’ve generated, the committer information and commit message, and then the previous commit, if any. The code looks like this:</p>
+
+<pre><code># print the import information
+puts &#39;commit refs/heads/master&#39;
+puts &#39;mark :&#39; + mark
+puts &quot;committer #{$author} #{date} -0700&quot;
+export_data(&#39;imported from &#39; + dir)
+puts &#39;from :&#39; + last_mark if last_mark</code></pre>
+
+<p>You hardcode the time zone (-0700) because doing so is easy. If you’re importing from another system, you must specify the time zone as an offset.
+The commit message must be expressed in a special format:</p>
+
+<pre><code>data (size)\n(contents)</code></pre>
+
+<p>The format consists of the word data, the size of the data to be read, a newline, and finally the data. Because you need to use the same format to specify the file contents later, you create a helper method, <code>export_data</code>:</p>
+
+<pre><code>def export_data(string)
+  print &quot;data #{string.size}\n#{string}&quot;
+end</code></pre>
+
+<p>All that’s left is to specify the file contents for each snapshot. This is easy, because you have each one in a directory — you can print out the <code>deleteall</code> command followed by the contents of each file in the directory. Git will then record each snapshot appropriately:</p>
+
+<pre><code>puts &#39;deleteall&#39;
+Dir.glob(&quot;**/*&quot;).each do |file|
+  next if !File.file?(file)
+  inline_data(file)
+end</code></pre>
+
+<p>Note:	Because many systems think of their revisions as changes from one commit to another, fast-import can also take commands with each commit to specify which files have been added, removed, or modified and what the new contents are. You could calculate the differences between snapshots and provide only this data, but doing so is more complex — you may as well give Git all the data and let it figure it out. If this is better suited to your data, check the <code>fast-import</code> man page for details about how to provide your data in this manner.</p>
+
+<p>The format for listing the new file contents or specifying a modified file with the new contents is as follows:</p>
+
+<pre><code>M 644 inline path/to/file
+data (size)
+(file contents)</code></pre>
+
+<p>Here, 644 is the mode (if you have executable files, you need to detect and specify 755 instead), and inline says you’ll list the contents immediately after this line. Your <code>inline_data</code> method looks like this:</p>
+
+<pre><code>def inline_data(file, code = &#39;M&#39;, mode = &#39;644&#39;)
+  content = File.read(file)
+  puts &quot;#{code} #{mode} inline #{file}&quot;
+  export_data(content)
+end</code></pre>
+
+<p>You reuse the <code>export_data</code> method you defined earlier, because it’s the same as the way you specified your commit message data.</p>
+
+<p>The last thing you need to do is to return the current mark so it can be passed to the next iteration:</p>
+
+<pre><code>return mark</code></pre>
+
+<p>NOTE: If you are running on Windows you’ll need to make sure that you add one extra step. As metioned before, Windows uses CRLF for new line characters while git fast-import expects only LF. To get around this problem and make git fast-import happy, you need to tell ruby to use LF instead of CRLF:</p>
+
+<pre><code>$stdout.binmode</code></pre>
+
+<p>That’s it. If you run this script, you’ll get content that looks something like this:</p>
+
+<pre><code>$ ruby import.rb /opt/import_from
+commit refs/heads/master
+mark :1
+committer Scott Chacon &lt;schacon@geemail.com&gt; 1230883200 -0700
+data 29
+imported from back_2009_01_02deleteall
+M 644 inline file.rb
+data 12
+version two
+commit refs/heads/master
+mark :2
+committer Scott Chacon &lt;schacon@geemail.com&gt; 1231056000 -0700
+data 29
+imported from back_2009_01_04from :1
+deleteall
+M 644 inline file.rb
+data 14
+version three
+M 644 inline new.rb
+data 16
+new version one
+(...)</code></pre>
+
+<p>To run the importer, pipe this output through <code>git fast-import</code> while in the Git repository you want to import into. You can create a new directory and then run <code>git init</code> in it for a starting point, and then run your script:</p>
+
+<pre><code>$ git init
+Initialized empty Git repository in /opt/import_to/.git/
+$ ruby import.rb /opt/import_from | git fast-import
+git-fast-import statistics:
+---------------------------------------------------------------------
+Alloc&#39;d objects:       5000
+Total objects:           18 (         1 duplicates                  )
+      blobs  :            7 (         1 duplicates          0 deltas)
+      trees  :            6 (         0 duplicates          1 deltas)
+      commits:            5 (         0 duplicates          0 deltas)
+      tags   :            0 (         0 duplicates          0 deltas)
+Total branches:           1 (         1 loads     )
+      marks:           1024 (         5 unique    )
+      atoms:              3
+Memory total:          2255 KiB
+       pools:          2098 KiB
+     objects:           156 KiB
+---------------------------------------------------------------------
+pack_report: getpagesize()            =       4096
+pack_report: core.packedGitWindowSize =   33554432
+pack_report: core.packedGitLimit      =  268435456
+pack_report: pack_used_ctr            =          9
+pack_report: pack_mmap_calls          =          5
+pack_report: pack_open_windows        =          1 /          1
+pack_report: pack_mapped              =       1356 /       1356
+---------------------------------------------------------------------</code></pre>
+
+<p>As you can see, when it completes successfully, it gives you a bunch of statistics about what it accomplished. In this case, you imported 18 objects total for 5 commits into 1 branch. Now, you can run <code>git log</code> to see your new history:</p>
+
+<pre><code>$ git log -2
+commit 10bfe7d22ce15ee25b60a824c8982157ca593d41
+Author: Scott Chacon &lt;schacon@example.com&gt;
+Date:   Sun May 3 12:57:39 2009 -0700
+
+    imported from current
+
+commit 7e519590de754d079dd73b44d695a42c9d2df452
+Author: Scott Chacon &lt;schacon@example.com&gt;
+Date:   Tue Feb 3 01:00:00 2009 -0700
+
+    imported from back_2009_02_03</code></pre>
+
+<p>There you go — a nice, clean Git repository. It’s important to note that nothing is checked out — you don’t have any files in your working directory at first. To get them, you must reset your branch to where <code>master</code> is now:</p>
+
+<pre><code>$ ls
+$ git reset --hard master
+HEAD is now at 10bfe7d imported from current
+$ ls
+file.rb  lib</code></pre>
+
+<p>You can do a lot more with the <code>fast-import</code> tool — handle different modes, binary data, multiple branches and merging, tags, progress indicators, and more. A number of examples of more complex scenarios are available in the <code>contrib/fast-import</code> directory of the Git source code; one of the better ones is the <code>git-p4</code> script I just covered.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git and Other Systems</li><li><a href="ch6_1.html">Git and Subversion</a></li><li><a href="ch6_2.html">Migrating to Git</a></li><li><a href="ch6_3.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

@@ -1,247 +1,339 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git 工具 - 修订版本（Revision）选择</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>修订版本（Revision）选择</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git 与其他系统 - Git 与 Subversion</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git 基础 </a></li><li><a href="ch2_0.html">2 服务器上的 Git </a></li><li><a href="ch3_0.html">3 自定义 Git </a></li><li><a href="ch4_0.html">4 Git 内部原理 </a></li><li><a href="ch5_0.html">5 Git 分支 </a></li><li><a href="ch6_0.html">6 Git 与其他系统 </a></li><li><a href="ch7_0.html">7 Git 工具 </a></li><li><a href="ch8_0.html">8 分布式 Git </a></li><li><a href="ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Git Basics </a></li><li><a href="../en/ch2_0.html">2 Git on the Server </a></li><li><a href="../en/ch3_0.html">3 Customizing Git </a></li><li><a href="../en/ch4_0.html">4 Git Internals </a></li><li><a href="../en/ch5_0.html">5 Git Branching </a></li><li><a href="../en/ch6_0.html">6 Git and Other Systems </a></li><li><a href="../en/ch7_0.html">7 Git Tools </a></li><li><a href="../en/ch8_0.html">8 Distributed Git </a></li><li><a href="../en/ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git 与 Subversion</h2>
 
-<p>Git 允许你通过几种方法来指明特定的或者一定范围内的提交。了解它们并不是必需的，但是了解一下总没坏处。</p>
+<p>当前，大多数开发中的开源项目以及大量的商业项目都使用 Subversion 来管理源码。作为最流行的开源版本控制系统，Subversion 已经存在了接近十年的时间。它在许多方面与 CVS 十分类似，后者是前者出现之前代码控制世界的霸主。</p>
 
-<h3>单个修订版本</h3>
+<p>Git 最为重要的特性之一是名为 <code>git svn</code> 的 Subversion 双向桥接工具。该工具把 Git 变成了 Subversion 服务的客户端，从而让你在本地享受到 Git 所有的功能，而后直接向 Subversion 服务器推送内容，仿佛在本地使用了 Subversion 客户端。也就是说，在其他人忍受古董的同时，你可以在本地享受分支合并，使暂存区域，衍合以及 单项挑拣等等。这是个让 Git 偷偷潜入合作开发环境的好东西，在帮助你的开发同伴们提高效率的同时，它还能帮你劝说团队让整个项目框架转向对 Git 的支持。这个 Subversion 之桥是通向分布式版本控制系统（DVCS, Distributed VCS ）世界的神奇隧道。</p>
 
-<p>显然你可以使用给出的 SHA-1 值来指明一次提交，不过也有更加人性化的方法来做同样的事。本节概述了指明单个提交的诸多方法。</p>
+<h3>git svn</h3>
 
-<h3>简短的SHA</h3>
+<p>Git 中所有 Subversion 桥接命令的基础是 <code>git svn</code> 。所有的命令都从它开始。相关的命令数目不少，你将通过几个简单的工作流程了解到其中常见的一些。</p>
 
-<p>Git 很聪明，它能够通过你提供的前几个字符来识别你想要的那次提交，只要你提供的那部分 SHA-1 不短于四个字符，并且没有歧义——也就是说，当前仓库中只有一个对象以这段 SHA-1 开头。</p>
+<p>值得警戒的是，在使用 <code>git svn</code> 的时候，你实际是在与 Subversion 交互，Git 比它要高级复杂的多。尽管可以在本地随意的进行分支和合并，最好还是通过衍合保持线性的提交历史，尽量避免类似与远程 Git 仓库动态交互这样的操作。</p>
 
-<p>例如，想要查看一次指定的提交，假设你运行 <code>git log</code> 命令并找到你增加了功能的那次提交：</p>
+<p>避免修改历史再重新推送的做法，也不要同时推送到并行的 Git 仓库来试图与其他 Git 用户合作。Subersion 只能保存单一的线性提交历史，一不小心就会被搞糊涂。合作团队中同时有人用 SVN 和 Git，一定要确保所有人都使用 SVN 服务来协作——这会让生活轻松很多。</p>
 
-<pre><code>$ git log
-commit 734713bc047d87bf7eac9674765ae793478c50d3
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Fri Jan 2 18:32:33 2009 -0800
+<h3>初始设定</h3>
 
-    fixed refs handling, added gc auto, updated tests
+<p>为了展示功能，先要一个具有写权限的 SVN 仓库。如果想尝试这个范例，你必须复制一份其中的测试仓库。比较简单的做法是使用一个名为 <code>svnsync</code> 的工具。较新的 Subversion 版本中都带有该工具，它将数据编码为用于网络传输的格式。</p>
 
-commit d921970aadf03b3cf0e71becdaab3147ba71cdef
-Merge: 1c002dd... 35cfb2b...
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 15:08:43 2008 -0800
+<p>要尝试本例，先在本地新建一个 Subversion 仓库：</p>
 
-    Merge commit &#39;phedders/rdocs&#39;
+<pre><code>$ mkdir /tmp/test-svn
+$ svnadmin create /tmp/test-svn</code></pre>
 
-commit 1c002dd4b536e7479fe34593e72e6c6c1819e53b
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 14:58:32 2008 -0800
+<p>然后，允许所有用户修改 revprop —— 简单的做法是添加一个总是以 0 作为返回值的 pre-revprop-change 脚本：</p>
 
-    added some blame and merge stuff</code></pre>
+<pre><code>$ cat /tmp/test-svn/hooks/pre-revprop-change 
+#!/bin/sh
+exit 0;
+$ chmod +x /tmp/test-svn/hooks/pre-revprop-change</code></pre>
 
-<p>假设是 <code>1c002dd....</code> 。如果你想 <code>git show</code> 这次提交，下面的命令是等价的（假设简短的版本没有歧义）：</p>
+<p>现在可以调用 <code>svnsync init</code> 加目标仓库，再加源仓库的格式来把该项目同步到本地了：</p>
 
-<pre><code>$ git show 1c002dd4b536e7479fe34593e72e6c6c1819e53b
-$ git show 1c002dd4b536e7479f
-$ git show 1c002d</code></pre>
+<pre><code>$ svnsync init file:///tmp/test-svn http://progit-example.googlecode.com/svn/ </code></pre>
 
-<p>Git 可以为你的 SHA-1 值生成出简短且唯一的缩写。如果你传递 <code>--abbrev-commit</code> 给 <code>git log</code> 命令，输出结果里就会使用简短且唯一的值；它默认使用七个字符来表示，不过必要时为了避免 SHA-1 的歧义，会增加字符数：</p>
+<p>这将建立进行同步所需的属性。可以通过运行以下命令来克隆代码：</p>
 
-<pre><code>$ git log --abbrev-commit --pretty=oneline
-ca82a6d changed the version number
-085bb3b removed unnecessary test code
-a11bef0 first commit</code></pre>
+<pre><code>$ svnsync sync file:///tmp/test-svn
+Committed revision 1.
+Copied properties for revision 1.
+Committed revision 2.
+Copied properties for revision 2.
+Committed revision 3.
+...</code></pre>
 
-<p>通常在一个项目中，使用八到十个字符来避免 SHA-1 歧义已经足够了。最大的 Git 项目之一，Linux 内核，目前也只需要最长 40 个字符中的 12 个字符来保持唯一性。</p>
+<p>别看这个操作只花掉几分钟，要是你想把源仓库复制到另一个远程仓库，而不是本地仓库，那将花掉接近一个小时，尽管项目中只有不到 100 次的提交。 Subversion 每次只复制一次修改，把它推送到另一个仓库里，然后周而复始——惊人的低效，但是我们别无选择。</p>
 
-<h3>关于 SHA-1 的简短说明</h3>
+<h3>入门</h3>
 
-<p>许多人可能会担心一个问题：在随机的偶然情况下，在他们的仓库里会出现两个具有相同 SHA-1 值的对象。那会怎么样呢？</p>
+<p>有了可以写入的 Subversion 仓库以后，就可以尝试一下典型的工作流程了。我们从 <code>git svn clone</code> 命令开始，它会把整个 Subversion 仓库导入到一个本地的 Git 仓库中。提醒一下，这里导入的是一个货真价实的 Subversion 仓库，所以应该把下面的 <code>file:///tmp/test-svn</code> 换成你所用的 Subversion 仓库的 URL：</p>
 
-<p>如果你真的向仓库里提交了一个跟之前的某个对象具有相同 SHA-1 值的对象，Git 将会发现之前的那个对象已经存在在 Git 数据库中，并认为它已经被写入了。如果什么时候你想再次检出那个对象时，你会总是得到先前的那个对象的数据。</p>
+<pre><code>$ git svn clone file:///tmp/test-svn -T trunk -b branches -t tags
+Initialized empty Git repository in /Users/schacon/projects/testsvnsync/svn/.git/
+r1 = b4e387bc68740b5af56c2a5faf4003ae42bd135c (trunk)
+      A    m4/acx_pthread.m4
+      A    m4/stl_hash.m4
+...
+r75 = d1957f3b307922124eec6314e15bcda59e3d9610 (trunk)
+Found possible branch point: file:///tmp/test-svn/trunk =&gt; \
+    file:///tmp/test-svn /branches/my-calc-branch, 75
+Found branch parent: (my-calc-branch) d1957f3b307922124eec6314e15bcda59e3d9610
+Following parent with do_switch
+Successfully followed parent
+r76 = 8624824ecc0badd73f40ea2f01fce51894189b01 (my-calc-branch)
+Checked out HEAD:
+ file:///tmp/test-svn/branches/my-calc-branch r76</code></pre>
 
-<p>不过，你应该了解到，这种情况发生的概率是多么微小。SHA-1 摘要长度是 20 字节，也就是 160 位。为了保证有 50% 的概率出现一次冲突，需要 2^80 个随机哈希的对象（计算冲突机率的公式是 <code>p = (n(n-1)/2) * (1/2^160))</code>。2^80 是 1.2 x 10^24，也就是一亿亿亿，那是地球上沙粒总数的 1200 倍。</p>
+<p>这相当于针对所提供的 URL 运行了两条命令—— <code>git svn init</code> 加上 <code>git svn fetch</code> 。可能会花上一段时间。我们所用的测试项目仅仅包含 75 次提交并且它的代码量不算大，所以只有几分钟而已。不过，Git 仍然需要提取每一个版本，每次一个，再逐个提交。对于一个包含成百上千次提交的项目，花掉的时间则可能是几小时甚至数天。</p>
 
-<p>现在举例说一下怎样才能产生一次 SHA-1 冲突。如果地球上 65 亿的人类都在编程，每人每秒都在产生等价于整个 Linux 内核历史（一百万个 Git 对象）的代码，并将之提交到一个巨大的 Git 仓库里面，那将花费 5 年的时间才会产生足够的对象，使其拥有 50% 的概率产生一次 SHA-1 对象冲突。这要比你编程团队的成员同一个晚上在互不相干的意外中被狼袭击并杀死的机率还要小。</p>
+<p><code>-T trunk -b branches -t tags</code> 告诉 Git 该 Subversion 仓库遵循了基本的分支和标签命名法则。如果你的主干(译注：trunk，相当于非分布式版本控制里的master分支，代表开发的主线），分支或者标签以不同的方式命名，则应做出相应改变。由于该法则的常见性，可以使用 <code>-s</code> 来代替整条命令，它意味着标准布局（s 是 Standard layout 的首字母），也就是前面选项的内容。下面的命令有相同的效果：</p>
 
-<h3>分支引用</h3>
+<pre><code>$ git svn clone file:///tmp/test-svn -s</code></pre>
 
-<p>指明一次提交的最直接的方法要求有一个指向它的分支引用。这样，你就可以在任何需要一个提交对象或者 SHA-1 值的 Git 命令中使用该分支名称了。如果你想要显示一个分支的最后一次提交的对象，例如假设 <code>topic1</code> 分支指向 <code>ca82a6d</code>，那么下面的命令是等价的：</p>
+<p>现在，你有了一个有效的 Git 仓库，包含着导入的分支和标签：</p>
 
-<pre><code>$ git show ca82a6dff817ec66f44342007202690a93763949
-$ git show topic1</code></pre>
+<pre><code>$ git branch -a
+* master
+  my-calc-branch
+  tags/2.0.2
+  tags/release-2.0.1
+  tags/release-2.0.2
+  tags/release-2.0.2rc1
+  trunk</code></pre>
 
-<p>如果你想知道某个分支指向哪个特定的 SHA，或者想看任何一个例子中被简写的 SHA-1，你可以使用一个叫做 <code>rev-parse</code> 的 Git 探测工具。在第 9 章你可以看到关于探测工具的更多信息；简单来说，<code>rev-parse</code> 是为了底层操作而不是日常操作设计的。不过，有时你想看 Git 现在到底处于什么状态时，它可能会很有用。这里你可以对你的分支运执行 <code>rev-parse</code>。</p>
+<p>值得注意的是，该工具分配命名空间时和远程引用的方式不尽相同。克隆普通的 Git 仓库时，可以以 <code>origin/[branch]</code> 的形式获取远程服务器上所有可用的分支——分配到远程服务的名称下。然而 <code>git svn</code> 假定不存在多个远程服务器，所以把所有指向远程服务的引用不加区分的保存下来。可以用 Git 探测命令 <code>show-ref</code> 来查看所有引用的全名。</p>
 
-<pre><code>$ git rev-parse topic1
-ca82a6dff817ec66f44342007202690a93763949</code></pre>
+<pre><code>$ git show-ref
+1cbd4904d9982f386d87f88fce1c24ad7c0f0471 refs/heads/master
+aee1ecc26318164f355a883f5d99cff0c852d3c4 refs/remotes/my-calc-branch
+03d09b0e2aad427e34a6d50ff147128e76c0e0f5 refs/remotes/tags/2.0.2
+50d02cc0adc9da4319eeba0900430ba219b9c376 refs/remotes/tags/release-2.0.1
+4caaa711a50c77879a91b8b90380060f672745cb refs/remotes/tags/release-2.0.2
+1c4cb508144c513ff1214c3488abe66dcb92916f refs/remotes/tags/release-2.0.2rc1
+1cbd4904d9982f386d87f88fce1c24ad7c0f0471 refs/remotes/trunk</code></pre>
 
-<h3>引用日志里的简称</h3>
+<p>而普通的 Git 仓库应该是这个模样：</p>
 
-<p>在你工作的同时，Git 在后台的工作之一就是保存一份引用日志——一份记录最近几个月你的 HEAD 和分支引用的日志。</p>
+<pre><code>$ git show-ref
+83e38c7a0af325a9722f2fdc56b10188806d83a1 refs/heads/master
+3e15e38c198baac84223acfc6224bb8b99ff2281 refs/remotes/gitserver/master
+0a30dd3b0c795b80212ae723640d4e5d48cabdff refs/remotes/origin/master
+25812380387fdd55f916652be4881c6f11600d6f refs/remotes/origin/testing</code></pre>
 
-<p>你可以使用 <code>git reflog</code> 来查看引用日志：</p>
+<p>这里有两个远程服务器：一个名为 <code>gitserver</code> ，具有一个 <code>master</code>分支；另一个叫 <code>origin</code>，具有 <code>master</code> 和 <code>testing</code> 两个分支。</p>
 
-<pre><code>$ git reflog
-734713b... HEAD@{0}: commit: fixed refs handling, added gc auto, updated
-d921970... HEAD@{1}: merge phedders/rdocs: Merge made by recursive.
-1c002dd... HEAD@{2}: commit: added some blame and merge stuff
-1c36188... HEAD@{3}: rebase -i (squash): updating HEAD
-95df984... HEAD@{4}: commit: # This is a combination of two commits.
-1c36188... HEAD@{5}: rebase -i (squash): updating HEAD
-7e05da5... HEAD@{6}: rebase -i (pick): updating HEAD</code></pre>
+<p>注意本例中通过 <code>git svn</code> 导入的远程引用，（Subversion 的）标签是当作远程分支添加的，而不是真正的 Git 标签。导入的 Subversion 仓库仿佛是有一个带有不同分支的 tags 远程服务器。</p>
 
-<p>每次你的分支顶端因为某些原因被修改时，Git 就会为你将信息保存在这个临时历史记录里面。你也可以使用这份数据来指明更早的分支。如果你想查看仓库中 HEAD 在五次前的值，你可以使用引用日志的输出中的 <code>@{n}</code> 引用：</p>
+<h3>提交到 Subversion</h3>
 
-<pre><code>$ git show HEAD@{5}</code></pre>
+<p>有了可以开展工作的（本地）仓库以后，你可以开始对该项目做出贡献并向上游仓库提交内容了，Git 这时相当于一个 SVN 客户端。假如编辑了一个文件并进行提交，那么这次提交仅存在于本地的 Git 而非 Subversion 服务器上。</p>
 
-<p>你也可以使用这个语法来查看某个分支在一定时间前的位置。例如，想看你的 <code>master</code> 分支昨天在哪，你可以输入</p>
+<pre><code>$ git commit -am &#39;Adding git-svn instructions to the README&#39;
+[master 97031e5] Adding git-svn instructions to the README
+ 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
 
-<pre><code>$ git show master@{yesterday}</code></pre>
+<p>接下来，可以将作出的修改推送到上游。值得注意的是，Subversion 的使用流程也因此改变了——你可以在离线状态下进行多次提交然后一次性的推送到 Subversion 的服务器上。向 Subversion 服务器推送的命令是 <code>git svn dcommit</code>：</p>
 
-<p>它就会显示昨天分支的顶端在哪。这项技术只对还在你引用日志里的数据有用，所以不能用来查看比几个月前还早的提交。</p>
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+       M      README.txt
+Committed r79
+       M      README.txt
+r79 = 938b1a547c2cc92033b74d32030e86468294a5c8 (trunk)
+No changes between current HEAD and refs/remotes/trunk
+Resetting to the latest refs/remotes/trunk</code></pre>
 
-<p>想要看类似于 <code>git log</code> 输出格式的引用日志信息，你可以运行 <code>git log -g</code>：</p>
+<p>所有在原 Subversion 数据基础上提交的 commit 会一一提交到 Subversion，然后你本地 Git 的 commit 将被重写，加入一个特别标识。这一步很重要，因为它意味着所有 commit 的 SHA-1 指都会发生变化。这也是同时使用 Git 和 Subversion 两种服务作为远程服务不是个好主意的原因之一。检视以下最后一个 commit，你会找到新添加的 <code>git-svn-id</code> （译注：即本段开头所说的特别标识）：</p>
 
-<pre><code>$ git log -g master
-commit 734713bc047d87bf7eac9674765ae793478c50d3
-Reflog: master@{0} (Scott Chacon &lt;schacon@gmail.com&gt;)
-Reflog message: commit: fixed refs handling, added gc auto, updated 
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Fri Jan 2 18:32:33 2009 -0800
+<pre><code>$ git log -1
+commit 938b1a547c2cc92033b74d32030e86468294a5c8
+Author: schacon &lt;schacon@4c93b258-373f-11de-be05-5f7a86268029&gt;
+Date:   Sat May 2 22:06:44 2009 +0000
 
-    fixed refs handling, added gc auto, updated tests
+    Adding git-svn instructions to the README
 
-commit d921970aadf03b3cf0e71becdaab3147ba71cdef
-Reflog: master@{1} (Scott Chacon &lt;schacon@gmail.com&gt;)
-Reflog message: merge phedders/rdocs: Merge made by recursive.
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 15:08:43 2008 -0800
+    git-svn-id: file:///tmp/test-svn/trunk@79 4c93b258-373f-11de-be05-5f7a86268029</code></pre>
 
-    Merge commit &#39;phedders/rdocs&#39;</code></pre>
+<p>注意看，原本以 <code>97031e5</code> 开头的 SHA-1 校验值在提交完成以后变成了 <code>938b1a5</code> 。如果既要向 Git 远程服务器推送内容，又要推送到 Subversion 远程服务器，则必须先向 Subversion 推送（<code>dcommit</code>），因为该操作会改变所提交的数据内容。</p>
 
-<p>需要注意的是，引用日志信息只存在于本地——这是一个记录你在你自己的仓库里做过什么的日志。其他人拷贝的仓库里的引用日志不会和你的相同；而你新克隆一个仓库的时候，引用日志是空的，因为你在仓库里还没有操作。<code>git show HEAD@{2.months.ago}</code> 这条命令只有在你克隆了一个项目至少两个月时才会有用——如果你是五分钟前克隆的仓库，那么它将不会有结果返回。</p>
+<h3>拉取最新进展</h3>
 
-<h3>祖先引用</h3>
+<p>如果要与其他开发者协作，总有那么一天你推送完毕之后，其他人发现他们推送自己修改的时候（与你推送的内容）产生冲突。这些修改在你合并之前将一直被拒绝。在 <code>git svn</code> 里这种情况形似：</p>
 
-<p>另一种指明某次提交的常用方法是通过它的祖先。如果你在引用最后加上一个 <code>^</code>，Git 将其理解为此次提交的父提交。
-假设你的工程历史是这样的：</p>
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+Merge conflict during commit: Your file or directory &#39;README.txt&#39; is probably \
+out-of-date: resource out of date; try updating at /Users/schacon/libexec/git-\
+core/git-svn line 482</code></pre>
 
-<pre><code>$ git log --pretty=format:&#39;%h %s&#39; --graph
-* 734713b fixed refs handling, added gc auto, updated tests
-*   d921970 Merge commit &#39;phedders/rdocs&#39;
-|\  
-| * 35cfb2b Some rdoc changes
-* | 1c002dd added some blame and merge stuff
-|/  
-* 1c36188 ignore *.gem
-* 9b29157 add open3_detach to gemspec file list</code></pre>
+<p>为了解决该问题，可以运行 <code>git svn rebase</code> ，它会拉取服务器上所有最新的改变，再次基础上衍合你的修改：</p>
 
-<p>那么，想看上一次提交，你可以使用 <code>HEAD^</code>，意思是“HEAD 的父提交”：</p>
+<pre><code>$ git svn rebase
+       M      README.txt
+r80 = ff829ab914e8775c7c025d741beb3d523ee30bc4 (trunk)
+First, rewinding head to replay your work on top of it...
+Applying: first user change</code></pre>
 
-<pre><code>$ git show HEAD^
-commit d921970aadf03b3cf0e71becdaab3147ba71cdef
-Merge: 1c002dd... 35cfb2b...
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 15:08:43 2008 -0800
+<p>现在，你做出的修改都发生在服务器内容之后，所以可以顺利的运行 <code>dcommit</code> ：</p>
 
-    Merge commit &#39;phedders/rdocs&#39;</code></pre>
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+       M      README.txt
+Committed r81
+       M      README.txt
+r81 = 456cbe6337abe49154db70106d1836bc1332deed (trunk)
+No changes between current HEAD and refs/remotes/trunk
+Resetting to the latest refs/remotes/trunk</code></pre>
 
-<p>你也可以在 <code>^</code> 后添加一个数字——例如，<code>d921970^2</code> 意思是“d921970 的第二父提交”。这种语法只在合并提交时有用，因为合并提交可能有多个父提交。第一父提交是你合并时所在分支，而第二父提交是你所合并的分支：</p>
+<p>需要牢记的一点是，Git 要求我们在推送之前先合并上游仓库中最新的内容，而 <code>git svn</code> 只要求存在冲突的时候才这样做。假如有人向一个文件推送了一些修改，这时你要向另一个文件推送一些修改，那么 <code>dcommit</code> 将正常工作：</p>
 
-<pre><code>$ git show d921970^
-commit 1c002dd4b536e7479fe34593e72e6c6c1819e53b
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Thu Dec 11 14:58:32 2008 -0800
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+       M      configure.ac
+Committed r84
+       M      autogen.sh
+r83 = 8aa54a74d452f82eee10076ab2584c1fc424853b (trunk)
+       M      configure.ac
+r84 = cdbac939211ccb18aa744e581e46563af5d962d0 (trunk)
+W: d2f23b80f67aaaa1f6f5aaef48fce3263ac71a92 and refs/remotes/trunk differ, \
+  using rebase:
+:100755 100755 efa5a59965fbbb5b2b0a12890f1b351bb5493c18 \
+  015e4c98c482f0fa71e4d5434338014530b37fa6 M   autogen.sh
+First, rewinding head to replay your work on top of it...
+Nothing to do.</code></pre>
 
-    added some blame and merge stuff
+<p>这一点需要牢记，因为它的结果是推送之后项目处于一个不完整存在与任何主机上的状态。如果做出的修改无法兼容但没有产生冲突，则可能造成一些很难确诊的难题。这和使用 Git 服务器是不同的——在 Git 世界里，发布之前，你可以在客户端系统里完整的测试项目的状态，而在 SVN 永远都没法确保提交前后项目的状态完全一样。</p>
 
-$ git show d921970^2
-commit 35cfb2b795a55793d7cc56a6cc2060b4bb732548
-Author: Paul Hedderly &lt;paul+git@mjr.org&gt;
-Date:   Wed Dec 10 22:22:03 2008 +0000
+<p>即使还没打算进行提交，你也应该用这个命令从 Subversion 服务器拉取最新修改。<code>sit svn fetch</code> 能获取最新的数据，不过 <code>git svn rebase</code> 才会在获取之后在本地进行更新 。</p>
 
-    Some rdoc changes</code></pre>
+<pre><code>$ git svn rebase
+       M      generate_descriptor_proto.sh
+r82 = bd16df9173e424c6f52c337ab6efa7f7643282f1 (trunk)
+First, rewinding head to replay your work on top of it...
+Fast-forwarded master to refs/remotes/trunk.</code></pre>
 
-<p>另外一个指明祖先提交的方法是 <code>~</code>。这也是指向第一父提交，所以 <code>HEAD~</code> 和 <code>HEAD^</code> 是等价的。当你指定数字的时候就明显不一样了。<code>HEAD~2</code> 是指“第一父提交的第一父提交”，也就是“祖父提交”——它会根据你指定的次数检索第一父提交。例如，在上面列出的历史记录里面，<code>HEAD~3</code> 会是</p>
+<p>不时地运行一下 <code>git svn rebase</code> 可以确保你的代码没有过时。不过，运行该命令时需要确保工作目录的整洁。如果在本地做了修改，则必须在运行 <code>git svn rebase</code> 之前或暂存工作，或暂时提交内容——否则，该命令会发现衍合的结果包含着冲突因而终止。</p>
 
-<pre><code>$ git show HEAD~3
-commit 1c3618887afb5fbcbea25b7c013f4e2114448b8d
-Author: Tom Preston-Werner &lt;tom@mojombo.com&gt;
-Date:   Fri Nov 7 13:47:59 2008 -0500
+<h3>Git 分支问题</h3>
 
-    ignore *.gem</code></pre>
+<p>习惯了 Git 的工作流程以后，你可能会创建一些特性分支，完成相关的开发工作，然后合并他们。如果要用 git svn 向 Subversion 推送内容，那么最好是每次用衍合来并入一个单一分支，而不是直接合并。使用衍合的原因是 Subversion 只有一个线性的历史而不像 Git 那样处理合并，所以 Git svn 在把快照转换为 Subversion 的 commit 时只能包含第一个祖先。</p>
 
-<p>也可以写成 <code>HEAD^^^</code>，同样是第一父提交的第一父提交的第一父提交：</p>
+<p>假设分支历史如下：创建一个 <code>experiment</code> 分支，进行两次提交，然后合并到 <code>master</code> 。在 <code>dcommit</code> 的时候会得到如下输出：</p>
 
-<pre><code>$ git show HEAD^^^
-commit 1c3618887afb5fbcbea25b7c013f4e2114448b8d
-Author: Tom Preston-Werner &lt;tom@mojombo.com&gt;
-Date:   Fri Nov 7 13:47:59 2008 -0500
+<pre><code>$ git svn dcommit
+Committing to file:///tmp/test-svn/trunk ...
+       M      CHANGES.txt
+Committed r85
+       M      CHANGES.txt
+r85 = 4bfebeec434d156c36f2bcd18f4e3d97dc3269a2 (trunk)
+No changes between current HEAD and refs/remotes/trunk
+Resetting to the latest refs/remotes/trunk
+COPYING.txt: locally modified
+INSTALL.txt: locally modified
+       M      COPYING.txt
+       M      INSTALL.txt
+Committed r86
+       M      INSTALL.txt
+       M      COPYING.txt
+r86 = 2647f6b86ccfcaad4ec58c520e369ec81f7c283c (trunk)
+No changes between current HEAD and refs/remotes/trunk
+Resetting to the latest refs/remotes/trunk</code></pre>
 
-    ignore *.gem</code></pre>
+<p>在一个包含了合并历史的分支上使用 <code>dcommit</code> 可以成功运行，不过在 Git 项目的历史中，它没有重写你在 <code>experiment</code> 分支中的两个 commit ——另一方面，这些改变却出现在了 SVN 版本中同一个合并 commit 中。</p>
 
-<p>你也可以混合使用这些语法——你可以通过 <code>HEAD~3^2</code> 指明先前引用的第二父提交（假设它是一个合并提交）。</p>
+<p>在别人克隆该项目的时候，只能看到这个合并 commit 包含了所有发生过的修改；他们无法获知修改的作者和时间等提交信息。</p>
 
-<h3>提交范围</h3>
+<h3>Subversion 分支</h3>
 
-<p>现在你已经可以指明单次的提交，让我们来看看怎样指明一定范围的提交。这在你管理分支的时候尤显重要——如果你有很多分支，你可以指明范围来圈定一些问题的答案，比如：“这个分支上我有哪些工作还没合并到主分支的？”</p>
+<p>Subversion 的分支和 Git 中的不尽相同；避免过多的使用可能是最好方案。不过，用 git svn 创建和提交不同的 Subversion 分支仍是可行的。</p>
 
-<h4>双点</h4>
+<h4>创建新的 SVN 分支</h4>
 
-<p>最常用的指明范围的方法是双点的语法。这种语法主要是让 Git 区分出可从一个分支中获得而不能从另一个分支中获得的提交。例如，假设你有类似于图 6-1 的提交历史。</p>
+<p>要在 Subversion 中建立一个新分支，需要运行 <code>git svn branch [分支名]</code> ：</p>
 
-<p><img src="../../book_src/figures/18333fig0601-tn.png"></br> 
-图 6-1. 范围选择的提交历史实例</p>
+<pre><code>$ git svn branch opera
+Copying file:///tmp/test-svn/trunk at r87 to file:///tmp/test-svn/branches/opera...
+Found possible branch point: file:///tmp/test-svn/trunk =&gt; \
+  file:///tmp/test-svn/branches/opera, 87
+Found branch parent: (opera) 1f6bfe471083cbca06ac8d4176f7ad4de0d62e5f
+Following parent with do_switch
+Successfully followed parent
+r89 = 9b6fe0b90c5c9adf9165f700897518dbc54a7cbf (opera)</code></pre>
 
-<p>你想要查看你的试验分支上哪些没有被提交到主分支，那么你就可以使用 <code>master..experiment</code> 来让 Git 显示这些提交的日志——这句话的意思是“所有可从experiment分支中获得而不能从master分支中获得的提交”。为了使例子简单明了，我使用了图标中提交对象的字母来代替真实日志的输出，所以会显示：</p>
+<p>这相当于在 Subversion 中的 <code>svn copy trunk branches/opera</code> 命令，并会对 Subversion 服务器进行相关操作。值得注意的是它没有检出和转换到那个分支；如果现在进行提交，将提交到服务器上的 <code>trunk</code>， 而非 <code>opera</code>。</p>
 
-<pre><code>$ git log master..experiment
-D
-C</code></pre>
+<h3>切换当前分支</h3>
 
-<p>另一方面，如果你想看相反的——所有在 <code>master</code> 而不在 <code>experiment</code> 中的分支——你可以交换分支的名字。<code>experiment..master</code> 显示所有可在 <code>master</code> 获得而在 <code>experiment</code> 中不能的提交：</p>
+<p>Git 通过搜寻提交历史中 Subversion 分支的头部来决定 dcommit 的目的地——而它应该只有一个，那就是当前分支历史中最近一次包含 <code>git-svn-id</code> 的提交。</p>
 
-<pre><code>$ git log experiment..master
-F
-E</code></pre>
+<p>如果需要同时在多个分支上提交，可以通过导入 Subversion 上某个其他分支的 commit 来建立以该分支为 <code>dcommit</code> 目的地的本地分支。比如你想拥有一个并行维护的 <code>opera</code> 分支，可以运行</p>
 
-<p>这在你想保持 <code>experiment</code> 分支最新和预览你将合并的提交的时候特别有用。这个语法的另一种常见用途是查看你将把什么推送到远程：</p>
+<pre><code>$ git branch opera remotes/opera</code></pre>
 
-<pre><code>$ git log origin/master..HEAD</code></pre>
+<p>然后，如果要把 <code>opera</code> 分支并入 <code>trunk</code> （本地的 <code>master</code> 分支），可以使用普通的 <code>git merge</code>。不过最好提供一条描述提交的信息（通过 <code>-m</code>），否则这次合并的记录是 <code>Merge branch opera</code> ，而不是任何有用的东西。</p>
 
-<p>这条命令显示任何在你当前分支上而不在远程<code>origin</code> 上的提交。如果你运行 <code>git push</code> 并且的你的当前分支正在跟踪 <code>origin/master</code>，被<code>git log origin/master..HEAD</code> 列出的提交就是将被传输到服务器上的提交。
-你也可以留空语法中的一边来让 Git 来假定它是 HEAD。例如，输入 <code>git log origin/master..</code> 将得到和上面的例子一样的结果—— Git 使用 HEAD 来代替不存在的一边。</p>
+<p>记住，虽然使用了 <code>git merge</code> 来进行这次操作，并且合并过程可能比使用 Subversion 简单一些（因为 Git 会自动找到适合的合并基础），这并不是一次普通的 Git 合并提交。最终它将被推送回 commit 无法包含多个祖先的 Subversion 服务器上；因而在推送之后，它将变成一个包含了所有在其他分支上做出的改变的单一 commit。把一个分支合并到另一个分支以后，你没法像在 Git 中那样轻易的回到那个分支上继续工作。提交时运行的 <code>dcommit</code> 命令擦除了全部有关哪个分支被并入的信息，因而以后的合并基础计算将是不正确的—— dcommit 让 <code>git merge</code> 的结果变得类似于 <code>git merge --squash</code>。不幸的是，我们没有什么好办法来避免该情况—— Subversion 无法储存这个信息，所以在使用它作为服务器的时候你将永远为这个缺陷所困。为了不出现这种问题，在把本地分支（本例中的 <code>opera</code>）并入 trunk 以后应该立即将其删除。</p>
 
-<h4>多点</h4>
+<h3>对应 Subversion 的命令</h3>
 
-<p>双点语法就像速记一样有用；但是你也许会想针对两个以上的分支来指明修订版本，比如查看哪些提交被包含在某些分支中的一个，但是不在你当前的分支上。Git允许你在引用前使用<code>^</code>字符或者<code>--not</code>指明你不希望提交被包含其中的分支。因此下面三个命令是等同的：</p>
+<p><code>git svn</code> 工具集合了若干个与 Subversion 类似的功能，对应的命令可以简化向 Git 的转化过程。下面这些命令能实现 Subversion 的这些功能。</p>
 
-<pre><code>$ git log refA..refB
-$ git log ^refA refB
-$ git log refB --not refA</code></pre>
+<h4>SVN 风格的历史</h4>
 
-<p>这样很好，因为它允许你在查询中指定多于两个的引用，而这是双点语法所做不到的。例如，如果你想查找所有从<code>refA</code>或<code>refB</code>包含的但是不被<code>refC</code>包含的提交，你可以输入下面中的一个</p>
+<p>习惯了 Subversion 的人可能想以 SVN 的风格显示历史，运行 <code>git svn log</code>  可以让提交历史显示为 SVN 格式：</p>
 
-<pre><code>$ git log refA refB ^refC
-$ git log refA refB --not refC</code></pre>
+<pre><code>$ git svn log
+------------------------------------------------------------------------
+r87 | schacon | 2009-05-02 16:07:37 -0700 (Sat, 02 May 2009) | 2 lines
 
-<p>这建立了一个非常强大的修订版本查询系统，应该可以帮助你解决分支里包含了什么这个问题。</p>
+autogen change
 
-<h4>三点</h4>
+------------------------------------------------------------------------
+r86 | schacon | 2009-05-02 16:00:21 -0700 (Sat, 02 May 2009) | 2 lines
 
-<p>最后一种主要的范围选择语法是三点语法，这个可以指定被两个引用中的一个包含但又不被两者同时包含的分支。回过头来看一下图6-1里所列的提交历史的例子。
-如果你想查看<code>master</code>或者<code>experiment</code>中包含的但不是两者共有的引用，你可以运行</p>
+Merge branch &#39;experiment&#39;
 
-<pre><code>$ git log master...experiment
-F
-E
-D
-C</code></pre>
+------------------------------------------------------------------------
+r85 | schacon | 2009-05-02 16:00:09 -0700 (Sat, 02 May 2009) | 2 lines
 
-<p>这个再次给出你普通的<code>log</code>输出但是只显示那四次提交的信息，按照传统的提交日期排列。</p>
+updated the changelog</code></pre>
 
-<p>这种情形下，<code>log</code>命令的一个常用参数是<code>--left-right</code>，它会显示每个提交到底处于哪一侧的分支。这使得数据更加有用。</p>
+<p>关于 <code>git svn log</code> ，有两点需要注意。首先，它可以离线工作，不像 <code>svn log</code> 命令，需要向 Subversion 服务器索取数据。其次，它仅仅显示已经提交到 Subversion 服务器上的 commit。在本地尚未 dcommit 的 Git 数据不会出现在这里；其他人向 Subversion 服务器新提交的数据也不会显示。等于说是显示了最近已知 Subversion 服务器上的状态。</p>
 
-<pre><code>$ git log --left-right master...experiment
-&lt; F
-&lt; E
-&gt; D
-&gt; C</code></pre>
+<h4>SVN 日志</h4>
 
-<p>有了以上工具，让Git知道你要察看哪些提交就容易得多了。</p>
+<p>类似 <code>git svn log</code> 对 <code>git log</code> 的模拟，<code>svn annotate</code> 的等效命令是 <code>git svn blame [文件名]</code>。其输出如下：</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 工具</li><li><a href="ch6_1.html">修订版本（Revision）选择</a></li><li><a href="ch6_2.html">交互式暂存</a></li><li><a href="ch6_3.html">储藏（Stashing）</a></li><li><a href="ch6_4.html">重写历史</a></li><li><a href="ch6_5.html">使用 Git 调试</a></li><li><a href="ch6_6.html">子模块</a></li><li><a href="ch6_7.html">子树合并</a></li><li><a href="ch6_8.html">总结</a></li></ul></div></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<pre><code>$ git svn blame README.txt 
+ 2   temporal Protocol Buffers - Google&#39;s data interchange format
+ 2   temporal Copyright 2008 Google Inc.
+ 2   temporal http://code.google.com/apis/protocolbuffers/
+ 2   temporal 
+22   temporal C++ Installation - Unix
+22   temporal =======================
+ 2   temporal 
+79    schacon Committing in git-svn.
+78    schacon 
+ 2   temporal To build and install the C++ Protocol Buffer runtime and the Protocol
+ 2   temporal Buffer compiler (protoc) execute the following:
+ 2   temporal </code></pre>
+
+<p>同样，它不显示本地的 Git 提交以及 Subversion 上后来更新的内容。</p>
+
+<h4>SVN 服务器信息</h4>
+
+<p>还可以使用 <code>git svn info</code> 来获取与运行 <code>svn info</code> 类似的信息：</p>
+
+<pre><code>$ git svn info
+Path: .
+URL: https://schacon-test.googlecode.com/svn/trunk
+Repository Root: https://schacon-test.googlecode.com/svn
+Repository UUID: 4c93b258-373f-11de-be05-5f7a86268029
+Revision: 87
+Node Kind: directory
+Schedule: normal
+Last Changed Author: schacon
+Last Changed Rev: 87
+Last Changed Date: 2009-05-02 16:07:37 -0700 (Sat, 02 May 2009)</code></pre>
+
+<p>它与 <code>blame</code> 和 <code>log</code> 的相同点在于离线运行以及只更新到最后一次与 Subversion 服务器通信的状态。</p>
+
+<h4>略 Subversion 之所略</h4>
+
+<p>假如克隆了一个包含了 <code>svn:ignore</code> 属性的 Subversion 仓库，就有必要建立对应的 <code>.gitignore</code> 文件来防止意外提交一些不应该提交的文件。<code>git svn</code> 有两个有益于改善该问题的命令。第一个是 <code>git svn create-ignore</code>，它自动建立对应的 <code>.gitignore</code> 文件，以便下次提交的时候可以包含它。</p>
+
+<p>第二个命令是 <code>git svn show-ignore</code>，它把需要放进 <code>.gitignore</code> 文件中的内容打印到标准输出，方便我们把输出重定向到项目的黑名单文件：</p>
+
+<pre><code>$ git svn show-ignore &gt; .git/info/exclude</code></pre>
+
+<p>这样一来，避免了 <code>.gitignore</code> 对项目的干扰。如果你是一个 Subversion 团队里唯一的 Git 用户，而其他队友不喜欢项目包含 <code>.gitignore</code>，该方法是你的不二之选。</p>
+
+<h3>Git-Svn 总结</h3>
+
+<p><code>git svn</code> 工具集在当前不得不使用 Subversion 服务器或者开发环境要求使用 Subversion 服务器的时候格外有用。不妨把它看成一个跛脚的 Git，然而，你还是有可能在转换过程中碰到一些困惑你和合作者们的迷题。为了避免麻烦，试着遵守如下守则：</p>
+
+<ul><li>保持一个不包含由 <code>git merge</code> 生成的 commit 的线性提交历史。将在主线分支外进行的开发通通衍合回主线；避免直接合并。</li><li>不要单独建立和使用一个 Git 服务来搞合作。可以为了加速新开发者的克隆进程建立一个，但是不要向它提供任何不包含 <code>git-svn-id</code> 条目的内容。甚至可以添加一个 <code>pre-receive</code> 挂钩来在每一个提交信息中查找 <code>git-svn-id</code> 并拒绝提交那些不包含它的 commit。</li></ul>
+
+<p>如果遵循这些守则，在 Subversion 上工作还可以接受。然而，如果能迁徙到真正的 Git 服务器，则能为团队带来更多好处。</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 与其他系统</li><li><a href="ch6_1.html">Git 与 Subversion</a></li><li><a href="ch6_2.html">迁移到 Git</a></li><li><a href="ch6_3.html">总结</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
