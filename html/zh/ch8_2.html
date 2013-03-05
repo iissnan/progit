@@ -1,509 +1,343 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - 分布式 Git - 为项目作贡献</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git 基础 </a></li><li><a href="ch2_0.html">2 服务器上的 Git </a></li><li><a href="ch3_0.html">3 自定义 Git </a></li><li><a href="ch4_0.html">4 Git 内部原理 </a></li><li><a href="ch5_0.html">5 Git 分支 </a></li><li><a href="ch6_0.html">6 Git 与其他系统 </a></li><li><a href="ch7_0.html">7 Git 工具 </a></li><li><a href="ch8_0.html">8 分布式 Git </a></li><li><a href="ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Git Basics </a></li><li><a href="../en/ch2_0.html">2 Git on the Server </a></li><li><a href="../en/ch3_0.html">3 Customizing Git </a></li><li><a href="../en/ch4_0.html">4 Git Internals </a></li><li><a href="../en/ch5_0.html">5 Git Branching </a></li><li><a href="../en/ch6_0.html">6 Git and Other Systems </a></li><li><a href="../en/ch7_0.html">7 Git Tools </a></li><li><a href="../en/ch8_0.html">8 Distributed Git </a></li><li><a href="../en/ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>为项目作贡献</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git 与其他系统 - 迁移到 Git</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>迁移到 Git</h2>
 
-<p>接下来，我们来学习一下作为项目贡献者，会有哪些常见的工作模式。</p>
+<p>如果在其他版本控制系统中保存了某项目的代码而后决定转而使用 Git，那么该项目必须经历某种形式的迁移。本节将介绍 Git 中包含的一些针对常见系统的导入脚本，并将展示编写自定义的导入脚本的方法。</p>
 
-<p>不过要说清楚整个协作过程真的很难，Git 如此灵活，人们的协作方式便可以各式各样，没有固定不变的范式可循，而每个项目的具体情况又多少会有些不同，比如说参与者的规模，所选择的工作流程，每个人的提交权限，以及 Git 以外贡献等等，都会影响到具体操作的细节。</p>
+<h3>导入</h3>
 
-<p>首当其冲的是参与者规模。项目中有多少开发者是经常提交代码的？经常又是多久呢？大多数两至三人的小团队，一天大约只有几次提交，如果不是什么热门项目的话就更少了。可要是在大公司里，或者大项目中，参与者可以多到上千，每天都会有十几个上百个补丁提交上来。这种差异带来的影响是显著的，越是多的人参与进来，就越难保证每次合并正确无误。你正在工作的代码，可能会因为合并进来其他人的更新而变得过时，甚至受创无法运行。而已经提交上去的更新，也可能在等着审核合并的过程中变得过时。那么，我们该怎样做才能确保代码是最新的，提交的补丁也是可用的呢？</p>
+<p>你将学习到如何从专业重量级的版本控制系统中导入数据—— Subversion 和 Perforce —— 因为据我所知这二者的用户是（向 Git）转换的主要群体，而且 Git 为此二者附带了高质量的转换工具。</p>
 
-<p>接下来便是项目所采用的工作流。是集中式的，每个开发者都具有等同的写权限？项目是否有专人负责检查所有补丁？是不是所有补丁都做过同行复阅（peer-review）再通过审核的？你是否参与审核过程？如果使用副官系统，那你是不是限定于只能向此副官提交？</p>
+<h3>Subversion</h3>
 
-<p>还有你的提交权限。有或没有向主项目提交更新的权限，结果完全不同，直接决定最终采用怎样的工作流。如果不能直接提交更新，那该如何贡献自己的代码呢？是不是该有个什么策略？你每次贡献代码会有多少量？提交频率呢？</p>
+<p>读过前一节有关 <code>git svn</code> 的内容以后，你应该能轻而易举的根据其中的指导来 <code>git svn clone</code> 一个仓库了；然后，停止 Subversion 的使用，向一个新 Git server 推送，并开始使用它。想保留历史记录，所花的时间应该不过就是从 Subversion 服务器拉取数据的时间（可能要等上好一会就是了）。</p>
 
-<p>所有以上这些问题都会或多或少影响到最终采用的工作流。接下来，我会在一系列由简入繁的具体用例中，逐一阐述。此后在实践时，应该可以借鉴这里的例子，略作调整，以满足实际需要构建自己的工作流。</p>
+<p>然而，这样的导入并不完美；而且还要花那么多时间，不如干脆一次把它做对！首当其冲的任务是作者信息。在 Subversion，每个提交者在都在主机上有一个用户名，记录在提交信息中。上节例子中多处显示了 <code>schacon</code> ，比如 <code>blame</code> 的输出以及 <code>git svn log</code>。如果想让这条信息更好的映射到 Git 作者数据里，则需要 从 Subversion 用户名到 Git 作者的一个映射关系。建立一个叫做 <code>user.txt</code> 的文件，用如下格式表示映射关系：</p>
 
-<h3>提交指南</h3>
+<pre><code>schacon = Scott Chacon &lt;schacon@geemail.com&gt;
+selse = Someo Nelse &lt;selse@geemail.com&gt;</code></pre>
 
-<p>开始分析特定用例之前，先来了解下如何撰写提交说明。一份好的提交指南可以帮助协作者更轻松更有效地配合。Git 项目本身就提供了一份文档（Git 项目源代码目录中 <code>Documentation/SubmittingPatches</code>），列数了大量提示，从如何编撰提交说明到提交补丁，不一而足。</p>
+<p>通过该命令可以获得 SVN 作者的列表：</p>
 
-<p>首先，请不要在更新中提交多余的白字符（whitespace）。Git 有种检查此类问题的方法，在提交之前，先运行 <code>git diff --check</code>，会把可能的多余白字符修正列出来。下面的示例，我已经把终端中显示为红色的白字符用 <code>X</code> 替换掉：</p>
+<pre><code>$ svn log --xml | grep -P &quot;^&lt;author&quot; | sort -u | \
+      perl -pe &#39;s/&lt;author&gt;(.*?)&lt;\/author&gt;/$1 = /&#39; &gt; users.txt</code></pre>
 
-<pre><code>$ git diff --check
-lib/simplegit.rb:5: trailing whitespace.
-+    @git_dir = File.expand_path(git_dir)XX
-lib/simplegit.rb:7: trailing whitespace.
-+ XXXXXXXXXXX
-lib/simplegit.rb:26: trailing whitespace.
-+    def command(git_cmd)XXXX</code></pre>
+<p>它将输出 XML 格式的日志——你可以找到作者，建立一个单独的列表，然后从 XML 中抽取出需要的信息。（显而易见，本方法要求主机上安装了<code>grep</code>，<code>sort</code> 和 <code>perl</code>.）然后把输出重定向到 user.txt 文件，然后就可以在每一项的后面添加相应的 Git 用户数据。</p>
 
-<p>这样在提交之前你就可以看到这类问题，及时解决以免困扰其他开发者。</p>
+<p>为 <code>git svn</code> 提供该文件可以然它更精确的映射作者数据。你还可以在 <code>clone</code> 或者 <code>init</code>后面添加 <code>--no-metadata</code> 来阻止 <code>git svn</code> 包含那些 Subversion 的附加信息。这样 <code>import</code> 命令就变成了：</p>
 
-<p>接下来，请将每次提交限定于完成一次逻辑功能。并且可能的话，适当地分解为多次小更新，以便每次小型提交都更易于理解。请不要在周末穷追猛打一次性解决五个问题，而最后拖到周一再提交。就算是这样也请尽可能利用暂存区域，将之前的改动分解为每次修复一个问题，再分别提交和加注说明。如果针对两个问题改动的是同一个文件，可以试试看 <code>git add --patch</code> 的方式将部分内容置入暂存区域（我们会在第六章再详细介绍）。无论是五次小提交还是混杂在一起的大提交，最终分支末端的项目快照应该还是一样的，但分解开来之后，更便于其他开发者复阅。这么做也方便自己将来取消某个特定问题的修复。我们将在第六章介绍一些重写提交历史，同暂存区域交互的技巧和工具，以便最终得到一个干净有意义，且易于理解的提交历史。</p>
+<pre><code>$ git-svn clone http://my-project.googlecode.com/svn/ \
+      --authors-file=users.txt --no-metadata -s my_project</code></pre>
 
-<p>最后需要谨记的是提交说明的撰写。写得好可以让大家协作起来更轻松。一般来说，提交说明最好限制在一行以内，50 个字符以下，简明扼要地描述更新内容，空开一行后，再展开详细注解。Git 项目本身需要开发者撰写详尽注解，包括本次修订的因由，以及前后不同实现之间的比较，我们也该借鉴这种做法。另外，提交说明应该用祈使现在式语态，比如，不要说成 “I added tests for” 或 “Adding tests for” 而应该用 “Add tests for”。下面是来自 tpope.net 的 Tim Pope 原创的提交说明格式模版，供参考：</p>
+<p>现在 <code>my_project</code> 目录下导入的 Subversion 应该比原来整洁多了。原来的 commit 看上去是这样：</p>
 
-<pre><code>本次更新的简要描述（50 个字符以内）
+<pre><code>commit 37efa680e8473b615de980fa935944215428a35a
+Author: schacon &lt;schacon@4c93b258-373f-11de-be05-5f7a86268029&gt;
+Date:   Sun May 3 00:12:22 2009 +0000
 
-如果必要，此处展开详尽阐述。段落宽度限定在 72 个字符以内。
-某些情况下，第一行的简要描述将用作邮件标题，其余部分作为邮件正文。
-其间的空行是必要的，以区分两者（当然没有正文另当别论）。
-如果并在一起，rebase 这样的工具就可能会迷惑。
+    fixed install - go to trunk
 
-另起空行后，再进一步补充其他说明。
+    git-svn-id: https://my-project.googlecode.com/svn/trunk@94 4c93b258-373f-11de-
+    be05-5f7a86268029</code></pre>
 
- - 可以使用这样的条目列举式。
+<p>现在是这样：</p>
 
- - 一般以单个空格紧跟短划线或者星号作为每项条目的起始符。每个条目间用一空行隔开。
-   不过这里按自己项目的约定，可以略作变化。</code></pre>
+<pre><code>commit 03a8785f44c8ea5cdb0e8834b7c8e6c469be2ff2
+Author: Scott Chacon &lt;schacon@geemail.com&gt;
+Date:   Sun May 3 00:12:22 2009 +0000
 
-<p>如果你的提交说明都用这样的格式来书写，好多事情就可以变得十分简单。Git 项目本身就是这样要求的，我强烈建议你到 Git 项目仓库下运行 <code>git log --no-merges</code> 看看，所有提交历史的说明是怎样撰写的。（译注：如果现在还没有克隆 git 项目源代码，是时候 <code>git clone git://git.kernel.org/pub/scm/git/git.git</code> 了。）</p>
+    fixed install - go to trunk</code></pre>
 
-<p>为简单起见，在接下来的例子（及本书随后的所有演示）中，我都不会用这种格式，而使用 <code>-m</code> 选项提交 <code>git commit</code>。不过请还是按照我之前讲的做，别学我这里偷懒的方式。</p>
+<p>不仅作者一项干净了不少，<code>git-svn-id</code> 也就此消失了。</p>
 
-<h3>私有的小型团队</h3>
+<p>你还需要一点 <code>post-import（导入后）</code> 清理工作。最起码的，应该清理一下 <code>git svn</code> 创建的那些怪异的索引结构。首先要移动标签，把它们从奇怪的远程分支变成实际的标签，然后把剩下的分支移动到本地。</p>
 
-<p>我们从最简单的情况开始，一个私有项目，与你一起协作的还有另外一到两位开发者。这里说私有，是指源代码不公开，其他人无法访问项目仓库。而你和其他开发者则都具有推送数据到仓库的权限。</p>
+<p>要把标签变成合适的 Git 标签，运行</p>
 
-<p>这种情况下，你们可以用 Subversion 或其他集中式版本控制系统类似的工作流来协作。你仍然可以得到 Git 带来的其他好处：离线提交，快速分支与合并等等，但工作流程还是差不多的。主要区别在于，合并操作发生在客户端而非服务器上。让我们来看看，两个开发者一起使用同一个共享仓库，会发生些什么。第一个人，John，克隆了仓库，作了些更新，在本地提交。（下面的例子中省略了常规提示，用 <code>...</code> 代替以节约版面。）</p>
+<pre><code>$ cp -Rf .git/refs/remotes/tags/* .git/refs/tags/
+$ rm -Rf .git/refs/remotes/tags</code></pre>
 
-<pre><code># John&#39;s Machine
-$ git clone john@githost:simplegit.git
-Initialized empty Git repository in /home/john/simplegit/.git/
-...
-$ cd simplegit/
-$ vim lib/simplegit.rb 
-$ git commit -am &#39;removed invalid default value&#39;
-[master 738ee87] removed invalid default value
- 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+<p>该命令将原本以 <code>tag/</code> 开头的远程分支的索引变成真正的（轻巧的）标签。</p>
 
-<p>第二个开发者，Jessica，一样这么做：克隆仓库，提交更新：</p>
+<p>接下来，把 <code>refs/remotes</code> 下面剩下的索引变成本地分支：</p>
 
-<pre><code># Jessica&#39;s Machine
-$ git clone jessica@githost:simplegit.git
-Initialized empty Git repository in /home/jessica/simplegit/.git/
-...
-$ cd simplegit/
-$ vim TODO 
-$ git commit -am &#39;add reset task&#39;
-[master fbff5bc] add reset task
- 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+<pre><code>$ cp -Rf .git/refs/remotes/* .git/refs/heads/
+$ rm -Rf .git/refs/remotes</code></pre>
 
-<p>现在，Jessica 将她的工作推送到服务器上：</p>
+<p>现在所有的旧分支都变成真正的 Git 分支，所有的旧标签也变成真正的 Git 标签。最后一项工作就是把新建的 Git 服务器添加为远程服务器并且向它推送。下面是新增远程服务器的例子：</p>
 
-<pre><code># Jessica&#39;s Machine
-$ git push origin master
-...
-To jessica@githost:simplegit.git
-   1edee6b..fbff5bc  master -&gt; master</code></pre>
+<pre><code>$ git remote add origin git@my-git-server:myrepository.git</code></pre>
 
-<p>John 也尝试推送自己的工作上去：</p>
+<p>为了让所有的分支和标签都得到上传，我们使用这条命令：</p>
 
-<pre><code># John&#39;s Machine
-$ git push origin master
-To john@githost:simplegit.git
- ! [rejected]        master -&gt; master (non-fast forward)
-error: failed to push some refs to &#39;john@githost:simplegit.git&#39;</code></pre>
+<pre><code>$ git push origin --all</code></pre>
 
-<p>John 的推送操作被驳回，因为 Jessica 已经推送了新的数据上去。请注意，特别是你用惯了 Subversion 的话，这里其实修改的是两个文件，而不是同一个文件的同一个地方。Subversion 会在服务器端自动合并提交上来的更新，而 Git 则必须先在本地合并后才能推送。于是，John 不得不先把 Jessica 的更新拉下来：</p>
+<p>所有的分支和标签现在都应该整齐干净的躺在新的 Git 服务器里了。</p>
 
-<pre><code>$ git fetch origin
-...
-From john@githost:simplegit
- + 049d078...fbff5bc master     -&gt; origin/master</code></pre>
+<h3>Perforce</h3>
 
-<p>此刻，John 的本地仓库如图 5-4 所示：</p>
+<p>你将了解到的下一个被导入的系统是 Perforce. Git 发行的时候同时也附带了一个 Perforce 导入脚本，不过它是包含在源码的 <code>contrib</code> 部分——而不像 <code>git svn</code> 那样默认可用。运行它之前必须获取 Git 的源码，可以在 git.kernel.org 下载：</p>
 
-<p><img src="../../book_src/figures/18333fig0504-tn.png"></br> 
-图 5-4. John 的仓库历史</p>
+<pre><code>$ git clone git://git.kernel.org/pub/scm/git/git.git
+$ cd git/contrib/fast-import</code></pre>
 
-<p>虽然 John 下载了 Jessica 推送到服务器的最近更新（fbff5），但目前只是 <code>origin/master</code> 指针指向它，而当前的本地分支 <code>master</code> 仍然指向自己的更新（738ee），所以需要先把她的提交合并过来，才能继续推送数据：</p>
+<p>在这个 <code>fast-import</code> 目录下，应该有一个叫做 <code>git-p4</code> 的 Python 可执行脚本。主机上必须装有 Python 和 <code>p4</code> 工具该导入才能正常进行。例如，你要从 Perforce 公共代码仓库（译注： Perforce Public Depot，Perforce 官方提供的代码寄存服务）导入 Jam 工程。为了设定客户端，我们要把 P4PORT 环境变量 export 到 Perforce 仓库：</p>
 
-<pre><code>$ git merge origin/master
-Merge made by recursive.
- TODO |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+<pre><code>$ export P4PORT=public.perforce.com:1666</code></pre>
 
-<p>还好，合并过程非常顺利，没有冲突，现在 John 的提交历史如图 5-5 所示：</p>
+<p>运行 <code>git-p4 clone</code> 命令将从 Perforce 服务器导入 Jam 项目，我们需要给出仓库和项目的路径以及导入的目标路径：</p>
 
-<p><img src="../../book_src/figures/18333fig0505-tn.png"></br> 
-图 5-5. 合并 origin/master 后 John 的仓库历史</p>
+<pre><code>$ git-p4 clone //public/jam/src@all /opt/p4import
+Importing from //public/jam/src@all into /opt/p4import
+Reinitialized existing Git repository in /opt/p4import/.git/
+Import destination: refs/remotes/p4/master
+Importing revision 4409 (100%)</code></pre>
 
-<p>现在，John 应该再测试一下代码是否仍然正常工作，然后将合并结果（72bbc）推送到服务器上：</p>
+<p>现在去 <code>/opt/p4import</code> 目录运行一下 <code>git log</code> ，就能看到导入的成果：</p>
 
-<pre><code>$ git push origin master
-...
-To john@githost:simplegit.git
-   fbff5bc..72bbc59  master -&gt; master</code></pre>
+<pre><code>$ git log -2
+commit 1fd4ec126171790efd2db83548b85b1bbbc07dc2
+Author: Perforce staff &lt;support@perforce.com&gt;
+Date:   Thu Aug 19 10:18:45 2004 -0800
 
-<p>最终，John 的提交历史变为图 5-6 所示：</p>
+    Drop &#39;rc3&#39; moniker of jam-2.5.  Folded rc2 and rc3 RELNOTES into
+    the main part of the document.  Built new tar/zip balls.
 
-<p><img src="../../book_src/figures/18333fig0506-tn.png"></br> 
-图 5-6. 推送后 John 的仓库历史</p>
+    Only 16 months later.
 
-<p>而在这段时间，Jessica 已经开始在另一个特性分支工作了。她创建了 <code>issue54</code> 并提交了三次更新。她还没有下载 John 提交的合并结果，所以提交历史如图 5-7 所示：</p>
+    [git-p4: depot-paths = &quot;//public/jam/src/&quot;: change = 4409]
 
-<p><img src="../../book_src/figures/18333fig0507-tn.png"></br> 
-图 5-7. Jessica 的提交历史</p>
+commit ca8870db541a23ed867f38847eda65bf4363371d
+Author: Richard Geiger &lt;rmg@perforce.com&gt;
+Date:   Tue Apr 22 20:51:34 2003 -0800
 
-<p>Jessica 想要先和服务器上的数据同步，所以先下载数据：</p>
+    Update derived jamgram.c
 
-<pre><code># Jessica&#39;s Machine
-$ git fetch origin
-...
-From jessica@githost:simplegit
-   fbff5bc..72bbc59  master     -&gt; origin/master</code></pre>
+    [git-p4: depot-paths = &quot;//public/jam/src/&quot;: change = 3108]</code></pre>
 
-<p>于是 Jessica 的本地仓库历史多出了 John 的两次提交（738ee 和 72bbc），如图 5-8 所示：</p>
+<p>每一个 commit 里都有一个 <code>git-p4</code> 标识符。这个标识符可以保留，以防以后需要引用 Perforce 的修改版本号。然而，如果想删除这些标识符，现在正是时候——在开启新仓库之前。可以通过 <code>git filter-branch</code> 来批量删除这些标识符：</p>
 
-<p><img src="../../book_src/figures/18333fig0508-tn.png"></br> 
-图 5-8. 获取 John 的更新之后 Jessica 的提交历史</p>
+<pre><code>$ git filter-branch --msg-filter &#39;
+        sed -e &quot;/^\[git-p4:/d&quot;
+&#39;
+Rewrite 1fd4ec126171790efd2db83548b85b1bbbc07dc2 (123/123)
+Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
 
-<p>此时，Jessica 在特性分支上的工作已经完成，但她想在推送数据之前，先确认下要并进来的数据究竟是什么，于是运行 <code>git log</code> 查看：</p>
+<p>现在运行一下 <code>git log</code>，你会发现这些 commit 的 SHA-1 校验值都发生了改变，而那些 <code>git-p4</code> 字串则从提交信息里消失了：</p>
 
-<pre><code>$ git log --no-merges origin/master ^issue54
-commit 738ee872852dfaa9d6634e0dea7a324040193016
-Author: John Smith &lt;jsmith@example.com&gt;
-Date:   Fri May 29 16:01:27 2009 -0700
+<pre><code>$ git log -2
+commit 10a16d60cffca14d454a15c6164378f4082bc5b0
+Author: Perforce staff &lt;support@perforce.com&gt;
+Date:   Thu Aug 19 10:18:45 2004 -0800
 
-    removed invalid default value</code></pre>
+    Drop &#39;rc3&#39; moniker of jam-2.5.  Folded rc2 and rc3 RELNOTES into
+    the main part of the document.  Built new tar/zip balls.
 
-<p>现在，Jessica 可以将特性分支上的工作并到 <code>master</code> 分支，然后再并入 John 的工作（<code>origin/master</code>）到自己的 <code>master</code> 分支，最后再推送回服务器。当然，得先切回主分支才能集成所有数据：</p>
+    Only 16 months later.
 
-<pre><code>$ git checkout master
-Switched to branch &quot;master&quot;
-Your branch is behind &#39;origin/master&#39; by 2 commits, and can be fast-forwarded.</code></pre>
+commit 2b6c6db311dd76c34c66ec1c40a49405e6b527b2
+Author: Richard Geiger &lt;rmg@perforce.com&gt;
+Date:   Tue Apr 22 20:51:34 2003 -0800
 
-<p>要合并 <code>origin/master</code> 或 <code>issue54</code> 分支，谁先谁后都没有关系，因为它们都在上游（upstream）（译注：想像分叉的更新像是汇流成河的源头，所以上游 upstream 是指最新的提交），所以无所谓先后顺序，最终合并后的内容快照都是一样的，而仅是提交历史看起来会有些先后差别。Jessica 选择先合并 <code>issue54</code>：</p>
+    Update derived jamgram.c</code></pre>
 
-<pre><code>$ git merge issue54
-Updating fbff5bc..4af4298
-Fast forward
- README           |    1 +
- lib/simplegit.rb |    6 +++++-
- 2 files changed, 6 insertions(+), 1 deletions(-)</code></pre>
+<p>至此导入已经完成，可以开始向新的 Git 服务器推送了。</p>
 
-<p>正如所见，没有冲突发生，仅是一次简单快进。现在 Jessica 开始合并 John 的工作（<code>origin/master</code>）：</p>
+<h3>自定导入脚本</h3>
 
-<pre><code>$ git merge origin/master
-Auto-merging lib/simplegit.rb
-Merge made by recursive.
- lib/simplegit.rb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+<p>如果先前的系统不是 Subversion 或 Perforce 之一，先上网找一下有没有与之对应的导入脚本——导入 CVS，Clear Case，Visual Source Safe，甚至存档目录的导入脚本已经存在。假如这些工具都不适用，或者使用的工具很少见，抑或你需要导入过程具有更多可制定性，则应该使用 <code>git fast-import</code>。该命令从标准输入读取简单的指令来写入具体的 Git 数据。这样创建 Git 对象比运行纯 Git 命令或者手动写对象要简单的多（更多相关内容见第九章）。通过它，你可以编写一个导入脚本来从导入源读取必要的信息，同时在标准输出直接输出相关指示。你可以运行该脚本并把它的输出管道连接到 <code>git fast-import</code>。</p>
 
-<p>所有的合并都非常干净。现在 Jessica 的提交历史如图 5-9 所示：</p>
+<p>下面演示一下如何编写一个简单的导入脚本。假设你在进行一项工作，并且按时通过把工作目录复制为以时间戳 <code>back_YY_MM_DD</code> 命名的目录来进行备份，现在你需要把它们导入 Git 。目录结构如下：</p>
 
-<p><img src="../../book_src/figures/18333fig0509-tn.png"></br> 
-图 5-9. 合并 John 的更新后 Jessica 的提交历史</p>
+<pre><code>$ ls /opt/import_from
+back_2009_01_02
+back_2009_01_04
+back_2009_01_14
+back_2009_02_03
+current</code></pre>
 
-<p>现在 Jessica 已经可以在自己的 <code>master</code> 分支中访问 <code>origin/master</code> 的最新改动了，所以她应该可以成功推送最后的合并结果到服务器上（假设 John 此时没再推送新数据上来）：</p>
+<p>为了导入到一个 Git 目录，我们首先回顾一下 Git 储存数据的方式。你可能还记得，Git 本质上是一个 commit 对象的链表，每一个对象指向一个内容的快照。而这里需要做的工作就是告诉 <code>fast-import</code> 内容快照的位置，什么样的 commit 数据指向它们，以及它们的顺序。我们采取一次处理一个快照的策略，为每一个内容目录建立对应的 commit ，每一个 commit 与之前的建立链接。</p>
 
-<pre><code>$ git push origin master
-...
-To jessica@githost:simplegit.git
-   72bbc59..8059c15  master -&gt; master</code></pre>
+<p>正如在第七章 &quot;Git 执行策略一例&quot; 一节中一样，我们将使用 Ruby 来编写这个脚本，因为它是我日常使用的语言而且阅读起来简单一些。你可以用任何其他熟悉的语言来重写这个例子——它仅需要把必要的信息打印到标准输出而已。同时，如果你在使用 Windows，这意味着你要特别留意不要在换行的时候引入回车符（译注：carriage returns，Windows 换行时加入的符号，通常说的 <code>\r</code> ）—— Git 的 fast-import 对仅使用换行符（LF）而非 Windows 的回车符（CRLF）要求非常严格。</p>
 
-<p>至此，每个开发者都提交了若干次，且成功合并了对方的工作成果，最新的提交历史如图 5-10 所示：</p>
+<p>首先，进入目标目录并且找到所有子目录，每一个子目录将作为一个快照被导入为一个 commit。我们将依次进入每一个子目录并打印所需的命令来导出它们。脚本的主循环大致是这样：</p>
 
-<p><img src="../../book_src/figures/18333fig0510-tn.png"></br> 
-图 5-10. Jessica 推送数据后的提交历史</p>
+<pre><code>last_mark = nil
 
-<p>以上就是最简单的协作方式之一：先在自己的特性分支中工作一段时间，完成后合并到自己的 <code>master</code> 分支；然后下载合并 <code>origin/master</code> 上的更新（如果有的话），再推回远程服务器。一般的协作流程如图 5-11 所示：</p>
+# 循环遍历所有目录
+Dir.chdir(ARGV[0]) do
+  Dir.glob(&quot;*&quot;).each do |dir|
+    next if File.file?(dir)
 
-<p><img src="../../book_src/figures/18333fig0511-tn.png"></br> 
-图 5-11. 多用户共享仓库协作方式的一般工作流程时序</p>
+    # 进入目标目录
+    Dir.chdir(dir) do 
+      last_mark = print_export(dir, last_mark)
+    end
+  end
+end</code></pre>
 
-<h3>私有团队间协作</h3>
+<p>我们在每一个目录里运行 <code>print_export</code> ，它会取出上一个快照的索引和标记并返回本次快照的索引和标记；由此我们就可以正确的把二者连接起来。&quot;标记（mark）&quot; 是 <code>fast-import</code> 中对 commit 标识符的叫法；在创建 commit 的同时，我们逐一赋予一个标记以便以后在把它连接到其他 commit 时使用。因此，在 <code>print_export</code> 方法中要做的第一件事就是根据目录名生成一个标记：</p>
 
-<p>现在我们来看更大一点规模的私有团队协作。如果有几个小组分头负责若干特性的开发和集成，那他们之间的协作过程是怎样的。</p>
+<pre><code>mark = convert_dir_to_mark(dir)</code></pre>
 
-<p>假设 John 和 Jessica 一起负责开发某项特性 A，而同时 Jessica 和 Josie 一起负责开发另一项功能 B。公司使用典型的集成管理员式工作流，每个组都有一名管理员负责集成本组代码，及更新项目主仓库的 <code>master</code> 分支。所有开发都在代表小组的分支上进行。</p>
+<p>实现该函数的方法是建立一个目录的数组序列并使用数组的索引值作为标记，因为标记必须是一个整数。这个方法大致是这样的：</p>
 
-<p>让我们跟随 Jessica 的视角看看她的工作流程。她参与开发两项特性，同时和不同小组的开发者一起协作。克隆生成本地仓库后，她打算先着手开发特性 A。于是创建了新的 <code>featureA</code> 分支，继而编写代码：</p>
+<pre><code>$marks = []
+def convert_dir_to_mark(dir)
+  if !$marks.include?(dir)
+    $marks &lt;&lt; dir
+  end
+  ($marks.index(dir) + 1).to_s
+end</code></pre>
 
-<pre><code># Jessica&#39;s Machine
-$ git checkout -b featureA
-Switched to a new branch &quot;featureA&quot;
-$ vim lib/simplegit.rb
-$ git commit -am &#39;add limit to log function&#39;
-[featureA 3300904] add limit to log function
- 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+<p>有了整数来代表每个 commit，我们现在需要提交附加信息中的日期。由于日期是用目录名表示的，我们就从中解析出来。<code>print_export</code> 文件的下一行将是：</p>
 
-<p>此刻，她需要分享目前的进展给 John，于是她将自己的 <code>featureA</code> 分支提交到服务器。由于 Jessica 没有权限推送数据到主仓库的 <code>master</code> 分支（只有集成管理员有此权限），所以只能将此分支推上去同 John 共享协作：</p>
+<pre><code>date = convert_dir_to_date(dir)</code></pre>
 
-<pre><code>$ git push origin featureA
-...
-To jessica@githost:simplegit.git
- * [new branch]      featureA -&gt; featureA</code></pre>
+<p>而 <code>convert_dir_to_date</code> 则定义为</p>
 
-<p>Jessica 发邮件给 John 让他上来看看 <code>featureA</code> 分支上的进展。在等待他的反馈之前，Jessica 决定继续工作，和 Josie 一起开发 <code>featureB</code> 上的特性 B。当然，先创建此分支，分叉点以服务器上的 <code>master</code> 为起点：</p>
+<pre><code>def convert_dir_to_date(dir)
+  if dir == &#39;current&#39;
+    return Time.now().to_i
+  else
+    dir = dir.gsub(&#39;back_&#39;, &#39;&#39;)
+    (year, month, day) = dir.split(&#39;_&#39;)
+    return Time.local(year, month, day).to_i
+  end
+end</code></pre>
 
-<pre><code># Jessica&#39;s Machine
-$ git fetch origin
-$ git checkout -b featureB origin/master
-Switched to a new branch &quot;featureB&quot;</code></pre>
+<p>它为每个目录返回一个整型值。提交附加信息里最后一项所需的是提交者数据，我们在一个全局变量中直接定义之：</p>
 
-<p>随后，Jessica 在 <code>featureB</code> 上提交了若干更新：</p>
+<pre><code>$author = &#39;Scott Chacon &lt;schacon@example.com&gt;&#39;</code></pre>
 
-<pre><code>$ vim lib/simplegit.rb
-$ git commit -am &#39;made the ls-tree function recursive&#39;
-[featureB e5b0fdc] made the ls-tree function recursive
- 1 files changed, 1 insertions(+), 1 deletions(-)
-$ vim lib/simplegit.rb
-$ git commit -am &#39;add ls-files&#39;
-[featureB 8512791] add ls-files
- 1 files changed, 5 insertions(+), 0 deletions(-)</code></pre>
+<p>我们差不多可以开始为导入脚本输出提交数据了。第一项信息指明我们定义的是一个 commit 对象以及它所在的分支，随后是我们生成的标记，提交者信息以及提交备注，然后是前一个 commit 的索引，如果有的话。代码大致这样：</p>
 
-<p>现在 Jessica 的更新历史如图 5-12 所示：</p>
+<pre><code># 打印导入所需的信息
+puts &#39;commit refs/heads/master&#39;
+puts &#39;mark :&#39; + mark
+puts &quot;committer #{$author} #{date} -0700&quot;
+export_data(&#39;imported from &#39; + dir)
+puts &#39;from :&#39; + last_mark if last_mark</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0512-tn.png"></br> 
-图 5-12. Jessica 的更新历史</p>
+<p>时区（-0700）处于简化目的使用硬编码。如果是从其他版本控制系统导入，则必须以变量的形式指明时区。
+提交备注必须以特定格式给出：</p>
 
-<p>Jessica 正准备推送自己的进展上去，却收到 Josie 的来信，说是她已经将自己的工作推到服务器上的 <code>featureBee</code> 分支了。这样，Jessica 就必须先将 Josie 的代码合并到自己本地分支中，才能再一起推送回服务器。她用 <code>git fetch</code> 下载 Josie 的最新代码：</p>
+<pre><code>data (size)\n(contents)</code></pre>
 
-<pre><code>$ git fetch origin
-...
-From jessica@githost:simplegit
- * [new branch]      featureBee -&gt; origin/featureBee</code></pre>
+<p>该格式包含了单词 data，所读取数据的大小，一个换行符，最后是数据本身。由于随后指明文件内容的时候要用到相同的格式，我们写一个辅助方法，<code>export_data</code>：</p>
 
-<p>然后 Jessica 使用 <code>git merge</code> 将此分支合并到自己分支中：</p>
+<pre><code>def export_data(string)
+  print &quot;data #{string.size}\n#{string}&quot;
+end</code></pre>
 
-<pre><code>$ git merge origin/featureBee
-Auto-merging lib/simplegit.rb
-Merge made by recursive.
- lib/simplegit.rb |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)</code></pre>
+<p>唯一剩下的就是每一个快照的内容了。这简单的很，因为它们分别处于一个目录——你可以输出 <code>deleeall</code> 命令，随后是目录中每个文件的内容。Git 会正确的记录每一个快照：</p>
 
-<p>合并很顺利，但另外有个小问题：她要推送自己的 <code>featureB</code> 分支到服务器上的 <code>featureBee</code> 分支上去。当然，她可以使用冒号（:）格式指定目标分支：</p>
+<pre><code>puts &#39;deleteall&#39;
+Dir.glob(&quot;**/*&quot;).each do |file| next if !File.file?(file)
+  inline_data(file)
+end</code></pre>
 
-<pre><code>$ git push origin featureB:featureBee
-...
-To jessica@githost:simplegit.git
-   fba9af8..cd685d1  featureB -&gt; featureBee</code></pre>
+<p>注意：由于很多系统把每次修订看作一个 commit 到另一个 commit 的变化量，fast-import 也可以依据每次提交获取一个命令来指出哪些文件被添加，删除或者修改过，以及修改的内容。我们将需要计算快照之间的差别并且仅仅给出这项数据，不过该做法要复杂很多——还如不直接把所有数据丢给 Git 然它自己搞清楚。假如前面这个方法更适用于你的数据，参考 <code>fast-import</code> 的 man 帮助页面来了解如何以这种方式提供数据。</p>
 
-<p>我们称此为<em>refspec</em>。更多有关于 Git refspec 的讨论和使用方式会在第九章作详细阐述。</p>
+<p>列举新文件内容或者指明带有新内容的已修改文件的格式如下：</p>
 
-<p>接下来，John 发邮件给 Jessica 告诉她，他看了之后作了些修改，已经推回服务器 <code>featureA</code> 分支，请她过目下。于是 Jessica 运行 <code>git fetch</code> 下载最新数据：</p>
+<pre><code>M 644 inline path/to/file
+data (size)
+(file contents)</code></pre>
 
-<pre><code>$ git fetch origin
-...
-From jessica@githost:simplegit
-   3300904..aad881d  featureA   -&gt; origin/featureA</code></pre>
+<p>这里，644 是权限模式（加入有可执行文件，则需要探测之并设定为 755），而 inline 说明我们在本行结束之后立即列出文件的内容。我们的 <code>inline_data</code> 方法大致是：</p>
 
-<p>接下来便可以用 <code>git log</code> 查看更新了些什么：</p>
+<pre><code>def inline_data(file, code = &#39;M&#39;, mode = &#39;644&#39;)
+  content = File.read(file)
+  puts &quot;#{code} #{mode} inline #{file}&quot;
+  export_data(content)
+end</code></pre>
 
-<pre><code>$ git log origin/featureA ^featureA
-commit aad881d154acdaeb2b6b18ea0e827ed8a6d671e6
-Author: John Smith &lt;jsmith@example.com&gt;
-Date:   Fri May 29 19:57:33 2009 -0700
+<p>我们重用了前面定义过的 <code>export_data</code>，因为这里和指明提交注释的格式如出一辙。</p>
 
-    changed log output to 30 from 25</code></pre>
+<p>最后一项工作是返回当前的标记以便下次循环的使用。</p>
 
-<p>最后，她将 John 的工作合并到自己的 <code>featureA</code> 分支中：</p>
+<pre><code>return mark</code></pre>
 
-<pre><code>$ git checkout featureA
-Switched to branch &quot;featureA&quot;
-$ git merge origin/featureA
-Updating 3300904..aad881d
-Fast forward
- lib/simplegit.rb |   10 +++++++++-
-1 files changed, 9 insertions(+), 1 deletions(-)</code></pre>
+<p>注意：如果你在用 Windows，一定记得添加一项额外的步骤。前面提过，Windows 使用 CRLF 作为换行字符而 Git fast-import 只接受 LF。为了绕开这个问题来满足 git fast-import，你需要让 ruby 用 LF 取代 CRLF：</p>
 
-<p>Jessica 稍做一番修整后同步到服务器：</p>
+<pre><code>$stdout.binmode</code></pre>
 
-<pre><code>$ git commit -am &#39;small tweak&#39;
-[featureA ed774b3] small tweak
- 1 files changed, 1 insertions(+), 1 deletions(-)
-$ git push origin featureA
-...
-To jessica@githost:simplegit.git
-   3300904..ed774b3  featureA -&gt; featureA</code></pre>
+<p>搞定了。现在运行该脚本，你将得到如下内容：</p>
 
-<p>现在的 Jessica 提交历史如图 5-13 所示：</p>
+<pre><code>$ ruby import.rb /opt/import_from 
+commit refs/heads/master
+mark :1
+committer Scott Chacon &lt;schacon@geemail.com&gt; 1230883200 -0700
+data 29
+imported from back_2009_01_02deleteall
+M 644 inline file.rb
+data 12
+version two
+commit refs/heads/master
+mark :2
+committer Scott Chacon &lt;schacon@geemail.com&gt; 1231056000 -0700
+data 29
+imported from back_2009_01_04from :1
+deleteall
+M 644 inline file.rb
+data 14
+version three
+M 644 inline new.rb
+data 16
+new version one
+(...)</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0513-tn.png"></br> 
-图 5-13. 在特性分支中提交更新后的提交历史</p>
+<p>要运行导入脚本，在需要导入的目录把该内容用管道定向到 <code>git fast-import</code>。你可以建立一个空目录然后运行 <code>git init</code> 作为开头，然后运行该脚本：</p>
 
-<p>现在，Jessica，Josie 和 John 通知集成管理员服务器上的 <code>featureA</code> 及 <code>featureBee</code> 分支已经准备好，可以并入主线了。在管理员完成集成工作后，主分支上便多出一个新的合并提交（5399e），用 fetch 命令更新到本地后，提交历史如图 5-14 所示：</p>
+<pre><code>$ git init
+Initialized empty Git repository in /opt/import_to/.git/
+$ ruby import.rb /opt/import_from | git fast-import
+git-fast-import statistics:
+---------------------------------------------------------------------
+Alloc&#39;d objects:       5000
+Total objects:           18 (         1 duplicates                  )
+      blobs  :            7 (         1 duplicates          0 deltas)
+      trees  :            6 (         0 duplicates          1 deltas)
+      commits:            5 (         0 duplicates          0 deltas)
+      tags   :            0 (         0 duplicates          0 deltas)
+Total branches:           1 (         1 loads     )
+      marks:           1024 (         5 unique    )
+      atoms:              3
+Memory total:          2255 KiB
+       pools:          2098 KiB
+     objects:           156 KiB
+---------------------------------------------------------------------
+pack_report: getpagesize()            =       4096
+pack_report: core.packedGitWindowSize =   33554432
+pack_report: core.packedGitLimit      =  268435456
+pack_report: pack_used_ctr            =          9
+pack_report: pack_mmap_calls          =          5
+pack_report: pack_open_windows        =          1 /          1
+pack_report: pack_mapped              =       1356 /       1356
+---------------------------------------------------------------------</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0514-tn.png"></br> 
-图 5-14. 合并特性分支后的 Jessica 提交历史</p>
+<p>你会发现，在它成功执行完毕以后，会给出一堆有关已完成工作的数据。上例在一个分支导入了5次提交数据，包含了18个对象。现在可以运行 <code>git log</code> 来检视新的历史：</p>
 
-<p>许多开发小组改用 Git 就是因为它允许多个小组间并行工作，而在稍后恰当时机再行合并。通过共享远程分支的方式，无需干扰整体项目代码便可以开展工作，因此使用 Git 的小型团队间协作可以变得非常灵活自由。以上工作流程的时序如图 5-15 所示：</p>
+<pre><code>$ git log -2
+commit 10bfe7d22ce15ee25b60a824c8982157ca593d41
+Author: Scott Chacon &lt;schacon@example.com&gt;
+Date:   Sun May 3 12:57:39 2009 -0700
 
-<p><img src="../../book_src/figures/18333fig0515-tn.png"></br> 
-图 5-15. 团队间协作工作流程基本时序</p>
+    imported from current
 
-<h3>公开的小型项目</h3>
+commit 7e519590de754d079dd73b44d695a42c9d2df452
+Author: Scott Chacon &lt;schacon@example.com&gt;
+Date:   Tue Feb 3 01:00:00 2009 -0700
 
-<p>上面说的是私有项目协作，但要给公开项目作贡献，情况就有些不同了。因为你没有直接更新主仓库分支的权限，得寻求其它方式把工作成果交给项目维护人。下面会介绍两种方法，第一种使用 git 托管服务商提供的仓库复制功能，一般称作 fork，比如 repo.or.cz 和 GitHub 都支持这样的操作，而且许多项目管理员都希望大家使用这样的方式。另一种方法是通过电子邮件寄送文件补丁。</p>
+    imported from back_2009_02_03</code></pre>
 
-<p>但不管哪种方式，起先我们总需要克隆原始仓库，而后创建特性分支开展工作。基本工作流程如下：</p>
+<p>就它了——一个干净整洁的 Git 仓库。需要注意的是此时没有任何内容被检出——刚开始当前目录里没有任何文件。要获取它们，你得转到 <code>master</code> 分支的所在：</p>
 
-<pre><code>$ git clone (url)
-$ cd project
-$ git checkout -b featureA
-$ (work)
-$ git commit
-$ (work)
-$ git commit</code></pre>
+<pre><code>$ ls
+$ git reset --hard master
+HEAD is now at 10bfe7d imported from current
+$ ls
+file.rb  lib</code></pre>
 
-<p>你可能想到用 <code>rebase -i</code> 将所有更新先变作单个提交，又或者想重新安排提交之间的差异补丁，以方便项目维护者审阅 -- 有关交互式衍合操作的细节见第六章。</p>
+<p><code>fast-import</code> 还可以做更多——处理不同的文件模式，二进制文件，多重分支与合并，标签，进展标识等等。一些更加复杂的实例可以在 Git 源码的 <code>contib/fast-import</code> 目录里找到；其中较为出众的是前面提过的 <code>git-p4</code> 脚本。</p>
 
-<p>在完成了特性分支开发，提交给项目维护者之前，先到原始项目的页面上点击“Fork”按钮，创建一个自己可写的公共仓库（译注：即下面的 url 部分，参照后续的例子，应该是 <code>git://githost/simplegit.git</code>）。然后将此仓库添加为本地的第二个远端仓库，姑且称为 <code>myfork</code>：</p>
-
-<pre><code>$ git remote add myfork (url)</code></pre>
-
-<p>你需要将本地更新推送到这个仓库。要是将远端 master 合并到本地再推回去，还不如把整个特性分支推上去来得干脆直接。而且，假若项目维护者未采纳你的贡献的话（不管是直接合并还是 cherry pick），都不用回退（rewind）自己的 master 分支。但若维护者合并或 cherry-pick 了你的工作，最后总还可以从他们的更新中同步这些代码。好吧，现在先把 featureA 分支整个推上去：</p>
-
-<pre><code>$ git push myfork featureA</code></pre>
-
-<p>然后通知项目管理员，让他来抓取你的代码。通常我们把这件事叫做 pull request。可以直接用 GitHub 等网站提供的 “pull request” 按钮自动发送请求通知；或手工把 <code>git request-pull</code> 命令输出结果电邮给项目管理员。</p>
-
-<p><code>request-pull</code> 命令接受两个参数，第一个是本地特性分支开始前的原始分支，第二个是请求对方来抓取的 Git 仓库 URL（译注：即下面 <code>myfork</code> 所指的，自己可写的公共仓库）。比如现在Jessica 准备要给 John 发一个 pull requst，她之前在自己的特性分支上提交了两次更新，并把分支整个推到了服务器上，所以运行该命令会看到：</p>
-
-<pre><code>$ git request-pull origin/master myfork
-The following changes since commit 1edee6b1d61823a2de3b09c160d7080b8d1b3a40:
-  John Smith (1):
-        added a new function
-
-are available in the git repository at:
-
-  git://githost/simplegit.git featureA
-
-Jessica Smith (2):
-      add limit to log function
-      change log output to 30 from 25
-
- lib/simplegit.rb |   10 +++++++++-
- 1 files changed, 9 insertions(+), 1 deletions(-)</code></pre>
-
-<p>输出的内容可以直接发邮件给管理者，他们就会明白这是从哪次提交开始旁支出去的，该到哪里去抓取新的代码，以及新的代码增加了哪些功能等等。</p>
-
-<p>像这样随时保持自己的 <code>master</code> 分支和官方 <code>origin/master</code> 同步，并将自己的工作限制在特性分支上的做法，既方便又灵活，采纳和丢弃都轻而易举。就算原始主干发生变化，我们也能重新衍合提供新的补丁。比如现在要开始第二项特性的开发，不要在原来已推送的特性分支上继续，还是按原始 <code>master</code> 开始：</p>
-
-<pre><code>$ git checkout -b featureB origin/master
-$ (work)
-$ git commit
-$ git push myfork featureB
-$ (email maintainer)
-$ git fetch origin</code></pre>
-
-<p>现在，A、B 两个特性分支各不相扰，如同竹筒里的两颗豆子，队列中的两个补丁，你随时都可以分别从头写过，或者衍合，或者修改，而不用担心特性代码的交叉混杂。如图 5-16 所示：</p>
-
-<p><img src="../../book_src/figures/18333fig0516-tn.png"></br> 
-图 5-16. featureB 以后的提交历史</p>
-
-<p>假设项目管理员接纳了许多别人提交的补丁后，准备要采纳你提交的第一个分支，却发现因为代码基准不一致，合并工作无法正确干净地完成。这就需要你再次衍合到最新的 <code>origin/master</code>，解决相关冲突，然后重新提交你的修改：</p>
-
-<pre><code>$ git checkout featureA
-$ git rebase origin/master
-$ git push -f myfork featureA</code></pre>
-
-<p>自然，这会重写提交历史，如图 5-17 所示：</p>
-
-<p><img src="../../book_src/figures/18333fig0517-tn.png"></br> 
-图 5-17. featureA 重新衍合后的提交历史</p>
-
-<p>注意，此时推送分支必须使用 <code>-f</code> 选项（译注：表示 force，不作检查强制重写）替换远程已有的 <code>featureA</code> 分支，因为新的 commit 并非原来的后续更新。当然你也可以直接推送到另一个新的分支上去，比如称作 <code>featureAv2</code>。</p>
-
-<p>再考虑另一种情形：管理员看过第二个分支后觉得思路新颖，但想请你改下具体实现。我们只需以当前 <code>origin/master</code> 分支为基准，开始一个新的特性分支 <code>featureBv2</code>，然后把原来的 <code>featureB</code> 的更新拿过来，解决冲突，按要求重新实现部分代码，然后将此特性分支推送上去：</p>
-
-<pre><code>$ git checkout -b featureBv2 origin/master
-$ git merge --no-commit --squash featureB
-$ (change implementation)
-$ git commit
-$ git push myfork featureBv2</code></pre>
-
-<p>这里的 <code>--squash</code> 选项将目标分支上的所有更改全拿来应用到当前分支上，而 <code>--no-commit</code> 选项告诉 Git 此时无需自动生成和记录（合并）提交。这样，你就可以在原来代码基础上，继续工作，直到最后一起提交。</p>
-
-<p>好了，现在可以请管理员抓取 <code>featureBv2</code> 上的最新代码了，如图 5-18 所示：</p>
-
-<p><img src="../../book_src/figures/18333fig0518-tn.png"></br> 
-图 5-18. featureBv2 之后的提交历史</p>
-
-<h3>公开的大型项目</h3>
-
-<p>许多大型项目都会立有一套自己的接受补丁流程，你应该注意下其中细节。但多数项目都允许通过开发者邮件列表接受补丁，现在我们来看具体例子。</p>
-
-<p>整个工作流程类似上面的情形：为每个补丁创建独立的特性分支，而不同之处在于如何提交这些补丁。不需要创建自己可写的公共仓库，也不用将自己的更新推送到自己的服务器，你只需将每次提交的差异内容以电子邮件的方式依次发送到邮件列表中即可。</p>
-
-<pre><code>$ git checkout -b topicA
-$ (work)
-$ git commit
-$ (work)
-$ git commit</code></pre>
-
-<p>如此一番后，有了两个提交要发到邮件列表。我们可以用 <code>git format-patch</code> 命令来生成 mbox 格式的文件然后作为附件发送。每个提交都会封装为一个 <code>.patch</code> 后缀的 mbox 文件，但其中只包含一封邮件，邮件标题就是提交消息（译注：额外有前缀，看例子），邮件内容包含补丁正文和 Git 版本号。这种方式的妙处在于接受补丁时仍可保留原来的提交消息，请看接下来的例子：</p>
-
-<pre><code>$ git format-patch -M origin/master
-0001-add-limit-to-log-function.patch
-0002-changed-log-output-to-30-from-25.patch</code></pre>
-
-<p><code>format-patch</code> 命令依次创建补丁文件，并输出文件名。上面的 <code>-M</code> 选项允许 Git 检查是否有对文件重命名的提交。我们来看看补丁文件的内容：</p>
-
-<pre><code>$ cat 0001-add-limit-to-log-function.patch 
-From 330090432754092d704da8e76ca5c05c198e71a8 Mon Sep 17 00:00:00 2001
-From: Jessica Smith &lt;jessica@example.com&gt;
-Date: Sun, 6 Apr 2008 10:17:23 -0700
-Subject: [PATCH 1/2] add limit to log function
-
-Limit log functionality to the first 20
-
----
- lib/simplegit.rb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/lib/simplegit.rb b/lib/simplegit.rb
-index 76f47bc..f9815f1 100644
---- a/lib/simplegit.rb
-+++ b/lib/simplegit.rb
-@@ -14,7 +14,7 @@ class SimpleGit
-   end
-
-   def log(treeish = &#39;master&#39;)
--    command(&quot;git log #{treeish}&quot;)
-+    command(&quot;git log -n 20 #{treeish}&quot;)
-   end
-
-   def ls_tree(treeish = &#39;master&#39;)
--- 
-1.6.2.rc1.20.g8c5b.dirty</code></pre>
-
-<p>如果有额外信息需要补充，但又不想放在提交消息中说明，可以编辑这些补丁文件，在第一个 <code>---</code> 行之前添加说明，但不要修改下面的补丁正文，比如例子中的 <code>Limit log functionality to the first 20</code> 部分。这样，其它开发者能阅读，但在采纳补丁时不会将此合并进来。</p>
-
-<p>你可以用邮件客户端软件发送这些补丁文件，也可以直接在命令行发送。有些所谓智能的邮件客户端软件会自作主张帮你调整格式，所以粘贴补丁到邮件正文时，有可能会丢失换行符和若干空格。Git 提供了一个通过 IMAP 发送补丁文件的工具。接下来我会演示如何通过 Gmail 的 IMAP 服务器发送。另外，在 Git 源代码中有个 <code>Documentation/SubmittingPatches</code> 文件，可以仔细读读，看看其它邮件程序的相关导引。</p>
-
-<p>首先在 <code>~/.gitconfig</code> 文件中配置 imap 项。每个选项都可用 <code>git config</code> 命令分别设置，当然直接编辑文件添加以下内容更便捷：</p>
-
-<pre><code>[imap]
-  folder = &quot;[Gmail]/Drafts&quot;
-  host = imaps://imap.gmail.com
-  user = user@gmail.com
-  pass = p4ssw0rd
-  port = 993
-  sslverify = false</code></pre>
-
-<p>如果你的 IMAP 服务器没有启用 SSL，就无需配置最后那两行，并且 host 应该以 <code>imap://</code> 开头而不再是有 <code>s</code> 的 <code>imaps://</code>。保存配置文件后，就能用 <code>git send-email</code> 命令把补丁作为邮件依次发送到指定的 IMAP 服务器上的文件夹中（译注：这里就是 Gmail 的 <code>[Gmail]/Drafts</code> 文件夹。但如果你的语言设置不是英文，此处的文件夹 Drafts 字样会变为对应的语言。）：</p>
-
-<pre><code>$ git send-email *.patch
-0001-added-limit-to-log-function.patch
-0002-changed-log-output-to-30-from-25.patch
-Who should the emails appear to be from? [Jessica Smith &lt;jessica@example.com&gt;] 
-Emails will be sent from: Jessica Smith &lt;jessica@example.com&gt;
-Who should the emails be sent to? jessica@example.com
-Message-ID to be used as In-Reply-To for the first email? y</code></pre>
-
-<p>接下来，Git 会根据每个补丁依次输出类似下面的日志：</p>
-
-<pre><code>(mbox) Adding cc: Jessica Smith &lt;jessica@example.com&gt; from 
-  \line &#39;From: Jessica Smith &lt;jessica@example.com&gt;&#39;
-OK. Log says:
-Sendmail: /usr/sbin/sendmail -i jessica@example.com
-From: Jessica Smith &lt;jessica@example.com&gt;
-To: jessica@example.com
-Subject: [PATCH 1/2] added limit to log function
-Date: Sat, 30 May 2009 13:29:15 -0700
-Message-Id: &lt;1243715356-61726-1-git-send-email-jessica@example.com&gt;
-X-Mailer: git-send-email 1.6.2.rc1.20.g8c5b.dirty
-In-Reply-To: &lt;y&gt;
-References: &lt;y&gt;
-
-Result: OK</code></pre>
-
-<p>最后，到 Gmail 上打开 Drafts 文件夹，编辑这些邮件，修改收件人地址为邮件列表地址，另外给要抄送的人也加到 Cc 列表中，最后发送。</p>
-
-<h3>小结</h3>
-
-<p>本节主要介绍了常见 Git 项目协作的工作流程，还有一些帮助处理这些工作的命令和工具。接下来我们要看看如何维护 Git 项目，并成为一个合格的项目管理员，或是集成经理。</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">分布式 Git</li><li><a href="ch8_1.html">分布式工作流程</a></li><li><a href="ch8_2.html">为项目作贡献</a></li><li><a href="ch8_3.html">项目的管理</a></li><li><a href="ch8_4.html">小结</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 与其他系统</li><li><a href="ch8_1.html">Git 与 Subversion</a></li><li><a href="ch8_2.html">迁移到 Git</a></li><li><a href="ch8_3.html">总结</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

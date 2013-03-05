@@ -1,3 +1,96 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - 自定义 Git - 总结</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git 基础 </a></li><li><a href="ch2_0.html">2 服务器上的 Git </a></li><li><a href="ch3_0.html">3 自定义 Git </a></li><li><a href="ch4_0.html">4 Git 内部原理 </a></li><li><a href="ch5_0.html">5 Git 分支 </a></li><li><a href="ch6_0.html">6 Git 与其他系统 </a></li><li><a href="ch7_0.html">7 Git 工具 </a></li><li><a href="ch8_0.html">8 分布式 Git </a></li><li><a href="ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Git Basics </a></li><li><a href="../en/ch2_0.html">2 Git on the Server </a></li><li><a href="../en/ch3_0.html">3 Customizing Git </a></li><li><a href="../en/ch4_0.html">4 Git Internals </a></li><li><a href="../en/ch5_0.html">5 Git Branching </a></li><li><a href="../en/ch6_0.html">6 Git and Other Systems </a></li><li><a href="../en/ch7_0.html">7 Git Tools </a></li><li><a href="../en/ch8_0.html">8 Distributed Git </a></li><li><a href="../en/ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>总结</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git 分支 - 远程分支</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>远程分支</h2>
 
-<p>你已经见识过绝大多数通过自定义 Git 客户端和服务端来来适应自己工作流程和项目内容的方式了。无论你创造出了什么样的工作流程，Git 都能用的顺手。</p></div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">自定义 Git</li><li><a href="ch3_1.html">配置 Git</a></li><li><a href="ch3_2.html">Git属性</a></li><li><a href="ch3_3.html">Git挂钩</a></li><li><a href="ch3_4.html">Git 强制策略实例</a></li><li><a href="ch3_5.html">总结</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<p>远程分支（remote branch）是对远程仓库中的分支的索引。它们是一些无法移动的本地分支；只有在 Git 进行网络交互时才会更新。远程分支就像是书签，提醒着你上次连接远程仓库时上面各分支的位置。 </p>
+
+<p>我们用 <code>(远程仓库名)/(分支名)</code> 这样的形式表示远程分支。比如我们想看看上次同 <code>origin</code> 仓库通讯时 <code>master</code> 分支的样子，就应该查看 <code>origin/master</code> 分支。如果你和同伴一起修复某个问题，但他们先推送了一个 <code>iss53</code> 分支到远程仓库，虽然你可能也有一个本地的 <code>iss53</code> 分支，但指向服务器上最新更新的却应该是 <code>origin/iss53</code> 分支。</p>
+
+<p>可能有点乱，我们不妨举例说明。假设你们团队有个地址为 <code>git.ourcompany.com</code> 的 Git 服务器。如果你从这里克隆，Git 会自动为你将此远程仓库命名为 <code>origin</code>，并下载其中所有的数据，建立一个指向它的 <code>master</code> 分支的指针，在本地命名为 <code>origin/master</code>，但你无法在本地更改其数据。接着，Git 建立一个属于你自己的本地 <code>master</code> 分支，始于 <code>origin</code> 上 <code>master</code> 分支相同的位置，你可以就此开始工作（见图 3-22）：</p>
+
+<p><img src="../../book_src/figures/18333fig0322-tn.png"></br> 
+图 3-22. 一次 Git 克隆会建立你自己的本地分支 master 和远程分支 origin/master，并且将它们都指向 <code>origin</code> 上的 <code>master</code> 分支。</p>
+
+<p>如果你在本地 <code>master</code> 分支做了些改动，与此同时，其他人向 <code>git.ourcompany.com</code> 推送了他们的更新，那么服务器上的 <code>master</code> 分支就会向前推进，而于此同时，你在本地的提交历史正朝向不同方向发展。不过只要你不和服务器通讯，你的 <code>origin/master</code> 指针仍然保持原位不会移动（见图 3-23）。</p>
+
+<p><img src="../../book_src/figures/18333fig0323-tn.png"></br> 
+图 3-23. 在本地工作的同时有人向远程仓库推送内容会让提交历史开始分流。</p>
+
+<p>可以运行 <code>git fetch origin</code> 来同步远程服务器上的数据到本地。该命令首先找到 <code>origin</code> 是哪个服务器（本例为 <code>git.ourcompany.com</code>），从上面获取你尚未拥有的数据，更新你本地的数据库，然后把 <code>origin/master</code> 的指针移到它最新的位置上（见图 3-24）。</p>
+
+<p><img src="../../book_src/figures/18333fig0324-tn.png"></br> 
+图 3-24. git fetch 命令会更新 remote 索引。</p>
+
+<p>为了演示拥有多个远程分支（在不同的远程服务器上）的项目是如何工作的，我们假设你还有另一个仅供你的敏捷开发小组使用的内部服务器 <code>git.team1.ourcompany.com</code>。可以用第二章中提到的 <code>git remote add</code> 命令把它加为当前项目的远程分支之一。我们把它命名为 <code>teamone</code>，以便代替完整的 Git URL 以方便使用（见图 3-25）。</p>
+
+<p><img src="../../book_src/figures/18333fig0325-tn.png"></br> 
+图 3-25. 把另一个服务器加为远程仓库</p>
+
+<p>现在你可以用 <code>git fetch teamone</code> 来获取小组服务器上你还没有的数据了。由于当前该服务器上的内容是你 <code>origin</code> 服务器上的子集，Git 不会下载任何数据，而只是简单地创建一个名为 <code>teamone/master</code> 的远程分支，指向 <code>teamone</code> 服务器上 <code>master</code> 分支所在的提交对象 <code>31b8e</code>（见图 3-26）。</p>
+
+<p><img src="../../book_src/figures/18333fig0326-tn.png"></br> 
+图 3-26. 你在本地有了一个指向 teamone 服务器上 master 分支的索引。</p>
+
+<h3>推送本地分支</h3>
+
+<p>要想和其他人分享某个本地分支，你需要把它推送到一个你拥有写权限的远程仓库。你创建的本地分支不会因为你的写入操作而被自动同步到你引入的远程服务器上，你需要明确地执行推送分支的操作。换句话说，对于无意分享的分支，你尽管保留为私人分支好了，而只推送那些协同工作要用到的特性分支。</p>
+
+<p>如果你有个叫 <code>serverfix</code> 的分支需要和他人一起开发，可以运行 <code>git push (远程仓库名) (分支名)</code>：</p>
+
+<pre><code>$ git push origin serverfix
+Counting objects: 20, done.
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (15/15), 1.74 KiB, done.
+Total 15 (delta 5), reused 0 (delta 0)
+To git@github.com:schacon/simplegit.git
+ * [new branch]      serverfix -&gt; serverfix</code></pre>
+
+<p>这里其实走了一点捷径。Git 自动把 <code>serverfix</code> 分支名扩展为 <code>refs/heads/serverfix:refs/heads/serverfix</code>，意为“取出我在本地的 serverfix 分支，推送到远程仓库的 serverfix 分支中去”。我们将在第九章进一步介绍 <code>refs/heads/</code> 部分的细节，不过一般使用的时候都可以省略它。也可以运行 <code>git push origin serverfix:serverfix</code> 来实现相同的效果，它的意思是“上传我本地的 serverfix 分支到远程仓库中去，仍旧称它为 serverfix 分支”。通过此语法，你可以把本地分支推送到某个命名不同的远程分支：若想把远程分支叫作 <code>awesomebranch</code>，可以用 <code>git push origin serverfix:awesomebranch</code> 来推送数据。</p>
+
+<p>接下来，当你的协作者再次从服务器上获取数据时，他们将得到一个新的远程分支 <code>origin/serverfix</code>，并指向服务器上 <code>serverfix</code> 所指向的版本：</p>
+
+<pre><code>$ git fetch origin
+remote: Counting objects: 20, done.
+remote: Compressing objects: 100% (14/14), done.
+remote: Total 15 (delta 5), reused 0 (delta 0)
+Unpacking objects: 100% (15/15), done.
+From git@github.com:schacon/simplegit
+ * [new branch]      serverfix    -&gt; origin/serverfix</code></pre>
+
+<p>值得注意的是，在 <code>fetch</code> 操作下载好新的远程分支之后，你仍然无法在本地编辑该远程仓库中的分支。换句话说，在本例中，你不会有一个新的 <code>serverfix</code> 分支，有的只是一个你无法移动的 <code>origin/serverfix</code> 指针。</p>
+
+<p>如果要把该远程分支的内容合并到当前分支，可以运行 <code>git merge origin/serverfix</code>。如果想要一份自己的 <code>serverfix</code> 来开发，可以在远程分支的基础上分化出一个新的分支来：</p>
+
+<pre><code>$ git checkout -b serverfix origin/serverfix
+Branch serverfix set up to track remote branch refs/remotes/origin/serverfix.
+Switched to a new branch &quot;serverfix&quot;</code></pre>
+
+<p>这会切换到新建的 <code>serverfix</code> 本地分支，其内容同远程分支 <code>origin/serverfix</code> 一致，这样你就可以在里面继续开发了。</p>
+
+<h3>跟踪远程分支</h3>
+
+<p>从远程分支 <code>checkout</code> 出来的本地分支，称为_跟踪分支(tracking branch)。跟踪分支是一种和某个远程分支有直接联系的本地分支。在跟踪分支里输入 <code>git push</code>，Git 会自行推断应该向哪个服务器的哪个分支推送数据。同样，在这些分支里运行 <code>git pull</code> 会获取所有远程索引，并把它们的数据都合并到本地分支中来。</p>
+
+<p>在克隆仓库时，Git 通常会自动创建一个名为 <code>master</code> 的分支来跟踪 <code>origin/master</code>。这正是 <code>git push</code> 和 <code>git pull</code> 一开始就能正常工作的原因。当然，你可以随心所欲地设定为其它跟踪分支，比如 <code>origin</code> 上除了 <code>master</code> 之外的其它分支。刚才我们已经看到了这样的一个例子：<code>git checkout -b [分支名] [远程名]/[分支名]</code>。如果你有 1.6.2 以上版本的 Git，还可以用 <code>--track</code> 选项简化：</p>
+
+<pre><code>$ git checkout --track origin/serverfix
+Branch serverfix set up to track remote branch refs/remotes/origin/serverfix.
+Switched to a new branch &quot;serverfix&quot;</code></pre>
+
+<p>要为本地分支设定不同于远程分支的名字，只需在第一个版本的命令里换个名字：</p>
+
+<pre><code>$ git checkout -b sf origin/serverfix
+Branch sf set up to track remote branch refs/remotes/origin/serverfix.
+Switched to a new branch &quot;sf&quot;</code></pre>
+
+<p>现在你的本地分支 <code>sf</code> 会自动将推送和抓取数据的位置定位到 <code>origin/serverfix</code> 了。</p>
+
+<h3>删除远程分支</h3>
+
+<p>如果不再需要某个远程分支了，比如搞定了某个特性并把它合并进了远程的 <code>master</code> 分支（或任何其他存放稳定代码的分支），可以用这个非常无厘头的语法来删除它：<code>git push [远程名] :[分支名]</code>。如果想在服务器上删除 <code>serverfix</code> 分支，运行下面的命令：</p>
+
+<pre><code>$ git push origin :serverfix
+To git@github.com:schacon/simplegit.git
+ - [deleted]         serverfix</code></pre>
+
+<p>咚！服务器上的分支没了。你最好特别留心这一页，因为你一定会用到那个命令，而且你很可能会忘掉它的语法。有种方便记忆这条命令的方法：记住我们不久前见过的 <code>git push [远程名] [本地分支]:[远程分支]</code> 语法，如果省略 <code>[本地分支]</code>，那就等于是在说“在这里提取空白然后把它变成<code>[远程分支]</code>”。</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 分支</li><li><a href="ch3_1.html">何谓分支</a></li><li><a href="ch3_2.html">分支的新建与合并</a></li><li><a href="ch3_3.html">分支的管理</a></li><li><a href="ch3_4.html">利用分支进行开发的工作流程</a></li><li><a href="ch3_5.html">远程分支</a></li><li><a href="ch3_6.html">分支的衍合</a></li><li><a href="ch3_7.html">小结</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

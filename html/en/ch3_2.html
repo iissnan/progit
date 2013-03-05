@@ -1,259 +1,201 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Customizing Git - Git Attributes</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git Attributes</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Branching - Basic Branching and Merging</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Basic Branching and Merging</h2>
 
-<p>Some of these settings can also be specified for a path, so that Git applies those settings only for a subdirectory or subset of files. These path-specific settings are called Git attributes and are set either in a <code>.gitattributes</code> file in one of your directories (normally the root of your project) or in the <code>.git/info/attributes</code> file if you don’t want the attributes file committed with your project.</p>
+<p>Let’s go through a simple example of branching and merging with a workflow that you might use in the real world. You’ll follow these steps:</p>
 
-<p>Using attributes, you can do things like specify separate merge strategies for individual files or directories in your project, tell Git how to diff non-text files, or have Git filter content before you check it into or out of Git. In this section, you’ll learn about some of the attributes you can set on your paths in your Git project and see a few examples of using this feature in practice.</p>
+<ol><li>Do work on a web site.</li><li>Create a branch for a new story you’re working on.</li><li>Do some work in that branch.</li></ol>
 
-<h3>Binary Files</h3>
+<p>At this stage, you’ll receive a call that another issue is critical and you need a hotfix. You’ll do the following:</p>
 
-<p>One cool trick for which you can use Git attributes is telling Git which files are binary (in cases it otherwise may not be able to figure out) and giving Git special instructions about how to handle those files. For instance, some text files may be machine generated and not diffable, whereas some binary files can be diffed — you’ll see how to tell Git which is which.</p>
+<ol><li>Revert back to your production branch.</li><li>Create a branch to add the hotfix.</li><li>After it’s tested, merge the hotfix branch, and push to production.</li><li>Switch back to your original story and continue working.</li></ol>
 
-<h4>Identifying Binary Files</h4>
+<h3>Basic Branching</h3>
 
-<p>Some files look like text files but for all intents and purposes are to be treated as binary data. For instance, Xcode projects on the Mac contain a file that ends in <code>.pbxproj</code>, which is basically a JSON (plain text javascript data format) dataset written out to disk by the IDE that records your build settings and so on. Although it’s technically a text file, because it’s all ASCII, you don’t want to treat it as such because it’s really a lightweight database — you can’t merge the contents if two people changed it, and diffs generally aren’t helpful. The file is meant to be consumed by a machine. In essence, you want to treat it like a binary file.</p>
+<p>First, let’s say you’re working on your project and have a couple of commits already (see Figure 3-10).</p>
 
-<p>To tell Git to treat all <code>pbxproj</code> files as binary data, add the following line to your <code>.gitattributes</code> file:</p>
+<p><img src="../../book_src/figures/18333fig0310-tn.png"></br>
+Figure 3-10. A short and simple commit history.</p>
 
-<pre><code>*.pbxproj -crlf -diff</code></pre>
+<p>You’ve decided that you’re going to work on issue #53 in whatever issue-tracking system your company uses. To be clear, Git isn’t tied into any particular issue-tracking system; but because issue #53 is a focused topic that you want to work on, you’ll create a new branch in which to work. To create a branch and switch to it at the same time, you can run the <code>git checkout</code> command with the <code>-b</code> switch:</p>
 
-<p>Now, Git won’t try to convert or fix CRLF issues; nor will it try to compute or print a diff for changes in this file when you run git show or git diff on your project. In the 1.6 series of Git, you can also use a macro that is provided that means <code>-crlf -diff</code>:</p>
+<pre><code>$ git checkout -b iss53
+Switched to a new branch &quot;iss53&quot;</code></pre>
 
-<pre><code>*.pbxproj binary</code></pre>
+<p>This is shorthand for:</p>
 
-<h4>Diffing Binary Files</h4>
+<pre><code>$ git branch iss53
+$ git checkout iss53</code></pre>
 
-<p>In the 1.6 series of Git, you can use the Git attributes functionality to effectively diff binary files. You do this by telling Git how to convert your binary data to a text format that can be compared via the normal diff.</p>
+<p>Figure 3-11 illustrates the result.</p>
 
-<h5>MS Word files</h5>
+<p><img src="../../book_src/figures/18333fig0311-tn.png"></br>
+Figure 3-11. Creating a new branch pointer.</p>
 
-<p>Because this is a pretty cool and not widely known feature, I’ll go over a few examples. First, you’ll use this technique to solve one of the most annoying problems known to humanity: version-controlling Word documents. Everyone knows that Word is the most horrific editor around; but, oddly, everyone uses it. If you want to version-control Word documents, you can stick them in a Git repository and commit every once in a while; but what good does that do? If you run <code>git diff</code> normally, you only see something like this:</p>
+<p>You work on your web site and do some commits. Doing so moves the <code>iss53</code> branch forward, because you have it checked out (that is, your HEAD is pointing to it; see Figure 3-12):</p>
 
-<pre><code>$ git diff
-diff --git a/chapter1.doc b/chapter1.doc
-index 88839c4..4afcb7c 100644
-Binary files a/chapter1.doc and b/chapter1.doc differ</code></pre>
+<pre><code>$ vim index.html
+$ git commit -a -m &#39;added a new footer [issue 53]&#39;</code></pre>
 
-<p>You can’t directly compare two versions unless you check them out and scan them manually, right? It turns out you can do this fairly well using Git attributes. Put the following line in your <code>.gitattributes</code> file:</p>
+<p><img src="../../book_src/figures/18333fig0312-tn.png"></br>
+Figure 3-12. The iss53 branch has moved forward with your work.</p>
 
-<pre><code>*.doc diff=word</code></pre>
+<p>Now you get the call that there is an issue with the web site, and you need to fix it immediately. With Git, you don’t have to deploy your fix along with the <code>iss53</code> changes you’ve made, and you don’t have to put a lot of effort into reverting those changes before you can work on applying your fix to what is in production. All you have to do is switch back to your master branch.</p>
 
-<p>This tells Git that any file that matches this pattern (.doc) should use the &quot;word&quot; filter when you try to view a diff that contains changes. What is the &quot;word&quot; filter? You have to set it up. Here you’ll configure Git to use the <code>strings</code> program to convert Word documents into readable text files, which it will then diff properly:</p>
+<p>However, before you do that, note that if your working directory or staging area has uncommitted changes that conflict with the branch you’re checking out, Git won’t let you switch branches. It’s best to have a clean working state when you switch branches. There are ways to get around this (namely, stashing and commit amending) that we’ll cover later. For now, you’ve committed all your changes, so you can switch back to your master branch:</p>
 
-<pre><code>$ git config diff.word.textconv strings</code></pre>
+<pre><code>$ git checkout master
+Switched to branch &quot;master&quot;</code></pre>
 
-<p>This command adds a section to your <code>.git/config</code> that looks like this:</p>
+<p>At this point, your project working directory is exactly the way it was before you started working on issue #53, and you can concentrate on your hotfix. This is an important point to remember: Git resets your working directory to look like the snapshot of the commit that the branch you check out points to. It adds, removes, and modifies files automatically to make sure your working copy is what the branch looked like on your last commit to it.</p>
 
-<pre><code>[diff &quot;word&quot;]
-	textconv = strings</code></pre>
+<p>Next, you have a hotfix to make. Let’s create a hotfix branch on which to work until it’s completed (see Figure 3-13):</p>
 
-<p>Side note: There are different kinds of <code>.doc</code> files. Some use an UTF-16 encoding or other &quot;codepages&quot; and <code>strings</code> won’t find anything useful in there. Your mileage may vary.</p>
+<pre><code>$ git checkout -b hotfix
+Switched to a new branch &quot;hotfix&quot;
+$ vim index.html
+$ git commit -a -m &#39;fixed the broken email address&#39;
+[hotfix]: created 3a0874c: &quot;fixed the broken email address&quot;
+ 1 files changed, 0 insertions(+), 1 deletions(-)</code></pre>
 
-<p>Now Git knows that if it tries to do a diff between two snapshots, and any of the files end in <code>.doc</code>, it should run those files through the &quot;word&quot; filter, which is defined as the <code>strings</code> program. This effectively makes nice text-based versions of your Word files before attempting to diff them.</p>
+<p><img src="../../book_src/figures/18333fig0313-tn.png"></br>
+Figure 3-13. hotfix branch based back at your master branch point.</p>
 
-<p>Here’s an example. I put Chapter 1 of this book into Git, added some text to a paragraph, and saved the document. Then, I ran <code>git diff</code> to see what changed:</p>
+<p>You can run your tests, make sure the hotfix is what you want, and merge it back into your master branch to deploy to production. You do this with the <code>git merge</code> command:</p>
 
-<pre><code>$ git diff
-diff --git a/chapter1.doc b/chapter1.doc
-index c1c8a0a..b93c9e4 100644
---- a/chapter1.doc
-+++ b/chapter1.doc
-@@ -8,7 +8,8 @@ re going to cover Version Control Systems (VCS) and Git basics
- re going to cover how to get it and set it up for the first time if you don
- t already have it on your system.
- In Chapter Two we will go over basic Git usage - how to use Git for the 80%
--s going on, modify stuff and contribute changes. If the book spontaneously
-+s going on, modify stuff and contribute changes. If the book spontaneously
-+Let&#39;s see if this works.</code></pre>
+<pre><code>$ git checkout master
+$ git merge hotfix
+Updating f42c576..3a0874c
+Fast forward
+ README |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)</code></pre>
 
-<p>Git successfully and succinctly tells me that I added the string &quot;Let’s see if this works&quot;, which is correct. It’s not perfect — it adds a bunch of random stuff at the end — but it certainly works. If you can find or write a Word-to-plain-text converter that works well enough, that solution will likely be incredibly effective. However, <code>strings</code> is available on most Mac and Linux systems, so it may be a good first try to do this with many binary formats.</p>
+<p>You’ll notice the phrase &quot;Fast forward&quot; in that merge. Because the commit pointed to by the branch you merged in was directly upstream of the commit you’re on, Git moves the pointer forward. To phrase that another way, when you try to merge one commit with a commit that can be reached by following the first commit’s history, Git simplifies things by moving the pointer forward because there is no divergent work to merge together — this is called a &quot;fast forward&quot;.</p>
 
-<h5>OpenDocument Text files</h5>
+<p>Your change is now in the snapshot of the commit pointed to by the <code>master</code> branch, and you can deploy your change (see Figure 3-14).</p>
 
-<p>The same approach that we used for MS Word files (<code>*.doc</code>) can be used for OpenDocument Text files (<code>*.odt</code>) created by OpenOffice.org.</p>
+<p><img src="../../book_src/figures/18333fig0314-tn.png"></br>
+Figure 3-14. Your master branch points to the same place as your hotfix branch after the merge.</p>
 
-<p>Add the following line to your <code>.gitattributes</code> file:</p>
+<p>After your super-important fix is deployed, you’re ready to switch back to the work you were doing before you were interrupted. However, first you’ll delete the <code>hotfix</code> branch, because you no longer need it — the <code>master</code> branch points at the same place. You can delete it with the <code>-d</code> option to <code>git branch</code>:</p>
 
-<pre><code>*.odt diff=odt</code></pre>
+<pre><code>$ git branch -d hotfix
+Deleted branch hotfix (3a0874c).</code></pre>
 
-<p>Now set up the <code>odt</code> diff filter in <code>.git/config</code>:</p>
+<p>Now you can switch back to your work-in-progress branch on issue #53 and continue working on it (see Figure 3-15):</p>
 
-<pre><code>[diff &quot;odt&quot;]
-	binary = true
-	textconv = /usr/local/bin/odt-to-txt</code></pre>
+<pre><code>$ git checkout iss53
+Switched to branch &quot;iss53&quot;
+$ vim index.html
+$ git commit -a -m &#39;finished the new footer [issue 53]&#39;
+[iss53]: created ad82d7a: &quot;finished the new footer [issue 53]&quot;
+ 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
 
-<p>OpenDocument files are actually zip’ped directories containing multiple files (the content in an XML format, stylesheets, images, etc.). We’ll need to write a script to extract the content and return it as plain text. Create a file <code>/usr/local/bin/odt-to-txt</code> (you are free to put it into a different directory) with the following content:</p>
+<p><img src="../../book_src/figures/18333fig0315-tn.png"></br>
+Figure 3-15. Your iss53 branch can move forward independently.</p>
 
-<pre><code>#! /usr/bin/env perl
-# Simplistic OpenDocument Text (.odt) to plain text converter.
-# Author: Philipp Kempgen
+<p>It’s worth noting here that the work you did in your <code>hotfix</code> branch is not contained in the files in your <code>iss53</code> branch. If you need to pull it in, you can merge your <code>master</code> branch into your <code>iss53</code> branch by running <code>git merge master</code>, or you can wait to integrate those changes until you decide to pull the <code>iss53</code> branch back into <code>master</code> later.</p>
 
-if (! defined($ARGV[0])) {
-	print STDERR &quot;No filename given!\n&quot;;
-	print STDERR &quot;Usage: $0 filename\n&quot;;
-	exit 1;
-}
+<h3>Basic Merging</h3>
 
-my $content = &#39;&#39;;
-open my $fh, &#39;-|&#39;, &#39;unzip&#39;, &#39;-qq&#39;, &#39;-p&#39;, $ARGV[0], &#39;content.xml&#39; or die $!;
-{
-	local $/ = undef;  # slurp mode
-	$content = &lt;$fh&gt;;
-}
-close $fh;
-$_ = $content;
-s/&lt;text:span\b[^&gt;]*&gt;//g;           # remove spans
-s/&lt;text:h\b[^&gt;]*&gt;/\n\n*****  /g;   # headers
-s/&lt;text:list-item\b[^&gt;]*&gt;\s*&lt;text:p\b[^&gt;]*&gt;/\n    --  /g;  # list items
-s/&lt;text:list\b[^&gt;]*&gt;/\n\n/g;       # lists
-s/&lt;text:p\b[^&gt;]*&gt;/\n  /g;          # paragraphs
-s/&lt;[^&gt;]+&gt;//g;                      # remove all XML tags
-s/\n{2,}/\n\n/g;                   # remove multiple blank lines
-s/\A\n+//;                         # remove leading blank lines
-print &quot;\n&quot;, $_, &quot;\n\n&quot;;</code></pre>
+<p>Suppose you’ve decided that your issue #53 work is complete and ready to be merged into your <code>master</code> branch. In order to do that, you’ll merge in your <code>iss53</code> branch, much like you merged in your <code>hotfix</code> branch earlier. All you have to do is check out the branch you wish to merge into and then run the <code>git merge</code> command:</p>
 
-<p>And make it executable</p>
+<pre><code>$ git checkout master
+$ git merge iss53
+Merge made by recursive.
+ README |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
 
-<pre><code>chmod +x /usr/local/bin/odt-to-txt</code></pre>
+<p>This looks a bit different than the <code>hotfix</code> merge you did earlier. In this case, your development history has diverged from some older point. Because the commit on the branch you’re on isn’t a direct ancestor of the branch you’re merging in, Git has to do some work. In this case, Git does a simple three-way merge, using the two snapshots pointed to by the branch tips and the common ancestor of the two. Figure 3-16 highlights the three snapshots that Git uses to do its merge in this case.</p>
 
-<p>Now <code>git diff</code> will be able to tell you what changed in <code>.odt</code> files.</p>
+<p><img src="../../book_src/figures/18333fig0316-tn.png"></br>
+Figure 3-16. Git automatically identifies the best common-ancestor merge base for branch merging.</p>
 
-<h5>Image files</h5>
+<p>Instead of just moving the branch pointer forward, Git creates a new snapshot that results from this three-way merge and automatically creates a new commit that points to it (see Figure 3-17). This is referred to as a merge commit and is special in that it has more than one parent.</p>
 
-<p>Another interesting problem you can solve this way involves diffing image files. One way to do this is to run PNG files through a filter that extracts their EXIF information — metadata that is recorded with most image formats. If you download and install the <code>exiftool</code> program, you can use it to convert your images into text about the metadata, so at least the diff will show you a textual representation of any changes that happened:</p>
+<p>It’s worth pointing out that Git determines the best common ancestor to use for its merge base; this is different than CVS or Subversion (before version 1.5), where the developer doing the merge has to figure out the best merge base for themselves. This makes merging a heck of a lot easier in Git than in these other systems.</p>
 
-<pre><code>$ echo &#39;*.png diff=exif&#39; &gt;&gt; .gitattributes
-$ git config diff.exif.textconv exiftool</code></pre>
+<p><img src="../../book_src/figures/18333fig0317-tn.png"></br>
+Figure 3-17. Git automatically creates a new commit object that contains the merged work.</p>
 
-<p>If you replace an image in your project and run <code>git diff</code>, you see something like this:</p>
+<p>Now that your work is merged in, you have no further need for the <code>iss53</code> branch. You can delete it and then manually close the ticket in your ticket-tracking system:</p>
 
-<pre><code>diff --git a/image.png b/image.png
-index 88839c4..4afcb7c 100644
---- a/image.png
-+++ b/image.png
-@@ -1,12 +1,12 @@
- ExifTool Version Number         : 7.74
--File Size                       : 70 kB
--File Modification Date/Time     : 2009:04:17 10:12:35-07:00
-+File Size                       : 94 kB
-+File Modification Date/Time     : 2009:04:21 07:02:43-07:00
- File Type                       : PNG
- MIME Type                       : image/png
--Image Width                     : 1058
--Image Height                    : 889
-+Image Width                     : 1056
-+Image Height                    : 827
- Bit Depth                       : 8
- Color Type                      : RGB with Alpha</code></pre>
+<pre><code>$ git branch -d iss53</code></pre>
 
-<p>You can easily see that the file size and image dimensions have both changed.</p>
+<h3>Basic Merge Conflicts</h3>
 
-<h3>Keyword Expansion</h3>
+<p>Occasionally, this process doesn’t go smoothly. If you changed the same part of the same file differently in the two branches you’re merging together, Git won’t be able to merge them cleanly. If your fix for issue #53 modified the same part of a file as the <code>hotfix</code>, you’ll get a merge conflict that looks something like this:</p>
 
-<p>SVN- or CVS-style keyword expansion is often requested by developers used to those systems. The main problem with this in Git is that you can’t modify a file with information about the commit after you’ve committed, because Git checksums the file first. However, you can inject text into a file when it’s checked out and remove it again before it’s added to a commit. Git attributes offers you two ways to do this.</p>
+<pre><code>$ git merge iss53
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
 
-<p>First, you can inject the SHA-1 checksum of a blob into an <code>$Id$</code> field in the file automatically. If you set this attribute on a file or set of files, then the next time you check out that branch, Git will replace that field with the SHA-1 of the blob. It’s important to notice that it isn’t the SHA of the commit, but of the blob itself:</p>
+<p>Git hasn’t automatically created a new merge commit. It has paused the process while you resolve the conflict. If you want to see which files are unmerged at any point after a merge conflict, you can run <code>git status</code>:</p>
 
-<pre><code>$ echo &#39;*.txt ident&#39; &gt;&gt; .gitattributes
-$ echo &#39;$Id$&#39; &gt; test.txt</code></pre>
+<pre><code>[master*]$ git status
+index.html: needs merge
+# On branch master
+# Changes not staged for commit:
+#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+#
+#	unmerged:   index.html
+#</code></pre>
 
-<p>The next time you check out this file, Git injects the SHA of the blob:</p>
+<p>Anything that has merge conflicts and hasn’t been resolved is listed as unmerged. Git adds standard conflict-resolution markers to the files that have conflicts, so you can open them manually and resolve those conflicts. Your file contains a section that looks something like this:</p>
 
-<pre><code>$ rm test.txt
-$ git checkout -- test.txt
-$ cat test.txt
-$Id: 42812b7653c7b88933f8a9d6cad0ca16714b9bb3 $</code></pre>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:index.html
+&lt;div id=&quot;footer&quot;&gt;contact : email.support@github.com&lt;/div&gt;
+=======
+&lt;div id=&quot;footer&quot;&gt;
+  please contact us at support@github.com
+&lt;/div&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; iss53:index.html</code></pre>
 
-<p>However, that result is of limited use. If you’ve used keyword substitution in CVS or Subversion, you can include a datestamp — the SHA isn’t all that helpful, because it’s fairly random and you can’t tell if one SHA is older or newer than another.</p>
+<p>This means the version in HEAD (your master branch, because that was what you had checked out when you ran your merge command) is the top part of that block (everything above the <code>=======</code>), while the version in your <code>iss53</code> branch looks like everything in the bottom part. In order to resolve the conflict, you have to either choose one side or the other or merge the contents yourself. For instance, you might resolve this conflict by replacing the entire block with this:</p>
 
-<p>It turns out that you can write your own filters for doing substitutions in files on commit/checkout. These are the &quot;clean&quot; and &quot;smudge&quot; filters. In the <code>.gitattributes</code> file, you can set a filter for particular paths and then set up scripts that will process files just before they’re checked out (&quot;smudge&quot;, see Figure 7-2) and just before they’re committed (&quot;clean&quot;, see Figure 7-3). These filters can be set to do all sorts of fun things.</p>
+<pre><code>&lt;div id=&quot;footer&quot;&gt;
+please contact us at email.support@github.com
+&lt;/div&gt;</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0702-tn.png"></br>
-Figure 7-2. The “smudge” filter is run on checkout.</p>
+<p>This resolution has a little of each section, and I’ve fully removed the <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> lines. After you’ve resolved each of these sections in each conflicted file, run <code>git add</code> on each file to mark it as resolved. Staging the file marks it as resolved in Git.
+If you want to use a graphical tool to resolve these issues, you can run <code>git mergetool</code>, which fires up an appropriate visual merge tool and walks you through the conflicts:</p>
 
-<p><img src="../../book_src/figures/18333fig0703-tn.png"></br>
-Figure 7-3. The “clean” filter is run when files are staged.</p>
+<pre><code>$ git mergetool
+merge tool candidates: kdiff3 tkdiff xxdiff meld gvimdiff opendiff emerge vimdiff
+Merging the files: index.html
 
-<p>The original commit message for this functionality gives a simple example of running all your C source code through the <code>indent</code> program before committing. You can set it up by setting the filter attribute in your <code>.gitattributes</code> file to filter <code>*.c</code> files with the &quot;indent&quot; filter:</p>
+Normal merge conflict for &#39;index.html&#39;:
+  {local}: modified
+  {remote}: modified
+Hit return to start merge resolution tool (opendiff):</code></pre>
 
-<pre><code>*.c     filter=indent</code></pre>
+<p>If you want to use a merge tool other than the default (Git chose <code>opendiff</code> for me in this case because I ran the command on a Mac), you can see all the supported tools listed at the top after “merge tool candidates”. Type the name of the tool you’d rather use. In Chapter 7, we’ll discuss how you can change this default value for your environment.</p>
 
-<p>Then, tell Git what the &quot;indent&quot; filter does on smudge and clean:</p>
+<p>After you exit the merge tool, Git asks you if the merge was successful. If you tell the script that it was, it stages the file to mark it as resolved for you.</p>
 
-<pre><code>$ git config --global filter.indent.clean indent
-$ git config --global filter.indent.smudge cat</code></pre>
+<p>You can run <code>git status</code> again to verify that all conflicts have been resolved:</p>
 
-<p>In this case, when you commit files that match <code>*.c</code>, Git will run them through the indent program before it commits them and then run them through the <code>cat</code> program before it checks them back out onto disk. The <code>cat</code> program is basically a no-op: it spits out the same data that it gets in. This combination effectively filters all C source code files through <code>indent</code> before committing.</p>
+<pre><code>$ git status
+# On branch master
+# Changes to be committed:
+#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+#
+#	modified:   index.html
+#</code></pre>
 
-<p>Another interesting example gets <code>$Date$</code> keyword expansion, RCS style. To do this properly, you need a small script that takes a filename, figures out the last commit date for this project, and inserts the date into the file. Here is a small Ruby script that does that:</p>
+<p>If you’re happy with that, and you verify that everything that had conflicts has been staged, you can type <code>git commit</code> to finalize the merge commit. The commit message by default looks something like this:</p>
 
-<pre><code>#! /usr/bin/env ruby
-data = STDIN.read
-last_date = `git log --pretty=format:&quot;%ad&quot; -1`
-puts data.gsub(&#39;$Date$&#39;, &#39;$Date: &#39; + last_date.to_s + &#39;$&#39;)</code></pre>
+<pre><code>Merge branch &#39;iss53&#39;
 
-<p>All the script does is get the latest commit date from the <code>git log</code> command, stick that into any <code>$Date$</code> strings it sees in stdin, and print the results — it should be simple to do in whatever language you’re most comfortable in. You can name this file <code>expand_date</code> and put it in your path. Now, you need to set up a filter in Git (call it <code>dater</code>) and tell it to use your <code>expand_date</code> filter to smudge the files on checkout. You’ll use a Perl expression to clean that up on commit:</p>
+Conflicts:
+  index.html
+#
+# It looks like you may be committing a MERGE.
+# If this is not correct, please remove the file
+# .git/MERGE_HEAD
+# and try again.
+#</code></pre>
 
-<pre><code>$ git config filter.dater.smudge expand_date
-$ git config filter.dater.clean &#39;perl -pe &quot;s/\\\$Date[^\\\$]*\\\$/\\\$Date\\\$/&quot;&#39;</code></pre>
+<p>You can modify that message with details about how you resolved the merge if you think it would be helpful to others looking at this merge in the future — why you did what you did, if it’s not obvious.</p>
 
-<p>This Perl snippet strips out anything it sees in a <code>$Date$</code> string, to get back to where you started. Now that your filter is ready, you can test it by setting up a file with your <code>$Date$</code> keyword and then setting up a Git attribute for that file that engages the new filter:</p>
-
-<pre><code>$ echo &#39;# $Date$&#39; &gt; date_test.txt
-$ echo &#39;date*.txt filter=dater&#39; &gt;&gt; .gitattributes</code></pre>
-
-<p>If you commit those changes and check out the file again, you see the keyword properly substituted:</p>
-
-<pre><code>$ git add date_test.txt .gitattributes
-$ git commit -m &quot;Testing date expansion in Git&quot;
-$ rm date_test.txt
-$ git checkout date_test.txt
-$ cat date_test.txt
-# $Date: Tue Apr 21 07:26:52 2009 -0700$</code></pre>
-
-<p>You can see how powerful this technique can be for customized applications. You have to be careful, though, because the <code>.gitattributes</code> file is committed and passed around with the project but the driver (in this case, <code>dater</code>) isn’t; so, it won’t work everywhere. When you design these filters, they should be able to fail gracefully and have the project still work properly.</p>
-
-<h3>Exporting Your Repository</h3>
-
-<p>Git attribute data also allows you to do some interesting things when exporting an archive of your project.</p>
-
-<h4>export-ignore</h4>
-
-<p>You can tell Git not to export certain files or directories when generating an archive. If there is a subdirectory or file that you don’t want to include in your archive file but that you do want checked into your project, you can determine those files via the <code>export-ignore</code> attribute.</p>
-
-<p>For example, say you have some test files in a <code>test/</code> subdirectory, and it doesn’t make sense to include them in the tarball export of your project. You can add the following line to your Git attributes file:</p>
-
-<pre><code>test/ export-ignore</code></pre>
-
-<p>Now, when you run git archive to create a tarball of your project, that directory won’t be included in the archive.</p>
-
-<h4>export-subst</h4>
-
-<p>Another thing you can do for your archives is some simple keyword substitution. Git lets you put the string <code>$Format:$</code> in any file with any of the <code>--pretty=format</code> formatting shortcodes, many of which you saw in Chapter 2. For instance, if you want to include a file named <code>LAST_COMMIT</code> in your project, and the last commit date was automatically injected into it when <code>git archive</code> ran, you can set up the file like this:</p>
-
-<pre><code>$ echo &#39;Last commit date: $Format:%cd$&#39; &gt; LAST_COMMIT
-$ echo &quot;LAST_COMMIT export-subst&quot; &gt;&gt; .gitattributes
-$ git add LAST_COMMIT .gitattributes
-$ git commit -am &#39;adding LAST_COMMIT file for archives&#39;</code></pre>
-
-<p>When you run <code>git archive</code>, the contents of that file when people open the archive file will look like this:</p>
-
-<pre><code>$ cat LAST_COMMIT
-Last commit date: $Format:Tue Apr 21 08:38:48 2009 -0700$</code></pre>
-
-<h3>Merge Strategies</h3>
-
-<p>You can also use Git attributes to tell Git to use different merge strategies for specific files in your project. One very useful option is to tell Git to not try to merge specific files when they have conflicts, but rather to use your side of the merge over someone else’s.</p>
-
-<p>This is helpful if a branch in your project has diverged or is specialized, but you want to be able to merge changes back in from it, and you want to ignore certain files. Say you have a database settings file called database.xml that is different in two branches, and you want to merge in your other branch without messing up the database file. You can set up an attribute like this:</p>
-
-<pre><code>database.xml merge=ours</code></pre>
-
-<p>If you merge in the other branch, instead of having merge conflicts with the database.xml file, you see something like this:</p>
-
-<pre><code>$ git merge topic
-Auto-merging database.xml
-Merge made by recursive.</code></pre>
-
-<p>In this case, database.xml stays at whatever version you originally had.</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Customizing Git</li><li><a href="ch3_1.html">Git Configuration</a></li><li><a href="ch3_2.html">Git Attributes</a></li><li><a href="ch3_3.html">Git Hooks</a></li><li><a href="ch3_4.html">An Example Git-Enforced Policy</a></li><li><a href="ch3_5.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Branching</li><li><a href="ch3_1.html">What a Branch Is</a></li><li><a href="ch3_2.html">Basic Branching and Merging</a></li><li><a href="ch3_3.html">Branch Management</a></li><li><a href="ch3_4.html">Branching Workflows</a></li><li><a href="ch3_5.html">Remote Branches</a></li><li><a href="ch3_6.html">Rebasing</a></li><li><a href="ch3_7.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

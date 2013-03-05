@@ -1,87 +1,44 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Internals - The Refspec</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>The Refspec</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git on the Server - Public Access</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Public Access</h2>
 
-<p>Throughout this book, you’ve used simple mappings from remote branches to local references; but they can be more complex.
-Suppose you add a remote like this:</p>
+<p>What if you want anonymous read access to your project? Perhaps instead of hosting an internal private project, you want to host an open source project. Or maybe you have a bunch of automated build servers or continuous integration servers that change a lot, and you don’t want to have to generate SSH keys all the time — you just want to add simple anonymous read access.</p>
 
-<pre><code>$ git remote add origin git@github.com:schacon/simplegit-progit.git</code></pre>
+<p>Probably the simplest way for smaller setups is to run a static web server with its document root where your Git repositories are, and then enable that <code>post-update</code> hook we mentioned in the first section of this chapter. Let’s work from the previous example. Say you have your repositories in the <code>/opt/git</code> directory, and an Apache server is running on your machine. Again, you can use any web server for this; but as an example, we’ll demonstrate some basic Apache configurations that should give you an idea of what you might need.</p>
 
-<p>It adds a section to your <code>.git/config</code> file, specifying the name of the remote (<code>origin</code>), the URL of the remote repository, and the refspec for fetching:</p>
+<p>First you need to enable the hook:</p>
 
-<pre><code>[remote &quot;origin&quot;]
-       url = git@github.com:schacon/simplegit-progit.git
-       fetch = +refs/heads/*:refs/remotes/origin/*</code></pre>
+<pre><code>$ cd project.git
+$ mv hooks/post-update.sample hooks/post-update
+$ chmod a+x hooks/post-update</code></pre>
 
-<p>The format of the refspec is an optional <code>+</code>, followed by <code>&lt;src&gt;:&lt;dst&gt;</code>, where <code>&lt;src&gt;</code> is the pattern for references on the remote side and <code>&lt;dst&gt;</code> is where those references will be written locally. The <code>+</code> tells Git to update the reference even if it isn’t a fast-forward.</p>
+<p>If you’re using a version of Git earlier than 1.6, the <code>mv</code> command isn’t necessary — Git started naming the hooks examples with the .sample postfix only recently.</p>
 
-<p>In the default case that is automatically written by a <code>git remote add</code> command, Git fetches all the references under <code>refs/heads/</code> on the server and writes them to <code>refs/remotes/origin/</code> locally. So, if there is a <code>master</code> branch on the server, you can access the log of that branch locally via</p>
+<p>What does this <code>post-update</code> hook do? It looks basically like this:</p>
 
-<pre><code>$ git log origin/master
-$ git log remotes/origin/master
-$ git log refs/remotes/origin/master</code></pre>
+<pre><code>$ cat .git/hooks/post-update
+#!/bin/sh
+exec git-update-server-info</code></pre>
 
-<p>They’re all equivalent, because Git expands each of them to <code>refs/remotes/origin/master</code>.</p>
+<p>This means that when you push to the server via SSH, Git will run this command to update the files needed for HTTP fetching.</p>
 
-<p>If you want Git instead to pull down only the <code>master</code> branch each time, and not every other branch on the remote server, you can change the fetch line to</p>
+<p>Next, you need to add a VirtualHost entry to your Apache configuration with the document root as the root directory of your Git projects. Here, we’re assuming that you have wildcard DNS set up to send <code>*.gitserver</code> to whatever box you’re using to run all this:</p>
 
-<pre><code>fetch = +refs/heads/master:refs/remotes/origin/master</code></pre>
+<pre><code>&lt;VirtualHost *:80&gt;
+    ServerName git.gitserver
+    DocumentRoot /opt/git
+    &lt;Directory /opt/git/&gt;
+        Order allow, deny
+        allow from all
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code></pre>
 
-<p>This is just the default refspec for <code>git fetch</code> for that remote. If you want to do something one time, you can specify the refspec on the command line, too. To pull the <code>master</code> branch on the remote down to <code>origin/mymaster</code> locally, you can run</p>
+<p>You’ll also need to set the Unix user group of the <code>/opt/git</code> directories to <code>www-data</code> so your web server can read-access the repositories, because the Apache instance running the CGI script will (by default) be running as that user:</p>
 
-<pre><code>$ git fetch origin master:refs/remotes/origin/mymaster</code></pre>
+<pre><code>$ chgrp -R www-data /opt/git</code></pre>
 
-<p>You can also specify multiple refspecs. On the command line, you can pull down several branches like so:</p>
+<p>When you restart Apache, you should be able to clone your repositories under that directory by specifying the URL for your project:</p>
 
-<pre><code>$ git fetch origin master:refs/remotes/origin/mymaster \
-   topic:refs/remotes/origin/topic
-From git@github.com:schacon/simplegit
- ! [rejected]        master     -&gt; origin/mymaster  (non fast forward)
- * [new branch]      topic      -&gt; origin/topic</code></pre>
+<pre><code>$ git clone http://git.gitserver/project.git</code></pre>
 
-<p>In this case, the  master branch pull was rejected because it wasn’t a fast-forward reference. You can override that by specifying the <code>+</code> in front of the refspec.</p>
+<p>This way, you can set up HTTP-based read access to any of your projects for a fair number of users in a few minutes. Another simple option for public unauthenticated access is to start a Git daemon, although that requires you to daemonize the process - we’ll cover this option in the next section, if you prefer that route.</p>
 
-<p>You can also specify multiple refspecs for fetching in your configuration file. If you want to always fetch the master and experiment branches, add two lines:</p>
-
-<pre><code>[remote &quot;origin&quot;]
-       url = git@github.com:schacon/simplegit-progit.git
-       fetch = +refs/heads/master:refs/remotes/origin/master
-       fetch = +refs/heads/experiment:refs/remotes/origin/experiment</code></pre>
-
-<p>You can’t use partial globs in the pattern, so this would be invalid:</p>
-
-<pre><code>fetch = +refs/heads/qa*:refs/remotes/origin/qa*</code></pre>
-
-<p>However, you can use namespacing to accomplish something like that. If you have a QA team that pushes a series of branches, and you want to get the master branch and any of the QA team’s branches but nothing else, you can use a config section like this:</p>
-
-<pre><code>[remote &quot;origin&quot;]
-       url = git@github.com:schacon/simplegit-progit.git
-       fetch = +refs/heads/master:refs/remotes/origin/master
-       fetch = +refs/heads/qa/*:refs/remotes/origin/qa/*</code></pre>
-
-<p>If you have a complex workflow process that has a QA team pushing branches, developers pushing branches, and integration teams pushing and collaborating on remote branches, you can namespace them easily this way.</p>
-
-<h3>Pushing Refspecs</h3>
-
-<p>It’s nice that you can fetch namespaced references that way, but how does the QA team get their branches into a <code>qa/</code> namespace in the first place? You accomplish that by using refspecs to push.</p>
-
-<p>If the QA team wants to push their <code>master</code> branch to <code>qa/master</code> on the remote server, they can run</p>
-
-<pre><code>$ git push origin master:refs/heads/qa/master</code></pre>
-
-<p>If they want Git to do that automatically each time they run <code>git push origin</code>, they can add a <code>push</code> value to their config file:</p>
-
-<pre><code>[remote &quot;origin&quot;]
-       url = git@github.com:schacon/simplegit-progit.git
-       fetch = +refs/heads/*:refs/remotes/origin/*
-       push = refs/heads/master:refs/heads/qa/master</code></pre>
-
-<p>Again, this will cause a <code>git push origin</code> to push the local <code>master</code> branch to the remote <code>qa/master</code> branch by default.</p>
-
-<h3>Deleting References</h3>
-
-<p>You can also use the refspec to delete references from the remote server by running something like this:</p>
-
-<pre><code>$ git push origin :topic</code></pre>
-
-<p>Because the refspec is <code>&lt;src&gt;:&lt;dst&gt;</code>, by leaving off the <code>&lt;src&gt;</code> part, this basically says to make the topic branch on the remote nothing, which deletes it.</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Internals</li><li><a href="ch4_1.html">Plumbing and Porcelain</a></li><li><a href="ch4_2.html">Git Objects</a></li><li><a href="ch4_3.html">Git References</a></li><li><a href="ch4_4.html">Packfiles</a></li><li><a href="ch4_5.html">The Refspec</a></li><li><a href="ch4_6.html">Transfer Protocols</a></li><li><a href="ch4_7.html">Maintenance and Data Recovery</a></li><li><a href="ch4_8.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git on the Server</li><li><a href="ch4_1.html">The Protocols</a></li><li><a href="ch4_2.html">Getting Git on a Server</a></li><li><a href="ch4_3.html">Generating Your SSH Public Key</a></li><li><a href="ch4_4.html">Setting Up the Server</a></li><li><a href="ch4_5.html">Public Access</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git Daemon</a></li><li><a href="ch4_10.html">Hosted Git</a></li><li><a href="ch4_11.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

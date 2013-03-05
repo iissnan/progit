@@ -1,212 +1,149 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Internals - Maintenance and Data Recovery</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Maintenance and Data Recovery</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git on the Server - Gitosis</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Gitosis</h2>
 
-<p>Occasionally, you may have to do some cleanup — make a repository more compact, clean up an imported repository, or recover lost work. This section will cover some of these scenarios.</p>
+<p>Keeping all users’ public keys in the <code>authorized_keys</code> file for access works well only for a while. When you have hundreds of users, it’s much more of a pain to manage that process. You have to shell onto the server each time, and there is no access control — everyone in the file has read and write access to every project.</p>
 
-<h3>Maintenance</h3>
+<p>At this point, you may want to turn to a widely used software project called Gitosis. Gitosis is basically a set of scripts that help you manage the <code>authorized_keys</code> file as well as implement some simple access controls. The really interesting part is that the UI for this tool for adding people and determining access isn’t a web interface but a special Git repository. You set up the information in that project; and when you push it, Gitosis reconfigures the server based on that, which is cool.</p>
 
-<p>Occasionally, Git automatically runs a command called &quot;auto gc&quot;. Most of the time, this command does nothing. However, if there are too many loose objects (objects not in a packfile) or too many packfiles, Git launches a full-fledged <code>git gc</code> command. The <code>gc</code> stands for garbage collect, and the command does a number of things: it gathers up all the loose objects and places them in packfiles, it consolidates packfiles into one big packfile, and it removes objects that aren’t reachable from any commit and are a few months old.</p>
+<p>Installing Gitosis isn’t the simplest task ever, but it’s not too difficult. It’s easiest to use a Linux server for it — these examples use a stock Ubuntu 8.10 server.</p>
 
-<p>You can run auto gc manually as follows:</p>
+<p>Gitosis requires some Python tools, so first you have to install the Python setuptools package, which Ubuntu provides as python-setuptools:</p>
 
-<pre><code>$ git gc --auto</code></pre>
+<pre><code>$ apt-get install python-setuptools</code></pre>
 
-<p>Again, this generally does nothing. You must have around 7,000 loose objects or more than 50 packfiles for Git to fire up a real gc command. You can modify these limits with the <code>gc.auto</code> and <code>gc.autopacklimit</code> config settings, respectively.</p>
+<p>Next, you clone and install Gitosis from the project’s main site:</p>
 
-<p>The other thing <code>gc</code> will do is pack up your references into a single file. Suppose your repository contains the following branches and tags:</p>
+<pre><code>$ git clone git://eagain.net/gitosis.git
+$ cd gitosis
+$ sudo python setup.py install</code></pre>
 
-<pre><code>$ find .git/refs -type f
-.git/refs/heads/experiment
-.git/refs/heads/master
-.git/refs/tags/v1.0
-.git/refs/tags/v1.1</code></pre>
+<p>That installs a couple of executables that Gitosis will use. Next, Gitosis wants to put its repositories under <code>/home/git</code>, which is fine. But you have already set up your repositories in <code>/opt/git</code>, so instead of reconfiguring everything, you create a symlink:</p>
 
-<p>If you run <code>git gc</code>, you’ll no longer have these files in the <code>refs</code> directory. Git will move them for the sake of efficiency into a file named <code>.git/packed-refs</code> that looks like this:</p>
+<pre><code>$ ln -s /opt/git /home/git/repositories</code></pre>
 
-<pre><code>$ cat .git/packed-refs
-# pack-refs with: peeled
-cac0cab538b970a37ea1e769cbbde608743bc96d refs/heads/experiment
-ab1afef80fac8e34258ff41fc1b867c702daa24b refs/heads/master
-cac0cab538b970a37ea1e769cbbde608743bc96d refs/tags/v1.0
-9585191f37f7b0fb9444f35a9bf50de191beadc2 refs/tags/v1.1
-^1a410efbd13591db07496601ebc7a059dd55cfe9</code></pre>
+<p>Gitosis is going to manage your keys for you, so you need to remove the current file, re-add the keys later, and let Gitosis control the <code>authorized_keys</code> file automatically. For now, move the <code>authorized_keys</code> file out of the way:</p>
 
-<p>If you update a reference, Git doesn’t edit this file but instead writes a new file to <code>refs/heads</code>. To get the appropriate SHA for a given reference, Git checks for that reference in the <code>refs</code> directory and then checks the <code>packed-refs</code> file as a fallback. However, if you can’t find a reference in the <code>refs</code> directory, it’s probably in your <code>packed-refs</code> file.</p>
+<pre><code>$ mv /home/git/.ssh/authorized_keys /home/git/.ssh/ak.bak</code></pre>
 
-<p>Notice the last line of the file, which begins with a <code>^</code>. This means the tag directly above is an annotated tag and that line is the commit that the annotated tag points to.</p>
+<p>Next you need to turn your shell back on for the &#39;git&#39; user, if you changed it to the <code>git-shell</code> command. People still won’t be able to log in, but Gitosis will control that for you. So, let’s change this line in your <code>/etc/passwd</code> file</p>
 
-<h3>Data Recovery</h3>
+<pre><code>git:x:1000:1000::/home/git:/usr/bin/git-shell</code></pre>
 
-<p>At some point in your Git journey, you may accidentally lose a commit. Generally, this happens because you force-delete a branch that had work on it, and it turns out you wanted the branch after all; or you hard-reset a branch, thus abandoning commits that you wanted something from. Assuming this happens, how can you get your commits back?</p>
+<p>back to this:</p>
 
-<p>Here’s an example that hard-resets the master branch in your test repository to an older commit and then recovers the lost commits. First, let’s review where your repository is at this point:</p>
+<pre><code>git:x:1000:1000::/home/git:/bin/sh</code></pre>
 
-<pre><code>$ git log --pretty=oneline
-ab1afef80fac8e34258ff41fc1b867c702daa24b modified repo a bit
-484a59275031909e19aadb7c92262719cfcdf19a added repo.rb
-1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
-cac0cab538b970a37ea1e769cbbde608743bc96d second commit
-fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+<p>Now it’s time to initialize Gitosis. You do this by running the <code>gitosis-init</code> command with your personal public key. If your public key isn’t on the server, you’ll have to copy it there:</p>
 
-<p>Now, move the <code>master</code> branch back to the middle commit:</p>
+<pre><code>$ sudo -H -u git gitosis-init &lt; /tmp/id_dsa.pub
+Initialized empty Git repository in /opt/git/gitosis-admin.git/
+Reinitialized existing Git repository in /opt/git/gitosis-admin.git/</code></pre>
 
-<pre><code>$ git reset --hard 1a410efbd13591db07496601ebc7a059dd55cfe9
-HEAD is now at 1a410ef third commit
-$ git log --pretty=oneline
-1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
-cac0cab538b970a37ea1e769cbbde608743bc96d second commit
-fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+<p>This lets the user with that key modify the main Git repository that controls the Gitosis setup. Next, you have to manually set the execute bit on the <code>post-update</code> script for your new control repository.</p>
 
-<p>You’ve effectively lost the top two commits — you have no branch from which those commits are reachable. You need to find the latest commit SHA and then add a branch that points to it. The trick is finding that latest commit SHA — it’s not like you’ve memorized it, right?</p>
+<pre><code>$ sudo chmod 755 /opt/git/gitosis-admin.git/hooks/post-update</code></pre>
 
-<p>Often, the quickest way is to use a tool called <code>git reflog</code>. As you’re working, Git silently records what your HEAD is every time you change it. Each time you commit or change branches, the reflog is updated. The reflog is also updated by the <code>git update-ref</code> command, which is another reason to use it instead of just writing the SHA value to your ref files, as we covered in the &quot;Git References&quot; section of this chapter earlier.  You can see where you’ve been at any time by running <code>git reflog</code>:</p>
+<p>You’re ready to roll. If you’re set up correctly, you can try to SSH into your server as the user for which you added the public key to initialize Gitosis. You should see something like this:</p>
 
-<pre><code>$ git reflog
-1a410ef HEAD@{0}: 1a410efbd13591db07496601ebc7a059dd55cfe9: updating HEAD
-ab1afef HEAD@{1}: ab1afef80fac8e34258ff41fc1b867c702daa24b: updating HEAD</code></pre>
+<pre><code>$ ssh git@gitserver
+PTY allocation request failed on channel 0
+fatal: unrecognized command &#39;gitosis-serve schacon@quaternion&#39;
+  Connection to gitserver closed.</code></pre>
 
-<p>Here we can see the two commits that we have had checked out, however there is not much information here.  To see the same information in a much more useful way, we can run <code>git log -g</code>, which will give you a normal log output for your reflog.</p>
+<p>That means Gitosis recognized you but shut you out because you’re not trying to do any Git commands. So, let’s do an actual Git command — you’ll clone the Gitosis control repository:</p>
 
-<pre><code>$ git log -g
-commit 1a410efbd13591db07496601ebc7a059dd55cfe9
-Reflog: HEAD@{0} (Scott Chacon &lt;schacon@gmail.com&gt;)
-Reflog message: updating HEAD
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Fri May 22 18:22:37 2009 -0700
+<pre><code># on your local computer
+$ git clone git@gitserver:gitosis-admin.git</code></pre>
 
-    third commit
+<p>Now you have a directory named <code>gitosis-admin</code>, which has two major parts:</p>
 
-commit ab1afef80fac8e34258ff41fc1b867c702daa24b
-Reflog: HEAD@{1} (Scott Chacon &lt;schacon@gmail.com&gt;)
-Reflog message: updating HEAD
-Author: Scott Chacon &lt;schacon@gmail.com&gt;
-Date:   Fri May 22 18:15:24 2009 -0700
+<pre><code>$ cd gitosis-admin
+$ find .
+./gitosis.conf
+./keydir
+./keydir/scott.pub</code></pre>
 
-     modified repo a bit</code></pre>
+<p>The <code>gitosis.conf</code> file is the control file you use to specify users, repositories, and permissions. The <code>keydir</code> directory is where you store the public keys of all the users who have any sort of access to your repositories — one file per user. The name of the file in <code>keydir</code> (in the previous example, <code>scott.pub</code>) will be different for you — Gitosis takes that name from the description at the end of the public key that was imported with the <code>gitosis-init</code> script.</p>
 
-<p>It looks like the bottom commit is the one you lost, so you can recover it by creating a new branch at that commit. For example, you can start a branch named <code>recover-branch</code> at that commit (ab1afef):</p>
+<p>If you look at the <code>gitosis.conf</code> file, it should only specify information about the <code>gitosis-admin</code> project that you just cloned:</p>
 
-<pre><code>$ git branch recover-branch ab1afef
-$ git log --pretty=oneline recover-branch
-ab1afef80fac8e34258ff41fc1b867c702daa24b modified repo a bit
-484a59275031909e19aadb7c92262719cfcdf19a added repo.rb
-1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
-cac0cab538b970a37ea1e769cbbde608743bc96d second commit
-fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+<pre><code>$ cat gitosis.conf
+[gitosis]
 
-<p>Cool — now you have a branch named <code>recover-branch</code> that is where your <code>master</code> branch used to be, making the first two commits reachable again.
-Next, suppose your loss was for some reason not in the reflog — you can simulate that by removing <code>recover-branch</code> and deleting the reflog. Now the first two commits aren’t reachable by anything:</p>
+[group gitosis-admin]
+writable = gitosis-admin
+members = scott</code></pre>
 
-<pre><code>$ git branch -D recover-branch
-$ rm -Rf .git/logs/</code></pre>
+<p>It shows you that the &#39;scott&#39; user — the user with whose public key you initialized Gitosis — is the only one who has access to the <code>gitosis-admin</code> project.</p>
 
-<p>Because the reflog data is kept in the <code>.git/logs/</code> directory, you effectively have no reflog. How can you recover that commit at this point? One way is to use the <code>git fsck</code> utility, which checks your database for integrity. If you run it with the <code>--full</code> option, it shows you all objects that aren’t pointed to by another object:</p>
+<p>Now, let’s add a new project for you. You’ll add a new section called <code>mobile</code> where you’ll list the developers on your mobile team and projects that those developers need access to. Because &#39;scott&#39; is the only user in the system right now, you’ll add him as the only member, and you’ll create a new project called <code>iphone_project</code> to start on:</p>
 
-<pre><code>$ git fsck --full
-dangling blob d670460b4b4aece5915caf5c68d12f560a9fe3e4
-dangling commit ab1afef80fac8e34258ff41fc1b867c702daa24b
-dangling tree aea790b9a58f6cf6f2804eeac9f0abbe9631e4c9
-dangling blob 7108f7ecb345ee9d0084193f147cdad4d2998293</code></pre>
+<pre><code>[group mobile]
+writable = iphone_project
+members = scott</code></pre>
 
-<p>In this case, you can see your missing commit after the dangling commit. You can recover it the same way, by adding a branch that points to that SHA.</p>
+<p>Whenever you make changes to the <code>gitosis-admin</code> project, you have to commit the changes and push them back up to the server in order for them to take effect:</p>
 
-<h3>Removing Objects</h3>
+<pre><code>$ git commit -am &#39;add iphone_project and mobile group&#39;
+[master]: created 8962da8: &quot;changed name&quot;
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+$ git push
+Counting objects: 5, done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 272 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To git@gitserver:/opt/git/gitosis-admin.git
+   fb27aec..8962da8  master -&gt; master</code></pre>
 
-<p>There are a lot of great things about Git, but one feature that can cause issues is the fact that a <code>git clone</code> downloads the entire history of the project, including every version of every file. This is fine if the whole thing is source code, because Git is highly optimized to compress that data efficiently. However, if someone at any point in the history of your project added a single huge file, every clone for all time will be forced to download that large file, even if it was removed from the project in the very next commit. Because it’s reachable from the history, it will always be there.</p>
+<p>You can make your first push to the new <code>iphone_project</code> project by adding your server as a remote to your local version of the project and pushing. You no longer have to manually create a bare repository for new projects on the server — Gitosis creates them automatically when it sees the first push:</p>
 
-<p>This can be a huge problem when you’re converting Subversion or Perforce repositories into Git. Because you don’t download the whole history in those systems, this type of addition carries few consequences. If you did an import from another system or otherwise find that your repository is much larger than it should be, here is how you can find and remove large objects.</p>
+<pre><code>$ git remote add origin git@gitserver:iphone_project.git
+$ git push origin master
+Initialized empty Git repository in /opt/git/iphone_project.git/
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 230 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@gitserver:iphone_project.git
+ * [new branch]      master -&gt; master</code></pre>
 
-<p>Be warned: this technique is destructive to your commit history. It rewrites every commit object downstream from the earliest tree you have to modify to remove a large file reference. If you do this immediately after an import, before anyone has started to base work on the commit, you’re fine — otherwise, you have to notify all contributors that they must rebase their work onto your new commits.</p>
+<p>Notice that you don’t need to specify the path (in fact, doing so won’t work), just a colon and then the name of the project — Gitosis finds it for you.</p>
 
-<p>To demonstrate, you’ll add a large file into your test repository, remove it in the next commit, find it, and remove it permanently from the repository. First, add a large object to your history:</p>
+<p>You want to work on this project with your friends, so you’ll have to re-add their public keys. But instead of appending them manually to the <code>~/.ssh/authorized_keys</code> file on your server, you’ll add them, one key per file, into the <code>keydir</code> directory. How you name the keys determines how you refer to the users in the <code>gitosis.conf</code> file. Let’s re-add the public keys for John, Josie, and Jessica:</p>
 
-<pre><code>$ curl http://kernel.org/pub/software/scm/git/git-1.6.3.1.tar.bz2 &gt; git.tbz2
-$ git add git.tbz2
-$ git commit -am &#39;added git tarball&#39;
-[master 6df7640] added git tarball
- 1 files changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 git.tbz2</code></pre>
+<pre><code>$ cp /tmp/id_rsa.john.pub keydir/john.pub
+$ cp /tmp/id_rsa.josie.pub keydir/josie.pub
+$ cp /tmp/id_rsa.jessica.pub keydir/jessica.pub</code></pre>
 
-<p>Oops — you didn’t want to add a huge tarball to your project. Better get rid of it:</p>
+<p>Now you can add them all to your &#39;mobile&#39; team so they have read and write access to <code>iphone_project</code>:</p>
 
-<pre><code>$ git rm git.tbz2
-rm &#39;git.tbz2&#39;
-$ git commit -m &#39;oops - removed large tarball&#39;
-[master da3f30d] oops - removed large tarball
- 1 files changed, 0 insertions(+), 0 deletions(-)
- delete mode 100644 git.tbz2</code></pre>
+<pre><code>[group mobile]
+writable = iphone_project
+members = scott john josie jessica</code></pre>
 
-<p>Now, <code>gc</code> your database and see how much space you’re using:</p>
+<p>After you commit and push that change, all four users will be able to read from and write to that project.</p>
 
-<pre><code>$ git gc
-Counting objects: 21, done.
-Delta compression using 2 threads.
-Compressing objects: 100% (16/16), done.
-Writing objects: 100% (21/21), done.
-Total 21 (delta 3), reused 15 (delta 1)</code></pre>
+<p>Gitosis has simple access controls as well. If you want John to have only read access to this project, you can do this instead:</p>
 
-<p>You can run the <code>count-objects</code> command to quickly see how much space you’re using:</p>
+<pre><code>[group mobile]
+writable = iphone_project
+members = scott josie jessica
 
-<pre><code>$ git count-objects -v
-count: 4
-size: 16
-in-pack: 21
-packs: 1
-size-pack: 2016
-prune-packable: 0
-garbage: 0</code></pre>
+[group mobile_ro]
+readonly = iphone_project
+members = john</code></pre>
 
-<p>The <code>size-pack</code> entry is the size of your packfiles in kilobytes, so you’re using 2MB. Before the last commit, you were using closer to 2K — clearly, removing the file from the previous commit didn’t remove it from your history. Every time anyone clones this repository, they will have to clone all 2MB just to get this tiny project, because you accidentally added a big file. Let’s get rid of it.</p>
+<p>Now John can clone the project and get updates, but Gitosis won’t allow him to push back up to the project. You can create as many of these groups as you want, each containing different users and projects. You can also specify another group as one of the members (using <code>@</code> as prefix), to inherit all of its members automatically:</p>
 
-<p>First you have to find it. In this case, you already know what file it is. But suppose you didn’t; how would you identify what file or files were taking up so much space? If you run <code>git gc</code>, all the objects are in a packfile; you can identify the big objects by running another plumbing command called <code>git verify-pack</code> and sorting on the third field in the output, which is file size. You can also pipe it through the <code>tail</code> command because you’re only interested in the last few largest files:</p>
+<pre><code>[group mobile_committers]
+members = scott josie jessica
 
-<pre><code>$ git verify-pack -v .git/objects/pack/pack-3f8c0...bb.idx | sort -k 3 -n | tail -3
-e3f094f522629ae358806b17daf78246c27c007b blob   1486 734 4667
-05408d195263d853f09dca71d55116663690c27c blob   12908 3478 1189
-7a9eb2fba2b1811321254ac360970fc169ba2330 blob   2056716 2056872 5401</code></pre>
+[group mobile]
+writable  = iphone_project
+members   = @mobile_committers
 
-<p>The big object is at the bottom: 2MB. To find out what file it is, you’ll use the <code>rev-list</code> command, which you used briefly in Chapter 7. If you pass <code>--objects</code> to <code>rev-list</code>, it lists all the commit SHAs and also the blob SHAs with the file paths associated with them. You can use this to find your blob’s name:</p>
+[group mobile_2]
+writable  = another_iphone_project
+members   = @mobile_committers john</code></pre>
 
-<pre><code>$ git rev-list --objects --all | grep 7a9eb2fb
-7a9eb2fba2b1811321254ac360970fc169ba2330 git.tbz2</code></pre>
+<p>If you have any issues, it may be useful to add <code>loglevel=DEBUG</code> under the <code>[gitosis]</code> section. If you’ve lost push access by pushing a messed-up configuration, you can manually fix the file on the server under <code>/home/git/.gitosis.conf</code> — the file from which Gitosis reads its info. A push to the project takes the <code>gitosis.conf</code> file you just pushed up and sticks it there. If you edit that file manually, it remains like that until the next successful push to the <code>gitosis-admin</code> project.</p>
 
-<p>Now, you need to remove this file from all trees in your past. You can easily see what commits modified this file:</p>
-
-<pre><code>$ git log --pretty=oneline -- git.tbz2
-da3f30d019005479c99eb4c3406225613985a1db oops - removed large tarball
-6df764092f3e7c8f5f94cbe08ee5cf42e92a0289 added git tarball</code></pre>
-
-<p>You must rewrite all the commits downstream from <code>6df76</code> to fully remove this file from your Git history. To do so, you use <code>filter-branch</code>, which you used in Chapter 6:</p>
-
-<pre><code>$ git filter-branch --index-filter \
-   &#39;git rm --cached --ignore-unmatch git.tbz2&#39; -- 6df7640^..
-Rewrite 6df764092f3e7c8f5f94cbe08ee5cf42e92a0289 (1/2)rm &#39;git.tbz2&#39;
-Rewrite da3f30d019005479c99eb4c3406225613985a1db (2/2)
-Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
-
-<p>The <code>--index-filter</code> option is similar to the <code>--tree-filter</code> option used in Chapter 6, except that instead of passing a command that modifies files checked out on disk, you’re modifying your staging area or index each time. Rather than remove a specific file with something like <code>rm file</code>, you have to remove it with <code>git rm --cached</code> — you must remove it from the index, not from disk. The reason to do it this way is speed — because Git doesn’t have to check out each revision to disk before running your filter, the process can be much, much faster. You can accomplish the same task with <code>--tree-filter</code> if you want. The <code>--ignore-unmatch</code> option to <code>git rm</code> tells it not to error out if the pattern you’re trying to remove isn’t there. Finally, you ask <code>filter-branch</code> to rewrite your history only from the <code>6df7640</code> commit up, because you know that is where this problem started. Otherwise, it will start from the beginning and will unnecessarily take longer.</p>
-
-<p>Your history no longer contains a reference to that file. However, your reflog and a new set of refs that Git added when you did the <code>filter-branch</code> under <code>.git/refs/original</code> still do, so you have to remove them and then repack the database. You need to get rid of anything that has a pointer to those old commits before you repack:</p>
-
-<pre><code>$ rm -Rf .git/refs/original
-$ rm -Rf .git/logs/
-$ git gc
-Counting objects: 19, done.
-Delta compression using 2 threads.
-Compressing objects: 100% (14/14), done.
-Writing objects: 100% (19/19), done.
-Total 19 (delta 3), reused 16 (delta 1)</code></pre>
-
-<p>Let’s see how much space you saved.</p>
-
-<pre><code>$ git count-objects -v
-count: 8
-size: 2040
-in-pack: 19
-packs: 1
-size-pack: 7
-prune-packable: 0
-garbage: 0</code></pre>
-
-<p>The packed repository size is down to 7K, which is much better than 2MB. You can see from the size value that the big object is still in your loose objects, so it’s not gone; but it won’t be transferred on a push or subsequent clone, which is what is important. If you really wanted to, you could remove the object completely by running <code>git prune --expire</code>.</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Internals</li><li><a href="ch4_1.html">Plumbing and Porcelain</a></li><li><a href="ch4_2.html">Git Objects</a></li><li><a href="ch4_3.html">Git References</a></li><li><a href="ch4_4.html">Packfiles</a></li><li><a href="ch4_5.html">The Refspec</a></li><li><a href="ch4_6.html">Transfer Protocols</a></li><li><a href="ch4_7.html">Maintenance and Data Recovery</a></li><li><a href="ch4_8.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git on the Server</li><li><a href="ch4_1.html">The Protocols</a></li><li><a href="ch4_2.html">Getting Git on a Server</a></li><li><a href="ch4_3.html">Generating Your SSH Public Key</a></li><li><a href="ch4_4.html">Setting Up the Server</a></li><li><a href="ch4_5.html">Public Access</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git Daemon</a></li><li><a href="ch4_10.html">Hosted Git</a></li><li><a href="ch4_11.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

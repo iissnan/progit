@@ -1,514 +1,343 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Distributed Git - Contributing to a Project</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Contributing to a Project</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git and Other Systems - Migrating to Git</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Migrating to Git</h2>
 
-<p>You know what the different workflows are, and you should have a pretty good grasp of fundamental Git usage. In this section, you’ll learn about a few common patterns for contributing to a project.</p>
+<p>If you have an existing codebase in another VCS but you’ve decided to start using Git, you must migrate your project one way or another. This section goes over some importers that are included with Git for common systems and then demonstrates how to develop your own custom importer.</p>
 
-<p>The main difficulty with describing this process is that there are a huge number of variations on how it’s done. Because Git is very flexible, people can and do work together many ways, and it’s problematic to describe how you should contribute to a project — every project is a bit different. Some of the variables involved are active contributor size, chosen workflow, your commit access, and possibly the external contribution method.</p>
+<h3>Importing</h3>
 
-<p>The first variable is active contributor size. How many users are actively contributing code to this project, and how often? In many instances, you’ll have two or three developers with a few commits a day, or possibly less for somewhat dormant projects. For really large companies or projects, the number of developers could be in the thousands, with dozens or even hundreds of patches coming in each day. This is important because with more and more developers, you run into more issues with making sure your code applies cleanly or can be easily merged. Changes you submit may be rendered obsolete or severely broken by work that is merged in while you were working or while your changes were waiting to be approved or applied. How can you keep your code consistently up to date and your patches valid?</p>
+<p>You’ll learn how to import data from two of the bigger professionally used SCM systems — Subversion and Perforce — both because they make up the majority of users I hear of who are currently switching, and because high-quality tools for both systems are distributed with Git.</p>
 
-<p>The next variable is the workflow in use for the project. Is it centralized, with each developer having equal write access to the main codeline? Does the project have a maintainer or integration manager who checks all the patches? Are all the patches peer-reviewed and approved? Are you involved in that process? Is a lieutenant system in place, and do you have to submit your work to them first?</p>
+<h3>Subversion</h3>
 
-<p>The next issue is your commit access. The workflow required in order to contribute to a project is much different if you have write access to the project than if you don’t. If you don’t have write access, how does the project prefer to accept contributed work? Does it even have a policy? How much work are you contributing at a time? How often do you contribute?</p>
+<p>If you read the previous section about using <code>git svn</code>, you can easily use those instructions to <code>git svn clone</code> a repository; then, stop using the Subversion server, push to a new Git server, and start using that. If you want the history, you can accomplish that as quickly as you can pull the data out of the Subversion server (which may take a while).</p>
 
-<p>All these questions can affect how you contribute effectively to a project and what workflows are preferred or available to you. I’ll cover aspects of each of these in a series of use cases, moving from simple to more complex; you should be able to construct the specific workflows you need in practice from these examples.</p>
+<p>However, the import isn’t perfect; and because it will take so long, you may as well do it right. The first problem is the author information. In Subversion, each person committing has a user on the system who is recorded in the commit information. The examples in the previous section show <code>schacon</code> in some places, such as the <code>blame</code> output and the <code>git svn log</code>. If you want to map this to better Git author data, you need a mapping from the Subversion users to the Git authors. Create a file called <code>users.txt</code> that has this mapping in a format like this:</p>
 
-<h3>Commit Guidelines</h3>
+<pre><code>schacon = Scott Chacon &lt;schacon@geemail.com&gt;
+selse = Someo Nelse &lt;selse@geemail.com&gt;</code></pre>
 
-<p>Before you start looking at the specific use cases, here’s a quick note about commit messages. Having a good guideline for creating commits and sticking to it makes working with Git and collaborating with others a lot easier. The Git project provides a document that lays out a number of good tips for creating commits from which to submit patches — you can read it in the Git source code in the <code>Documentation/SubmittingPatches</code> file.</p>
+<p>To get a list of the author names that SVN uses, you can run this:</p>
 
-<p>First, you don’t want to submit any whitespace errors. Git provides an easy way to check for this — before you commit, run <code>git diff --check</code>, which identifies possible whitespace errors and lists them for you. Here is an example, where I’ve replaced a red terminal color with <code>X</code>s:</p>
+<pre><code>$ svn log --xml | grep -P &quot;^&lt;author&quot; | sort -u | \
+      perl -pe &#39;s/&lt;author&gt;(.*?)&lt;\/author&gt;/$1 = /&#39; &gt; users.txt</code></pre>
 
-<pre><code>$ git diff --check
-lib/simplegit.rb:5: trailing whitespace.
-+    @git_dir = File.expand_path(git_dir)XX
-lib/simplegit.rb:7: trailing whitespace.
-+ XXXXXXXXXXX
-lib/simplegit.rb:26: trailing whitespace.
-+    def command(git_cmd)XXXX</code></pre>
+<p>That gives you the log output in XML format — you can look for the authors, create a unique list, and then strip out the XML. (Obviously this only works on a machine with <code>grep</code>, <code>sort</code>, and <code>perl</code> installed.) Then, redirect that output into your users.txt file so you can add the equivalent Git user data next to each entry.</p>
 
-<p>If you run that command before committing, you can tell if you’re about to commit whitespace issues that may annoy other developers.</p>
+<p>You can provide this file to <code>git svn</code> to help it map the author data more accurately. You can also tell <code>git svn</code> not to include the metadata that Subversion normally imports, by passing <code>--no-metadata</code> to the <code>clone</code> or <code>init</code> command. This makes your <code>import</code> command look like this:</p>
 
-<p>Next, try to make each commit a logically separate changeset. If you can, try to make your changes digestible — don’t code for a whole weekend on five different issues and then submit them all as one massive commit on Monday. Even if you don’t commit during the weekend, use the staging area on Monday to split your work into at least one commit per issue, with a useful message per commit. If some of the changes modify the same file, try to use <code>git add --patch</code> to partially stage files (covered in detail in Chapter 6). The project snapshot at the tip of the branch is identical whether you do one commit or five, as long as all the changes are added at some point, so try to make things easier on your fellow developers when they have to review your changes. This approach also makes it easier to pull out or revert one of the changesets if you need to later. Chapter 6 describes a number of useful Git tricks for rewriting history and interactively staging files — use these tools to help craft a clean and understandable history.</p>
+<pre><code>$ git-svn clone http://my-project.googlecode.com/svn/ \
+      --authors-file=users.txt --no-metadata -s my_project</code></pre>
 
-<p>The last thing to keep in mind is the commit message. Getting in the habit of creating quality commit messages makes using and collaborating with Git a lot easier. As a general rule, your messages should start with a single line that’s no more than about 50 characters and that describes the changeset concisely, followed by a blank line, followed by a more detailed explanation. The Git project requires that the more detailed explanation include your motivation for the change and contrast its implementation with previous behavior — this is a good guideline to follow. It’s also a good idea to use the imperative present tense in these messages. In other words, use commands. Instead of &quot;I added tests for&quot; or &quot;Adding tests for,&quot; use &quot;Add tests for.&quot;
-Here is a template originally written by Tim Pope at tpope.net:</p>
+<p>Now you should have a nicer Subversion import in your <code>my_project</code> directory. Instead of commits that look like this</p>
 
-<pre><code>Short (50 chars or less) summary of changes
+<pre><code>commit 37efa680e8473b615de980fa935944215428a35a
+Author: schacon &lt;schacon@4c93b258-373f-11de-be05-5f7a86268029&gt;
+Date:   Sun May 3 00:12:22 2009 +0000
 
-More detailed explanatory text, if necessary.  Wrap it to about 72
-characters or so.  In some contexts, the first line is treated as the
-subject of an email and the rest of the text as the body.  The blank
-line separating the summary from the body is critical (unless you omit
-the body entirely); tools like rebase can get confused if you run the
-two together.
+    fixed install - go to trunk
 
-Further paragraphs come after blank lines.
+    git-svn-id: https://my-project.googlecode.com/svn/trunk@94 4c93b258-373f-11de-
+    be05-5f7a86268029</code></pre>
 
- - Bullet points are okay, too
+<p>they look like this:</p>
 
- - Typically a hyphen or asterisk is used for the bullet, preceded by a
-   single space, with blank lines in between, but conventions vary here</code></pre>
+<pre><code>commit 03a8785f44c8ea5cdb0e8834b7c8e6c469be2ff2
+Author: Scott Chacon &lt;schacon@geemail.com&gt;
+Date:   Sun May 3 00:12:22 2009 +0000
 
-<p>If all your commit messages look like this, things will be a lot easier for you and the developers you work with. The Git project has well-formatted commit messages — I encourage you to run <code>git log --no-merges</code> there to see what a nicely formatted project-commit history looks like.</p>
+    fixed install - go to trunk</code></pre>
 
-<p>In the following examples, and throughout most of this book, for the sake of brevity I don’t format messages nicely like this; instead, I use the <code>-m</code> option to <code>git commit</code>. Do as I say, not as I do.</p>
+<p>Not only does the Author field look a lot better, but the <code>git-svn-id</code> is no longer there, either.</p>
 
-<h3>Private Small Team</h3>
+<p>You need to do a bit of <code>post-import</code> cleanup. For one thing, you should clean up the weird references that <code>git svn</code> set up. First you’ll move the tags so they’re actual tags rather than strange remote branches, and then you’ll move the rest of the branches so they’re local.</p>
 
-<p>The simplest setup you’re likely to encounter is a private project with one or two other developers. By private, I mean closed source — not read-accessible to the outside world. You and the other developers all have push access to the repository.</p>
+<p>To move the tags to be proper Git tags, run</p>
 
-<p>In this environment, you can follow a workflow similar to what you might do when using Subversion or another centralized system. You still get the advantages of things like offline committing and vastly simpler branching and merging, but the workflow can be very similar; the main difference is that merges happen client-side rather than on the server at commit time.
-Let’s see what it might look like when two developers start to work together with a shared repository. The first developer, John, clones the repository, makes a change, and commits locally. (I’m replacing the protocol messages with <code>...</code> in these examples to shorten them somewhat.)</p>
+<pre><code>$ git for-each-ref refs/remotes/tags | cut -d / -f 4- | grep -v @ | while read tagname; do git tag &quot;$tagname&quot; &quot;tags/$tagname&quot;; git branch -r -d &quot;tags/$tagname&quot;; done</code></pre>
 
-<pre><code># John&#39;s Machine
-$ git clone john@githost:simplegit.git
-Initialized empty Git repository in /home/john/simplegit/.git/
-...
-$ cd simplegit/
-$ vim lib/simplegit.rb
-$ git commit -am &#39;removed invalid default value&#39;
-[master 738ee87] removed invalid default value
- 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+<p>This takes the references that were remote branches that started with <code>tag/</code> and makes them real (lightweight) tags.</p>
 
-<p>The second developer, Jessica, does the same thing — clones the repository and commits a change:</p>
+<p>Next, move the rest of the references under <code>refs/remotes</code> to be local branches:</p>
 
-<pre><code># Jessica&#39;s Machine
-$ git clone jessica@githost:simplegit.git
-Initialized empty Git repository in /home/jessica/simplegit/.git/
-...
-$ cd simplegit/
-$ vim TODO
-$ git commit -am &#39;add reset task&#39;
-[master fbff5bc] add reset task
- 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+<pre><code>$ git for-each-ref refs/remotes | cut -d / -f 3- | grep -v @ | while read branchname; do git branch &quot;$branchname&quot; &quot;refs/remotes/$branchname&quot;; git branch -r -d &quot;$branchname&quot;; done</code></pre>
 
-<p>Now, Jessica pushes her work up to the server:</p>
+<p>Now all the old branches are real Git branches and all the old tags are real Git tags. The last thing to do is add your new Git server as a remote and push to it. Here is an example of adding your server as a remote:</p>
 
-<pre><code># Jessica&#39;s Machine
-$ git push origin master
-...
-To jessica@githost:simplegit.git
-   1edee6b..fbff5bc  master -&gt; master</code></pre>
+<pre><code>$ git remote add origin git@my-git-server:myrepository.git</code></pre>
 
-<p>John tries to push his change up, too:</p>
+<p>Because you want all your branches and tags to go up, you can now run this:</p>
 
-<pre><code># John&#39;s Machine
-$ git push origin master
-To john@githost:simplegit.git
- ! [rejected]        master -&gt; master (non-fast forward)
-error: failed to push some refs to &#39;john@githost:simplegit.git&#39;</code></pre>
+<pre><code>$ git push origin --all
+$ git push origin --tags</code></pre>
 
-<p>John isn’t allowed to push because Jessica has pushed in the meantime. This is especially important to understand if you’re used to Subversion, because you’ll notice that the two developers didn’t edit the same file. Although Subversion automatically does such a merge on the server if different files are edited, in Git you must merge the commits locally. John has to fetch Jessica’s changes and merge them in before he will be allowed to push:</p>
+<p>All your branches and tags should be on your new Git server in a nice, clean import.</p>
 
-<pre><code>$ git fetch origin
-...
-From john@githost:simplegit
- + 049d078...fbff5bc master     -&gt; origin/master</code></pre>
+<h3>Perforce</h3>
 
-<p>At this point, John’s local repository looks something like Figure 5-4.</p>
+<p>The next system you’ll look at importing from is Perforce. A Perforce importer is also distributed with Git. If you have a version of Git earlier than 1.7.11, then the importer is only available in the <code>contrib</code> section of the source code. In that case you must get the Git source code, which you can download from git.kernel.org:</p>
 
-<p><img src="../../book_src/figures/18333fig0504-tn.png"></br>
-Figure 5-4. John’s initial repository.</p>
+<pre><code>$ git clone git://git.kernel.org/pub/scm/git/git.git
+$ cd git/contrib/fast-import</code></pre>
 
-<p>John has a reference to the changes Jessica pushed up, but he has to merge them into his own work before he is allowed to push:</p>
+<p>In this <code>fast-import</code> directory, you should find an executable Python script named <code>git-p4</code>. You must have Python and the <code>p4</code> tool installed on your machine for this import to work. For example, you’ll import the Jam project from the Perforce Public Depot. To set up your client, you must export the P4PORT environment variable to point to the Perforce depot:</p>
 
-<pre><code>$ git merge origin/master
-Merge made by recursive.
- TODO |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+<pre><code>$ export P4PORT=public.perforce.com:1666</code></pre>
 
-<p>The merge goes smoothly — John’s commit history now looks like Figure 5-5.</p>
+<p>Run the <code>git-p4 clone</code> command to import the Jam project from the Perforce server, supplying the depot and project path and the path into which you want to import the project:</p>
 
-<p><img src="../../book_src/figures/18333fig0505-tn.png"></br>
-Figure 5-5. John’s repository after merging origin/master.</p>
+<pre><code>$ git-p4 clone //public/jam/src@all /opt/p4import
+Importing from //public/jam/src@all into /opt/p4import
+Reinitialized existing Git repository in /opt/p4import/.git/
+Import destination: refs/remotes/p4/master
+Importing revision 4409 (100%)</code></pre>
 
-<p>Now, John can test his code to make sure it still works properly, and then he can push his new merged work up to the server:</p>
+<p>If you go to the <code>/opt/p4import</code> directory and run <code>git log</code>, you can see your imported work:</p>
 
-<pre><code>$ git push origin master
-...
-To john@githost:simplegit.git
-   fbff5bc..72bbc59  master -&gt; master</code></pre>
+<pre><code>$ git log -2
+commit 1fd4ec126171790efd2db83548b85b1bbbc07dc2
+Author: Perforce staff &lt;support@perforce.com&gt;
+Date:   Thu Aug 19 10:18:45 2004 -0800
 
-<p>Finally, John’s commit history looks like Figure 5-6.</p>
+    Drop &#39;rc3&#39; moniker of jam-2.5.  Folded rc2 and rc3 RELNOTES into
+    the main part of the document.  Built new tar/zip balls.
 
-<p><img src="../../book_src/figures/18333fig0506-tn.png"></br>
-Figure 5-6. John’s history after pushing to the origin server.</p>
+    Only 16 months later.
 
-<p>In the meantime, Jessica has been working on a topic branch. She’s created a topic branch called <code>issue54</code> and done three commits on that branch. She hasn’t fetched John’s changes yet, so her commit history looks like Figure 5-7.</p>
+    [git-p4: depot-paths = &quot;//public/jam/src/&quot;: change = 4409]
 
-<p><img src="../../book_src/figures/18333fig0507-tn.png"></br>
-Figure 5-7. Jessica’s initial commit history.</p>
+commit ca8870db541a23ed867f38847eda65bf4363371d
+Author: Richard Geiger &lt;rmg@perforce.com&gt;
+Date:   Tue Apr 22 20:51:34 2003 -0800
 
-<p>Jessica wants to sync up with John, so she fetches:</p>
+    Update derived jamgram.c
 
-<pre><code># Jessica&#39;s Machine
-$ git fetch origin
-...
-From jessica@githost:simplegit
-   fbff5bc..72bbc59  master     -&gt; origin/master</code></pre>
+    [git-p4: depot-paths = &quot;//public/jam/src/&quot;: change = 3108]</code></pre>
 
-<p>That pulls down the work John has pushed up in the meantime. Jessica’s history now looks like Figure 5-8.</p>
+<p>You can see the <code>git-p4</code> identifier in each commit. It’s fine to keep that identifier there, in case you need to reference the Perforce change number later. However, if you’d like to remove the identifier, now is the time to do so — before you start doing work on the new repository. You can use <code>git filter-branch</code> to remove the identifier strings en masse:</p>
 
-<p><img src="../../book_src/figures/18333fig0508-tn.png"></br>
-Figure 5-8. Jessica’s history after fetching John’s changes.</p>
+<pre><code>$ git filter-branch --msg-filter &#39;
+        sed -e &quot;/^\[git-p4:/d&quot;
+&#39;
+Rewrite 1fd4ec126171790efd2db83548b85b1bbbc07dc2 (123/123)
+Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
 
-<p>Jessica thinks her topic branch is ready, but she wants to know what she has to merge her work into so that she can push. She runs <code>git log</code> to find out:</p>
+<p>If you run <code>git log</code>, you can see that all the SHA-1 checksums for the commits have changed, but the <code>git-p4</code> strings are no longer in the commit messages:</p>
 
-<pre><code>$ git log --no-merges origin/master ^issue54
-commit 738ee872852dfaa9d6634e0dea7a324040193016
-Author: John Smith &lt;jsmith@example.com&gt;
-Date:   Fri May 29 16:01:27 2009 -0700
+<pre><code>$ git log -2
+commit 10a16d60cffca14d454a15c6164378f4082bc5b0
+Author: Perforce staff &lt;support@perforce.com&gt;
+Date:   Thu Aug 19 10:18:45 2004 -0800
 
-    removed invalid default value</code></pre>
+    Drop &#39;rc3&#39; moniker of jam-2.5.  Folded rc2 and rc3 RELNOTES into
+    the main part of the document.  Built new tar/zip balls.
 
-<p>Now, Jessica can merge her topic work into her master branch, merge John’s work (<code>origin/master</code>) into her <code>master</code> branch, and then push back to the server again. First, she switches back to her master branch to integrate all this work:</p>
+    Only 16 months later.
 
-<pre><code>$ git checkout master
-Switched to branch &quot;master&quot;
-Your branch is behind &#39;origin/master&#39; by 2 commits, and can be fast-forwarded.</code></pre>
+commit 2b6c6db311dd76c34c66ec1c40a49405e6b527b2
+Author: Richard Geiger &lt;rmg@perforce.com&gt;
+Date:   Tue Apr 22 20:51:34 2003 -0800
 
-<p>She can merge either <code>origin/master</code> or <code>issue54</code> first — they’re both upstream, so the order doesn’t matter. The end snapshot should be identical no matter which order she chooses; only the history will be slightly different. She chooses to merge in <code>issue54</code> first:</p>
+    Update derived jamgram.c</code></pre>
 
-<pre><code>$ git merge issue54
-Updating fbff5bc..4af4298
-Fast forward
- README           |    1 +
- lib/simplegit.rb |    6 +++++-
- 2 files changed, 6 insertions(+), 1 deletions(-)</code></pre>
+<p>Your import is ready to push up to your new Git server.</p>
 
-<p>No problems occur; as you can see, it was a simple fast-forward. Now Jessica merges in John’s work (<code>origin/master</code>):</p>
+<h3>A Custom Importer</h3>
 
-<pre><code>$ git merge origin/master
-Auto-merging lib/simplegit.rb
-Merge made by recursive.
- lib/simplegit.rb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+<p>If your system isn’t Subversion or Perforce, you should look for an importer online — quality importers are available for CVS, Clear Case, Visual Source Safe, even a directory of archives. If none of these tools works for you, you have a rarer tool, or you otherwise need a more custom importing process, you should use <code>git fast-import</code>. This command reads simple instructions from stdin to write specific Git data. It’s much easier to create Git objects this way than to run the raw Git commands or try to write the raw objects (see Chapter 9 for more information). This way, you can write an import script that reads the necessary information out of the system you’re importing from and prints straightforward instructions to stdout. You can then run this program and pipe its output through <code>git fast-import</code>.</p>
 
-<p>Everything merges cleanly, and Jessica’s history looks like Figure 5-9.</p>
+<p>To quickly demonstrate, you’ll write a simple importer. Suppose you work in current, you back up your project by occasionally copying the directory into a time-stamped <code>back_YYYY_MM_DD</code> backup directory, and you want to import this into Git. Your directory structure looks like this:</p>
 
-<p><img src="../../book_src/figures/18333fig0509-tn.png"></br>
-Figure 5-9. Jessica’s history after merging John’s changes.</p>
+<pre><code>$ ls /opt/import_from
+back_2009_01_02
+back_2009_01_04
+back_2009_01_14
+back_2009_02_03
+current</code></pre>
 
-<p>Now <code>origin/master</code> is reachable from Jessica’s <code>master</code> branch, so she should be able to successfully push (assuming John hasn’t pushed again in the meantime):</p>
+<p>In order to import a Git directory, you need to review how Git stores its data. As you may remember, Git is fundamentally a linked list of commit objects that point to a snapshot of content. All you have to do is tell <code>fast-import</code> what the content snapshots are, what commit data points to them, and the order they go in. Your strategy will be to go through the snapshots one at a time and create commits with the contents of each directory, linking each commit back to the previous one.</p>
 
-<pre><code>$ git push origin master
-...
-To jessica@githost:simplegit.git
-   72bbc59..8059c15  master -&gt; master</code></pre>
+<p>As you did in the &quot;An Example Git Enforced Policy&quot; section of Chapter 7, we’ll write this in Ruby, because it’s what I generally work with and it tends to be easy to read. You can write this example pretty easily in anything you’re familiar with — it just needs to print the appropriate information to stdout. And, if you are running on Windows, this means you’ll need to take special care to not introduce carriage returns at the end your lines — git fast-import is very particular about just wanting line feeds (LF) not the carriage return line feeds (CRLF) that Windows uses.</p>
 
-<p>Each developer has committed a few times and merged each other’s work successfully; see Figure 5-10.</p>
+<p>To begin, you’ll change into the target directory and identify every subdirectory, each of which is a snapshot that you want to import as a commit. You’ll change into each subdirectory and print the commands necessary to export it. Your basic main loop looks like this:</p>
 
-<p><img src="../../book_src/figures/18333fig0510-tn.png"></br>
-Figure 5-10. Jessica’s history after pushing all changes back to the server.</p>
+<pre><code>last_mark = nil
 
-<p>That is one of the simplest workflows. You work for a while, generally in a topic branch, and merge into your master branch when it’s ready to be integrated. When you want to share that work, you merge it into your own master branch, then fetch and merge <code>origin/master</code> if it has changed, and finally push to the <code>master</code> branch on the server. The general sequence is something like that shown in Figure 5-11.</p>
+# loop through the directories
+Dir.chdir(ARGV[0]) do
+  Dir.glob(&quot;*&quot;).each do |dir|
+    next if File.file?(dir)
 
-<p><img src="../../book_src/figures/18333fig0511-tn.png"></br>
-Figure 5-11. General sequence of events for a simple multiple-developer Git workflow.</p>
+    # move into the target directory
+    Dir.chdir(dir) do
+      last_mark = print_export(dir, last_mark)
+    end
+  end
+end</code></pre>
 
-<h3>Private Managed Team</h3>
+<p>You run <code>print_export</code> inside each directory, which takes the manifest and mark of the previous snapshot and returns the manifest and mark of this one; that way, you can link them properly. &quot;Mark&quot; is the <code>fast-import</code> term for an identifier you give to a commit; as you create commits, you give each one a mark that you can use to link to it from other commits. So, the first thing to do in your <code>print_export</code> method is generate a mark from the directory name:</p>
 
-<p>In this next scenario, you’ll look at contributor roles in a larger private group. You’ll learn how to work in an environment where small groups collaborate on features and then those team-based contributions are integrated by another party.</p>
+<pre><code>mark = convert_dir_to_mark(dir)</code></pre>
 
-<p>Let’s say that John and Jessica are working together on one feature, while Jessica and Josie are working on a second. In this case, the company is using a type of integration-manager workflow where the work of the individual groups is integrated only by certain engineers, and the <code>master</code> branch of the main repo can be updated only by those engineers. In this scenario, all work is done in team-based branches and pulled together by the integrators later.</p>
+<p>You’ll do this by creating an array of directories and using the index value as the mark, because a mark must be an integer. Your method looks like this:</p>
 
-<p>Let’s follow Jessica’s workflow as she works on her two features, collaborating in parallel with two different developers in this environment. Assuming she already has her repository cloned, she decides to work on <code>featureA</code> first. She creates a new branch for the feature and does some work on it there:</p>
+<pre><code>$marks = []
+def convert_dir_to_mark(dir)
+  if !$marks.include?(dir)
+    $marks &lt;&lt; dir
+  end
+  ($marks.index(dir) + 1).to_s
+end</code></pre>
 
-<pre><code># Jessica&#39;s Machine
-$ git checkout -b featureA
-Switched to a new branch &quot;featureA&quot;
-$ vim lib/simplegit.rb
-$ git commit -am &#39;add limit to log function&#39;
-[featureA 3300904] add limit to log function
- 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+<p>Now that you have an integer representation of your commit, you need a date for the commit metadata. Because the date is expressed in the name of the directory, you’ll parse it out. The next line in your <code>print_export</code> file is</p>
 
-<p>At this point, she needs to share her work with John, so she pushes her <code>featureA</code> branch commits up to the server. Jessica doesn’t have push access to the <code>master</code> branch — only the integrators do — so she has to push to another branch in order to collaborate with John:</p>
+<pre><code>date = convert_dir_to_date(dir)</code></pre>
 
-<pre><code>$ git push origin featureA
-...
-To jessica@githost:simplegit.git
- * [new branch]      featureA -&gt; featureA</code></pre>
+<p>where <code>convert_dir_to_date</code> is defined as</p>
 
-<p>Jessica e-mails John to tell him that she’s pushed some work into a branch named <code>featureA</code> and he can look at it now. While she waits for feedback from John, Jessica decides to start working on <code>featureB</code> with Josie. To begin, she starts a new feature branch, basing it off the server’s <code>master</code> branch:</p>
+<pre><code>def convert_dir_to_date(dir)
+  if dir == &#39;current&#39;
+    return Time.now().to_i
+  else
+    dir = dir.gsub(&#39;back_&#39;, &#39;&#39;)
+    (year, month, day) = dir.split(&#39;_&#39;)
+    return Time.local(year, month, day).to_i
+  end
+end</code></pre>
 
-<pre><code># Jessica&#39;s Machine
-$ git fetch origin
-$ git checkout -b featureB origin/master
-Switched to a new branch &quot;featureB&quot;</code></pre>
+<p>That returns an integer value for the date of each directory. The last piece of meta-information you need for each commit is the committer data, which you hardcode in a global variable:</p>
 
-<p>Now, Jessica makes a couple of commits on the <code>featureB</code> branch:</p>
+<pre><code>$author = &#39;Scott Chacon &lt;schacon@example.com&gt;&#39;</code></pre>
 
-<pre><code>$ vim lib/simplegit.rb
-$ git commit -am &#39;made the ls-tree function recursive&#39;
-[featureB e5b0fdc] made the ls-tree function recursive
- 1 files changed, 1 insertions(+), 1 deletions(-)
-$ vim lib/simplegit.rb
-$ git commit -am &#39;add ls-files&#39;
-[featureB 8512791] add ls-files
- 1 files changed, 5 insertions(+), 0 deletions(-)</code></pre>
+<p>Now you’re ready to begin printing out the commit data for your importer. The initial information states that you’re defining a commit object and what branch it’s on, followed by the mark you’ve generated, the committer information and commit message, and then the previous commit, if any. The code looks like this:</p>
 
-<p>Jessica’s repository looks like Figure 5-12.</p>
+<pre><code># print the import information
+puts &#39;commit refs/heads/master&#39;
+puts &#39;mark :&#39; + mark
+puts &quot;committer #{$author} #{date} -0700&quot;
+export_data(&#39;imported from &#39; + dir)
+puts &#39;from :&#39; + last_mark if last_mark</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0512-tn.png"></br>
-Figure 5-12. Jessica’s initial commit history.</p>
+<p>You hardcode the time zone (-0700) because doing so is easy. If you’re importing from another system, you must specify the time zone as an offset.
+The commit message must be expressed in a special format:</p>
 
-<p>She’s ready to push up her work, but gets an e-mail from Josie that a branch with some initial work on it was already pushed to the server as <code>featureBee</code>. Jessica first needs to merge those changes in with her own before she can push to the server. She can then fetch Josie’s changes down with <code>git fetch</code>:</p>
+<pre><code>data (size)\n(contents)</code></pre>
 
-<pre><code>$ git fetch origin
-...
-From jessica@githost:simplegit
- * [new branch]      featureBee -&gt; origin/featureBee</code></pre>
+<p>The format consists of the word data, the size of the data to be read, a newline, and finally the data. Because you need to use the same format to specify the file contents later, you create a helper method, <code>export_data</code>:</p>
 
-<p>Jessica can now merge this into the work she did with <code>git merge</code>:</p>
+<pre><code>def export_data(string)
+  print &quot;data #{string.size}\n#{string}&quot;
+end</code></pre>
 
-<pre><code>$ git merge origin/featureBee
-Auto-merging lib/simplegit.rb
-Merge made by recursive.
- lib/simplegit.rb |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)</code></pre>
+<p>All that’s left is to specify the file contents for each snapshot. This is easy, because you have each one in a directory — you can print out the <code>deleteall</code> command followed by the contents of each file in the directory. Git will then record each snapshot appropriately:</p>
 
-<p>There is a bit of a problem — she needs to push the merged work in her <code>featureB</code> branch to the <code>featureBee</code> branch on the server. She can do so by specifying the local branch followed by a colon (:) followed by the remote branch to the <code>git push</code> command:</p>
+<pre><code>puts &#39;deleteall&#39;
+Dir.glob(&quot;**/*&quot;).each do |file|
+  next if !File.file?(file)
+  inline_data(file)
+end</code></pre>
 
-<pre><code>$ git push origin featureB:featureBee
-...
-To jessica@githost:simplegit.git
-   fba9af8..cd685d1  featureB -&gt; featureBee</code></pre>
+<p>Note:	Because many systems think of their revisions as changes from one commit to another, fast-import can also take commands with each commit to specify which files have been added, removed, or modified and what the new contents are. You could calculate the differences between snapshots and provide only this data, but doing so is more complex — you may as well give Git all the data and let it figure it out. If this is better suited to your data, check the <code>fast-import</code> man page for details about how to provide your data in this manner.</p>
 
-<p>This is called a <em>refspec</em>. See Chapter 9 for a more detailed discussion of Git refspecs and different things you can do with them.</p>
+<p>The format for listing the new file contents or specifying a modified file with the new contents is as follows:</p>
 
-<p>Next, John e-mails Jessica to say he’s pushed some changes to the <code>featureA</code> branch and ask her to verify them. She runs a <code>git fetch</code> to pull down those changes:</p>
+<pre><code>M 644 inline path/to/file
+data (size)
+(file contents)</code></pre>
 
-<pre><code>$ git fetch origin
-...
-From jessica@githost:simplegit
-   3300904..aad881d  featureA   -&gt; origin/featureA</code></pre>
+<p>Here, 644 is the mode (if you have executable files, you need to detect and specify 755 instead), and inline says you’ll list the contents immediately after this line. Your <code>inline_data</code> method looks like this:</p>
 
-<p>Then, she can see what has been changed with <code>git log</code>:</p>
+<pre><code>def inline_data(file, code = &#39;M&#39;, mode = &#39;644&#39;)
+  content = File.read(file)
+  puts &quot;#{code} #{mode} inline #{file}&quot;
+  export_data(content)
+end</code></pre>
 
-<pre><code>$ git log origin/featureA ^featureA
-commit aad881d154acdaeb2b6b18ea0e827ed8a6d671e6
-Author: John Smith &lt;jsmith@example.com&gt;
-Date:   Fri May 29 19:57:33 2009 -0700
+<p>You reuse the <code>export_data</code> method you defined earlier, because it’s the same as the way you specified your commit message data.</p>
 
-    changed log output to 30 from 25</code></pre>
+<p>The last thing you need to do is to return the current mark so it can be passed to the next iteration:</p>
 
-<p>Finally, she merges John’s work into her own <code>featureA</code> branch:</p>
+<pre><code>return mark</code></pre>
 
-<pre><code>$ git checkout featureA
-Switched to branch &quot;featureA&quot;
-$ git merge origin/featureA
-Updating 3300904..aad881d
-Fast forward
- lib/simplegit.rb |   10 +++++++++-
-1 files changed, 9 insertions(+), 1 deletions(-)</code></pre>
+<p>NOTE: If you are running on Windows you’ll need to make sure that you add one extra step. As metioned before, Windows uses CRLF for new line characters while git fast-import expects only LF. To get around this problem and make git fast-import happy, you need to tell ruby to use LF instead of CRLF:</p>
 
-<p>Jessica wants to tweak something, so she commits again and then pushes this back up to the server:</p>
+<pre><code>$stdout.binmode</code></pre>
 
-<pre><code>$ git commit -am &#39;small tweak&#39;
-[featureA 774b3ed] small tweak
- 1 files changed, 1 insertions(+), 1 deletions(-)
-$ git push origin featureA
-...
-To jessica@githost:simplegit.git
-   3300904..774b3ed  featureA -&gt; featureA</code></pre>
+<p>That’s it. If you run this script, you’ll get content that looks something like this:</p>
 
-<p>Jessica’s commit history now looks something like Figure 5-13.</p>
+<pre><code>$ ruby import.rb /opt/import_from
+commit refs/heads/master
+mark :1
+committer Scott Chacon &lt;schacon@geemail.com&gt; 1230883200 -0700
+data 29
+imported from back_2009_01_02deleteall
+M 644 inline file.rb
+data 12
+version two
+commit refs/heads/master
+mark :2
+committer Scott Chacon &lt;schacon@geemail.com&gt; 1231056000 -0700
+data 29
+imported from back_2009_01_04from :1
+deleteall
+M 644 inline file.rb
+data 14
+version three
+M 644 inline new.rb
+data 16
+new version one
+(...)</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0513-tn.png"></br>
-Figure 5-13. Jessica’s history after committing on a feature branch.</p>
+<p>To run the importer, pipe this output through <code>git fast-import</code> while in the Git repository you want to import into. You can create a new directory and then run <code>git init</code> in it for a starting point, and then run your script:</p>
 
-<p>Jessica, Josie, and John inform the integrators that the <code>featureA</code> and <code>featureBee</code> branches on the server are ready for integration into the mainline. After they integrate these branches into the mainline, a fetch will bring down the new merge commits, making the commit history look like Figure 5-14.</p>
+<pre><code>$ git init
+Initialized empty Git repository in /opt/import_to/.git/
+$ ruby import.rb /opt/import_from | git fast-import
+git-fast-import statistics:
+---------------------------------------------------------------------
+Alloc&#39;d objects:       5000
+Total objects:           18 (         1 duplicates                  )
+      blobs  :            7 (         1 duplicates          0 deltas)
+      trees  :            6 (         0 duplicates          1 deltas)
+      commits:            5 (         0 duplicates          0 deltas)
+      tags   :            0 (         0 duplicates          0 deltas)
+Total branches:           1 (         1 loads     )
+      marks:           1024 (         5 unique    )
+      atoms:              3
+Memory total:          2255 KiB
+       pools:          2098 KiB
+     objects:           156 KiB
+---------------------------------------------------------------------
+pack_report: getpagesize()            =       4096
+pack_report: core.packedGitWindowSize =   33554432
+pack_report: core.packedGitLimit      =  268435456
+pack_report: pack_used_ctr            =          9
+pack_report: pack_mmap_calls          =          5
+pack_report: pack_open_windows        =          1 /          1
+pack_report: pack_mapped              =       1356 /       1356
+---------------------------------------------------------------------</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0514-tn.png"></br>
-Figure 5-14. Jessica’s history after merging both her topic branches.</p>
+<p>As you can see, when it completes successfully, it gives you a bunch of statistics about what it accomplished. In this case, you imported 18 objects total for 5 commits into 1 branch. Now, you can run <code>git log</code> to see your new history:</p>
 
-<p>Many groups switch to Git because of this ability to have multiple teams working in parallel, merging the different lines of work late in the process. The ability of smaller subgroups of a team to collaborate via remote branches without necessarily having to involve or impede the entire team is a huge benefit of Git. The sequence for the workflow you saw here is something like Figure 5-15.</p>
+<pre><code>$ git log -2
+commit 10bfe7d22ce15ee25b60a824c8982157ca593d41
+Author: Scott Chacon &lt;schacon@example.com&gt;
+Date:   Sun May 3 12:57:39 2009 -0700
 
-<p><img src="../../book_src/figures/18333fig0515-tn.png"></br>
-Figure 5-15. Basic sequence of this managed-team workflow.</p>
+    imported from current
 
-<h3>Public Small Project</h3>
+commit 7e519590de754d079dd73b44d695a42c9d2df452
+Author: Scott Chacon &lt;schacon@example.com&gt;
+Date:   Tue Feb 3 01:00:00 2009 -0700
 
-<p>Contributing to public projects is a bit different. Because you don’t have the permissions to directly update branches on the project, you have to get the work to the maintainers some other way. This first example describes contributing via forking on Git hosts that support easy forking. The repo.or.cz and GitHub hosting sites both support this, and many project maintainers expect this style of contribution. The next section deals with projects that prefer to accept contributed patches via e-mail.</p>
+    imported from back_2009_02_03</code></pre>
 
-<p>First, you’ll probably want to clone the main repository, create a topic branch for the patch or patch series you’re planning to contribute, and do your work there. The sequence looks basically like this:</p>
+<p>There you go — a nice, clean Git repository. It’s important to note that nothing is checked out — you don’t have any files in your working directory at first. To get them, you must reset your branch to where <code>master</code> is now:</p>
 
-<pre><code>$ git clone (url)
-$ cd project
-$ git checkout -b featureA
-$ (work)
-$ git commit
-$ (work)
-$ git commit</code></pre>
+<pre><code>$ ls
+$ git reset --hard master
+HEAD is now at 10bfe7d imported from current
+$ ls
+file.rb  lib</code></pre>
 
-<p>You may want to use <code>rebase -i</code> to squash your work down to a single commit, or rearrange the work in the commits to make the patch easier for the maintainer to review — see Chapter 6 for more information about interactive rebasing.</p>
+<p>You can do a lot more with the <code>fast-import</code> tool — handle different modes, binary data, multiple branches and merging, tags, progress indicators, and more. A number of examples of more complex scenarios are available in the <code>contrib/fast-import</code> directory of the Git source code; one of the better ones is the <code>git-p4</code> script I just covered.</p>
 
-<p>When your branch work is finished and you’re ready to contribute it back to the maintainers, go to the original project page and click the &quot;Fork&quot; button, creating your own writable fork of the project. You then need to add in this new repository URL as a second remote, in this case named <code>myfork</code>:</p>
-
-<pre><code>$ git remote add myfork (url)</code></pre>
-
-<p>You need to push your work up to it. It’s easiest to push the remote branch you’re working on up to your repository, rather than merging into your master branch and pushing that up. The reason is that if the work isn’t accepted or is cherry picked, you don’t have to rewind your master branch. If the maintainers merge, rebase, or cherry-pick your work, you’ll eventually get it back via pulling from their repository anyhow:</p>
-
-<pre><code>$ git push myfork featureA</code></pre>
-
-<p>When your work has been pushed up to your fork, you need to notify the maintainer. This is often called a pull request, and you can either generate it via the website — GitHub has a &quot;pull request&quot; button that automatically messages the maintainer — or run the <code>git request-pull</code> command and e-mail the output to the project maintainer manually.</p>
-
-<p>The <code>request-pull</code> command takes the base branch into which you want your topic branch pulled and the Git repository URL you want them to pull from, and outputs a summary of all the changes you’re asking to be pulled in. For instance, if Jessica wants to send John a pull request, and she’s done two commits on the topic branch she just pushed up, she can run this:</p>
-
-<pre><code>$ git request-pull origin/master myfork
-The following changes since commit 1edee6b1d61823a2de3b09c160d7080b8d1b3a40:
-  John Smith (1):
-        added a new function
-
-are available in the git repository at:
-
-  git://githost/simplegit.git featureA
-
-Jessica Smith (2):
-      add limit to log function
-      change log output to 30 from 25
-
- lib/simplegit.rb |   10 +++++++++-
- 1 files changed, 9 insertions(+), 1 deletions(-)</code></pre>
-
-<p>The output can be sent to the maintainer—it tells them where the work was branched from, summarizes the commits, and tells where to pull this work from.</p>
-
-<p>On a project for which you’re not the maintainer, it’s generally easier to have a branch like <code>master</code> always track <code>origin/master</code> and to do your work in topic branches that you can easily discard if they’re rejected.  Having work themes isolated into topic branches also makes it easier for you to rebase your work if the tip of the main repository has moved in the meantime and your commits no longer apply cleanly. For example, if you want to submit a second topic of work to the project, don’t continue working on the topic branch you just pushed up — start over from the main repository’s <code>master</code> branch:</p>
-
-<pre><code>$ git checkout -b featureB origin/master
-$ (work)
-$ git commit
-$ git push myfork featureB
-$ (email maintainer)
-$ git fetch origin</code></pre>
-
-<p>Now, each of your topics is contained within a silo — similar to a patch queue — that you can rewrite, rebase, and modify without the topics interfering or interdepending on each other as in Figure 5-16.</p>
-
-<p><img src="../../book_src/figures/18333fig0516-tn.png"></br>
-Figure 5-16. Initial commit history with featureB work.</p>
-
-<p>Let’s say the project maintainer has pulled in a bunch of other patches and tried your first branch, but it no longer cleanly merges. In this case, you can try to rebase that branch on top of <code>origin/master</code>, resolve the conflicts for the maintainer, and then resubmit your changes:</p>
-
-<pre><code>$ git checkout featureA
-$ git rebase origin/master
-$ git push -f myfork featureA</code></pre>
-
-<p>This rewrites your history to now look like Figure 5-17.</p>
-
-<p><img src="../../book_src/figures/18333fig0517-tn.png"></br>
-Figure 5-17. Commit history after featureA work.</p>
-
-<p>Because you rebased the branch, you have to specify the <code>-f</code> to your push command in order to be able to replace the <code>featureA</code> branch on the server with a commit that isn’t a descendant of it. An alternative would be to push this new work to a different branch on the server (perhaps called <code>featureAv2</code>).</p>
-
-<p>Let’s look at one more possible scenario: the maintainer has looked at work in your second branch and likes the concept but would like you to change an implementation detail. You’ll also take this opportunity to move the work to be based off the project’s current <code>master</code> branch. You start a new branch based off the current <code>origin/master</code> branch, squash the <code>featureB</code> changes there, resolve any conflicts, make the implementation change, and then push that up as a new branch:</p>
-
-<pre><code>$ git checkout -b featureBv2 origin/master
-$ git merge --no-commit --squash featureB
-$ (change implementation)
-$ git commit
-$ git push myfork featureBv2</code></pre>
-
-<p>The <code>--squash</code> option takes all the work on the merged branch and squashes it into one non-merge commit on top of the branch you’re on. The <code>--no-commit</code> option tells Git not to automatically record a commit. This allows you to introduce all the changes from another branch and then make more changes before recording the new commit.</p>
-
-<p>Now you can send the maintainer a message that you’ve made the requested changes and they can find those changes in your <code>featureBv2</code> branch (see Figure 5-18).</p>
-
-<p><img src="../../book_src/figures/18333fig0518-tn.png"></br>
-Figure 5-18. Commit history after featureBv2 work.</p>
-
-<h3>Public Large Project</h3>
-
-<p>Many larger projects have established procedures for accepting patches — you’ll need to check the specific rules for each project, because they will differ. However, many larger public projects accept patches via a developer mailing list, so I’ll go over an example of that now.</p>
-
-<p>The workflow is similar to the previous use case — you create topic branches for each patch series you work on. The difference is how you submit them to the project. Instead of forking the project and pushing to your own writable version, you generate e-mail versions of each commit series and e-mail them to the developer mailing list:</p>
-
-<pre><code>$ git checkout -b topicA
-$ (work)
-$ git commit
-$ (work)
-$ git commit</code></pre>
-
-<p>Now you have two commits that you want to send to the mailing list. You use <code>git format-patch</code> to generate the mbox-formatted files that you can e-mail to the list — it turns each commit into an e-mail message with the first line of the commit message as the subject and the rest of the message plus the patch that the commit introduces as the body. The nice thing about this is that applying a patch from an e-mail generated with <code>format-patch</code> preserves all the commit information properly, as you’ll see more of in the next section when you apply these patches:</p>
-
-<pre><code>$ git format-patch -M origin/master
-0001-add-limit-to-log-function.patch
-0002-changed-log-output-to-30-from-25.patch</code></pre>
-
-<p>The <code>format-patch</code> command prints out the names of the patch files it creates. The <code>-M</code> switch tells Git to look for renames. The files end up looking like this:</p>
-
-<pre><code>$ cat 0001-add-limit-to-log-function.patch
-From 330090432754092d704da8e76ca5c05c198e71a8 Mon Sep 17 00:00:00 2001
-From: Jessica Smith &lt;jessica@example.com&gt;
-Date: Sun, 6 Apr 2008 10:17:23 -0700
-Subject: [PATCH 1/2] add limit to log function
-
-Limit log functionality to the first 20
-
----
- lib/simplegit.rb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/lib/simplegit.rb b/lib/simplegit.rb
-index 76f47bc..f9815f1 100644
---- a/lib/simplegit.rb
-+++ b/lib/simplegit.rb
-@@ -14,7 +14,7 @@ class SimpleGit
-   end
-
-   def log(treeish = &#39;master&#39;)
--    command(&quot;git log #{treeish}&quot;)
-+    command(&quot;git log -n 20 #{treeish}&quot;)
-   end
-
-   def ls_tree(treeish = &#39;master&#39;)
---
-1.6.2.rc1.20.g8c5b.dirty</code></pre>
-
-<p>You can also edit these patch files to add more information for the e-mail list that you don’t want to show up in the commit message. If you add text between the <code>--</code> line and the beginning of the patch (the <code>lib/simplegit.rb</code> line), then developers can read it; but applying the patch excludes it.</p>
-
-<p>To e-mail this to a mailing list, you can either paste the file into your e-mail program or send it via a command-line program. Pasting the text often causes formatting issues, especially with &quot;smarter&quot; clients that don’t preserve newlines and other whitespace appropriately. Luckily, Git provides a tool to help you send properly formatted patches via IMAP, which may be easier for you. I’ll demonstrate how to send a patch via Gmail, which happens to be the e-mail agent I use; you can read detailed instructions for a number of mail programs at the end of the aforementioned <code>Documentation/SubmittingPatches</code> file in the Git source code.</p>
-
-<p>First, you need to set up the imap section in your <code>~/.gitconfig</code> file. You can set each value separately with a series of <code>git config</code> commands, or you can add them manually; but in the end, your config file should look something like this:</p>
-
-<pre><code>[imap]
-  folder = &quot;[Gmail]/Drafts&quot;
-  host = imaps://imap.gmail.com
-  user = user@gmail.com
-  pass = p4ssw0rd
-  port = 993
-  sslverify = false</code></pre>
-
-<p>If your IMAP server doesn’t use SSL, the last two lines probably aren’t necessary, and the host value will be <code>imap://</code> instead of <code>imaps://</code>.
-When that is set up, you can use <code>git send-email</code> to place the patch series in the Drafts folder of the specified IMAP server:</p>
-
-<pre><code>$ git send-email *.patch
-0001-added-limit-to-log-function.patch
-0002-changed-log-output-to-30-from-25.patch
-Who should the emails appear to be from? [Jessica Smith &lt;jessica@example.com&gt;]
-Emails will be sent from: Jessica Smith &lt;jessica@example.com&gt;
-Who should the emails be sent to? jessica@example.com
-Message-ID to be used as In-Reply-To for the first email? y</code></pre>
-
-<p>Then, Git spits out a bunch of log information looking something like this for each patch you’re sending:</p>
-
-<pre><code>(mbox) Adding cc: Jessica Smith &lt;jessica@example.com&gt; from
-  \line &#39;From: Jessica Smith &lt;jessica@example.com&gt;&#39;
-OK. Log says:
-Sendmail: /usr/sbin/sendmail -i jessica@example.com
-From: Jessica Smith &lt;jessica@example.com&gt;
-To: jessica@example.com
-Subject: [PATCH 1/2] added limit to log function
-Date: Sat, 30 May 2009 13:29:15 -0700
-Message-Id: &lt;1243715356-61726-1-git-send-email-jessica@example.com&gt;
-X-Mailer: git-send-email 1.6.2.rc1.20.g8c5b.dirty
-In-Reply-To: &lt;y&gt;
-References: &lt;y&gt;
-
-Result: OK</code></pre>
-
-<p>At this point, you should be able to go to your Drafts folder, change the To field to the mailing list you’re sending the patch to, possibly CC the maintainer or person responsible for that section, and send it off.</p>
-
-<h3>Summary</h3>
-
-<p>This section has covered a number of common workflows for dealing with several very different types of Git projects you’re likely to encounter and introduced a couple of new tools to help you manage this process. Next, you’ll see how to work the other side of the coin: maintaining a Git project. You’ll learn how to be a benevolent dictator or integration manager.</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Distributed Git</li><li><a href="ch8_1.html">Distributed Workflows</a></li><li><a href="ch8_2.html">Contributing to a Project</a></li><li><a href="ch8_3.html">Maintaining a Project</a></li><li><a href="ch8_4.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git and Other Systems</li><li><a href="ch8_1.html">Git and Subversion</a></li><li><a href="ch8_2.html">Migrating to Git</a></li><li><a href="ch8_3.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

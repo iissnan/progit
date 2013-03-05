@@ -1,44 +1,141 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git on the Server - Public Access</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Public Access</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Basics - Working with Remotes</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Working with Remotes</h2>
 
-<p>What if you want anonymous read access to your project? Perhaps instead of hosting an internal private project, you want to host an open source project. Or maybe you have a bunch of automated build servers or continuous integration servers that change a lot, and you don’t want to have to generate SSH keys all the time — you just want to add simple anonymous read access.</p>
+<p>To be able to collaborate on any Git project, you need to know how to manage your remote repositories. Remote repositories are versions of your project that are hosted on the Internet or network somewhere. You can have several of them, each of which generally is either read-only or read/write for you. Collaborating with others involves managing these remote repositories and pushing and pulling data to and from them when you need to share work.
+Managing remote repositories includes knowing how to add remote repositories, remove remotes that are no longer valid, manage various remote branches and define them as being tracked or not, and more. In this section, we’ll cover these remote-management skills.</p>
 
-<p>Probably the simplest way for smaller setups is to run a static web server with its document root where your Git repositories are, and then enable that <code>post-update</code> hook we mentioned in the first section of this chapter. Let’s work from the previous example. Say you have your repositories in the <code>/opt/git</code> directory, and an Apache server is running on your machine. Again, you can use any web server for this; but as an example, we’ll demonstrate some basic Apache configurations that should give you an idea of what you might need.</p>
+<h3>Showing Your Remotes</h3>
 
-<p>First you need to enable the hook:</p>
+<p>To see which remote servers you have configured, you can run the <code>git remote</code> command. It lists the shortnames of each remote handle you’ve specified. If you’ve cloned your repository, you should at least see <em>origin</em> — that is the default name Git gives to the server you cloned from:</p>
 
-<pre><code>$ cd project.git
-$ mv hooks/post-update.sample hooks/post-update
-$ chmod a+x hooks/post-update</code></pre>
+<pre><code>$ git clone git://github.com/schacon/ticgit.git
+Initialized empty Git repository in /private/tmp/ticgit/.git/
+remote: Counting objects: 595, done.
+remote: Compressing objects: 100% (269/269), done.
+remote: Total 595 (delta 255), reused 589 (delta 253)
+Receiving objects: 100% (595/595), 73.31 KiB | 1 KiB/s, done.
+Resolving deltas: 100% (255/255), done.
+$ cd ticgit
+$ git remote
+origin</code></pre>
 
-<p>If you’re using a version of Git earlier than 1.6, the <code>mv</code> command isn’t necessary — Git started naming the hooks examples with the .sample postfix only recently.</p>
+<p>You can also specify <code>-v</code>, which shows you the URL that Git has stored for the shortname to be expanded to:</p>
 
-<p>What does this <code>post-update</code> hook do? It looks basically like this:</p>
+<pre><code>$ git remote -v
+origin  git://github.com/schacon/ticgit.git (fetch)
+origin  git://github.com/schacon/ticgit.git (push)</code></pre>
 
-<pre><code>$ cat .git/hooks/post-update
-#!/bin/sh
-exec git-update-server-info</code></pre>
+<p>If you have more than one remote, the command lists them all. For example, my Grit repository looks something like this.</p>
 
-<p>This means that when you push to the server via SSH, Git will run this command to update the files needed for HTTP fetching.</p>
+<pre><code>$ cd grit
+$ git remote -v
+bakkdoor  git://github.com/bakkdoor/grit.git
+cho45     git://github.com/cho45/grit.git
+defunkt   git://github.com/defunkt/grit.git
+koke      git://github.com/koke/grit.git
+origin    git@github.com:mojombo/grit.git</code></pre>
 
-<p>Next, you need to add a VirtualHost entry to your Apache configuration with the document root as the root directory of your Git projects. Here, we’re assuming that you have wildcard DNS set up to send <code>*.gitserver</code> to whatever box you’re using to run all this:</p>
+<p>This means we can pull contributions from any of these users pretty easily. But notice that only the origin remote is an SSH URL, so it’s the only one I can push to (we’ll cover why this is in <em>Chapter 4</em>).</p>
 
-<pre><code>&lt;VirtualHost *:80&gt;
-    ServerName git.gitserver
-    DocumentRoot /opt/git
-    &lt;Directory /opt/git/&gt;
-        Order allow, deny
-        allow from all
-    &lt;/Directory&gt;
-&lt;/VirtualHost&gt;</code></pre>
+<h3>Adding Remote Repositories</h3>
 
-<p>You’ll also need to set the Unix user group of the <code>/opt/git</code> directories to <code>www-data</code> so your web server can read-access the repositories, because the Apache instance running the CGI script will (by default) be running as that user:</p>
+<p>I’ve mentioned and given some demonstrations of adding remote repositories in previous sections, but here is how to do it explicitly. To add a new remote Git repository as a shortname you can reference easily, run <code>git remote add [shortname] [url]</code>:</p>
 
-<pre><code>$ chgrp -R www-data /opt/git</code></pre>
+<pre><code>$ git remote
+origin
+$ git remote add pb git://github.com/paulboone/ticgit.git
+$ git remote -v
+origin	git://github.com/schacon/ticgit.git
+pb	git://github.com/paulboone/ticgit.git</code></pre>
 
-<p>When you restart Apache, you should be able to clone your repositories under that directory by specifying the URL for your project:</p>
+<p>Now you can use the string <code>pb</code> on the command line in lieu of the whole URL. For example, if you want to fetch all the information that Paul has but that you don’t yet have in your repository, you can run <code>git fetch pb</code>:</p>
 
-<pre><code>$ git clone http://git.gitserver/project.git</code></pre>
+<pre><code>$ git fetch pb
+remote: Counting objects: 58, done.
+remote: Compressing objects: 100% (41/41), done.
+remote: Total 44 (delta 24), reused 1 (delta 0)
+Unpacking objects: 100% (44/44), done.
+From git://github.com/paulboone/ticgit
+ * [new branch]      master     -&gt; pb/master
+ * [new branch]      ticgit     -&gt; pb/ticgit</code></pre>
 
-<p>This way, you can set up HTTP-based read access to any of your projects for a fair number of users in a few minutes. Another simple option for public unauthenticated access is to start a Git daemon, although that requires you to daemonize the process - we’ll cover this option in the next section, if you prefer that route.</p>
+<p>Paul’s master branch is accessible locally as <code>pb/master</code> — you can merge it into one of your branches, or you can check out a local branch at that point if you want to inspect it.</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git on the Server</li><li><a href="ch2_1.html">The Protocols</a></li><li><a href="ch2_2.html">Getting Git on a Server</a></li><li><a href="ch2_3.html">Generating Your SSH Public Key</a></li><li><a href="ch2_4.html">Setting Up the Server</a></li><li><a href="ch2_5.html">Public Access</a></li><li><a href="ch2_6.html">GitWeb</a></li><li><a href="ch2_7.html">Gitosis</a></li><li><a href="ch2_8.html">Gitolite</a></li><li><a href="ch2_9.html">Git Daemon</a></li><li><a href="ch2_10.html">Hosted Git</a></li><li><a href="ch2_11.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<h3>Fetching and Pulling from Your Remotes</h3>
+
+<p>As you just saw, to get data from your remote projects, you can run:</p>
+
+<pre><code>$ git fetch [remote-name]</code></pre>
+
+<p>The command goes out to that remote project and pulls down all the data from that remote project that you don’t have yet. After you do this, you should have references to all the branches from that remote, which you can merge in or inspect at any time. (We’ll go over what branches are and how to use them in much more detail in <em>Chapter 3</em>.)</p>
+
+<p>If you clone a repository, the command automatically adds that remote repository under the name <em>origin</em>. So, <code>git fetch origin</code> fetches any new work that has been pushed to that server since you cloned (or last fetched from) it. It’s important to note that the <code>fetch</code> command pulls the data to your local repository — it doesn’t automatically merge it with any of your work or modify what you’re currently working on. You have to merge it manually into your work when you’re ready.</p>
+
+<p>If you have a branch set up to track a remote branch (see the next section and <em>Chapter 3</em> for more information), you can use the <code>git pull</code> command to automatically fetch and then merge a remote branch into your current branch. This may be an easier or more comfortable workflow for you; and by default, the <code>git clone</code> command automatically sets up your local master branch to track the remote master branch on the server you cloned from (assuming the remote has a master branch). Running <code>git pull</code> generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you’re currently working on.</p>
+
+<h3>Pushing to Your Remotes</h3>
+
+<p>When you have your project at a point that you want to share, you have to push it upstream. The command for this is simple: <code>git push [remote-name] [branch-name]</code>. If you want to push your master branch to your <code>origin</code> server (again, cloning generally sets up both of those names for you automatically), then you can run this to push your work back up to the server:</p>
+
+<pre><code>$ git push origin master</code></pre>
+
+<p>This command works only if you cloned from a server to which you have write access and if nobody has pushed in the meantime. If you and someone else clone at the same time and they push upstream and then you push upstream, your push will rightly be rejected. You’ll have to pull down their work first and incorporate it into yours before you’ll be allowed to push. See <em>Chapter 3</em> for more detailed information on how to push to remote servers.</p>
+
+<h3>Inspecting a Remote</h3>
+
+<p>If you want to see more information about a particular remote, you can use the <code>git remote show [remote-name]</code> command. If you run this command with a particular shortname, such as <code>origin</code>, you get something like this:</p>
+
+<pre><code>$ git remote show origin
+* remote origin
+  URL: git://github.com/schacon/ticgit.git
+  Remote branch merged with &#39;git pull&#39; while on branch master
+    master
+  Tracked remote branches
+    master
+    ticgit</code></pre>
+
+<p>It lists the URL for the remote repository as well as the tracking branch information. The command helpfully tells you that if you’re on the master branch and you run <code>git pull</code>, it will automatically merge in the master branch on the remote after it fetches all the remote references. It also lists all the remote references it has pulled down.</p>
+
+<p>That is a simple example you’re likely to encounter. When you’re using Git more heavily, however, you may see much more information from <code>git remote show</code>:</p>
+
+<pre><code>$ git remote show origin
+* remote origin
+  URL: git@github.com:defunkt/github.git
+  Remote branch merged with &#39;git pull&#39; while on branch issues
+    issues
+  Remote branch merged with &#39;git pull&#39; while on branch master
+    master
+  New remote branches (next fetch will store in remotes/origin)
+    caching
+  Stale tracking branches (use &#39;git remote prune&#39;)
+    libwalker
+    walker2
+  Tracked remote branches
+    acl
+    apiv2
+    dashboard2
+    issues
+    master
+    postgres
+  Local branch pushed with &#39;git push&#39;
+    master:master</code></pre>
+
+<p>This command shows which branch is automatically pushed when you run <code>git push</code> on certain branches. It also shows you which remote branches on the server you don’t yet have, which remote branches you have that have been removed from the server, and multiple branches that are automatically merged when you run <code>git pull</code>.</p>
+
+<h3>Removing and Renaming Remotes</h3>
+
+<p>If you want to rename a reference, in newer versions of Git you can run <code>git remote rename</code> to change a remote’s shortname. For instance, if you want to rename <code>pb</code> to <code>paul</code>, you can do so with <code>git remote rename</code>:</p>
+
+<pre><code>$ git remote rename pb paul
+$ git remote
+origin
+paul</code></pre>
+
+<p>It’s worth mentioning that this changes your remote branch names, too. What used to be referenced at <code>pb/master</code> is now at <code>paul/master</code>.</p>
+
+<p>If you want to remove a reference for some reason — you’ve moved the server or are no longer using a particular mirror, or perhaps a contributor isn’t contributing anymore — you can use <code>git remote rm</code>:</p>
+
+<pre><code>$ git remote rm paul
+$ git remote
+origin</code></pre>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Basics</li><li><a href="ch2_1.html">Getting a Git Repository</a></li><li><a href="ch2_2.html">Recording Changes to the Repository</a></li><li><a href="ch2_3.html">Viewing the Commit History</a></li><li><a href="ch2_4.html">Undoing Things</a></li><li><a href="ch2_5.html">Working with Remotes</a></li><li><a href="ch2_6.html">Tagging</a></li><li><a href="ch2_7.html">Tips and Tricks</a></li><li><a href="ch2_8.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

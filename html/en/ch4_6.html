@@ -1,148 +1,43 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Internals - Transfer Protocols</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Transfer Protocols</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git on the Server - GitWeb</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>GitWeb</h2>
 
-<p>Git can transfer data between two repositories in two major ways: over HTTP and via the so-called smart protocols used in the <code>file://</code>, <code>ssh://</code>, and <code>git://</code> transports. This section will quickly cover how these two main protocols operate.</p>
+<p>Now that you have basic read/write and read-only access to your project, you may want to set up a simple web-based visualizer. Git comes with a CGI script called GitWeb that is commonly used for this. You can see GitWeb in use at sites like <code>http://git.kernel.org</code> (see Figure 4-1).</p>
 
-<h3>The Dumb Protocol</h3>
+<p><img src="../../book_src/figures/18333fig0401-tn.png"></br>
+Figure 4-1. The GitWeb web-based user interface.</p>
 
-<p>Git transport over HTTP is often referred to as the dumb protocol because it requires no Git-specific code on the server side during the transport process. The fetch process is a series of GET requests, where the client can assume the layout of the Git repository on the server. Let’s follow the <code>http-fetch</code> process for the simplegit library:</p>
+<p>If you want to check out what GitWeb would look like for your project, Git comes with a command to fire up a temporary instance if you have a lightweight server on your system like <code>lighttpd</code> or <code>webrick</code>. On Linux machines, <code>lighttpd</code> is often installed, so you may be able to get it to run by typing <code>git instaweb</code> in your project directory. If you’re running a Mac, Leopard comes preinstalled with Ruby, so <code>webrick</code> may be your best bet. To start <code>instaweb</code> with a non-lighttpd handler, you can run it with the <code>--httpd</code> option.</p>
 
-<pre><code>$ git clone http://github.com/schacon/simplegit-progit.git</code></pre>
+<pre><code>$ git instaweb --httpd=webrick
+[2009-02-21 10:02:21] INFO  WEBrick 1.3.1
+[2009-02-21 10:02:21] INFO  ruby 1.8.6 (2008-03-03) [universal-darwin9.0]</code></pre>
 
-<p>The first thing this command does is pull down the <code>info/refs</code> file. This file is written by the <code>update-server-info</code> command, which is why you need to enable that as a <code>post-receive</code> hook in order for the HTTP transport to work properly:</p>
+<p>That starts up an HTTPD server on port 1234 and then automatically starts a web browser that opens on that page. It’s pretty easy on your part. When you’re done and want to shut down the server, you can run the same command with the <code>--stop</code> option:</p>
 
-<pre><code>=&gt; GET info/refs
-ca82a6dff817ec66f44342007202690a93763949     refs/heads/master</code></pre>
+<pre><code>$ git instaweb --httpd=webrick --stop</code></pre>
 
-<p>Now you have a list of the remote references and SHAs. Next, you look for what the HEAD reference is so you know what to check out when you’re finished:</p>
+<p>If you want to run the web interface on a server all the time for your team or for an open source project you’re hosting, you’ll need to set up the CGI script to be served by your normal web server. Some Linux distributions have a <code>gitweb</code> package that you may be able to install via <code>apt</code> or <code>yum</code>, so you may want to try that first. We’ll walk though installing GitWeb manually very quickly. First, you need to get the Git source code, which GitWeb comes with, and generate the custom CGI script:</p>
 
-<pre><code>=&gt; GET HEAD
-ref: refs/heads/master</code></pre>
+<pre><code>$ git clone git://git.kernel.org/pub/scm/git/git.git
+$ cd git/
+$ make GITWEB_PROJECTROOT=&quot;/opt/git&quot; \
+        prefix=/usr gitweb
+$ sudo cp -Rf gitweb /var/www/</code></pre>
 
-<p>You need to check out the <code>master</code> branch when you’ve completed the process.
-At this point, you’re ready to start the walking process. Because your starting point is the <code>ca82a6</code> commit object you saw in the <code>info/refs</code> file, you start by fetching that:</p>
+<p>Notice that you have to tell the command where to find your Git repositories with the <code>GITWEB_PROJECTROOT</code> variable. Now, you need to make Apache use CGI for that script, for which you can add a VirtualHost:</p>
 
-<pre><code>=&gt; GET objects/ca/82a6dff817ec66f44342007202690a93763949
-(179 bytes of binary data)</code></pre>
+<pre><code>&lt;VirtualHost *:80&gt;
+    ServerName gitserver
+    DocumentRoot /var/www/gitweb
+    &lt;Directory /var/www/gitweb&gt;
+        Options ExecCGI +FollowSymLinks +SymLinksIfOwnerMatch
+        AllowOverride All
+        order allow,deny
+        Allow from all
+        AddHandler cgi-script cgi
+        DirectoryIndex gitweb.cgi
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code></pre>
 
-<p>You get an object back — that object is in loose format on the server, and you fetched it over a static HTTP GET request. You can zlib-uncompress it, strip off the header, and look at the commit content:</p>
+<p>Again, GitWeb can be served with any CGI capable web server; if you prefer to use something else, it shouldn’t be difficult to set up. At this point, you should be able to visit <code>http://gitserver/</code> to view your repositories online, and you can use <code>http://git.gitserver</code> to clone and fetch your repositories over HTTP.</p>
 
-<pre><code>$ git cat-file -p ca82a6dff817ec66f44342007202690a93763949
-tree cfda3bf379e4f8dba8717dee55aab78aef7f4daf
-parent 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
-author Scott Chacon &lt;schacon@gmail.com&gt; 1205815931 -0700
-committer Scott Chacon &lt;schacon@gmail.com&gt; 1240030591 -0700
-
-changed the version number</code></pre>
-
-<p>Next, you have two more objects to retrieve — <code>cfda3b</code>, which is the tree of content that the commit we just retrieved points to; and <code>085bb3</code>, which is the parent commit:</p>
-
-<pre><code>=&gt; GET objects/08/5bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
-(179 bytes of data)</code></pre>
-
-<p>That gives you your next commit object. Grab the tree object:</p>
-
-<pre><code>=&gt; GET objects/cf/da3bf379e4f8dba8717dee55aab78aef7f4daf
-(404 - Not Found)</code></pre>
-
-<p>Oops — it looks like that tree object isn’t in loose format on the server, so you get a 404 response back. There are a couple of reasons for this — the object could be in an alternate repository, or it could be in a packfile in this repository. Git checks for any listed alternates first:</p>
-
-<pre><code>=&gt; GET objects/info/http-alternates
-(empty file)</code></pre>
-
-<p>If this comes back with a list of alternate URLs, Git checks for loose files and packfiles there — this is a nice mechanism for projects that are forks of one another to share objects on disk. However, because no alternates are listed in this case, your object must be in a packfile. To see what packfiles are available on this server, you need to get the <code>objects/info/packs</code> file, which contains a listing of them (also generated by <code>update-server-info</code>):</p>
-
-<pre><code>=&gt; GET objects/info/packs
-P pack-816a9b2334da9953e530f27bcac22082a9f5b835.pack</code></pre>
-
-<p>There is only one packfile on the server, so your object is obviously in there, but you’ll check the index file to make sure. This is also useful if you have multiple packfiles on the server, so you can see which packfile contains the object you need:</p>
-
-<pre><code>=&gt; GET objects/pack/pack-816a9b2334da9953e530f27bcac22082a9f5b835.idx
-(4k of binary data)</code></pre>
-
-<p>Now that you have the packfile index, you can see if your object is in it — because the index lists the SHAs of the objects contained in the packfile and the offsets to those objects. Your object is there, so go ahead and get the whole packfile:</p>
-
-<pre><code>=&gt; GET objects/pack/pack-816a9b2334da9953e530f27bcac22082a9f5b835.pack
-(13k of binary data)</code></pre>
-
-<p>You have your tree object, so you continue walking your commits. They’re all also within the packfile you just downloaded, so you don’t have to do any more requests to your server. Git checks out a working copy of the <code>master</code> branch that was pointed to by the HEAD reference you downloaded at the beginning.</p>
-
-<p>The entire output of this process looks like this:</p>
-
-<pre><code>$ git clone http://github.com/schacon/simplegit-progit.git
-Initialized empty Git repository in /private/tmp/simplegit-progit/.git/
-got ca82a6dff817ec66f44342007202690a93763949
-walk ca82a6dff817ec66f44342007202690a93763949
-got 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
-Getting alternates list for http://github.com/schacon/simplegit-progit.git
-Getting pack list for http://github.com/schacon/simplegit-progit.git
-Getting index for pack 816a9b2334da9953e530f27bcac22082a9f5b835
-Getting pack 816a9b2334da9953e530f27bcac22082a9f5b835
- which contains cfda3bf379e4f8dba8717dee55aab78aef7f4daf
-walk 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
-walk a11bef06a3f659402fe7563abf99ad00de2209e6</code></pre>
-
-<h3>The Smart Protocol</h3>
-
-<p>The HTTP method is simple but a bit inefficient. Using smart protocols is a more common method of transferring data. These protocols have a process on the remote end that is intelligent about Git — it can read local data and figure out what the client has or needs and generate custom data for it. There are two sets of processes for transferring data: a pair for uploading data and a pair for downloading data.</p>
-
-<h4>Uploading Data</h4>
-
-<p>To upload data to a remote process, Git uses the <code>send-pack</code> and <code>receive-pack</code> processes. The <code>send-pack</code> process runs on the client and connects to a <code>receive-pack</code> process on the remote side.</p>
-
-<p>For example, say you run <code>git push origin master</code> in your project, and <code>origin</code> is defined as a URL that uses the SSH protocol. Git fires up the <code>send-pack</code> process, which initiates a connection over SSH to your server. It tries to run a command on the remote server via an SSH call that looks something like this:</p>
-
-<pre><code>$ ssh -x git@github.com &quot;git-receive-pack &#39;schacon/simplegit-progit.git&#39;&quot;
-005bca82a6dff817ec66f4437202690a93763949 refs/heads/master report-status delete-refs
-003e085bb3bcb608e1e84b2432f8ecbe6306e7e7 refs/heads/topic
-0000</code></pre>
-
-<p>The <code>git-receive-pack</code> command immediately responds with one line for each reference it currently has — in this case, just the <code>master</code> branch and its SHA. The first line also has a list of the server’s capabilities (here, <code>report-status</code> and <code>delete-refs</code>).</p>
-
-<p>Each line starts with a 4-byte hex value specifying how long the rest of the line is. Your first line starts with 005b, which is 91 in hex, meaning that 91 bytes remain on that line. The next line starts with 003e, which is 62, so you read the remaining 62 bytes. The next line is 0000, meaning the server is done with its references listing.</p>
-
-<p>Now that it knows the server’s state, your <code>send-pack</code> process determines what commits it has that the server doesn’t. For each reference that this push will update, the <code>send-pack</code> process tells the <code>receive-pack</code> process that information. For instance, if you’re updating the <code>master</code> branch and adding an <code>experiment</code> branch, the <code>send-pack</code> response may look something like this:</p>
-
-<pre><code>0085ca82a6dff817ec66f44342007202690a93763949  15027957951b64cf874c3557a0f3547bd83b3ff6 refs/heads/master report-status
-00670000000000000000000000000000000000000000 cdfdb42577e2506715f8cfeacdbabc092bf63e8d refs/heads/experiment
-0000</code></pre>
-
-<p>The SHA-1 value of all &#39;0&#39;s means that nothing was there before — because you’re adding the experiment reference. If you were deleting a reference, you would see the opposite: all &#39;0&#39;s on the right side.</p>
-
-<p>Git sends a line for each reference you’re updating with the old SHA, the new SHA, and the reference that is being updated. The first line also has the client’s capabilities. Next, the client uploads a packfile of all the objects the server doesn’t have yet. Finally, the server responds with a success (or failure) indication:</p>
-
-<pre><code>000Aunpack ok</code></pre>
-
-<h4>Downloading Data</h4>
-
-<p>When you download data, the <code>fetch-pack</code> and <code>upload-pack</code> processes are involved. The client initiates a <code>fetch-pack</code> process that connects to an <code>upload-pack</code> process on the remote side to negotiate what data will be transferred down.</p>
-
-<p>There are different ways to initiate the <code>upload-pack</code> process on the remote repository. You can run via SSH in the same manner as the <code>receive-pack</code> process. You can also initiate the process via the Git daemon, which listens on a server on port 9418 by default. The <code>fetch-pack</code> process sends data that looks like this to the daemon after connecting:</p>
-
-<pre><code>003fgit-upload-pack schacon/simplegit-progit.git\0host=myserver.com\0</code></pre>
-
-<p>It starts with the 4 bytes specifying how much data is following, then the command to run followed by a null byte, and then the server’s hostname followed by a final null byte. The Git daemon checks that the command can be run and that the repository exists and has public permissions. If everything is cool, it fires up the <code>upload-pack</code> process and hands off the request to it.</p>
-
-<p>If you’re doing the fetch over SSH, <code>fetch-pack</code> instead runs something like this:</p>
-
-<pre><code>$ ssh -x git@github.com &quot;git-upload-pack &#39;schacon/simplegit-progit.git&#39;&quot;</code></pre>
-
-<p>In either case, after <code>fetch-pack</code> connects, <code>upload-pack</code> sends back something like this:</p>
-
-<pre><code>0088ca82a6dff817ec66f44342007202690a93763949 HEAD\0multi_ack thin-pack \
-  side-band side-band-64k ofs-delta shallow no-progress include-tag
-003fca82a6dff817ec66f44342007202690a93763949 refs/heads/master
-003e085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7 refs/heads/topic
-0000</code></pre>
-
-<p>This is very similar to what <code>receive-pack</code> responds with, but the capabilities are different. In addition, it sends back the HEAD reference so the client knows what to check out if this is a clone.</p>
-
-<p>At this point, the <code>fetch-pack</code> process looks at what objects it has and responds with the objects that it needs by sending &quot;want&quot; and then the SHA it wants. It sends all the objects it already has with &quot;have&quot; and then the SHA. At the end of this list, it writes &quot;done&quot; to initiate the <code>upload-pack</code> process to begin sending the packfile of the data it needs:</p>
-
-<pre><code>0054want ca82a6dff817ec66f44342007202690a93763949 ofs-delta
-0032have 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
-0000
-0009done</code></pre>
-
-<p>That is a very basic case of the transfer protocols. In more complex cases, the client supports <code>multi_ack</code> or <code>side-band</code> capabilities; but this example shows you the basic back and forth used by the smart protocol processes.</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Internals</li><li><a href="ch4_1.html">Plumbing and Porcelain</a></li><li><a href="ch4_2.html">Git Objects</a></li><li><a href="ch4_3.html">Git References</a></li><li><a href="ch4_4.html">Packfiles</a></li><li><a href="ch4_5.html">The Refspec</a></li><li><a href="ch4_6.html">Transfer Protocols</a></li><li><a href="ch4_7.html">Maintenance and Data Recovery</a></li><li><a href="ch4_8.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git on the Server</li><li><a href="ch4_1.html">The Protocols</a></li><li><a href="ch4_2.html">Getting Git on a Server</a></li><li><a href="ch4_3.html">Generating Your SSH Public Key</a></li><li><a href="ch4_4.html">Setting Up the Server</a></li><li><a href="ch4_5.html">Public Access</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git Daemon</a></li><li><a href="ch4_10.html">Hosted Git</a></li><li><a href="ch4_11.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

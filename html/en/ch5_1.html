@@ -1,89 +1,41 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Git Branching - What a Branch Is</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 Git 基础 </a></li><li><a href="../zh/ch2_0.html">2 服务器上的 Git </a></li><li><a href="../zh/ch3_0.html">3 自定义 Git </a></li><li><a href="../zh/ch4_0.html">4 Git 内部原理 </a></li><li><a href="../zh/ch5_0.html">5 Git 分支 </a></li><li><a href="../zh/ch6_0.html">6 Git 与其他系统 </a></li><li><a href="../zh/ch7_0.html">7 Git 工具 </a></li><li><a href="../zh/ch8_0.html">8 分布式 Git </a></li><li><a href="../zh/ch9_0.html">9 起步 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Git Basics </a></li><li><a href="ch2_0.html">2 Git on the Server </a></li><li><a href="ch3_0.html">3 Customizing Git </a></li><li><a href="ch4_0.html">4 Git Internals </a></li><li><a href="ch5_0.html">5 Git Branching </a></li><li><a href="ch6_0.html">6 Git and Other Systems </a></li><li><a href="ch7_0.html">7 Git Tools </a></li><li><a href="ch8_0.html">8 Distributed Git </a></li><li><a href="ch9_0.html">9 Getting Started </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>What a Branch Is</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git - Distributed Git - Distributed Workflows</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">0 目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">0 Tables Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Distributed Workflows</h2>
 
-<p>To really understand the way Git does branching, we need to take a step back and examine how Git stores its data. As you may remember from Chapter 1, Git doesn’t store data as a series of changesets or deltas, but instead as a series of snapshots.</p>
+<p>Unlike Centralized Version Control Systems (CVCSs), the distributed nature of Git allows you to be far more flexible in how developers collaborate on projects. In centralized systems, every developer is a node working more or less equally on a central hub. In Git, however, every developer is potentially both a node and a hub — that is, every developer can both contribute code to other repositories and maintain a public repository on which others can base their work and which they can contribute to. This opens a vast range of workflow possibilities for your project and/or your team, so I’ll cover a few common paradigms that take advantage of this flexibility. I’ll go over the strengths and possible weaknesses of each design; you can choose a single one to use, or you can mix and match features from each.</p>
 
-<p>When you commit in Git, Git stores a commit object that contains a pointer to the snapshot of the content you staged, the author and message metadata, and zero or more pointers to the commit or commits that were the direct parents of this commit: zero parents for the first commit, one parent for a normal commit, and multiple parents for a commit that results from a merge of two or more branches.</p>
+<h3>Centralized Workflow</h3>
 
-<p>To visualize this, let’s assume that you have a directory containing three files, and you stage them all and commit. Staging the files checksums each one (the SHA-1 hash we mentioned in Chapter 1), stores that version of the file in the Git repository (Git refers to them as blobs), and adds that checksum to the staging area:</p>
+<p>In centralized systems, there is generally a single collaboration model—the centralized workflow. One central hub, or repository, can accept code, and everyone synchronizes their work to it. A number of developers are nodes — consumers of that hub — and synchronize to that one place (see Figure 5-1).</p>
 
-<pre><code>$ git add README test.rb LICENSE
-$ git commit -m &#39;initial commit of my project&#39;</code></pre>
+<p><img src="../../book_src/figures/18333fig0501-tn.png"></br>
+Figure 5-1. Centralized workflow.</p>
 
-<p>When you create the commit by running <code>git commit</code>, Git checksums each subdirectory (in this case, just the root project directory) and stores those tree objects in the Git repository. Git then creates a commit object that has the metadata and a pointer to the root project tree so it can re-create that snapshot when needed.</p>
+<p>This means that if two developers clone from the hub and both make changes, the first developer to push their changes back up can do so with no problems. The second developer must merge in the first one’s work before pushing changes up, so as not to overwrite the first developer’s changes. This concept is true in Git as it is in Subversion (or any CVCS), and this model works perfectly in Git.</p>
 
-<p>Your Git repository now contains five objects: one blob for the contents of each of your three files, one tree that lists the contents of the directory and specifies which file names are stored as which blobs, and one commit with the pointer to that root tree and all the commit metadata. Conceptually, the data in your Git repository looks something like Figure 3-1.</p>
+<p>If you have a small team or are already comfortable with a centralized workflow in your company or team, you can easily continue using that workflow with Git. Simply set up a single repository, and give everyone on your team push access; Git won’t let users overwrite each other. If one developer clones, makes changes, and then tries to push their changes while another developer has pushed in the meantime, the server will reject that developer’s changes. They will be told that they’re trying to push non-fast-forward changes and that they won’t be able to do so until they fetch and merge.
+This workflow is attractive to a lot of people because it’s a paradigm that many are familiar and comfortable with.</p>
 
-<p><img src="../../book_src/figures/18333fig0301-tn.png"></br>
-Figure 3-1. Single commit repository data.</p>
+<h3>Integration-Manager Workflow</h3>
 
-<p>If you make some changes and commit again, the next commit stores a pointer to the commit that came immediately before it. After two more commits, your history might look something like Figure 3-2.</p>
+<p>Because Git allows you to have multiple remote repositories, it’s possible to have a workflow where each developer has write access to their own public repository and read access to everyone else’s. This scenario often includes a canonical repository that represents the &quot;official&quot; project. To contribute to that project, you create your own public clone of the project and push your changes to it. Then, you can send a request to the maintainer of the main project to pull in your changes. They can add your repository as a remote, test your changes locally, merge them into their branch, and push back to their repository. The process works as follow (see Figure 5-2):</p>
 
-<p><img src="../../book_src/figures/18333fig0302-tn.png"></br>
-Figure 3-2. Git object data for multiple commits.</p>
+<ol><li>The project maintainer pushes to their public repository.</li><li>A contributor clones that repository and makes changes.</li><li>The contributor pushes to their own public copy.</li><li>The contributor sends the maintainer an e-mail asking them to pull changes.</li><li>The maintainer adds the contributor’s repo as a remote and merges locally.</li><li>The maintainer pushes merged changes to the main repository.</li></ol>
 
-<p>A branch in Git is simply a lightweight movable pointer to one of these commits. The default branch name in Git is master. As you initially make commits, you’re given a <code>master</code> branch that points to the last commit you made. Every time you commit, it moves forward automatically.</p>
+<p><img src="../../book_src/figures/18333fig0502-tn.png"></br>
+Figure 5-2. Integration-manager workflow.</p>
 
-<p><img src="../../book_src/figures/18333fig0303-tn.png"></br>
-Figure 3-3. Branch pointing into the commit data’s history.</p>
+<p>This is a very common workflow with sites like GitHub, where it’s easy to fork a project and push your changes into your fork for everyone to see. One of the main advantages of this approach is that you can continue to work, and the maintainer of the main repository can pull in your changes at any time. Contributors don’t have to wait for the project to incorporate their changes — each party can work at their own pace.</p>
 
-<p>What happens if you create a new branch? Well, doing so creates a new pointer for you to move around. Let’s say you create a new branch called testing. You do this with the <code>git branch</code> command:</p>
+<h3>Dictator and Lieutenants Workflow</h3>
 
-<pre><code>$ git branch testing</code></pre>
+<p>This is a variant of a multiple-repository workflow. It’s generally used by huge projects with hundreds of collaborators; one famous example is the Linux kernel. Various integration managers are in charge of certain parts of the repository; they’re called lieutenants. All the lieutenants have one integration manager known as the benevolent dictator. The benevolent dictator’s repository serves as the reference repository from which all the collaborators need to pull. The process works like this (see Figure 5-3):</p>
 
-<p>This creates a new pointer at the same commit you’re currently on (see Figure 3-4).</p>
+<ol><li>Regular developers work on their topic branch and rebase their work on top of master. The master branch is that of the dictator.</li><li>Lieutenants merge the developers’ topic branches into their master branch.</li><li>The dictator merges the lieutenants’ master branches into the dictator’s master branch.</li><li>The dictator pushes their master to the reference repository so the other developers can rebase on it.</li></ol>
 
-<p><img src="../../book_src/figures/18333fig0304-tn.png"></br>
-Figure 3-4. Multiple branches pointing into the commit’s data history.</p>
+<p><img src="../../book_src/figures/18333fig0503-tn.png"></br>
+Figure 5-3. Benevolent dictator workflow.</p>
 
-<p>How does Git know what branch you’re currently on? It keeps a special pointer called HEAD. Note that this is a lot different than the concept of HEAD in other VCSs you may be used to, such as Subversion or CVS. In Git, this is a pointer to the local branch you’re currently on. In this case, you’re still on master. The git branch command only created a new branch — it didn’t switch to that branch (see Figure 3-5).</p>
+<p>This kind of workflow isn’t common but can be useful in very big projects or in highly hierarchical environments, as it allows the project leader (the dictator) to delegate much of the work and collect large subsets of code at multiple points before integrating them.</p>
 
-<p><img src="../../book_src/figures/18333fig0305-tn.png"></br>
-Figure 3-5. HEAD file pointing to the branch you’re on.</p>
+<p>These are some commonly used workflows that are possible with a distributed system like Git, but you can see that many variations are possible to suit your particular real-world workflow. Now that you can (I hope) determine which workflow combination may work for you, I’ll cover some more specific examples of how to accomplish the main roles that make up the different flows.</p>
 
-<p>To switch to an existing branch, you run the <code>git checkout</code> command. Let’s switch to the new testing branch:</p>
-
-<pre><code>$ git checkout testing</code></pre>
-
-<p>This moves HEAD to point to the testing branch (see Figure 3-6).</p>
-
-<p><img src="../../book_src/figures/18333fig0306-tn.png"></br>
-Figure 3-6. HEAD points to another branch when you switch branches.</p>
-
-<p>What is the significance of that? Well, let’s do another commit:</p>
-
-<pre><code>$ vim test.rb
-$ git commit -a -m &#39;made a change&#39;</code></pre>
-
-<p>Figure 3-7 illustrates the result.</p>
-
-<p><img src="../../book_src/figures/18333fig0307-tn.png"></br>
-Figure 3-7. The branch that HEAD points to moves forward with each commit.</p>
-
-<p>This is interesting, because now your testing branch has moved forward, but your <code>master</code> branch still points to the commit you were on when you ran <code>git checkout</code> to switch branches. Let’s switch back to the <code>master</code> branch:</p>
-
-<pre><code>$ git checkout master</code></pre>
-
-<p>Figure 3-8 shows the result.</p>
-
-<p><img src="../../book_src/figures/18333fig0308-tn.png"></br>
-Figure 3-8. HEAD moves to another branch on a checkout.</p>
-
-<p>That command did two things. It moved the HEAD pointer back to point to the <code>master</code> branch, and it reverted the files in your working directory back to the snapshot that <code>master</code> points to. This also means the changes you make from this point forward will diverge from an older version of the project. It essentially rewinds the work you’ve done in your testing branch temporarily so you can go in a different direction.</p>
-
-<p>Let’s make a few changes and commit again:</p>
-
-<pre><code>$ vim test.rb
-$ git commit -a -m &#39;made other changes&#39;</code></pre>
-
-<p>Now your project history has diverged (see Figure 3-9). You created and switched to a branch, did some work on it, and then switched back to your main branch and did other work. Both of those changes are isolated in separate branches: you can switch back and forth between the branches and merge them together when you’re ready. And you did all that with simple <code>branch</code> and <code>checkout</code> commands.</p>
-
-<p><img src="../../book_src/figures/18333fig0309-tn.png"></br>
-Figure 3-9. The branch histories have diverged.</p>
-
-<p>Because a branch in Git is in actuality a simple file that contains the 40 character SHA-1 checksum of the commit it points to, branches are cheap to create and destroy. Creating a new branch is as quick and simple as writing 41 bytes to a file (40 characters and a newline).</p>
-
-<p>This is in sharp contrast to the way most VCS tools branch, which involves copying all of the project’s files into a second directory. This can take several seconds or even minutes, depending on the size of the project, whereas in Git the process is always instantaneous. Also, because we’re recording the parents when we commit, finding a proper merge base for merging is automatically done for us and is generally very easy to do. These features help encourage developers to create and use branches often.</p>
-
-<p>Let’s see why you should do so.</p>
-
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Branching</li><li><a href="ch5_1.html">What a Branch Is</a></li><li><a href="ch5_2.html">Basic Branching and Merging</a></li><li><a href="ch5_3.html">Branch Management</a></li><li><a href="ch5_4.html">Branching Workflows</a></li><li><a href="ch5_5.html">Remote Branches</a></li><li><a href="ch5_6.html">Rebasing</a></li><li><a href="ch5_7.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-4 11:51:53， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Distributed Git</li><li><a href="ch5_1.html">Distributed Workflows</a></li><li><a href="ch5_2.html">Contributing to a Project</a></li><li><a href="ch5_3.html">Maintaining a Project</a></li><li><a href="ch5_4.html">Summary</a></li></ul></div></div><div class="footer">构建时间： 2013-3-5 20:58:39， 书籍源码版本： <a href="https://github.com/progit/progit/tree/9b390c2a34c7177bf482b3149a7a49613c670456" target="_blank">9b390c2</a></div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
