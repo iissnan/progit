@@ -1,0 +1,56 @@
+extends layout
+
+block header
+    link(rel="stylesheet", type="text/css", href="assets/vendor/bootstrap/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="assets/css/main.css")
+    link(rel="shortcut icon", type="images/x-icon", href="assets/img/favicon.ico")
+
+block navZh
+    li
+        a(href="index.html") 0 目录
+block navEn
+    li
+        a(href="index.en.html") 0 Tables Of Contents
+block navAbout
+    li
+        a(href="about.html") 关于
+
+block row
+    div.span10
+        h3 关于「Pro Git」这本书：
+        p
+            | The entire Pro Git book
+            | , written by Scott Chacon and published by Apress, is available &nbsp;
+            a(href="http://www.git-scm.com/book", target="_blank") here
+            |. All content is licensed under the &nbsp;
+            a(href="http://creativecommons.org/licenses/by-nc-sa/3.0/", target="_blank") Creative Commons Attribution Non Commercial Share Alike 3.0 license
+            |. Print versions of the book are available on &nbsp;
+            a(href="http://www.amazon.com/gp/product/1430218339?ie=UTF8&tag=prgi-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430218339", target="_blank") Amazon.com.
+
+        p
+            | 非常感谢中文版本翻译的朋友。
+
+        h3 关于这个站点：
+        div
+            p
+                | 「Pro Git」是无疑入门git的极佳教材，并且这本书是完全免费的！源文件托管在
+                a(href="https://github.com/progit/progit", target="_blank") github
+                |。
+            p
+                | 但自从在线地址并入
+                a(href="http://git-scm.com/", target="blank") git官方网站
+                | 后就被白名单认证了。由此以来，想翻阅在线HTML版本就极为麻烦。
+            p
+                | 恰巧最近接触
+                a(href="http://nodejs.org", target="_blank") Node.js
+                | ，故萌生了制作这个站点的想法。
+
+        h3 反馈
+        ul
+            li 如果发现有翻译上的错误，可以在github上将<a href="https://github.com/progit/progit/" target="_blank">Pro Git源代码</a>fork一份，修改后发送一个pull request。
+            li 如果站点发生错误，可以<a href="https://github.com/iissnan/progit/issues" target="_blank">这里</a>提交反馈，十分感谢~</a>
+
+
+block prepend scripts
+    script(src="assets/vendor/jquery/jquery.min.js")
+    script(src="assets/vendor/bootstrap/js/bootstrap.min.js")
