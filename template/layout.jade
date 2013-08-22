@@ -10,25 +10,7 @@ html
         div.navbar.navbar-fixed-top.navbar-inverse
             div.navbar-inner
                 div.container
-                    ul.nav
-                        li.dropdown
-                            a.dropdown-toggle(data-toggle="dropdown", href="#") 简体中文版
-                                b.caret
-                            ul.dropdown-menu(role="menu")
-                                block navZh
-                                div.divider
-                                !{chapterLinksZh}
-
-                        li.dropdown
-                            a.dropdown-toggle(data-toggle="dropdown", href="#") 英文版
-                                b.caret
-                            ul.dropdown-menu(role="menu")
-                                block navEn
-                                div.divider
-                                !{chapterLinksEn}
-                    ul.nav.pull-right
-                        block navAbout
-
+                    !{menu}
 
 
         div.container#main

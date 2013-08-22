@@ -1,9 +1,10 @@
 {
-    "name": "pages.for.pro.git.book",
-    "version": "0.0.1",
+    "name": "Host.ProGit.book.on.Github",
+    "version": "0.0.2.1",
     "devDependencies": {
         "markdown": "latest",
         "jade": "latest",
+        "moment": "latest",
         "execSync": "latest"
     }
 }
