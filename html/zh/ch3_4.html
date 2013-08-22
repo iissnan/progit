@@ -1,0 +1,41 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git 简体中文版 Git 分支 - 利用分支进行开发的工作流程</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>利用分支进行开发的工作流程</h2>
+
+<p>现在我们已经学会了新建分支和合并分支，可以（或应该）用它来做点什么呢？在本节，我们会介绍一些利用分支进行开发的工作流程。而正是由于分支管理的便捷，才衍生出了这类典型的工作模式，你可以根据项目的实际情况选择一种用用看。</p>
+
+<h3>长期分支</h3>
+
+<p>由于 Git 使用简单的三方合并，所以就算在较长一段时间内，反复多次把某个分支合并到另一分支，也不是什么难事。也就是说，你可以同时拥有多个开放的分支，每个分支用于完成特定的任务，随着开发的推进，你可以随时把某个特性分支的成果并到其他分支中。</p>
+
+<p>许多使用 Git 的开发者都喜欢用这种方式来开展工作，比如仅在 <code>master</code> 分支中保留完全稳定的代码，即已经发布或即将发布的代码。与此同时，他们还有一个名为 <code>develop</code> 或 <code>next</code> 的平行分支，专门用于后续的开发，或仅用于稳定性测试 — 当然并不是说一定要绝对稳定，不过一旦进入某种稳定状态，便可以把它合并到 <code>master</code> 里。这样，在确保这些已完成的特性分支（短期分支，比如之前的 <code>iss53</code> 分支）能够通过所有测试，并且不会引入更多错误之后，就可以并到主干分支中，等待下一次的发布。</p>
+
+<p>本质上我们刚才谈论的，是随着提交对象不断右移的指针。稳定分支的指针总是在提交历史中落后一大截，而前沿分支总是比较靠前（见图 3-18）。</p>
+
+<p><img src="../../book_src/figures/18333fig0318-tn.png"></br> 
+图 3-18. 稳定分支总是比较老旧。</p>
+
+<p>或者把它们想象成工作流水线，或许更好理解一些，经过测试的提交对象集合被遴选到更稳定的流水线（见图 3-19）。</p>
+
+<p><img src="../../book_src/figures/18333fig0319-tn.png"></br> 
+图 3-19. 想象成流水线可能会容易点。</p>
+
+<p>你可以用这招维护不同层次的稳定性。某些大项目还会有个 <code>proposed</code>（建议）或 <code>pu</code>（proposed updates，建议更新）分支，它包含着那些可能还没有成熟到进入 <code>next</code> 或 <code>master</code> 的内容。这么做的目的是拥有不同层次的稳定性：当这些分支进入到更稳定的水平时，再把它们合并到更高层分支中去。再次说明下，使用多个长期分支的做法并非必需，不过一般来说，对于特大型项目或特复杂的项目，这么做确实更容易管理。</p>
+
+<h3>特性分支</h3>
+
+<p>在任何规模的项目中都可以使用特性（Topic）分支。一个特性分支是指一个短期的，用来实现单一特性或与其相关工作的分支。可能你在以前的版本控制系统里从未做过类似这样的事情，因为通常创建与合并分支消耗太大。然而在 Git 中，一天之内建立、使用、合并再删除多个分支是常见的事。</p>
+
+<p>我们在上节的例子里已经见过这种用法了。我们创建了 <code>iss53</code> 和 <code>hotfix</code> 这两个特性分支，在提交了若干更新后，把它们合并到主干分支，然后删除。该技术允许你迅速且完全的进行语境切换 — 因为你的工作分散在不同的流水线里，每个分支里的改变都和它的目标特性相关，浏览代码之类的事情因而变得更简单了。你可以把作出的改变保持在特性分支中几分钟，几天甚至几个月，等它们成熟以后再合并，而不用在乎它们建立的顺序或者进度。</p>
+
+<p>现在我们来看一个实际的例子。请看图 3-20，由下往上，起先我们在 <code>master</code> 工作到 C1，然后开始一个新分支 <code>iss91</code> 尝试修复 91 号缺陷，提交到 C6 的时候，又冒出一个解决该问题的新办法，于是从之前 C4 的地方又分出一个分支 <code>iss91v2</code>，干到 C8 的时候，又回到主干 <code>master</code> 中提交了 C9 和 C10，再回到 <code>iss91v2</code> 继续工作，提交 C11，接着，又冒出个不太确定的想法，从 <code>master</code> 的最新提交 C10 处开了个新的分支 <code>dumbidea</code> 做些试验。</p>
+
+<p><img src="../../book_src/figures/18333fig0320-tn.png"></br> 
+图 3-20. 拥有多个特性分支的提交历史。</p>
+
+<p>现在，假定两件事情：我们最终决定使用第二个解决方案，即 <code>iss91v2</code> 中的办法；另外，我们把 <code>dumbidea</code> 分支拿给同事们看了以后，发现它竟然是个天才之作。所以接下来，我们准备抛弃原来的 <code>iss91</code> 分支（实际上会丢弃 C5 和 C6），直接在主干中并入另外两个分支。最终的提交历史将变成图 3-21 这样：</p>
+
+<p><img src="../../book_src/figures/18333fig0321-tn.png"></br> 
+图 3-21. 合并了 dumbidea 和 iss91v2 后的分支历史。</p>
+
+<p>请务必牢记这些分支全部都是本地分支，这一点很重要。当你在使用分支及合并的时候，一切都是在你自己的 Git 仓库中进行的 — 完全不涉及与服务器的交互。</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 分支</li><li><a href="ch3_1.html">何谓分支</a></li><li><a href="ch3_2.html">分支的新建与合并</a></li><li><a href="ch3_3.html">分支的管理</a></li><li><a href="ch3_4.html">利用分支进行开发的工作流程</a></li><li><a href="ch3_5.html">远程分支</a></li><li><a href="ch3_6.html">分支的衍合</a></li><li><a href="ch3_7.html">小结</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:26:35. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

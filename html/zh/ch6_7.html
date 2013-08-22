@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git 简体中文版 Git 工具 - 子树合并</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>子树合并</h2>
+
+<p>现在你已经看到了子模块系统的麻烦之处，让我们来看一下解决相同问题的另一途径。当 Git 归并时，它会检查需要归并的内容然后选择一个合适的归并策略。如果你归并的分支是两个，Git使用一个<em>递归</em>策略。如果你归并的分支超过两个，Git采用<em>章鱼</em>策略。这些策略是自动选择的，因为递归策略可以处理复杂的三路归并情况——比如多于一个共同祖先的——但是它只能处理两个分支的归并。章鱼归并可以处理多个分支但是但必须更加小心以避免冲突带来的麻烦，因此它被选中作为归并两个以上分支的默认策略。</p>
+
+<p>实际上，你也可以选择其他策略。其中的一个就是<em>子树</em>归并，你可以用它来处理子项目问题。这里你会看到如何换用子树归并的方法来实现前一节里所做的 rack 的嵌入。</p>
+
+<p>子树归并的思想是你拥有两个工程，其中一个项目映射到另外一个项目的子目录中，反过来也一样。当你指定一个子树归并，Git可以聪明地探知其中一个是另外一个的子树从而实现正确的归并——这相当神奇。</p>
+
+<p>首先你将 Rack 应用加入到项目中。你将 Rack 项目当作你项目中的一个远程引用，然后将它检出到它自身的分支：</p>
+
+<pre><code>$ git remote add rack_remote git@github.com:schacon/rack.git
+$ git fetch rack_remote
+warning: no common commits
+remote: Counting objects: 3184, done.
+remote: Compressing objects: 100% (1465/1465), done.
+remote: Total 3184 (delta 1952), reused 2770 (delta 1675)
+Receiving objects: 100% (3184/3184), 677.42 KiB | 4 KiB/s, done.
+Resolving deltas: 100% (1952/1952), done.
+From git@github.com:schacon/rack
+ * [new branch]      build      -&gt; rack_remote/build
+ * [new branch]      master     -&gt; rack_remote/master
+ * [new branch]      rack-0.4   -&gt; rack_remote/rack-0.4
+ * [new branch]      rack-0.9   -&gt; rack_remote/rack-0.9
+$ git checkout -b rack_branch rack_remote/master
+Branch rack_branch set up to track remote branch refs/remotes/rack_remote/master.
+Switched to a new branch &quot;rack_branch&quot;</code></pre>
+
+<p>现在在你的<code>rack_branch</code>分支中就有了Rack项目的根目录，而你自己的项目在<code>master</code>分支中。如果你先检出其中一个然后另外一个，你会看到它们有不同的项目根目录：</p>
+
+<pre><code>$ ls
+AUTHORS	       KNOWN-ISSUES   Rakefile      contrib	       lib
+COPYING	       README         bin           example	       test
+$ git checkout master
+Switched to branch &quot;master&quot;
+$ ls
+README</code></pre>
+
+<p>要将 Rack 项目当作子目录拉取到你的<code>master</code>项目中。你可以在 Git 中用<code>git read-tree</code>来实现。你会在第9章学到更多与<code>read-tree</code>和它的朋友相关的东西，当前你会知道它读取一个分支的根目录树到当前的暂存区和工作目录。你只要切换回你的<code>master</code>分支，然后拉取<code>rack</code>分支到你主项目的<code>master</code>分支的<code>rack</code>子目录：</p>
+
+<pre><code>$ git read-tree --prefix=rack/ -u rack_branch</code></pre>
+
+<p>当你提交的时候，看起来就像你在那个子目录下拥有Rack的文件——就像你从一个tarball里拷贝的一样。有意思的是你可以比较容易地归并其中一个分支的变更到另外一个。因此，如果 Rack 项目更新了，你可以通过切换到那个分支并执行拉取来获得上游的变更：</p>
+
+<pre><code>$ git checkout rack_branch
+$ git pull</code></pre>
+
+<p>然后，你可以将那些变更归并回你的 master 分支。你可以使用<code>git merge -s subtree</code>，它会工作的很好；但是 Git 同时会把历史归并到一起，这可能不是你想要的。为了拉取变更并预置提交说明，需要在<code>-s subtree</code>策略选项的同时使用<code>--squash</code>和<code>--no-commit</code>选项。</p>
+
+<pre><code>$ git checkout master
+$ git merge --squash -s subtree --no-commit rack_branch
+Squash commit -- not updating HEAD
+Automatic merge went well; stopped before committing as requested</code></pre>
+
+<p>所有 Rack 项目的变更都被归并可以进行本地提交。你也可以做相反的事情——在你主分支的<code>rack</code>目录里进行变更然后归并回<code>rack_branch</code>分支，然后将它们提交给维护者或者推送到上游。</p>
+
+<p>为了得到<code>rack</code>子目录和你<code>rack_branch</code>分支的区别——以决定你是否需要归并它们——你不能使用一般的<code>diff</code>命令。而是对你想比较的分支运行<code>git diff-tree</code>：</p>
+
+<pre><code>$ git diff-tree -p rack_branch</code></pre>
+
+<p>或者，为了比较你的<code>rack</code>子目录和服务器上你拉取时的<code>master</code>分支，你可以运行</p>
+
+<pre><code>$ git diff-tree -p rack_remote/master</code></pre>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 工具</li><li><a href="ch6_1.html">修订版本（Revision）选择</a></li><li><a href="ch6_2.html">交互式暂存</a></li><li><a href="ch6_3.html">储藏（Stashing）</a></li><li><a href="ch6_4.html">重写历史</a></li><li><a href="ch6_5.html">使用 Git 调试</a></li><li><a href="ch6_6.html">子模块</a></li><li><a href="ch6_7.html">子树合并</a></li><li><a href="ch6_8.html">总结</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:27:06. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

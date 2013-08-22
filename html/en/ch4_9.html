@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>ProGit Git on the Server - Git Daemon</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Git Daemon</h2>
+
+<p>For public, unauthenticated read access to your projects, you’ll want to move past the HTTP protocol and start using the Git protocol. The main reason is speed. The Git protocol is far more efficient and thus faster than the HTTP protocol, so using it will save your users time.</p>
+
+<p>Again, this is for unauthenticated read-only access. If you’re running this on a server outside your firewall, it should only be used for projects that are publicly visible to the world. If the server you’re running it on is inside your firewall, you might use it for projects that a large number of people or computers (continuous integration or build servers) have read-only access to, when you don’t want to have to add an SSH key for each.</p>
+
+<p>In any case, the Git protocol is relatively easy to set up. Basically, you need to run this command in a daemonized manner:</p>
+
+<pre><code>git daemon --reuseaddr --base-path=/opt/git/ /opt/git/</code></pre>
+
+<p><code>--reuseaddr</code> allows the server to restart without waiting for old connections to time out, the <code>--base-path</code> option allows people to clone projects without specifying the entire path, and the path at the end tells the Git daemon where to look for repositories to export. If you’re running a firewall, you’ll also need to punch a hole in it at port 9418 on the box you’re setting this up on.</p>
+
+<p>You can daemonize this process a number of ways, depending on the operating system you’re running. On an Ubuntu machine, you use an Upstart script. So, in the following file</p>
+
+<pre><code>/etc/event.d/local-git-daemon</code></pre>
+
+<p>you put this script:</p>
+
+<pre><code>start on startup
+stop on shutdown
+exec /usr/bin/git daemon \
+    --user=git --group=git \
+    --reuseaddr \
+    --base-path=/opt/git/ \
+    /opt/git/
+respawn</code></pre>
+
+<p>For security reasons, it is strongly encouraged to have this daemon run as a user with read-only permissions to the repositories — you can easily do this by creating a new user &#39;git-ro&#39; and running the daemon as them.  For the sake of simplicity we’ll simply run it as the same &#39;git&#39; user that Gitosis is running as.</p>
+
+<p>When you restart your machine, your Git daemon will start automatically and respawn if it goes down. To get it running without having to reboot, you can run this:</p>
+
+<pre><code>initctl start local-git-daemon</code></pre>
+
+<p>On other systems, you may want to use <code>xinetd</code>, a script in your <code>sysvinit</code> system, or something else — as long as you get that command daemonized and watched somehow.</p>
+
+<p>Next, you have to tell your Gitosis server which repositories to allow unauthenticated Git server-based access to. If you add a section for each repository, you can specify the ones from which you want your Git daemon to allow reading. If you want to allow Git protocol access for the <code>iphone_project</code>, you add this to the end of the <code>gitosis.conf</code> file:</p>
+
+<pre><code>[repo iphone_project]
+daemon = yes</code></pre>
+
+<p>When that is committed and pushed up, your running daemon should start serving requests for the project to anyone who has access to port 9418 on your server.</p>
+
+<p>If you decide not to use Gitosis, but you want to set up a Git daemon, you’ll have to run this on each project you want the Git daemon to serve:</p>
+
+<pre><code>$ cd /path/to/project.git
+$ touch git-daemon-export-ok</code></pre>
+
+<p>The presence of that file tells Git that it’s OK to serve this project without authentication.</p>
+
+<p>Gitosis can also control which projects GitWeb shows. First, you need to add something like the following to the <code>/etc/gitweb.conf</code> file:</p>
+
+<pre><code>$projects_list = &quot;/home/git/gitosis/projects.list&quot;;
+$projectroot = &quot;/home/git/repositories&quot;;
+$export_ok = &quot;git-daemon-export-ok&quot;;
+@git_base_url_list = (&#39;git://gitserver&#39;);</code></pre>
+
+<p>You can control which projects GitWeb lets users browse by adding or removing a <code>gitweb</code> setting in the Gitosis configuration file. For instance, if you want the <code>iphone_project</code> to show up on GitWeb, you make the <code>repo</code> setting look like this:</p>
+
+<pre><code>[repo iphone_project]
+daemon = yes
+gitweb = yes</code></pre>
+
+<p>Now, if you commit and push the project, GitWeb will automatically start showing the <code>iphone_project</code>.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git on the Server</li><li><a href="ch4_1.html">The Protocols</a></li><li><a href="ch4_2.html">Getting Git on a Server</a></li><li><a href="ch4_3.html">Generating Your SSH Public Key</a></li><li><a href="ch4_4.html">Setting Up the Server</a></li><li><a href="ch4_5.html">Public Access</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git Daemon</a></li><li><a href="ch4_10.html">Hosted Git</a></li><li><a href="ch4_11.html">Summary</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:25:29. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>ProGit Git Internals - The Refspec</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>The Refspec</h2>
+
+<p>Throughout this book, you’ve used simple mappings from remote branches to local references; but they can be more complex.
+Suppose you add a remote like this:</p>
+
+<pre><code>$ git remote add origin git@github.com:schacon/simplegit-progit.git</code></pre>
+
+<p>It adds a section to your <code>.git/config</code> file, specifying the name of the remote (<code>origin</code>), the URL of the remote repository, and the refspec for fetching:</p>
+
+<pre><code>[remote &quot;origin&quot;]
+       url = git@github.com:schacon/simplegit-progit.git
+       fetch = +refs/heads/*:refs/remotes/origin/*</code></pre>
+
+<p>The format of the refspec is an optional <code>+</code>, followed by <code>&lt;src&gt;:&lt;dst&gt;</code>, where <code>&lt;src&gt;</code> is the pattern for references on the remote side and <code>&lt;dst&gt;</code> is where those references will be written locally. The <code>+</code> tells Git to update the reference even if it isn’t a fast-forward.</p>
+
+<p>In the default case that is automatically written by a <code>git remote add</code> command, Git fetches all the references under <code>refs/heads/</code> on the server and writes them to <code>refs/remotes/origin/</code> locally. So, if there is a <code>master</code> branch on the server, you can access the log of that branch locally via</p>
+
+<pre><code>$ git log origin/master
+$ git log remotes/origin/master
+$ git log refs/remotes/origin/master</code></pre>
+
+<p>They’re all equivalent, because Git expands each of them to <code>refs/remotes/origin/master</code>.</p>
+
+<p>If you want Git instead to pull down only the <code>master</code> branch each time, and not every other branch on the remote server, you can change the fetch line to</p>
+
+<pre><code>fetch = +refs/heads/master:refs/remotes/origin/master</code></pre>
+
+<p>This is just the default refspec for <code>git fetch</code> for that remote. If you want to do something one time, you can specify the refspec on the command line, too. To pull the <code>master</code> branch on the remote down to <code>origin/mymaster</code> locally, you can run</p>
+
+<pre><code>$ git fetch origin master:refs/remotes/origin/mymaster</code></pre>
+
+<p>You can also specify multiple refspecs. On the command line, you can pull down several branches like so:</p>
+
+<pre><code>$ git fetch origin master:refs/remotes/origin/mymaster \
+   topic:refs/remotes/origin/topic
+From git@github.com:schacon/simplegit
+ ! [rejected]        master     -&gt; origin/mymaster  (non fast forward)
+ * [new branch]      topic      -&gt; origin/topic</code></pre>
+
+<p>In this case, the  master branch pull was rejected because it wasn’t a fast-forward reference. You can override that by specifying the <code>+</code> in front of the refspec.</p>
+
+<p>You can also specify multiple refspecs for fetching in your configuration file. If you want to always fetch the master and experiment branches, add two lines:</p>
+
+<pre><code>[remote &quot;origin&quot;]
+       url = git@github.com:schacon/simplegit-progit.git
+       fetch = +refs/heads/master:refs/remotes/origin/master
+       fetch = +refs/heads/experiment:refs/remotes/origin/experiment</code></pre>
+
+<p>You can’t use partial globs in the pattern, so this would be invalid:</p>
+
+<pre><code>fetch = +refs/heads/qa*:refs/remotes/origin/qa*</code></pre>
+
+<p>However, you can use namespacing to accomplish something like that. If you have a QA team that pushes a series of branches, and you want to get the master branch and any of the QA team’s branches but nothing else, you can use a config section like this:</p>
+
+<pre><code>[remote &quot;origin&quot;]
+       url = git@github.com:schacon/simplegit-progit.git
+       fetch = +refs/heads/master:refs/remotes/origin/master
+       fetch = +refs/heads/qa/*:refs/remotes/origin/qa/*</code></pre>
+
+<p>If you have a complex workflow process that has a QA team pushing branches, developers pushing branches, and integration teams pushing and collaborating on remote branches, you can namespace them easily this way.</p>
+
+<h3>Pushing Refspecs</h3>
+
+<p>It’s nice that you can fetch namespaced references that way, but how does the QA team get their branches into a <code>qa/</code> namespace in the first place? You accomplish that by using refspecs to push.</p>
+
+<p>If the QA team wants to push their <code>master</code> branch to <code>qa/master</code> on the remote server, they can run</p>
+
+<pre><code>$ git push origin master:refs/heads/qa/master</code></pre>
+
+<p>If they want Git to do that automatically each time they run <code>git push origin</code>, they can add a <code>push</code> value to their config file:</p>
+
+<pre><code>[remote &quot;origin&quot;]
+       url = git@github.com:schacon/simplegit-progit.git
+       fetch = +refs/heads/*:refs/remotes/origin/*
+       push = refs/heads/master:refs/heads/qa/master</code></pre>
+
+<p>Again, this will cause a <code>git push origin</code> to push the local <code>master</code> branch to the remote <code>qa/master</code> branch by default.</p>
+
+<h3>Deleting References</h3>
+
+<p>You can also use the refspec to delete references from the remote server by running something like this:</p>
+
+<pre><code>$ git push origin :topic</code></pre>
+
+<p>Because the refspec is <code>&lt;src&gt;:&lt;dst&gt;</code>, by leaving off the <code>&lt;src&gt;</code> part, this basically says to make the topic branch on the remote nothing, which deletes it.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Internals</li><li><a href="ch9_1.html">Plumbing and Porcelain</a></li><li><a href="ch9_2.html">Git Objects</a></li><li><a href="ch9_3.html">Git References</a></li><li><a href="ch9_4.html">Packfiles</a></li><li><a href="ch9_5.html">The Refspec</a></li><li><a href="ch9_6.html">Transfer Protocols</a></li><li><a href="ch9_7.html">Maintenance and Data Recovery</a></li><li><a href="ch9_8.html">Summary</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:26:04. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

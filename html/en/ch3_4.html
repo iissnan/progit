@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>ProGit Git Branching - Branching Workflows</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Branching Workflows</h2>
+
+<p>Now that you have the basics of branching and merging down, what can or should you do with them? In this section, we’ll cover some common workflows that this lightweight branching makes possible, so you can decide if you would like to incorporate it into your own development cycle.</p>
+
+<h3>Long-Running Branches</h3>
+
+<p>Because Git uses a simple three-way merge, merging from one branch into another multiple times over a long period is generally easy to do. This means you can have several branches that are always open and that you use for different stages of your development cycle; you can merge regularly from some of them into others.</p>
+
+<p>Many Git developers have a workflow that embraces this approach, such as having only code that is entirely stable in their <code>master</code> branch — possibly only code that has been or will be released. They have another parallel branch named develop or next that they work from or use to test stability — it isn’t necessarily always stable, but whenever it gets to a stable state, it can be merged into <code>master</code>. It’s used to pull in topic branches (short-lived branches, like your earlier <code>iss53</code> branch) when they’re ready, to make sure they pass all the tests and don’t introduce bugs.</p>
+
+<p>In reality, we’re talking about pointers moving up the line of commits you’re making. The stable branches are farther down the line in your commit history, and the bleeding-edge branches are farther up the history (see Figure 3-18).</p>
+
+<p><img src="../../book_src/figures/18333fig0318-tn.png"></br>
+Figure 3-18. More stable branches are generally farther down the commit history.</p>
+
+<p>It’s generally easier to think about them as work silos, where sets of commits graduate to a more stable silo when they’re fully tested (see Figure 3-19).</p>
+
+<p><img src="../../book_src/figures/18333fig0319-tn.png"></br>
+Figure 3-19. It may be helpful to think of your branches as silos.</p>
+
+<p>You can keep doing this for several levels of stability. Some larger projects also have a <code>proposed</code> or <code>pu</code> (proposed updates) branch that has integrated branches that may not be ready to go into the <code>next</code> or <code>master</code> branch. The idea is that your branches are at various levels of stability; when they reach a more stable level, they’re merged into the branch above them.
+Again, having multiple long-running branches isn’t necessary, but it’s often helpful, especially when you’re dealing with very large or complex projects.</p>
+
+<h3>Topic Branches</h3>
+
+<p>Topic branches, however, are useful in projects of any size. A topic branch is a short-lived branch that you create and use for a single particular feature or related work. This is something you’ve likely never done with a VCS before because it’s generally too expensive to create and merge branches. But in Git it’s common to create, work on, merge, and delete branches several times a day.</p>
+
+<p>You saw this in the last section with the <code>iss53</code> and <code>hotfix</code> branches you created. You did a few commits on them and deleted them directly after merging them into your main branch. This technique allows you to context-switch quickly and completely — because your work is separated into silos where all the changes in that branch have to do with that topic, it’s easier to see what has happened during code review and such. You can keep the changes there for minutes, days, or months, and merge them in when they’re ready, regardless of the order in which they were created or worked on.</p>
+
+<p>Consider an example of doing some work (on <code>master</code>), branching off for an issue (<code>iss91</code>), working on it for a bit, branching off the second branch to try another way of handling the same thing (<code>iss91v2</code>), going back to your master branch and working there for a while, and then branching off there to do some work that you’re not sure is a good idea (<code>dumbidea</code> branch). Your commit history will look something like Figure 3-20.</p>
+
+<p><img src="../../book_src/figures/18333fig0320-tn.png"></br>
+Figure 3-20. Your commit history with multiple topic branches.</p>
+
+<p>Now, let’s say you decide you like the second solution to your issue best (<code>iss91v2</code>); and you showed the <code>dumbidea</code> branch to your coworkers, and it turns out to be genius. You can throw away the original <code>iss91</code> branch (losing commits C5 and C6) and merge in the other two. Your history then looks like Figure 3-21.</p>
+
+<p><img src="../../book_src/figures/18333fig0321-tn.png"></br>
+Figure 3-21. Your history after merging in dumbidea and iss91v2.</p>
+
+<p>It’s important to remember when you’re doing all this that these branches are completely local. When you’re branching and merging, everything is being done only in your Git repository — no server communication is happening.</p>
+
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Branching</li><li><a href="ch3_1.html">What a Branch Is</a></li><li><a href="ch3_2.html">Basic Branching and Merging</a></li><li><a href="ch3_3.html">Branch Management</a></li><li><a href="ch3_4.html">Branching Workflows</a></li><li><a href="ch3_5.html">Remote Branches</a></li><li><a href="ch3_6.html">Rebasing</a></li><li><a href="ch3_7.html">Summary</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:25:14. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
