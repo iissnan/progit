@@ -1,17 +1,17 @@
-var Builder = require("../lib/converter.js").Converter;
+var Converter = require("../lib/converter.js");
 var fs = require("fs");
 
 module.exports = {
     setUp: function (callback) {
-        this.zh = new Builder({translation: "zh", default: true});
-        this.en = new Builder({translation: "en"});
+        this.zh = Converter.convert("zh");
+        this.en = Converter.convert("en");
 
         callback();
     },
 
     testNew: function (test) {
-        test.throws(function () { new Builder(); });
-        test.throws(function () { new Builder({translation: "abcd"}); } );
+        test.throws(function () { Converter.convert(); });
+        test.throws(function () { Converter.convert("abcd"); } );
         test.done();
     },
 
