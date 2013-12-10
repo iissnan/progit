@@ -17,14 +17,14 @@ selse = Someo Nelse &lt;selse@geemail.com&gt;</code></pre>
 
 <p>To get a list of the author names that SVN uses, you can run this:</p>
 
-<pre><code>$ svn log --xml | grep -P &quot;^&lt;author&quot; | sort -u | \
+<pre><code>$ svn log ^/ --xml | grep -P &quot;^&lt;author&quot; | sort -u | \
       perl -pe &#39;s/&lt;author&gt;(.*?)&lt;\/author&gt;/$1 = /&#39; &gt; users.txt</code></pre>
 
 <p>That gives you the log output in XML format — you can look for the authors, create a unique list, and then strip out the XML. (Obviously this only works on a machine with <code>grep</code>, <code>sort</code>, and <code>perl</code> installed.) Then, redirect that output into your users.txt file so you can add the equivalent Git user data next to each entry.</p>
 
 <p>You can provide this file to <code>git svn</code> to help it map the author data more accurately. You can also tell <code>git svn</code> not to include the metadata that Subversion normally imports, by passing <code>--no-metadata</code> to the <code>clone</code> or <code>init</code> command. This makes your <code>import</code> command look like this:</p>
 
-<pre><code>$ git-svn clone http://my-project.googlecode.com/svn/ \
+<pre><code>$ git svn clone http://my-project.googlecode.com/svn/ \
       --authors-file=users.txt --no-metadata -s my_project</code></pre>
 
 <p>Now you should have a nicer Subversion import in your <code>my_project</code> directory. Instead of commits that look like this</p>
@@ -340,4 +340,4 @@ file.rb  lib</code></pre>
 
 <p>You can do a lot more with the <code>fast-import</code> tool — handle different modes, binary data, multiple branches and merging, tags, progress indicators, and more. A number of examples of more complex scenarios are available in the <code>contrib/fast-import</code> directory of the Git source code; one of the better ones is the <code>git-p4</code> script I just covered.</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git and Other Systems</li><li><a href="ch8_1.html">Git and Subversion</a></li><li><a href="ch8_2.html">Migrating to Git</a></li><li><a href="ch8_3.html">Summary</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:25:56. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git and Other Systems</li><li><a href="ch8_1.html">Git and Subversion</a></li><li><a href="ch8_2.html">Migrating to Git</a></li><li><a href="ch8_3.html">Summary</a></li></ul></div></div><div class="footer">Build at: 2013-12-10 17:23:42,Source revision: <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

@@ -1,59 +1,59 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Pro Git 简体中文版 服务器上的 Git - Gitolite</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Gitolite</h2>
 
-<p>Note: the latest copy of this section of the ProGit book is always available within the <a href="http://sitaramc.github.com/gitolite/progit.html">gitolite documentation</a>.  The author would also like to humbly state that, while this section is accurate, and <em>can</em> (and often <em>has</em>) been used to install gitolite without reading any other documentation, it is of necessity not complete, and cannot completely replace the enormous amount of documentation that gitolite comes with.</p>
+<p>注：本书此段落的最新拷贝始终存在于<a href="http://sitaramc.github.com/gitolite/progit.html">gitolite documentation</a>.  作者谦虚地表示，尽管这个段落是精确的，可以（已经）用于安装gitolite而不用阅读其他的文档，但仍有必要不完整，并且不能完全替代随gitolite自带的大量文档。</p>
 
-<p>Git has started to become very popular in corporate environments, which tend to have some additional requirements in terms of access control.  Gitolite was originally created to help with those requirements, but it turns out that it&#39;s equally useful in the open source world: the Fedora Project controls access to their package management repositories (over 10,000 of them!) using gitolite, and this is probably the largest gitolite installation anywhere too.</p>
+<p>Git已经变成了非常流行的写作环境，并倾向于为了访问控制而增加额外的需求。Gitolite用于帮助这些需求而创建，但它变成了对开源世界同样有用的东西：Fedora项目使用gitolite控制访问他们的包管理仓库 (超过 10,000个包！) , 而且这也可能是最大的gitolite装置。</p>
 
-<p>Gitolite allows you to specify permissions not just by repository, but also by branch or tag names within each repository.  That is, you can specify that certain people (or groups of people) can only push certain &quot;refs&quot; (branches or tags) but not others.</p>
+<p>Gitolite 允许你定义访问许可而不只作用于仓库，而同样于仓库中的每个branch和tag name。你可以定义确切的人 (或一组人) 只能push特定的 &quot;refs&quot; (或者branches或者tags)而不是其他人。</p>
 
-<h3>Installing</h3>
+<h3>安装</h3>
 
-<p>Installing Gitolite is very easy, even if you don&#39;t read the extensive documentation that comes with it.  You need an account on a Unix server of some kind; various Linux flavours, and Solaris 10, have been tested.  You do not need root access, assuming git, perl, and an openssh compatible ssh server are already installed.  In the examples below, we will use the <code>gitolite</code> account on a host called <code>gitserver</code>.</p>
+<p>安装 Gitolite非常简单, 你甚至不用读自带的那一大堆文档。你需要一个unix服务器上的账户；许多linux变种和solaris 10都已经试过了。你不需要root访问，假设git，perl，和一个openssh兼容的ssh服务器已经装好了。在下面的例子里，我们会用 <code>gitolite</code> 账户在 <code>gitserver</code>上.</p>
 
-<p>Gitolite is somewhat unusual as far as &quot;server&quot; software goes -- access is via ssh, and so every userid on the server is a potential &quot;gitolite host&quot;.  As a result, there is a notion of &quot;installing&quot; the software itself, and then &quot;setting up&quot; a user as a &quot;gitolite host&quot;.</p>
+<p>Gitolite 是不同于 &quot;server&quot; 的软件 -- 通过ssh访问, 而且每个在服务器上的userid都是一个潜在的 &quot;gitolite host&quot;. 因此,  &quot;安装&quot; 这个软件的概念意味着安装它自身, 然后&quot;设置&quot; 一个用户作为 &quot;gitolite host&quot;.</p>
 
-<p>Gitolite has 4 methods of installation.  People using Fedora or Debian systems can obtain an RPM or a DEB and install that.  People with root access can install it manually.  In these two methods, any user on the system can then become a &quot;gitolite host&quot;.</p>
+<p>Gitolite 有4种安装方法。用 Fedora 或 Debian 的人可以获取一个 RPM或者 DEB安装。有root权限的人可以手动安装。在这两种方法中，任意系统上的用户变成一个 &quot;gitolite host&quot;。</p>
 
-<p>People without root access can install it within their own userids.  And finally, gitolite can be installed by running a script <em>on the workstation</em>, from a bash shell.  (Even the bash that comes with msysgit will do, in case you&#39;re wondering.)</p>
+<p>没有 root访问权限的人可以安装在他们自己的 userid 下面。最后，gitolite可以用一个“工作站上”的脚本在bash shell安装。(如果你想的话甚至msysgit带的bash就可以。)</p>
 
-<p>We will describe this last method in this article; for the other methods please see the documentation.</p>
+<p>我们要描述这个最后一个方法；其他方法请看文档。</p>
 
-<p>You start by obtaining public key based access to your server, so that you can log in from your workstation to the server without getting a password prompt.  The following method works on Linux; for other workstation OSs you may have to do this manually.  We assume you already had a key pair generated using <code>ssh-keygen</code>.</p>
+<p>首先你要获取一个访问服务器的公钥，你可以从你自己的工作站部属密码访问服务器。下面的方法在linux上管用；其他的工作站系统你可以手动做这些事。我们假设你已经用&#39;ssh-keygen&#39;生成了一对密钥。</p>
 
 <pre><code>$ ssh-copy-id -i ~/.ssh/id_rsa gitolite@gitserver</code></pre>
 
-<p>This will ask you for the password to the gitolite account, and then set up public key access.  This is <strong>essential</strong> for the install script, so check to make sure you can run a command without getting a password prompt:</p>
+<p>这会要你 gitolite账户的密码，然后设置公钥访问。这个对安装脚本非常 <strong>重要</strong>，所以试一下保证你可以不输密码：</p>
 
 <pre><code>$ ssh gitolite@gitserver pwd
 /home/gitolite</code></pre>
 
-<p>Next, you clone Gitolite from the project&#39;s main site and run the &quot;easy install&quot; script (the third argument is your name as you would like it to appear in the resulting gitolite-admin repository):</p>
+<p>接下俩，你 clone Gitolite从项目的主目录运行 &quot;easy install&quot; 脚本 (第三个参数是你的作为 gitolite-admin仓库用户的名字):</p>
 
 <pre><code>$ git clone git://github.com/sitaramc/gitolite
 $ cd gitolite/src
 $ ./gl-easy-install -q gitolite gitserver sitaram</code></pre>
 
-<p>And you&#39;re done!  Gitolite has now been installed on the server, and you now have a brand new repository called <code>gitolite-admin</code> in the home directory of your workstation.  You administer your gitolite setup by making changes to this repository and pushing.</p>
+<p>然后就完成了！Gitolite已经在服务器上装好了，现在你有一个全新的仓库叫做 <code>gitolite-admin</code> 在你工作站的 home目录。你管理你的 gitolite 安装通过改变这个项目和push。</p>
 
-<p>That last command does produce a fair amount of output, which might be interesting to read.  Also, the first time you run this, a new keypair is created; you will have to choose a passphrase or hit enter for none.  Why a second keypair is needed, and how it is used, is explained in the &quot;ssh troubleshooting&quot; document that comes with Gitolite.  (Hey the documentation has to be good for <em>something</em>!)</p>
+<p>最后的命令产生大量的输出，你可能想读一下。而且你第一次运行的时候会产生一对新密钥；你会选择密码或者什么都不输。为什么需要第二个密钥对以及怎么用在Gitolite带的 &quot;ssh troubleshooting&quot; 文件里解释了。 (文档肯定有点什么用！)</p>
 
-<p>Repos named <code>gitolite-admin</code> and <code>testing</code> are created on the server by default. If you wish to clone either of these locally (from an account that has SSH console access to the gitolite account via <em>authorized_keys</em>), type:</p>
+<p>叫做 <code>gitolite-admin</code> 和 <code>testing</code> 的仓库默认创建在服务器上。如果你想在本地 clone这些 (从一个有ssh控制台 gitolite通过 <em>authorized_keys</em>访问的用户)，输入：</p>
 
 <pre><code>$ git clone gitolite:gitolite-admin
 $ git clone gitolite:testing</code></pre>
 
-<p>To clone these same repos from any other account:</p>
+<p>clone 这些同样的仓库从任意其他账户：</p>
 
 <pre><code>$ git clone gitolite@servername:gitolite-admin
 $ git clone gitolite@servername:testing</code></pre>
 
-<h3>Customising the Install</h3>
+<h3>定制安装</h3>
 
-<p>While the default, quick, install works for most people, there are some ways to customise the install if you need to.  If you omit the <code>-q</code> argument, you get a &quot;verbose&quot; mode install -- detailed information on what the install is doing at each step.  The verbose mode also allows you to change certain server-side parameters, such as the location of the actual repositories, by editing an &quot;rc&quot; file that the server uses.  This &quot;rc&quot; file is liberally commented so you should be able to make any changes you need quite easily, save it, and continue.  This file also contains various settings that you can change to enable or disable some of gitolite&#39;s advanced features.</p>
+<p>默认快速安装对大多数人都管用，还有一些定制安装方法如果你用的上的话。如果你不用 <code>-q</code> 参数，则用 &quot;罗嗦&quot; 模式安装 -- 详细信息关于安装的每一步都在做什么。 罗嗦模式也允许你改变服务器端参数，诸如实际仓库的位置，通过编辑服务器使用的 &quot;rc&quot; 文件。这个 &quot;rc&quot; 有好多注释让你编辑的时候变得非常简单，保存退出。这个文件也包括了许多设置你能改变来启用或者禁用一些gitolite的高级功能。</p>
 
-<h3>Config File and Access Control Rules</h3>
+<h3>配置文件和访问规则</h3>
 
-<p>Once the install is done, you switch to the <code>gitolite-admin</code> repository (placed in your HOME directory) and poke around to see what you got:</p>
+<p>安装结束后，你切换到 <code>gitolite-admin</code> 仓库 (放在你的 HOME 目录) 然后看看都有啥：</p>
 
 <pre><code>$ cd ~/gitolite-admin/
 $ ls
@@ -71,11 +71,11 @@ repo gitolite-admin
 repo testing
     RW+                 = @all</code></pre>
 
-<p>Notice that &quot;sitaram&quot; (the last argument in the <code>gl-easy-install</code> command you gave earlier) has read-write permissions on the <code>gitolite-admin</code> repository as well as a public key file of the same name.</p>
+<p>注意 &quot;sitaram&quot; ( 之前用<code>gl-easy-install</code> 命令时候的最后一个参数) 有读写权限而且在 <code>gitolite-admin</code> 仓库里有一个同名的公钥文件。</p>
 
-<p>The config file syntax for gitolite is liberally documented in <code>conf/example.conf</code>, so we&#39;ll only mention some highlights here.</p>
+<p>gitolite配置文件的语法在 <code>conf/example.conf</code>里，我们只会提到一些主要的。</p>
 
-<p>You can group users or repos for convenience.  The group names are just like macros; when defining them, it doesn&#39;t even matter whether they are projects or users; that distinction is only made when you <em>use</em> the &quot;macro&quot;.</p>
+<p>你可以给用户或者仓库分组。分组名就像一些宏；定义的时候，无所谓他们是工程还是用户；区别在于你’使用‘“宏”的时候</p>
 
 <pre><code>@oss_repos      = linux perl rakudo git gitolite
 @secret_repos   = fenestra pear
@@ -85,7 +85,7 @@ repo testing
 @engineers      = sitaram dilbert wally alice
 @staff          = @admins @engineers @interns</code></pre>
 
-<p>You can control permissions at the &quot;ref&quot; level.  In the following example, interns can only push the &quot;int&quot; branch.  Engineers can push any branch whose name starts with &quot;eng-&quot;, and tags that start with &quot;rc&quot; followed by a digit.  And the admins can do anything (including rewind) to any ref.</p>
+<p>你可以控制许可在 &quot;ref&quot; 级别。在下面的例子里，实习生可以 push &quot;int&quot; branch.  工程师可以 push任何有 &quot;eng-&quot;开头的branch，还有refs/tags下面用 &quot;rc&quot;开头的后面跟数字的。而且管理员可以随便改 (包括rewind) 对任何参考名.</p>
 
 <pre><code>repo @oss_repos
     RW  int$                = @interns
@@ -93,38 +93,38 @@ repo testing
     RW  refs/tags/rc[0-9]   = @engineers
     RW+                     = @admins</code></pre>
 
-<p>The expression after the <code>RW</code> or <code>RW+</code> is a regular expression (regex) that the refname (ref) being pushed is matched against.  So we call it a &quot;refex&quot;!  Of course, a refex can be far more powerful than shown here, so don&#39;t overdo it if you&#39;re not comfortable with perl regexes.</p>
+<p>在 <code>RW</code> or <code>RW+</code>之后的表达式是正则表达式 (regex) 对应着后面的push用的参考名字 (ref) 。所以我们叫它 &quot;参考正则&quot;（refex）！当然，一个 refex 可以比这里表现的更强大，所以如果你对perl的正则表达式不熟的话就不要改过头。</p>
 
-<p>Also, as you probably guessed, Gitolite prefixes <code>refs/heads/</code> as a syntactic convenience if the refex does not begin with <code>refs/</code>.</p>
+<p>同样，你可能猜到了，Gitolite 字头 <code>refs/heads/</code> 是一个便捷句法如果参考正则没有用 <code>refs/</code>开头。</p>
 
-<p>An important feature of the config file&#39;s syntax is that all the rules for a repository need not be in one place.  You can keep all the common stuff together, like the rules for all <code>oss_repos</code> shown above, then add specific rules for specific cases later on, like so:</p>
+<p>一个这个配置文件语法的重要功能是，所有的仓库的规则不需要在同一个位置。你能报所有普通的东西放在一起，就像上面的对所有 <code>oss_repos</code> 的规则那样，然后建一个特殊的规则对后面的特殊案例，就像：</p>
 
 <pre><code>repo gitolite
     RW+                     = sitaram</code></pre>
 
-<p>That rule will just get added to the ruleset for the <code>gitolite</code> repository.</p>
+<p>那条规则刚刚加入规则集的 <code>gitolite</code> 仓库.</p>
 
-<p>At this point you might be wondering how the access control rules are actually applied, so let&#39;s go over that briefly.</p>
+<p>这次你可能会想要知道访问控制规则是如何应用的，我们简要介绍一下。</p>
 
-<p>There are two levels of access control in gitolite.  The first is at the repository level; if you have read (or write) access to <em>any</em> ref in the repository, then you have read (or write) access to the repository.</p>
+<p>在gitolite里有两级访问控制。第一是在仓库级别；如果你已经读或者写访问过了任何在仓库里的参考，那么你已经读或者写访问仓库了。</p>
 
-<p>The second level, applicable only to &quot;write&quot; access, is by branch or tag within a repository.  The username, the access being attempted (<code>W</code> or <code>+</code>), and the refname being updated are known.  The access rules are checked in order of appearance in the config file, looking for a match for this combination (but remember that the refname is regex-matched, not merely string-matched).  If a match is found, the push succeeds.  A fallthrough results in access being denied.</p>
+<p>第二级，应用只能写访问，通过在仓库里的 branch或者 tag。用户名如果尝试过访问 (<code>W</code> 或 <code>+</code>)，参考名被更新为已知。访问规则检查是否出现在配置文件里，为这个联合寻找匹配 (但是记得参考名是正则匹配的，不是字符串匹配的)。如果匹配被找到了，push就成功了。不匹配的访问会被拒绝。</p>
 
-<h3>Advanced Access Control with &quot;deny&quot; rules</h3>
+<h3>带&#39;拒绝&#39;的高级访问控制</h3>
 
-<p>So far, we&#39;ve only seen permissions to be one or <code>R</code>, <code>RW</code>, or <code>RW+</code>.  However, gitolite allows another permission: <code>-</code>, standing for &quot;deny&quot;.  This gives you a lot more power, at the expense of some complexity, because now fallthrough is not the <em>only</em> way for access to be denied, so the <em>order of the rules now matters</em>!</p>
+<p>目前，我们只看过了许可是 <code>R</code>, <code>RW</code>, 或者 <code>RW+</code>这样子的。但是gitolite还允许另外一种许可：<code>-</code>，代表 &quot;拒绝&quot;。这个给了你更多的能力，当然也有一点复杂，因为不匹配并不是唯一的拒绝访问的方法，因此规则的顺序变得无关了！</p>
 
-<p>Let us say, in the situation above, we want engineers to be able to rewind any branch <em>except</em> master and integ.  Here&#39;s how to do that:</p>
+<p>这么说好了，在前面的情况中，我们想要工程师可以 rewind 任意 branch 除了master和 integ。 这里是如何做到的</p>
 
 <pre><code>    RW  master integ    = @engineers
     -   master integ    = @engineers
     RW+                 = @engineers</code></pre>
 
-<p>Again, you simply follow the rules top down until you hit a match for your access mode, or a deny.  Non-rewind push to master or integ is allowed by the first rule.  A rewind push to those refs does not match the first rule, drops down to the second, and is therefore denied.  Any push (rewind or non-rewind) to refs other than master or integ won&#39;t match the first two rules anyway, and the third rule allows it.</p>
+<p>你再一次简单跟随规则从上至下知道你找到一个匹配你的访问模式的，或者拒绝。非rewind push到 master或者 integ 被第一条规则允许。一个 rewind push到那些 refs不匹配第一条规则，掉到第二条，因此被拒绝。任何 push (rewind 或非rewind) 到参考或者其他 master 或者 integ不会被前两条规则匹配，即被第三条规则允许。</p>
 
-<h3>Restricting pushes by files changed</h3>
+<h3>通过改变文件限制 push</h3>
 
-<p>In addition to restricting what branches a user can push changes to, you can also restrict what files they are allowed to touch.  For example, perhaps the Makefile (or some other program) is really not supposed to be changed by just anyone, because a lot of things depend on it or would break if the changes are not done <em>just right</em>.  You can tell gitolite:</p>
+<p>此外限制用户 push改变到哪条branch的，你也可以限制哪个文件他们可以碰的到。比如, 可能 Makefile (或者其他哪些程序) 真的不能被任何人做任何改动，因为好多东西都靠着它呢，或者如果某些改变刚好不对就会崩溃。你可以告诉 gitolite:</p>
 
 <pre><code>repo foo
     RW                  =   @junior_devs @senior_devs
@@ -133,31 +133,31 @@ repo testing
     -   NAME/Makefile   =   @junior_devs
     RW  NAME/           =   @junior_devs</code></pre>
 
-<p>This powerful feature is documented in <code>conf/example.conf</code>.</p>
+<p>这是一个强力的公能写在 <code>conf/example.conf</code>里。</p>
 
-<h3>Personal Branches</h3>
+<h3>个人分支</h3>
 
-<p>Gitolite also has a feature called &quot;personal branches&quot; (or rather, &quot;personal branch namespace&quot;) that can be very useful in a corporate environment.</p>
+<p>Gitolite 也支持一个叫 &quot;个人分支&quot;的功能 (或者叫, &quot;个人分支命名空间&quot;) 在合作环境里非常有用。</p>
 
-<p>A lot of code exchange in the git world happens by &quot;please pull&quot; requests.  In a corporate environment, however, unauthenticated access is a no-no, and a developer workstation cannot do authentication, so you have to push to the central server and ask someone to pull from there.</p>
+<p>在 git世界里许多代码交换通过 &quot;pull&quot; 请求发生。然而在合作环境里，委任制的访问是‘绝不’，一个开发者工作站不能认证，你必须push到中心服务器并且叫其他人从那里pull。</p>
 
-<p>This would normally cause the same branch name clutter as in a centralised VCS, plus setting up permissions for this becomes a chore for the admin.</p>
+<p>这个通常会引起一些 branch 名称簇变成像 VCS里一样集中化，加上设置许可变成管理员的苦差事。</p>
 
-<p>Gitolite lets you define a &quot;personal&quot; or &quot;scratch&quot; namespace prefix for each developer (for example, <code>refs/personal/&lt;devname&gt;/*</code>); see the &quot;personal branches&quot; section in <code>doc/3-faq-tips-etc.mkd</code> for details.</p>
+<p>Gitolite让你定义一个 &quot;个人的&quot; 或者 &quot;乱七八糟的&quot; 命名空间字首给每个开发人员 (比如，<code>refs/personal/&lt;devname&gt;/*</code>)；看在 <code>doc/3-faq-tips-etc.mkd</code>里的 &quot;personal branches&quot; 一段获取细节。</p>
 
-<h3>&quot;Wildcard&quot; repositories</h3>
+<h3>&quot;通配符&quot; 仓库</h3>
 
-<p>Gitolite allows you to specify repositories with wildcards (actually perl regexes), like, for example <code>assignments/s[0-9][0-9]/a[0-9][0-9]</code>, to pick a random example.  This is a <em>very</em> powerful feature, which has to be enabled by setting <code>$GL_WILDREPOS = 1;</code> in the rc file.  It allows you to assign a new permission mode (&quot;C&quot;) which allows users to create repositories based on such wild cards, automatically assigns ownership to the specific user who created it, allows him/her to hand out R and RW permissions to other users to collaborate, etc.  This feature is documented in <code>doc/4-wildcard-repositories.mkd</code>.</p>
+<p>Gitolite 允许你定义带通配符的仓库 (其实还是 perl正则式), 比如随便整个例子的话 <code>assignments/s[0-9][0-9]/a[0-9][0-9]</code>。 这是一个非常有用的功能，需要通过设置 <code>$GL_WILDREPOS = 1;</code> 在 rc文件中启用。允许你安排一个新许可模式 (&quot;C&quot;) 允许用户创建仓库基于通配符，自动分配拥有权对特定用户 - 创建者，允许他交出 R和 RW许可给其他合作用户等等。这个功能在<code>doc/4-wildcard-repositories.mkd</code>文档里</p>
 
-<h3>Other Features</h3>
+<h3>其他功能</h3>
 
-<p>We&#39;ll round off this discussion with a sampling of other features, all of which, and many more, are described in great detail in the &quot;faqs, tips, etc&quot; and other documents.</p>
+<p>我们用一些其他功能的例子结束这段讨论，这些以及其他功能都在 &quot;faqs, tips, etc&quot; 和其他文档里。</p>
 
-<p><strong>Logging</strong>: Gitolite logs all successful accesses.  If you were somewhat relaxed about giving people rewind permissions (<code>RW+</code>) and some kid blew away &quot;master&quot;, the log file is a life saver, in terms of easily and quickly finding the SHA that got hosed.</p>
+<p><strong>记录</strong>: Gitolite 记录所有成功的访问。如果你太放松给了别人 rewind许可 (<code>RW+</code>) 和其他孩子弄没了 &quot;master&quot;， 记录文件会救你的命，如果其他简单快速的找到SHA都不管用。</p>
 
-<p><strong>Git outside normal PATH</strong>: One extremely useful convenience feature in gitolite is support for git installed outside the normal <code>$PATH</code> (this is more common than you think; some corporate environments or even some hosting providers refuse to install things system-wide and you end up putting them in your own directories).  Normally, you are forced to make the <em>client-side</em> git aware of this non-standard location of the git binaries in some way.  With gitolite, just choose a verbose install and set <code>$GIT_PATH</code> in the &quot;rc&quot; files.  No client-side changes are required after that :-)</p>
+<p><strong>Git在通常路径外</strong>: 一个在gitolite里的超级有用的简单功能是支持git安装在通常的 <code>$PATH</code>之外 (这个比你想象的还要寻常；一些合作环境或者甚至一些主机提供商拒绝安装系统范围外的东西你只能放在自己的目录里)。通常，你被强迫用 <em>客户端</em> 用某种方法找到git 为这个非标准的位置。使用 gitolite，只要选择絮叨安装设置 <code>$GIT_PATH</code>在 &quot;rc&quot; 文件里。不用改变客户端然后 :-)。</p>
 
-<p><strong>Access rights reporting</strong>: Another convenient feature is what happens when you try and just ssh to the server.  Gitolite shows you what repos you have access to, and what that access may be.  Here&#39;s an example:</p>
+<p><strong>访问权报告</strong>: 另一个方便的功能是你尝试用ssh连接到服务器的时候发生了什么。Gitolite告诉你哪个 repos你访问过，那个访问可能是什么。这里是例子：</p>
 
 <pre><code>    hello sitaram, the gitolite version here is v1.5.4-19-ga3397d4
     the gitolite config gives you the following access:
@@ -169,10 +169,10 @@ repo testing
          R     indic_web_input
          R     shreelipi_converter</code></pre>
 
-<p><strong>Delegation</strong>: For really large installations, you can delegate responsibility for groups of repositories to various people and have them manage those pieces independently.  This reduces the load on the main admin, and makes him less of a bottleneck.  This feature has its own documentation file in the <code>doc/</code> directory.</p>
+<p><strong>委托</strong>：真正的大安装，你可以把责任委托给一组仓库给不同的人然后让他们独立管理那些部分。这个减少了主管理者的负担，让他瓶颈更小。这个功能在他自己的文档目录里的 <code>doc/</code>下面。</p>
 
-<p><strong>Gitweb support</strong>: Gitolite supports gitweb in several ways.  You can specify which repos are visible via gitweb.  You can set the &quot;owner&quot; and &quot;description&quot; for gitweb from the gitolite config file.  Gitweb has a mechanism for you to implement access control based on HTTP authentication, so you can make it use the &quot;compiled&quot; config file that gitolite produces, which means the same access control rules (for read access) apply for gitweb and gitolite.</p>
+<p><strong>Gitweb 支持</strong>： Gitolite支持 gitweb以几种方式。你可以定义哪个仓库在gitweb可见。你能设置 &quot;拥有者&quot; 和 &quot;描述&quot; gitweb 从 gitolite配置文件里。Gitweb 有一个机制给你来实现基于http认证的访问控制，你能让它用 gitolite产生的 &quot;编译过&quot; 的配置文件，意思是同样的访问规则 (为读访问) 用于 gitweb和 gitolite.</p>
 
-<p><strong>Mirroring</strong>: Gitolite can help you maintain multiple mirrors, and switch between them easily if the primary server goes down.</p>
+<p><strong>镜像</strong>: Gitolite可以帮助你维护多个镜像，如果主服务器挂掉的话在他们之间很容易切换。</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">服务器上的 Git</li><li><a href="ch4_1.html">协议</a></li><li><a href="ch4_2.html">在服务器上部署 Git</a></li><li><a href="ch4_3.html">生成 SSH 公钥</a></li><li><a href="ch4_4.html">架设服务器</a></li><li><a href="ch4_5.html">公共访问</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git 守护进程</a></li><li><a href="ch4_10.html">Git 托管服务</a></li><li><a href="ch4_11.html">小结</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:26:48. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">服务器上的 Git</li><li><a href="ch4_1.html">协议</a></li><li><a href="ch4_2.html">在服务器上部署 Git</a></li><li><a href="ch4_3.html">生成 SSH 公钥</a></li><li><a href="ch4_4.html">架设服务器</a></li><li><a href="ch4_5.html">公共访问</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git 守护进程</a></li><li><a href="ch4_10.html">Git 托管服务</a></li><li><a href="ch4_11.html">小结</a></li></ul></div></div><div class="footer">构建时间： 2013-12-10 17:23:45，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

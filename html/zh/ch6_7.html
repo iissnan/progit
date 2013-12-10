@@ -35,7 +35,7 @@ Switched to branch &quot;master&quot;
 $ ls
 README</code></pre>
 
-<p>要将 Rack 项目当作子目录拉取到你的<code>master</code>项目中。你可以在 Git 中用<code>git read-tree</code>来实现。你会在第9章学到更多与<code>read-tree</code>和它的朋友相关的东西，当前你会知道它读取一个分支的根目录树到当前的暂存区和工作目录。你只要切换回你的<code>master</code>分支，然后拉取<code>rack</code>分支到你主项目的<code>master</code>分支的<code>rack</code>子目录：</p>
+<p>要将 Rack 项目当作子目录拉取到你的<code>master</code>项目中。你可以在 Git 中用<code>git read-tree</code>来实现。你会在第9章学到更多与<code>read-tree</code>和它的朋友相关的东西，当前你会知道它读取一个分支的根目录树到当前的暂存区和工作目录。你只要切换回你的<code>master</code>分支，然后拉取<code>rack_branch</code>到你主项目的<code>master</code>分支的<code>rack</code>子目录：</p>
 
 <pre><code>$ git read-tree --prefix=rack/ -u rack_branch</code></pre>
 
@@ -61,4 +61,4 @@ Automatic merge went well; stopped before committing as requested</code></pre>
 
 <pre><code>$ git diff-tree -p rack_remote/master</code></pre>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 工具</li><li><a href="ch6_1.html">修订版本（Revision）选择</a></li><li><a href="ch6_2.html">交互式暂存</a></li><li><a href="ch6_3.html">储藏（Stashing）</a></li><li><a href="ch6_4.html">重写历史</a></li><li><a href="ch6_5.html">使用 Git 调试</a></li><li><a href="ch6_6.html">子模块</a></li><li><a href="ch6_7.html">子树合并</a></li><li><a href="ch6_8.html">总结</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:27:06. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 工具</li><li><a href="ch6_1.html">修订版本（Revision）选择</a></li><li><a href="ch6_2.html">交互式暂存</a></li><li><a href="ch6_3.html">储藏（Stashing）</a></li><li><a href="ch6_4.html">重写历史</a></li><li><a href="ch6_5.html">使用 Git 调试</a></li><li><a href="ch6_6.html">子模块</a></li><li><a href="ch6_7.html">子树合并</a></li><li><a href="ch6_8.html">总结</a></li></ul></div></div><div class="footer">构建时间： 2013-12-10 17:23:45，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>

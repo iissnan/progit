@@ -172,7 +172,7 @@ f3cc40e changed my name a bit</code></pre>
 Rewrite 6b9b3cf04e7c5686a9cb838c3f36a8cb6a0fc2bd (21/21)
 Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
 
-<p><code>--tree-filter</code>选项会在每次检出项目时先执行指定的命令然后重新提交结果。在这个例子中，你会在所有快照中删除一个名叫 password.txt 的文件，无论它是否存在。如果你想删除所有不小心提交上去的编辑器备份文件，你可以运行类似<code>git filter-branch --tree-filter &#39;rm -f *~&#39; HEAD</code>的命令。</p>
+<p><code>--tree-filter</code>选项会在每次检出项目时先执行指定的命令然后重新提交结果。在这个例子中，你会在所有快照中删除一个名叫 password.txt 的文件，无论它是否存在。如果你想删除所有不小心提交上去的编辑器备份文件，你可以运行类似<code>git filter-branch --tree-filter &quot;find * -type f -name &#39;*~&#39; -delete&quot; HEAD</code>的命令。</p>
 
 <p>你可以观察到 Git 重写目录树并且提交，然后将分支指针移到末尾。一个比较好的办法是在一个测试分支上做这些然后在你确定产物真的是你所要的之后，再 hard-reset 你的主分支。要在你所有的分支上运行<code>filter-branch</code>的话，你可以传递一个<code>--all</code>给命令。</p>
 
@@ -202,4 +202,4 @@ Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
 
 <p>这个会遍历并重写所有提交使之拥有你的新地址。因为提交里包含了它们的父提交的SHA-1值，这个命令会修改你的历史中的所有提交，而不仅仅是包含了匹配的电子邮件地址的那些。</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 工具</li><li><a href="ch6_1.html">修订版本（Revision）选择</a></li><li><a href="ch6_2.html">交互式暂存</a></li><li><a href="ch6_3.html">储藏（Stashing）</a></li><li><a href="ch6_4.html">重写历史</a></li><li><a href="ch6_5.html">使用 Git 调试</a></li><li><a href="ch6_6.html">子模块</a></li><li><a href="ch6_7.html">子树合并</a></li><li><a href="ch6_8.html">总结</a></li></ul></div></div><div class="footer">Build at: 2013-08-22 12:27:03. Source Revision: <a href="https://github.com/progit/progit/tree/336dd5401ee518b5ae426b7ce3b182cf8b6c17eb" target="_blank">336dd54</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git 工具</li><li><a href="ch6_1.html">修订版本（Revision）选择</a></li><li><a href="ch6_2.html">交互式暂存</a></li><li><a href="ch6_3.html">储藏（Stashing）</a></li><li><a href="ch6_4.html">重写历史</a></li><li><a href="ch6_5.html">使用 Git 调试</a></li><li><a href="ch6_6.html">子模块</a></li><li><a href="ch6_7.html">子树合并</a></li><li><a href="ch6_8.html">总结</a></li></ul></div></div><div class="footer">构建时间： 2013-12-10 17:23:45，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
