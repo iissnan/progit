@@ -18,16 +18,21 @@ You can visit [Here](http://iissnan.com/progit) to check out the demo.
     npm install
     ```
     
-4. Generate HTML pages:
+4. Get book source:
+
+    ```
+    git submodule init
+    git submodule update
+    ````
+
+5. Generate HTML pages:
     
     ```
     node lib/build
     ```
    
-5. Push to your repository's gh-pages branch.
+6. Push to your repository's gh-pages branch.
 
     ```
     git push origin gh-pages
     ```
-
-6. There is no 6 step.
