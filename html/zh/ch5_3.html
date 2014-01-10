@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>项目的管理 - 分布式 Git - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>项目的管理</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>项目的管理 - 分布式 Git - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch5_0.html">分布式 Git</a></li><li><a href="ch5_1.html">分布式工作流程</a></li><li><a href="ch5_2.html">为项目作贡献</a></li><li><a href="ch5_3.html">项目的管理</a></li><li><a href="ch5_4.html">小结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>项目的管理</h2>
 
 <p>既然是相互协作，在贡献代码的同时，也免不了要维护管理自己的项目。像是怎么处理别人用 <code>format-patch</code> 生成的补丁，或是集成远端仓库上某个分支上的变化等等。但无论是管理代码仓库，还是帮忙审核收到的补丁，都需要同贡献者约定某种长期可持续的工作方式。</p>
 
@@ -186,23 +186,23 @@ $ git diff 36c7db </code></pre>
 
 <p>一般最简单的情形，是在 <code>master</code> 分支中维护稳定代码，然后在特性分支上开发新功能，或是审核测试别人贡献的代码，接着将它并入主干，最后删除这个特性分支，如此反复。来看示例，假设当前代码库中有两个分支，分别为 <code>ruby_client</code> 和 <code>php_client</code>，如图 5-19 所示。然后先把 <code>ruby_client</code> 合并进主干，再合并 <code>php_client</code>，最后的提交历史如图 5-20 所示。</p>
 
-<p><img src="../../book_src/figures/18333fig0519-tn.png"></br> 
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0519-tn.png"></br> 
 图 5-19. 多个特性分支</p>
 
-<p><img src="../../book_src/figures/18333fig0520-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0520-tn.png"></br>
 图 5-20. 合并特性分支之后</p>
 
 <p>这是最简单的流程，所以在处理大一些的项目时可能会有问题。</p>
 
 <p>对于大型项目，至少需要维护两个长期分支 <code>master</code> 和 <code>develop</code>。新代码（图 5-21 中的 <code>ruby_client</code>）将首先并入 <code>develop</code> 分支（图 5-22 中的 <code>C8</code>），经过一个阶段，确认 <code>develop</code> 中的代码已稳定到可发行时，再将 <code>master</code> 分支快进到稳定点（图 5-23 中的 <code>C8</code>）。而平时这两个分支都会被推送到公开的代码库。</p>
 
-<p><img src="../../book_src/figures/18333fig0521-tn.png"></br> 
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0521-tn.png"></br> 
 图 5-21. 特性分支合并前</p>
 
-<p><img src="../../book_src/figures/18333fig0522-tn.png"></br> 
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0522-tn.png"></br> 
 图 5-22. 特性分支合并后</p>
 
-<p><img src="../../book_src/figures/18333fig0523-tn.png"></br> 
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0523-tn.png"></br> 
 图 5-23. 特性分支发布后</p>
 
 <p>这样，在人们克隆仓库时就有两种选择：既可检出最新稳定版本，确保正常使用；也能检出开发版本，试用最前沿的新特性。你也可以扩展这个概念，先将所有新代码合并到临时特性分支，等到该分支稳定下来并通过测试后，再并入 <code>develop</code> 分支。然后，让时间检验一切，如果这些代码确实可以正常工作相当长一段时间，那就有理由相信它已经足够稳定，可以放心并入主干分支发布。</p>
@@ -211,12 +211,12 @@ $ git diff 36c7db </code></pre>
 
 <p>Git 项目本身有四个长期分支：用于发布的 <code>master</code> 分支、用于合并基本稳定特性的 <code>next</code> 分支、用于合并仍需改进特性的 <code>pu</code> 分支（pu 是 proposed updates 的缩写），以及用于除错维护的 <code>maint</code> 分支（maint 取自 maintenance）。维护者可以按照之前介绍的方法，将贡献者的代码引入为不同的特性分支（如图 5-24 所示），然后测试评估，看哪些特性能稳定工作，哪些还需改进。稳定的特性可以并入 <code>next</code> 分支，然后再推送到公共仓库，以供其他人试用。</p>
 
-<p><img src="../../book_src/figures/18333fig0524-tn.png"></br> 
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0524-tn.png"></br> 
 图 5-24. 管理复杂的并行贡献</p>
 
 <p>仍需改进的特性可以先并入 <code>pu</code> 分支。直到它们完全稳定后再并入 <code>master</code>。同时一并检查下 <code>next</code> 分支，将足够稳定的特性也并入 <code>master</code>。所以一般来说，<code>master</code> 始终是在快进，<code>next</code> 偶尔做下衍合，而 <code>pu</code> 则是频繁衍合，如图 5-25 所示：</p>
 
-<p><img src="../../book_src/figures/18333fig0525-tn.png"></br> 
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0525-tn.png"></br> 
 图 5-25. 将特性并入长期分支</p>
 
 <p>并入 <code>master</code> 后的特性分支，已经无需保留分支索引，放心删除好了。Git 项目还有一个 <code>maint</code> 分支，它是以最近一次发行版为基础分化而来的，用于维护除错补丁。所以克隆 Git 项目仓库后会得到这四个分支，通过检出不同分支可以了解各自进展，或是试用前沿特性，或是贡献代码。而维护者则通过管理这些分支，逐步有序地并入第三方贡献。</p>
@@ -227,7 +227,7 @@ $ git diff 36c7db </code></pre>
 
 <p>另一个引入代码的方法是挑拣。挑拣类似于针对某次特定提交的衍合。它首先提取某次提交的补丁，然后试着应用在当前分支上。如果某个特性分支上有多个commits，但你只想引入其中之一就可以使用这种方法。也可能仅仅是因为你喜欢用挑拣，讨厌衍合。假设你有一个类似图 5-26 的工程。</p>
 
-<p><img src="../../book_src/figures/18333fig0526-tn.png"></br> 
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0526-tn.png"></br> 
 图 5-26. 挑拣（cherry-pick）之前的历史 </p>
 
 <p>如果你希望拉取<code>e43a6</code>到你的主干分支，可以这样：</p>
@@ -239,7 +239,7 @@ Finished one cherry-pick.
 
 <p>这将会引入<code>e43a6</code>的代码，但是会得到不同的SHA-1值，因为应用日期不同。现在你的历史看起来像图 5-27.</p>
 
-<p><img src="../../book_src/figures/18333fig0527-tn.png"></br> 
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0527-tn.png"></br> 
 图 5-27. 挑拣（cherry-pick）之后的历史</p>
 
 <p>现在，你可以删除这个特性分支并丢弃你不想引入的那些commit。</p>
@@ -323,4 +323,4 @@ Tom Preston-Werner (4):
 
 <p>这就是自从v1.0.1版本以来的所有提交的简介，内容按照作者分组，以便你能快速的发e-mail给他们。</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">分布式 Git</li><li><a href="ch5_1.html">分布式工作流程</a></li><li><a href="ch5_2.html">为项目作贡献</a></li><li><a href="ch5_3.html">项目的管理</a></li><li><a href="ch5_4.html">小结</a></li></ul></div></div><div class="footer">构建时间： 2013-12-11 14:54:37，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div></div></div></div><div class="footer">构建时间： 2014-01-10 16:24:56，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>，版本： 0.0.3。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

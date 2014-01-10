@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Rebasing - Git Branching - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Rebasing</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Rebasing - Git Branching - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch3_0.html">Git Branching</a></li><li><a href="ch3_1.html">What a Branch Is</a></li><li><a href="ch3_2.html">Basic Branching and Merging</a></li><li><a href="ch3_3.html">Branch Management</a></li><li><a href="ch3_4.html">Branching Workflows</a></li><li><a href="ch3_5.html">Remote Branches</a></li><li><a href="ch3_6.html">Rebasing</a></li><li><a href="ch3_7.html">Summary</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Rebasing</h2>
 
 <p>In Git, there are two main ways to integrate changes from one branch into another: the <code>merge</code> and the <code>rebase</code>. In this section you’ll learn what rebasing is, how to do it, why it’s a pretty amazing tool, and in what cases you won’t want to use it.</p>
 
@@ -6,12 +6,12 @@
 
 <p>If you go back to an earlier example from the Merge section (see Figure 3-27), you can see that you diverged your work and made commits on two different branches.</p>
 
-<p><img src="../../book_src/figures/18333fig0327-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0327-tn.png"></br>
 Figure 3-27. Your initial diverged commit history.</p>
 
 <p>The easiest way to integrate the branches, as we’ve already covered, is the <code>merge</code> command. It performs a three-way merge between the two latest branch snapshots (C3 and C4) and the most recent common ancestor of the two (C2), creating a new snapshot (and commit), as shown in Figure 3-28.</p>
 
-<p><img src="../../book_src/figures/18333fig0328-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0328-tn.png"></br>
 Figure 3-28. Merging a branch to integrate the diverged work history.</p>
 
 <p>However, there is another way: you can take the patch of the change that was introduced in C3 and reapply it on top of C4. In Git, this is called <em>rebasing</em>. With the <code>rebase</code> command, you can take all the changes that were committed on one branch and replay them on another one.</p>
@@ -25,12 +25,12 @@ Applying: added staged command</code></pre>
 
 <p>It works by going to the common ancestor of the two branches (the one you’re on and the one you’re rebasing onto), getting the diff introduced by each commit of the branch you’re on, saving those diffs to temporary files, resetting the current branch to the same commit as the branch you are rebasing onto, and finally applying each change in turn. Figure 3-29 illustrates this process.</p>
 
-<p><img src="../../book_src/figures/18333fig0329-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0329-tn.png"></br>
 Figure 3-29. Rebasing the change introduced in C3 onto C4.</p>
 
 <p>At this point, you can go back to the master branch and do a fast-forward merge (see Figure 3-30).</p>
 
-<p><img src="../../book_src/figures/18333fig0330-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0330-tn.png"></br>
 Figure 3-30. Fast-forwarding the master branch.</p>
 
 <p>Now, the snapshot pointed to by C3&#39; is exactly the same as the one that was pointed to by C5 in the merge example. There is no difference in the end product of the integration, but rebasing makes for a cleaner history. If you examine the log of a rebased branch, it looks like a linear history: it appears that all the work happened in series, even when it originally happened in parallel.</p>
@@ -43,7 +43,7 @@ Figure 3-30. Fast-forwarding the master branch.</p>
 
 <p>You can also have your rebase replay on something other than the rebase branch. Take a history like Figure 3-31, for example. You branched a topic branch (<code>server</code>) to add some server-side functionality to your project, and made a commit. Then, you branched off that to make the client-side changes (<code>client</code>) and committed a few times. Finally, you went back to your server branch and did a few more commits.</p>
 
-<p><img src="../../book_src/figures/18333fig0331-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0331-tn.png"></br>
 Figure 3-31. A history with a topic branch off another topic branch.</p>
 
 <p>Suppose you decide that you want to merge your client-side changes into your mainline for a release, but you want to hold off on the server-side changes until it’s tested further. You can take the changes on client that aren’t on server (C8 and C9) and replay them on your master branch by using the <code>--onto</code> option of <code>git rebase</code>:</p>
@@ -52,7 +52,7 @@ Figure 3-31. A history with a topic branch off another topic branch.</p>
 
 <p>This basically says, “Check out the client branch, figure out the patches from the common ancestor of the <code>client</code> and <code>server</code> branches, and then replay them onto <code>master</code>.” It’s a bit complex; but the result, shown in Figure 3-32, is pretty cool.</p>
 
-<p><img src="../../book_src/figures/18333fig0332-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0332-tn.png"></br>
 Figure 3-32. Rebasing a topic branch off another topic branch.</p>
 
 <p>Now you can fast-forward your master branch (see Figure 3-33):</p>
@@ -60,7 +60,7 @@ Figure 3-32. Rebasing a topic branch off another topic branch.</p>
 <pre><code>$ git checkout master
 $ git merge client</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0333-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0333-tn.png"></br>
 Figure 3-33. Fast-forwarding your master branch to include the client branch changes.</p>
 
 <p>Let’s say you decide to pull in your server branch as well. You can rebase the server branch onto the master branch without having to check it out first by running <code>git rebase [basebranch] [topicbranch]</code> — which checks out the topic branch (in this case, <code>server</code>) for you and replays it onto the base branch (<code>master</code>):</p>
@@ -69,7 +69,7 @@ Figure 3-33. Fast-forwarding your master branch to include the client branch cha
 
 <p>This replays your <code>server</code> work on top of your <code>master</code> work, as shown in Figure 3-34.</p>
 
-<p><img src="../../book_src/figures/18333fig0334-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0334-tn.png"></br>
 Figure 3-34. Rebasing your server branch on top of your master branch.</p>
 
 <p>Then, you can fast-forward the base branch (<code>master</code>):</p>
@@ -82,7 +82,7 @@ $ git merge server</code></pre>
 <pre><code>$ git branch -d client
 $ git branch -d server</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0335-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0335-tn.png"></br>
 Figure 3-35. Final commit history.</p>
 
 <h3>The Perils of Rebasing</h3>
@@ -97,26 +97,26 @@ Figure 3-35. Final commit history.</p>
 
 <p>Let’s look at an example of how rebasing work that you’ve made public can cause problems. Suppose you clone from a central server and then do some work off that. Your commit history looks like Figure 3-36.</p>
 
-<p><img src="../../book_src/figures/18333fig0336-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0336-tn.png"></br>
 Figure 3-36. Clone a repository, and base some work on it.</p>
 
 <p>Now, someone else does more work that includes a merge, and pushes that work to the central server. You fetch them and merge the new remote branch into your work, making your history look something like Figure 3-37.</p>
 
-<p><img src="../../book_src/figures/18333fig0337-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0337-tn.png"></br>
 Figure 3-37. Fetch more commits, and merge them into your work.</p>
 
 <p>Next, the person who pushed the merged work decides to go back and rebase their work instead; they do a <code>git push --force</code> to overwrite the history on the server. You then fetch from that server, bringing down the new commits.</p>
 
-<p><img src="../../book_src/figures/18333fig0338-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0338-tn.png"></br>
 Figure 3-38. Someone pushes rebased commits, abandoning commits you’ve based your work on.</p>
 
 <p>At this point, you have to merge this work in again, even though you’ve already done so. Rebasing changes the SHA-1 hashes of these commits so to Git they look like new commits, when in fact you already have the C4 work in your history (see Figure 3-39).</p>
 
-<p><img src="../../book_src/figures/18333fig0339-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0339-tn.png"></br>
 Figure 3-39. You merge in the same work again into a new merge commit.</p>
 
 <p>You have to merge that work in at some point so you can keep up with the other developer in the future. After you do that, your commit history will contain both the C4 and C4&#39; commits, which have different SHA-1 hashes but introduce the same work and have the same commit message. If you run a <code>git log</code> when your history looks like this, you’ll see two commits that have the same author date and message, which will be confusing. Furthermore, if you push this history back up to the server, you’ll reintroduce all those rebased commits to the central server, which can further confuse people.</p>
 
 <p>If you treat rebasing as a way to clean up and work with commits before you push them, and if you only rebase commits that have never been available publicly, then you’ll be fine. If you rebase commits that have already been pushed publicly, and people may have based work on those commits, then you may be in for some frustrating trouble.</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Branching</li><li><a href="ch3_1.html">What a Branch Is</a></li><li><a href="ch3_2.html">Basic Branching and Merging</a></li><li><a href="ch3_3.html">Branch Management</a></li><li><a href="ch3_4.html">Branching Workflows</a></li><li><a href="ch3_5.html">Remote Branches</a></li><li><a href="ch3_6.html">Rebasing</a></li><li><a href="ch3_7.html">Summary</a></li></ul></div></div><div class="footer">Build at: 2013-12-11 14:54:34,Source revision: <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div></div></div></div><div class="footer">Build at: 2014-01-10 16:24:53,Source revision: <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>,version: 0.0.3.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

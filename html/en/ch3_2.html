@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Basic Branching and Merging - Git Branching - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><div class="container"><ul class="nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav pull-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap clearfix"><div class="span8"><h2>Basic Branching and Merging</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Basic Branching and Merging - Git Branching - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch3_0.html">Git Branching</a></li><li><a href="ch3_1.html">What a Branch Is</a></li><li><a href="ch3_2.html">Basic Branching and Merging</a></li><li><a href="ch3_3.html">Branch Management</a></li><li><a href="ch3_4.html">Branching Workflows</a></li><li><a href="ch3_5.html">Remote Branches</a></li><li><a href="ch3_6.html">Rebasing</a></li><li><a href="ch3_7.html">Summary</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Basic Branching and Merging</h2>
 
 <p>Let’s go through a simple example of branching and merging with a workflow that you might use in the real world. You’ll follow these steps:</p>
 
@@ -12,7 +12,7 @@
 
 <p>First, let’s say you’re working on your project and have a couple of commits already (see Figure 3-10).</p>
 
-<p><img src="../../book_src/figures/18333fig0310-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0310-tn.png"></br>
 Figure 3-10. A short and simple commit history.</p>
 
 <p>You’ve decided that you’re going to work on issue #53 in whatever issue-tracking system your company uses. To be clear, Git isn’t tied into any particular issue-tracking system; but because issue #53 is a focused topic that you want to work on, you’ll create a new branch in which to work. To create a branch and switch to it at the same time, you can run the <code>git checkout</code> command with the <code>-b</code> switch:</p>
@@ -27,7 +27,7 @@ $ git checkout iss53</code></pre>
 
 <p>Figure 3-11 illustrates the result.</p>
 
-<p><img src="../../book_src/figures/18333fig0311-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0311-tn.png"></br>
 Figure 3-11. Creating a new branch pointer.</p>
 
 <p>You work on your web site and do some commits. Doing so moves the <code>iss53</code> branch forward, because you have it checked out (that is, your HEAD is pointing to it; see Figure 3-12):</p>
@@ -35,7 +35,7 @@ Figure 3-11. Creating a new branch pointer.</p>
 <pre><code>$ vim index.html
 $ git commit -a -m &#39;added a new footer [issue 53]&#39;</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0312-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0312-tn.png"></br>
 Figure 3-12. The iss53 branch has moved forward with your work.</p>
 
 <p>Now you get the call that there is an issue with the web site, and you need to fix it immediately. With Git, you don’t have to deploy your fix along with the <code>iss53</code> changes you’ve made, and you don’t have to put a lot of effort into reverting those changes before you can work on applying your fix to what is in production. All you have to do is switch back to your master branch.</p>
@@ -56,7 +56,7 @@ $ git commit -a -m &#39;fixed the broken email address&#39;
 [hotfix]: created 3a0874c: &quot;fixed the broken email address&quot;
  1 files changed, 0 insertions(+), 1 deletions(-)</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0313-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0313-tn.png"></br>
 Figure 3-13. hotfix branch based back at your master branch point.</p>
 
 <p>You can run your tests, make sure the hotfix is what you want, and merge it back into your master branch to deploy to production. You do this with the <code>git merge</code> command:</p>
@@ -72,7 +72,7 @@ Fast forward
 
 <p>Your change is now in the snapshot of the commit pointed to by the <code>master</code> branch, and you can deploy your change (see Figure 3-14).</p>
 
-<p><img src="../../book_src/figures/18333fig0314-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0314-tn.png"></br>
 Figure 3-14. Your master branch points to the same place as your hotfix branch after the merge.</p>
 
 <p>After your super-important fix is deployed, you’re ready to switch back to the work you were doing before you were interrupted. However, first you’ll delete the <code>hotfix</code> branch, because you no longer need it — the <code>master</code> branch points at the same place. You can delete it with the <code>-d</code> option to <code>git branch</code>:</p>
@@ -89,7 +89,7 @@ $ git commit -a -m &#39;finished the new footer [issue 53]&#39;
 [iss53]: created ad82d7a: &quot;finished the new footer [issue 53]&quot;
  1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
 
-<p><img src="../../book_src/figures/18333fig0315-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0315-tn.png"></br>
 Figure 3-15. Your iss53 branch can move forward independently.</p>
 
 <p>It’s worth noting here that the work you did in your <code>hotfix</code> branch is not contained in the files in your <code>iss53</code> branch. If you need to pull it in, you can merge your <code>master</code> branch into your <code>iss53</code> branch by running <code>git merge master</code>, or you can wait to integrate those changes until you decide to pull the <code>iss53</code> branch back into <code>master</code> later.</p>
@@ -106,14 +106,14 @@ Merge made by recursive.
 
 <p>This looks a bit different than the <code>hotfix</code> merge you did earlier. In this case, your development history has diverged from some older point. Because the commit on the branch you’re on isn’t a direct ancestor of the branch you’re merging in, Git has to do some work. In this case, Git does a simple three-way merge, using the two snapshots pointed to by the branch tips and the common ancestor of the two. Figure 3-16 highlights the three snapshots that Git uses to do its merge in this case.</p>
 
-<p><img src="../../book_src/figures/18333fig0316-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0316-tn.png"></br>
 Figure 3-16. Git automatically identifies the best common-ancestor merge base for branch merging.</p>
 
 <p>Instead of just moving the branch pointer forward, Git creates a new snapshot that results from this three-way merge and automatically creates a new commit that points to it (see Figure 3-17). This is referred to as a merge commit and is special in that it has more than one parent.</p>
 
 <p>It’s worth pointing out that Git determines the best common ancestor to use for its merge base; this is different than CVS or Subversion (before version 1.5), where the developer doing the merge has to figure out the best merge base for themselves. This makes merging a heck of a lot easier in Git than in these other systems.</p>
 
-<p><img src="../../book_src/figures/18333fig0317-tn.png"></br>
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0317-tn.png"></br>
 Figure 3-17. Git automatically creates a new commit object that contains the merged work.</p>
 
 <p>Now that your work is merged in, you have no further need for the <code>iss53</code> branch. You can delete it and then manually close the ticket in your ticket-tracking system:</p>
@@ -198,4 +198,4 @@ Conflicts:
 
 <p>You can modify that message with details about how you resolved the merge if you think it would be helpful to others looking at this merge in the future — why you did what you did, if it’s not obvious.</p>
 
-</div><div class="span3"><ul class="nav nav-tabs nav-stacked sub-nav affix"><li class="nav-header">Git Branching</li><li><a href="ch3_1.html">What a Branch Is</a></li><li><a href="ch3_2.html">Basic Branching and Merging</a></li><li><a href="ch3_3.html">Branch Management</a></li><li><a href="ch3_4.html">Branching Workflows</a></li><li><a href="ch3_5.html">Remote Branches</a></li><li><a href="ch3_6.html">Rebasing</a></li><li><a href="ch3_7.html">Summary</a></li></ul></div></div><div class="footer">Build at: 2013-12-11 14:54:34,Source revision: <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script></body></html>
+</div></div></div></div><div class="footer">Build at: 2014-01-10 16:24:53,Source revision: <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>,version: 0.0.3.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
