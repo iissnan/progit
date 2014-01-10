@@ -2,20 +2,32 @@ doctype
 html
     head
         meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title #{title}
 
         block header
 
     body
-        div.navbar.navbar-fixed-top.navbar-inverse
-            div.navbar-inner
-                div.container
+        a.sr-only(href="#main") SKIP TO CONTENT
+
+        div#header.navbar.navbar-fixed-top.navbar-inverse
+            div.container
+                div.navbar-header
+                    block brand
+
+                    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navigation")
+                        span.sr-only Toggle Navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                div.navbar-collapse.collapse.navigation
                     !{menu}
 
 
         div.container#main
-            div.wrap.clearfix
-                block row
+            div.wrap
+                div.row
+                    block row
             div.footer
                 !{footer}
 

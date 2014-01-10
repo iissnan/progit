@@ -5,11 +5,17 @@ block header
     link(rel="stylesheet", type="text/css", href="../../assets/css/main.css")
     link(rel="shortcut icon", type="images/x-icon", href="../../assets/img/favicon.ico")
 
+block brand
+    a#brand(href="/")
+        img.logo(src="../../assets/img/git-logo.png", alt="git")
+
 block row
-    div.span8
-        !{content}
-    div.span3
-        !{sidebar}
+    div.col-md-4
+        div.ph20
+            !{sidebar}
+    div.col-md-8
+        div.ph20
+            !{content}
 
 block prepend scripts
     script(src="../../assets/vendor/jquery/jquery.min.js")

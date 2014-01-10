@@ -5,16 +5,20 @@ block header
     link(rel="stylesheet", type="text/css", href="assets/css/main.css")
     link(rel="shortcut icon", type="images/x-icon", href="assets/img/favicon.ico")
 
-block row
-    div.span5
-        !{content}
+block brand
+    a#brand(href="/")
+        img.logo(src="assets/img/git-logo.png", alt="git")
 
-    div.span4.offset2
-        div.book-info
-            p
-                a(href="http://github.com/progit/progit") Pro Git书籍源码
-            p
-                img.img-polaroid(src="assets/img/pro-git-cover.jpeg", alt="Pro Git")
+block row
+    div.col-md-4
+        div.ph20
+            div.book-info
+
+                p
+                    img.img-responsive.center-block(src="assets/img/pro-git-cover.jpeg", alt="Pro Git Cover")
+    div.col-md-8
+        div.ph20
+            !{content}
 
 block prepend scripts
     script(src="assets/vendor/jquery/jquery.min.js")

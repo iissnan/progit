@@ -1,8 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-
 img, fieldset{
     border: 0;
 }
@@ -13,8 +8,19 @@ body{
     font: 13px/1.62  "WenQuanYi Micro Hei", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
 }
 
-#brand{
+h1, h2, h3, h4, h5, h6{
+    font-family: "WenQuanYi Micro Hei", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
 }
+
+#brand{
+    float: left;
+    margin-top: 7px;
+    padding:0 25px 0 10px;
+}
+    .logo{
+        width: 36px;
+        height: 36px;
+    }
 
 .navbar .nav > li{
     margin-right: 15px;
@@ -22,7 +28,7 @@ body{
 
 #main{}
 .wrap{
-    padding: 20px;
+    padding: 20px 0;
     min-height: 500px;
     background: #fff;
 }
@@ -55,20 +61,36 @@ body{
 }
 
 .sub-nav{
-    width: 220px;
+    margin-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-shadow: 0 1px 0 #fff;
+    background-color: #f7f5fa;
+    border-radius: 5px;
 }
 .sub-nav .nav-header{
     padding: 3px 0;
     font-size: 20px;
     line-height: 1.5;
 }
-.sub-nav > .active > a,
-.sub-nav > .active > a:hover,
-.sub-nav > .active > a:focus {
-    background: #08c;
-    color: #fff;
+
+.sub-nav > li > a {
+    display: block;
+    color: #716b7a;
+    padding: 5px 20px;
 }
 
-.book-info{
-    margin-top: 30px;
+.sub-nav > li > a:hover {
+    background: #e5e3e9;
 }
+
+.sub-nav > li.active > a,
+.sub-nav > li.active > a:hover,
+.sub-nav > li.active > a:focus {
+    font-weight: bold;
+    color: #563d7c;
+    background-color: transparent;
+    border-left: 2px solid #563d7c;
+}
+
+.ph20{ padding: 0 20px; }
