@@ -5,6 +5,6 @@
         "markdown": "latest",
         "jade": "latest",
         "moment": "latest",
-        "execSync": "latest"
+        "shelljs": "0.2.6"
     }
 }
