@@ -17,7 +17,11 @@ block row
                 p
                     img.img-responsive.center-block(src="assets/img/pro-git-cover.jpeg", alt="Pro Git Cover")
     div.col-md-8
-        div.ph20 !{content}
+        div.ph20
+            ul.toc
+                each chapterTOC in tableOfContents
+                    each toc in chapterTOC
+                        li(class="headline#{toc.level}"): a(href="#{toc.href}") #{toc.text}
 
 block prepend scripts
     script(src="assets/vendor/jquery/jquery.min.js")
