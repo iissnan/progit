@@ -2,7 +2,9 @@ li.dropdown
     a.dropdown-toggle(data-toggle="dropdown", href="#") #{MenuItemLabel}
         b.caret
     ul.dropdown-menu(role="menu")
-        li !{TransitionIndexTitle}
+        li
+            a(href="#{TransitionTableOfContentsLink.href}") #{TransitionTableOfContentsLink.text}
         div.divider
         each link in TransitionChapterLinks
-            li: a(href="#{link.href}") #{link.text}
+            li
+                a(href="#{link.href}") #{link.text}

@@ -1,6 +1,6 @@
 {
     "name": "Host.ProGit.book.on.Github",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "devDependencies": {
         "markdown": "latest",
         "jade": "latest",
