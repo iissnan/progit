@@ -1,55 +1,31 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gitolite - 服务器上的 Git - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch4_0.html">服务器上的 Git</a></li><li><a href="ch4_1.html">协议</a></li><li><a href="ch4_2.html">在服务器上部署 Git</a></li><li><a href="ch4_3.html">生成 SSH 公钥</a></li><li><a href="ch4_4.html">架设服务器</a></li><li><a href="ch4_5.html">公共访问</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git 守护进程</a></li><li><a href="ch4_10.html">Git 托管服务</a></li><li><a href="ch4_11.html">小结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Gitolite</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gitolite - 服务器上的 Git - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch4_0.html">服务器上的 Git</a></li><li><a href="ch4_1.html">协议</a></li><li><a href="ch4_2.html">在服务器上部署 Git</a></li><li><a href="ch4_3.html">生成 SSH 公钥</a></li><li><a href="ch4_4.html">架设服务器</a></li><li><a href="ch4_5.html">公共访问</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git 守护进程</a></li><li><a href="ch4_10.html">Git 托管服务</a></li><li><a href="ch4_11.html">小结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Gitolite</h2>
 
-<p>注：本书此段落的最新拷贝始终存在于<a href="http://sitaramc.github.com/gitolite/progit.html">gitolite documentation</a>.  作者谦虚地表示，尽管这个段落是精确的，可以（已经）用于安装gitolite而不用阅读其他的文档，但仍有必要不完整，并且不能完全替代随gitolite自带的大量文档。</p>
+<p>This section serves as a quick introduction to Gitolite, and provides basic installation and setup instructions.  不能完全替代随 gitolite 自带的大量文档。 There may also be occasional changes to this section itself, so you may also want to look at the latest version <a href="http://sitaramc.github.com/gitolite/progit.html">here</a>.</p>
 
-<p>Git已经变成了非常流行的写作环境，并倾向于为了访问控制而增加额外的需求。Gitolite用于帮助这些需求而创建，但它变成了对开源世界同样有用的东西：Fedora项目使用gitolite控制访问他们的包管理仓库 (超过 10,000个包！) , 而且这也可能是最大的gitolite装置。</p>
+<p>Gitolite is an authorization layer on top of Git, relying on <code>sshd</code> or <code>httpd</code> for authentication.  (Recap: authentication is identifying who the user is, authorization is deciding if he is allowed to do what he is attempting to).</p>
 
 <p>Gitolite 允许你定义访问许可而不只作用于仓库，而同样于仓库中的每个branch和tag name。你可以定义确切的人 (或一组人) 只能push特定的 &quot;refs&quot; (或者branches或者tags)而不是其他人。</p>
 
 <h3>安装</h3>
 
-<p>安装 Gitolite非常简单, 你甚至不用读自带的那一大堆文档。你需要一个unix服务器上的账户；许多linux变种和solaris 10都已经试过了。你不需要root访问，假设git，perl，和一个openssh兼容的ssh服务器已经装好了。在下面的例子里，我们会用 <code>gitolite</code> 账户在 <code>gitserver</code>上.</p>
+<p>安装 Gitolite非常简单, 你甚至不用读自带的那一大堆文档。你需要一个unix服务器上的账户；许多linux变种和solaris 10都已经试过了。你不需要root访问，假设git，perl，和一个openssh兼容的ssh服务器已经装好了。在下面的例子里，我们会用 <code>git</code> 账户在 <code>gitserver</code>上.</p>
 
-<p>Gitolite 是不同于 &quot;server&quot; 的软件 -- 通过ssh访问, 而且每个在服务器上的userid都是一个潜在的 &quot;gitolite host&quot;. 因此,  &quot;安装&quot; 这个软件的概念意味着安装它自身, 然后&quot;设置&quot; 一个用户作为 &quot;gitolite host&quot;.</p>
+<p>Gitolite 是不同于 &quot;server&quot; 的软件 -- 通过ssh访问, 而且每个在服务器上的userid都是一个潜在的 &quot;gitolite host&quot;. We will describe the simplest install method in this article; for the other methods please see the documentation.</p>
 
-<p>Gitolite 有4种安装方法。用 Fedora 或 Debian 的人可以获取一个 RPM或者 DEB安装。有root权限的人可以手动安装。在这两种方法中，任意系统上的用户变成一个 &quot;gitolite host&quot;。</p>
-
-<p>没有 root访问权限的人可以安装在他们自己的 userid 下面。最后，gitolite可以用一个“工作站上”的脚本在bash shell安装。(如果你想的话甚至msysgit带的bash就可以。)</p>
-
-<p>我们要描述这个最后一个方法；其他方法请看文档。</p>
-
-<p>首先你要获取一个访问服务器的公钥，你可以从你自己的工作站部属密码访问服务器。下面的方法在linux上管用；其他的工作站系统你可以手动做这些事。我们假设你已经用&#39;ssh-keygen&#39;生成了一对密钥。</p>
-
-<pre><code>$ ssh-copy-id -i ~/.ssh/id_rsa gitolite@gitserver</code></pre>
-
-<p>这会要你 gitolite账户的密码，然后设置公钥访问。这个对安装脚本非常 <strong>重要</strong>，所以试一下保证你可以不输密码：</p>
-
-<pre><code>$ ssh gitolite@gitserver pwd
-/home/gitolite</code></pre>
-
-<p>接下俩，你 clone Gitolite从项目的主目录运行 &quot;easy install&quot; 脚本 (第三个参数是你的作为 gitolite-admin仓库用户的名字):</p>
+<p>To begin, create a user called <code>git</code> on your server and login to this user.  Copy your SSH public key (a file called <code>~/.ssh/id_rsa.pub</code> if you did a plain <code>ssh-keygen</code> with all the defaults) from your workstation, renaming it to <code>&lt;yourname&gt;.pub</code> (we&#39;ll use <code>scott.pub</code> in our examples).  Then run these commands:</p>
 
 <pre><code>$ git clone git://github.com/sitaramc/gitolite
-$ cd gitolite/src
-$ ./gl-easy-install -q gitolite gitserver sitaram</code></pre>
+$ gitolite/install -ln
+    # assumes $HOME/bin exists and is in your $PATH
+$ gitolite setup -pk $HOME/scott.pub</code></pre>
 
-<p>然后就完成了！Gitolite已经在服务器上装好了，现在你有一个全新的仓库叫做 <code>gitolite-admin</code> 在你工作站的 home目录。你管理你的 gitolite 安装通过改变这个项目和push。</p>
+<p>That last command creates new Git repository called <code>gitolite-admin</code> on the server.</p>
 
-<p>最后的命令产生大量的输出，你可能想读一下。而且你第一次运行的时候会产生一对新密钥；你会选择密码或者什么都不输。为什么需要第二个密钥对以及怎么用在Gitolite带的 &quot;ssh troubleshooting&quot; 文件里解释了。 (文档肯定有点什么用！)</p>
-
-<p>叫做 <code>gitolite-admin</code> 和 <code>testing</code> 的仓库默认创建在服务器上。如果你想在本地 clone这些 (从一个有ssh控制台 gitolite通过 <em>authorized_keys</em>访问的用户)，输入：</p>
-
-<pre><code>$ git clone gitolite:gitolite-admin
-$ git clone gitolite:testing</code></pre>
-
-<p>clone 这些同样的仓库从任意其他账户：</p>
-
-<pre><code>$ git clone gitolite@servername:gitolite-admin
-$ git clone gitolite@servername:testing</code></pre>
+<p>Finally, back on your workstation, run <code>git clone git@gitserver:gitolite-admin</code>. And you’re done!  Gitolite has now been installed on the server, and you now have a brand new repository called <code>gitolite-admin</code> in your workstation.  You administer your Gitolite setup by making changes to this repository and pushing.</p>
 
 <h3>定制安装</h3>
 
-<p>默认快速安装对大多数人都管用，还有一些定制安装方法如果你用的上的话。如果你不用 <code>-q</code> 参数，则用 &quot;罗嗦&quot; 模式安装 -- 详细信息关于安装的每一步都在做什么。 罗嗦模式也允许你改变服务器端参数，诸如实际仓库的位置，通过编辑服务器使用的 &quot;rc&quot; 文件。这个 &quot;rc&quot; 有好多注释让你编辑的时候变得非常简单，保存退出。这个文件也包括了许多设置你能改变来启用或者禁用一些gitolite的高级功能。</p>
+<p>默认快速安装对大多数人都管用，还有一些定制安装方法如果你用的上的话。Some changes can be made simply by editing the rc file, but if that is not sufficient, there’s documentation on customising Gitolite.</p>
 
 <h3>配置文件和访问规则</h3>
 
@@ -60,18 +36,18 @@ $ ls
 conf/  keydir/
 $ find conf keydir -type f
 conf/gitolite.conf
-keydir/sitaram.pub
+keydir/scott.pub
 $ cat conf/gitolite.conf
-#gitolite conf
-# please see conf/example.conf for details on syntax and features
 
 repo gitolite-admin
-    RW+                 = sitaram
+    RW+                 = scott
 
 repo testing
     RW+                 = @all</code></pre>
 
-<p>注意 &quot;sitaram&quot; ( 之前用<code>gl-easy-install</code> 命令时候的最后一个参数) 有读写权限而且在 <code>gitolite-admin</code> 仓库里有一个同名的公钥文件。</p>
+<p>注意 &quot;scott&quot; ( 之前用<code>gl-setup</code> 命令时候的 pubkey 名稱) 有读写权限而且在 <code>gitolite-admin</code> 仓库里有一个同名的公钥文件。</p>
+
+<p>Adding users is easy.  To add a user called &quot;alice&quot;, obtain her public key, name it <code>alice.pub</code>, and put it in the <code>keydir</code> directory of the clone of the <code>gitolite-admin</code> repo you just made on your workstation.  Add, commit, and push the change, and the user has been added.</p>
 
 <p>gitolite配置文件的语法在 <code>conf/example.conf</code>里，我们只会提到一些主要的。</p>
 
@@ -80,8 +56,8 @@ repo testing
 <pre><code>@oss_repos      = linux perl rakudo git gitolite
 @secret_repos   = fenestra pear
 
-@admins         = scott     # Adams, not Chacon, sorry :)
-@interns        = ashok     # get the spelling right, Scott!
+@admins         = scott
+@interns        = ashok
 @engineers      = sitaram dilbert wally alice
 @staff          = @admins @engineers @interns</code></pre>
 
@@ -127,11 +103,9 @@ repo testing
 <p>此外限制用户 push改变到哪条branch的，你也可以限制哪个文件他们可以碰的到。比如, 可能 Makefile (或者其他哪些程序) 真的不能被任何人做任何改动，因为好多东西都靠着它呢，或者如果某些改变刚好不对就会崩溃。你可以告诉 gitolite:</p>
 
 <pre><code>repo foo
-    RW                  =   @junior_devs @senior_devs
+    RW                      =   @junior_devs @senior_devs
 
-    RW  NAME/           =   @senior_devs
-    -   NAME/Makefile   =   @junior_devs
-    RW  NAME/           =   @junior_devs</code></pre>
+    -   VREF/NAME/Makefile  =   @junior_devs</code></pre>
 
 <p>这是一个强力的公能写在 <code>conf/example.conf</code>里。</p>
 
@@ -155,12 +129,10 @@ repo testing
 
 <p><strong>记录</strong>: Gitolite 记录所有成功的访问。如果你太放松给了别人 rewind许可 (<code>RW+</code>) 和其他孩子弄没了 &quot;master&quot;， 记录文件会救你的命，如果其他简单快速的找到SHA都不管用。</p>
 
-<p><strong>Git在通常路径外</strong>: 一个在gitolite里的超级有用的简单功能是支持git安装在通常的 <code>$PATH</code>之外 (这个比你想象的还要寻常；一些合作环境或者甚至一些主机提供商拒绝安装系统范围外的东西你只能放在自己的目录里)。通常，你被强迫用 <em>客户端</em> 用某种方法找到git 为这个非标准的位置。使用 gitolite，只要选择絮叨安装设置 <code>$GIT_PATH</code>在 &quot;rc&quot; 文件里。不用改变客户端然后 :-)。</p>
-
 <p><strong>访问权报告</strong>: 另一个方便的功能是你尝试用ssh连接到服务器的时候发生了什么。Gitolite告诉你哪个 repos你访问过，那个访问可能是什么。这里是例子：</p>
 
-<pre><code>    hello sitaram, the gitolite version here is v1.5.4-19-ga3397d4
-    the gitolite config gives you the following access:
+<pre><code>    hello scott, this is git@git running gitolite3 v3.01-18-g9609868 on git 1.7.4.4
+
          R     anu-wsd
          R     entrans
          R  W  git-notes
@@ -171,8 +143,6 @@ repo testing
 
 <p><strong>委托</strong>：真正的大安装，你可以把责任委托给一组仓库给不同的人然后让他们独立管理那些部分。这个减少了主管理者的负担，让他瓶颈更小。这个功能在他自己的文档目录里的 <code>doc/</code>下面。</p>
 
-<p><strong>Gitweb 支持</strong>： Gitolite支持 gitweb以几种方式。你可以定义哪个仓库在gitweb可见。你能设置 &quot;拥有者&quot; 和 &quot;描述&quot; gitweb 从 gitolite配置文件里。Gitweb 有一个机制给你来实现基于http认证的访问控制，你能让它用 gitolite产生的 &quot;编译过&quot; 的配置文件，意思是同样的访问规则 (为读访问) 用于 gitweb和 gitolite.</p>
-
 <p><strong>镜像</strong>: Gitolite可以帮助你维护多个镜像，如果主服务器挂掉的话在他们之间很容易切换。</p>
 
-</div></div></div></div><div class="footer">构建时间： 2014-01-10 16:34:01，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>，版本： 0.0.3。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer">构建时间： 2014-05-13 09:56:57，基于书籍源码版本： <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>，程序版本： 0.0.4。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

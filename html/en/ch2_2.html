@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Recording Changes to the Repository - Git Basics - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git Basics</a></li><li><a href="ch2_1.html">Getting a Git Repository</a></li><li><a href="ch2_2.html">Recording Changes to the Repository</a></li><li><a href="ch2_3.html">Viewing the Commit History</a></li><li><a href="ch2_4.html">Undoing Things</a></li><li><a href="ch2_5.html">Working with Remotes</a></li><li><a href="ch2_6.html">Tagging</a></li><li><a href="ch2_7.html">Tips and Tricks</a></li><li><a href="ch2_8.html">Summary</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Recording Changes to the Repository</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Recording Changes to the Repository - Git Basics - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git Basics</a></li><li><a href="ch2_1.html">Getting a Git Repository</a></li><li><a href="ch2_2.html">Recording Changes to the Repository</a></li><li><a href="ch2_3.html">Viewing the Commit History</a></li><li><a href="ch2_4.html">Undoing Things</a></li><li><a href="ch2_5.html">Working with Remotes</a></li><li><a href="ch2_6.html">Tagging</a></li><li><a href="ch2_7.html">Tips and Tricks</a></li><li><a href="ch2_8.html">Summary</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Recording Changes to the Repository</h2>
 
 <p>You have a bona fide Git repository and a checkout or working copy of the files for that project. You need to make some changes and commit snapshots of those changes into your repository each time the project reaches a state you want to record.</p>
 
@@ -14,8 +14,8 @@ Figure 2-1. The lifecycle of the status of your files.</p>
 <p>The main tool you use to determine which files are in which state is the <code>git status</code> command. If you run this command directly after a clone, you should see something like this:</p>
 
 <pre><code>$ git status
-# On branch master
-nothing to commit (working directory clean)</code></pre>
+On branch master
+nothing to commit, working directory clean</code></pre>
 
 <p>This means you have a clean working directory — in other words, no tracked files are modified. Git also doesn’t see any untracked files, or they would be listed here. Finally, the command tells you which branch you’re on. For now, that is always <code>master</code>, which is the default; you won’t worry about it here. The next chapter will go over branches and references in detail.</p>
 
@@ -23,11 +23,12 @@ nothing to commit (working directory clean)</code></pre>
 
 <pre><code>$ vim README
 $ git status
-# On branch master
-# Untracked files:
-#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
-#
-#	README
+On branch master
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+        README
+
 nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
 
 <p>You can see that your new <code>README</code> file is untracked, because it’s under the “Untracked files” heading in your status output. Untracked basically means that Git sees a file you didn’t have in the previous snapshot (commit); Git won’t start including it in your commit snapshots until you explicitly tell it to do so. It does this so you don’t accidentally begin including generated binary files or other files that you did not mean to include. You do want to start including README, so let’s start tracking the file.</p>
@@ -41,12 +42,11 @@ nothing added to commit but untracked files present (use &quot;git add&quot; to 
 <p>If you run your status command again, you can see that your <code>README</code> file is now tracked and staged:</p>
 
 <pre><code>$ git status
-# On branch master
-# Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
-#	new file:   README
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README</code></pre>
 
 <p>You can tell that it’s staged because it’s under the “Changes to be committed” heading. If you commit at this point, the version of the file at the time you ran <code>git add</code> is what will be in the historical snapshot. You may recall that when you ran <code>git init</code> earlier, you then ran <code>git add (files)</code> — that was to begin tracking files in your directory. The <code>git add</code> command takes a path name for either a file or a directory; if it’s a directory, the command adds all the files in that directory recursively.</p>
 
@@ -55,58 +55,56 @@ nothing added to commit but untracked files present (use &quot;git add&quot; to 
 <p>Let’s change a file that was already tracked. If you change a previously tracked file called <code>benchmarks.rb</code> and then run your <code>status</code> command again, you get something that looks like this:</p>
 
 <pre><code>$ git status
-# On branch master
-# Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
-#	new file:   README
-#
-# Changes not staged for commit:
-#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-#
-#	modified:   benchmarks.rb
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb</code></pre>
 
 <p>The <code>benchmarks.rb</code> file appears under a section named “Changes not staged for commit” — which means that a file that is tracked has been modified in the working directory but not yet staged. To stage it, you run the <code>git add</code> command (it’s a multipurpose command — you use it to begin tracking new files, to stage files, and to do other things like marking merge-conflicted files as resolved). Let’s run <code>git add</code> now to stage the <code>benchmarks.rb</code> file, and then run <code>git status</code> again:</p>
 
 <pre><code>$ git add benchmarks.rb
 $ git status
-# On branch master
-# Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
-#	new file:   README
-#	modified:   benchmarks.rb
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+        modified:   benchmarks.rb</code></pre>
 
 <p>Both files are staged and will go into your next commit. At this point, suppose you remember one little change that you want to make in <code>benchmarks.rb</code> before you commit it. You open it again and make that change, and you’re ready to commit. However, let’s run <code>git status</code> one more time:</p>
 
 <pre><code>$ vim benchmarks.rb
 $ git status
-# On branch master
-# Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
-#	new file:   README
-#	modified:   benchmarks.rb
-#
-# Changes not staged for commit:
-#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-#
-#	modified:   benchmarks.rb
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+        modified:   benchmarks.rb
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb</code></pre>
 
 <p>What the heck? Now <code>benchmarks.rb</code> is listed as both staged and unstaged. How is that possible? It turns out that Git stages a file exactly as it is when you run the <code>git add</code> command. If you commit now, the version of <code>benchmarks.rb</code> as it was when you last ran the <code>git add</code> command is how it will go into the commit, not the version of the file as it looks in your working directory when you run <code>git commit</code>. If you modify a file after you run <code>git add</code>, you have to run <code>git add</code> again to stage the latest version of the file:</p>
 
 <pre><code>$ git add benchmarks.rb
 $ git status
-# On branch master
-# Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
-#	new file:   README
-#	modified:   benchmarks.rb
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+        modified:   benchmarks.rb</code></pre>
 
 <h3>Ignoring Files</h3>
 
@@ -149,17 +147,17 @@ doc/**/*.txt</code></pre>
 <p>Let’s say you edit and stage the <code>README</code> file again and then edit the <code>benchmarks.rb</code> file without staging it. If you run your <code>status</code> command, you once again see something like this:</p>
 
 <pre><code>$ git status
-# On branch master
-# Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
-#	new file:   README
-#
-# Changes not staged for commit:
-#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-#
-#	modified:   benchmarks.rb
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb</code></pre>
 
 <p>To see what you’ve changed but not yet staged, type <code>git diff</code> with no other arguments:</p>
 
@@ -204,16 +202,17 @@ index 0000000..03902a1
 <pre><code>$ git add benchmarks.rb
 $ echo &#39;# test line&#39; &gt;&gt; benchmarks.rb
 $ git status
-# On branch master
-#
-# Changes to be committed:
-#
-#	modified:   benchmarks.rb
-#
-# Changes not staged for commit:
-#
-#	modified:   benchmarks.rb
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        modified:   benchmarks.rb
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb</code></pre>
 
 <p>Now you can use <code>git diff</code> to see what is still unstaged</p>
 
@@ -262,10 +261,9 @@ In this case, the last time you ran <code>git status</code>, you saw that everyt
 # with &#39;#&#39; will be ignored, and an empty message aborts the commit.
 # On branch master
 # Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
 #       new file:   README
 #       modified:   benchmarks.rb
+#
 ~
 ~
 ~
@@ -276,8 +274,8 @@ In this case, the last time you ran <code>git status</code>, you saw that everyt
 <p>Alternatively, you can type your commit message inline with the <code>commit</code> command by specifying it after a <code>-m</code> flag, like this:</p>
 
 <pre><code>$ git commit -m &quot;Story 182: Fix benchmarks for speed&quot;
-[master]: created 463dc4f: &quot;Fix benchmarks for speed&quot;
- 2 files changed, 3 insertions(+), 0 deletions(-)
+[master 463dc4f] Fix benchmarks for speed
+ 2 files changed, 3 insertions(+)
  create mode 100644 README</code></pre>
 
 <p>Now you’ve created your first commit! You can see that the commit has given you some output about itself: which branch you committed to (<code>master</code>), what SHA-1 checksum the commit has (<code>463dc4f</code>), how many files were changed, and statistics about lines added and removed in the commit.</p>
@@ -289,15 +287,17 @@ In this case, the last time you ran <code>git status</code>, you saw that everyt
 <p>Although it can be amazingly useful for crafting commits exactly how you want them, the staging area is sometimes a bit more complex than you need in your workflow. If you want to skip the staging area, Git provides a simple shortcut. Providing the <code>-a</code> option to the <code>git commit</code> command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip the <code>git add</code> part:</p>
 
 <pre><code>$ git status
-# On branch master
-#
-# Changes not staged for commit:
-#
-#	modified:   benchmarks.rb
-#
+On branch master
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
 $ git commit -a -m &#39;added new benchmarks&#39;
 [master 83e38c7] added new benchmarks
- 1 files changed, 5 insertions(+), 0 deletions(-)</code></pre>
+ 1 files changed, 5 insertions(+)</code></pre>
 
 <p>Notice how you don’t have to run <code>git add</code> on the <code>benchmarks.rb</code> file in this case before you commit.</p>
 
@@ -309,26 +309,25 @@ $ git commit -a -m &#39;added new benchmarks&#39;
 
 <pre><code>$ rm grit.gemspec
 $ git status
-# On branch master
-#
-# Changes not staged for commit:
-#   (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
-#
-#       deleted:    grit.gemspec
-#</code></pre>
+On branch master
+Changes not staged for commit:
+  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        deleted:    grit.gemspec
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
 
 <p>Then, if you run <code>git rm</code>, it stages the file’s removal:</p>
 
 <pre><code>$ git rm grit.gemspec
 rm &#39;grit.gemspec&#39;
 $ git status
-# On branch master
-#
-# Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
-#       deleted:    grit.gemspec
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        deleted:    grit.gemspec</code></pre>
 
 <p>The next time you commit, the file will be gone and no longer tracked. If you modified the file and added it to the index already, you must force the removal with the <code>-f</code> option. This is a safety feature to prevent accidental removal of data that hasn’t yet been recorded in a snapshot and that can’t be recovered from Git.</p>
 
@@ -358,14 +357,11 @@ $ git status
 
 <pre><code>$ git mv README.txt README
 $ git status
-# On branch master
-# Your branch is ahead of &#39;origin/master&#39; by 1 commit.
-#
-# Changes to be committed:
-#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-#
-#       renamed:    README.txt -&gt; README
-#</code></pre>
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        renamed:    README.txt -&gt; README</code></pre>
 
 <p>However, this is equivalent to running something like this:</p>
 
@@ -375,4 +371,4 @@ $ git add README</code></pre>
 
 <p>Git figures out that it’s a rename implicitly, so it doesn’t matter if you rename a file that way or with the <code>mv</code> command. The only real difference is that <code>mv</code> is one command instead of three — it’s a convenience function. More important, you can use any tool you like to rename a file, and address the add/rm later, before you commit.</p>
 
-</div></div></div></div><div class="footer">Build at: 2014-01-10 16:33:58,Source revision: <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>,version: 0.0.3.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer">Build at: 2014-05-13 09:56:53,Source revision: <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>,Application version: 0.0.4.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

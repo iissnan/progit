@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git属性 - 自定义 Git - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch7_0.html">自定义 Git</a></li><li><a href="ch7_1.html">配置 Git</a></li><li><a href="ch7_2.html">Git属性</a></li><li><a href="ch7_3.html">Git挂钩</a></li><li><a href="ch7_4.html">Git 强制策略实例</a></li><li><a href="ch7_5.html">总结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Git属性</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git属性 - 自定义 Git - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch7_0.html">自定义 Git</a></li><li><a href="ch7_1.html">配置 Git</a></li><li><a href="ch7_2.html">Git属性</a></li><li><a href="ch7_3.html">Git挂钩</a></li><li><a href="ch7_4.html">Git 强制策略实例</a></li><li><a href="ch7_5.html">总结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Git属性</h2>
 
 <p>一些设置项也能被运用于特定的路径中，这样，Git 以对一个特定的子目录或子文件集运用那些设置项。这些设置项被称为 Git 属性，可以在你目录中的<code>.gitattributes</code>文件内进行设置（通常是你项目的根目录），也可以当你不想让这些属性文件和项目文件一同提交时，在<code>.git/info/attributes</code>进行设置。</p>
 
@@ -16,13 +16,19 @@
 
 <pre><code>*.pbxproj -crlf -diff</code></pre>
 
-<p>现在，Git 会尝试转换和修正CRLF（回车换行）问题，也不会当你在项目中运行git show或git diff时，比较不同的内容。在Git 1.6及之后的版本中，可以用一个宏代替<code>-crlf -diff</code>：</p>
+<p>现在，Git 会尝试转换和修正CRLF（回车换行）问题，也不会当你在项目中运行<code>git show</code>或<code>git diff</code>时，比较不同的内容。在Git 1.6及之后的版本中，可以用一个宏代替<code>-crlf -diff</code>：</p>
 
 <pre><code>*.pbxproj binary</code></pre>
 
 <h4>比较二进制文件</h4>
 
-<p>在Git 1.6及以上版本中，你能利用 Git 属性来有效地比较二进制文件。可以设置 Git 把二进制数据转换成文本格式，用通常的diff来比较。</p>
+<p>你可以使用 Git 属性来有效地比较两个二进制文件（binary files，译注：指非文本文件）。那么第一步要做的是，告诉 Git 怎么把你的二进制文件转化为纯文本格式，从而让普通的 diff 命令可以进行文本对比。但是，我们怎么把<em>二进制文件</em>转化为文本呢？最好的解决方法是找到一个转换工具帮助我们进行转化。但是，大部分的二进制文件不能表示为可读的文本，例如语音文件就很难转化为文本文件。如果你遇到这些情况，比较简单的解决方法是从这些二进制文件中获取元数据。虽然这些元数据并不能完全描述一个二进制文件，但大多数情况下，都是能够概括文件情况的。</p>
+
+<p>下面，我们将会展示，如何使用转化工具进行二进制文件的比较。</p>
+
+<p>边注：有一些二进制文件虽然包含文字，但是却难以转换。（译注：例如 Word 文档。）在这些情况，你可以尝试使用 <code>strings</code> 工具来获取其中的文字。但如果当这些文档包含 UTF-16 编码，或者其他代码页（codepages），<code>strings</code> 也可能无补于事。<code>strings</code> 在大部分的 Mac 和 Linux 下都有安装。当遇到有二进制文件需要转换的时候，你可以试试这个工具。</p>
+
+<h5>MS Word files</h5>
 
 <p>这个特性很酷，而且鲜为人知，因此我会结合实例来讲解。首先，要解决的是最令人头疼的问题：对Word文档进行版本控制。很多人对Word文档又恨又爱，如果想对其进行版本控制，你可以把文件加入到 Git 库中，每次修改后提交即可。但这样做没有一点实际意义，因为运行<code>git diff</code>命令后，你只能得到如下的结果：</p>
 
@@ -37,7 +43,12 @@ Binary files a/chapter1.doc and b/chapter1.doc differ</code></pre>
 
 <p>当你要看比较结果时，如果文件扩展名是&quot;doc&quot;，Git 调用&quot;word&quot;过滤器。什么是&quot;word&quot;过滤器呢？其实就是 Git 使用<code>strings</code> 程序，把Word文档转换成可读的文本文件，之后再进行比较：</p>
 
-<pre><code>$ git config diff.word.textconv strings</code></pre>
+<pre><code>$ git config diff.word.textconv catdoc</code></pre>
+
+<p>这个命令会在你的 <code>.git/config</code> 文件中增加一节：</p>
+
+<pre><code>[diff &quot;word&quot;]
+	textconv = catdoc</code></pre>
 
 <p>现在如果在两个快照之间比较以<code>.doc</code>结尾的文件，Git 对这些文件运用&quot;word&quot;过滤器，在比较前把Word文件转换成文本文件。</p>
 
@@ -48,15 +59,66 @@ diff --git a/chapter1.doc b/chapter1.doc
 index c1c8a0a..b93c9e4 100644
 --- a/chapter1.doc
 +++ b/chapter1.doc
-@@ -8,7 +8,8 @@ re going to cover Version Control Systems (VCS) and Git basics
- re going to cover how to get it and set it up for the first time if you don
- t already have it on your system.
- In Chapter Two we will go over basic Git usage - how to use Git for the 80%
--s going on, modify stuff and contribute changes. If the book spontaneously
-+s going on, modify stuff and contribute changes. If the book spontaneously
-+Let&#39;s see if this works.</code></pre>
+@@ -128,7 +128,7 @@ and data size)
+ Since its birth in 2005, Git has evolved and matured to be easy to use
+ and yet retain these initial qualities. It’s incredibly fast, it’s
+ very efficient with large projects, and it has an incredible branching
+-system for non-linear development.
++system for non-linear development (See Chapter 3).</code></pre>
 
 <p>Git 成功且简洁地显示出我增加的文本&quot;Let’s see if this works&quot;。虽然有些瑕疵，在末尾显示了一些随机的内容，但确实可以比较了。如果你能找到或自己写个Word到纯文本的转换器的话，效果可能会更好。 <code>strings</code>可以在大部分Mac和Linux系统上运行，所以它是处理二进制格式的第一选择。</p>
+
+<h5>OpenDocument Text files</h5>
+
+<p>The same approach that we used for MS Word files (<code>*.doc</code>) can be used for OpenDocument Text files (<code>*.odt</code>) created by OpenOffice.org.</p>
+
+<p>Add the following line to your <code>.gitattributes</code> file:</p>
+
+<pre><code>*.odt diff=odt</code></pre>
+
+<p>Now set up the <code>odt</code> diff filter in <code>.git/config</code>:</p>
+
+<pre><code>[diff &quot;odt&quot;]
+	binary = true
+	textconv = /usr/local/bin/odt-to-txt</code></pre>
+
+<p>OpenDocument files are actually zip’ped directories containing multiple files (the content in an XML format, stylesheets, images, etc.). We’ll need to write a script to extract the content and return it as plain text. Create a file <code>/usr/local/bin/odt-to-txt</code> (you are free to put it into a different directory) with the following content:</p>
+
+<pre><code>#! /usr/bin/env perl
+# Simplistic OpenDocument Text (.odt) to plain text converter.
+# Author: Philipp Kempgen
+
+if (! defined($ARGV[0])) {
+	print STDERR &quot;No filename given!\n&quot;;
+	print STDERR &quot;Usage: $0 filename\n&quot;;
+	exit 1;
+}
+
+my $content = &#39;&#39;;
+open my $fh, &#39;-|&#39;, &#39;unzip&#39;, &#39;-qq&#39;, &#39;-p&#39;, $ARGV[0], &#39;content.xml&#39; or die $!;
+{
+	local $/ = undef;  # slurp mode
+	$content = &lt;$fh&gt;;
+}
+close $fh;
+$_ = $content;
+s/&lt;text:span\b[^&gt;]*&gt;//g;           # remove spans
+s/&lt;text:h\b[^&gt;]*&gt;/\n\n*****  /g;   # headers
+s/&lt;text:list-item\b[^&gt;]*&gt;\s*&lt;text:p\b[^&gt;]*&gt;/\n    --  /g;  # list items
+s/&lt;text:list\b[^&gt;]*&gt;/\n\n/g;       # lists
+s/&lt;text:p\b[^&gt;]*&gt;/\n  /g;          # paragraphs
+s/&lt;[^&gt;]+&gt;//g;                      # remove all XML tags
+s/\n{2,}/\n\n/g;                   # remove multiple blank lines
+s/\A\n+//;                         # remove leading blank lines
+print &quot;\n&quot;, $_, &quot;\n\n&quot;;</code></pre>
+
+<p>And make it executable</p>
+
+<pre><code>chmod +x /usr/local/bin/odt-to-txt</code></pre>
+
+<p>Now <code>git diff</code> will be able to tell you what changed in <code>.odt</code> files.</p>
+
+<h5>Image files</h5>
 
 <p>你还能用这个方法比较图像文件。当比较时，对JPEG文件运用一个过滤器，它能提炼出EXIF信息 — 大部分图像格式使用的元数据。如果你下载并安装了<code>exiftool</code>程序，可以用它参照元数据把图像转换成文本。比较的不同结果将会用文本向你展示：</p>
 
@@ -72,7 +134,7 @@ index 88839c4..4afcb7c 100644
 @@ -1,12 +1,12 @@
  ExifTool Version Number         : 7.74
 -File Size                       : 70 kB
--File Modification Date/Time     : 2009:04:21 07:02:45-07:00
+-File Modification Date/Time     : 2009:04:17 10:12:35-07:00
 +File Size                       : 94 kB
 +File Modification Date/Time     : 2009:04:21 07:02:43-07:00
  File Type                       : PNG
@@ -97,8 +159,8 @@ $ echo &#39;$Id$&#39; &gt; test.txt</code></pre>
 
 <p>下次签出文件时，Git 入了blob的SHA值：</p>
 
-<pre><code>$ rm text.txt
-$ git checkout -- text.txt
+<pre><code>$ rm test.txt
+$ git checkout -- test.txt
 $ cat test.txt
 $Id: 42812b7653c7b88933f8a9d6cad0ca16714b9bb3 $</code></pre>
 
@@ -107,10 +169,10 @@ $Id: 42812b7653c7b88933f8a9d6cad0ca16714b9bb3 $</code></pre>
 <p>因此，你能写自己的过滤器，在提交文件到暂存区或签出文件时替换关键字。有2种过滤器，&quot;clean&quot;和&quot;smudge&quot;。在 <code>.gitattributes</code>文件中，你能对特定的路径设置一个过滤器，然后设置处理文件的脚本，这些脚本会在文件签出前（&quot;smudge&quot;，见图 7-2）和提交到暂存区前（&quot;clean&quot;，见图7-3）被调用。这些过滤器能够做各种有趣的事。</p>
 
 <p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0702-tn.png"></br>
-图7-2. 签出时，“smudge”过滤器被触发。</p>
+图7-2. 签出时，&quot;smudge&quot;过滤器被触发。</p>
 
 <p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0703-tn.png"></br>
-图7-3. 提交到暂存区时，“clean”过滤器被触发。</p>
+图7-3. 提交到暂存区时，&quot;clean&quot;过滤器被触发。</p>
 
 <p>这里举一个简单的例子：在暂存前，用<code>indent</code>（缩进）程序过滤所有C源代码。在<code>.gitattributes</code>文件中设置&quot;indent&quot;过滤器过滤<code>*.c</code>文件：</p>
 
@@ -195,4 +257,4 @@ Merge made by recursive.</code></pre>
 
 <p>这样，database.xml会保持原样。</p>
 
-</div></div></div></div><div class="footer">构建时间： 2014-01-10 16:34:01，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>，版本： 0.0.3。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer">构建时间： 2014-05-13 09:56:57，基于书籍源码版本： <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>，程序版本： 0.0.4。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

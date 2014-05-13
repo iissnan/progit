@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>迁移到 Git - Git 与其他系统 - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch8_0.html">Git 与其他系统</a></li><li><a href="ch8_1.html">Git 与 Subversion</a></li><li><a href="ch8_2.html">迁移到 Git</a></li><li><a href="ch8_3.html">总结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>迁移到 Git</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>迁移到 Git - Git 与其他系统 - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch8_0.html">Git 与其他系统</a></li><li><a href="ch8_1.html">Git 与 Subversion</a></li><li><a href="ch8_2.html">迁移到 Git</a></li><li><a href="ch8_3.html">总结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>迁移到 Git</h2>
 
 <p>如果在其他版本控制系统中保存了某项目的代码而后决定转而使用 Git，那么该项目必须经历某种形式的迁移。本节将介绍 Git 中包含的一些针对常见系统的导入脚本，并将展示编写自定义的导入脚本的方法。</p>
 
@@ -24,7 +24,7 @@ selse = Someo Nelse &lt;selse@geemail.com&gt;</code></pre>
 
 <p>为 <code>git svn</code> 提供该文件可以然它更精确的映射作者数据。你还可以在 <code>clone</code> 或者 <code>init</code>后面添加 <code>--no-metadata</code> 来阻止 <code>git svn</code> 包含那些 Subversion 的附加信息。这样 <code>import</code> 命令就变成了：</p>
 
-<pre><code>$ git-svn clone http://my-project.googlecode.com/svn/ \
+<pre><code>$ git svn clone http://my-project.googlecode.com/svn/ \
       --authors-file=users.txt --no-metadata -s my_project</code></pre>
 
 <p>现在 <code>my_project</code> 目录下导入的 Subversion 应该比原来整洁多了。原来的 commit 看上去是这样：</p>
@@ -52,15 +52,13 @@ Date:   Sun May 3 00:12:22 2009 +0000
 
 <p>要把标签变成合适的 Git 标签，运行</p>
 
-<pre><code>$ cp -Rf .git/refs/remotes/tags/* .git/refs/tags/
-$ rm -Rf .git/refs/remotes/tags</code></pre>
+<pre><code>$ git for-each-ref refs/remotes/tags | cut -d / -f 4- | grep -v @ | while read tagname; do git tag &quot;$tagname&quot; &quot;tags/$tagname&quot;; git branch -r -d &quot;tags/$tagname&quot;; done</code></pre>
 
 <p>该命令将原本以 <code>tag/</code> 开头的远程分支的索引变成真正的（轻巧的）标签。</p>
 
 <p>接下来，把 <code>refs/remotes</code> 下面剩下的索引变成本地分支：</p>
 
-<pre><code>$ cp -Rf .git/refs/remotes/* .git/refs/heads/
-$ rm -Rf .git/refs/remotes</code></pre>
+<pre><code>$ git for-each-ref refs/remotes | cut -d / -f 3- | grep -v @ | while read branchname; do git branch &quot;$branchname&quot; &quot;refs/remotes/$branchname&quot;; git branch -r -d &quot;$branchname&quot;; done</code></pre>
 
 <p>现在所有的旧分支都变成真正的 Git 分支，所有的旧标签也变成真正的 Git 标签。最后一项工作就是把新建的 Git 服务器添加为远程服务器并且向它推送。下面是新增远程服务器的例子：</p>
 
@@ -68,7 +66,8 @@ $ rm -Rf .git/refs/remotes</code></pre>
 
 <p>为了让所有的分支和标签都得到上传，我们使用这条命令：</p>
 
-<pre><code>$ git push origin --all</code></pre>
+<pre><code>$ git push origin --all
+$ git push origin --tags</code></pre>
 
 <p>所有的分支和标签现在都应该整齐干净的躺在新的 Git 服务器里了。</p>
 
@@ -168,7 +167,7 @@ Dir.chdir(ARGV[0]) do
     next if File.file?(dir)
 
     # 进入目标目录
-    Dir.chdir(dir) do 
+    Dir.chdir(dir) do
       last_mark = print_export(dir, last_mark)
     end
   end
@@ -231,7 +230,8 @@ end</code></pre>
 <p>唯一剩下的就是每一个快照的内容了。这简单的很，因为它们分别处于一个目录——你可以输出 <code>deleeall</code> 命令，随后是目录中每个文件的内容。Git 会正确的记录每一个快照：</p>
 
 <pre><code>puts &#39;deleteall&#39;
-Dir.glob(&quot;**/*&quot;).each do |file| next if !File.file?(file)
+Dir.glob(&quot;**/*&quot;).each do |file|
+  next if !File.file?(file)
   inline_data(file)
 end</code></pre>
 
@@ -263,7 +263,7 @@ end</code></pre>
 
 <p>搞定了。现在运行该脚本，你将得到如下内容：</p>
 
-<pre><code>$ ruby import.rb /opt/import_from 
+<pre><code>$ ruby import.rb /opt/import_from
 commit refs/heads/master
 mark :1
 committer Scott Chacon &lt;schacon@geemail.com&gt; 1230883200 -0700
@@ -340,4 +340,4 @@ file.rb  lib</code></pre>
 
 <p><code>fast-import</code> 还可以做更多——处理不同的文件模式，二进制文件，多重分支与合并，标签，进展标识等等。一些更加复杂的实例可以在 Git 源码的 <code>contib/fast-import</code> 目录里找到；其中较为出众的是前面提过的 <code>git-p4</code> 脚本。</p>
 
-</div></div></div></div><div class="footer">构建时间： 2014-01-10 16:34:01，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>，版本： 0.0.3。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer">构建时间： 2014-05-13 09:56:57，基于书籍源码版本： <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>，程序版本： 0.0.4。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

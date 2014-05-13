@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gitosis - Git on the Server - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Chinese<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch4_0.html">Git on the Server</a></li><li><a href="ch4_1.html">The Protocols</a></li><li><a href="ch4_2.html">Getting Git on a Server</a></li><li><a href="ch4_3.html">Generating Your SSH Public Key</a></li><li><a href="ch4_4.html">Setting Up the Server</a></li><li><a href="ch4_5.html">Public Access</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git Daemon</a></li><li><a href="ch4_10.html">Hosted Git</a></li><li><a href="ch4_11.html">Summary</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Gitosis</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gitosis - Git on the Server - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch4_0.html">Git on the Server</a></li><li><a href="ch4_1.html">The Protocols</a></li><li><a href="ch4_2.html">Getting Git on a Server</a></li><li><a href="ch4_3.html">Generating Your SSH Public Key</a></li><li><a href="ch4_4.html">Setting Up the Server</a></li><li><a href="ch4_5.html">Public Access</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git Daemon</a></li><li><a href="ch4_10.html">Hosted Git</a></li><li><a href="ch4_11.html">Summary</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Gitosis</h2>
 
 <p>Keeping all users’ public keys in the <code>authorized_keys</code> file for access works well only for a while. When you have hundreds of users, it’s much more of a pain to manage that process. You have to shell onto the server each time, and there is no access control — everyone in the file has read and write access to every project.</p>
 
@@ -12,7 +12,7 @@
 
 <p>Next, you clone and install Gitosis from the project’s main site:</p>
 
-<pre><code>$ git clone git://eagain.net/gitosis.git
+<pre><code>$ git clone https://github.com/tv42/gitosis.git
 $ cd gitosis
 $ sudo python setup.py install</code></pre>
 
@@ -46,7 +46,7 @@ Reinitialized existing Git repository in /opt/git/gitosis-admin.git/</code></pre
 
 <pre><code>$ ssh git@gitserver
 PTY allocation request failed on channel 0
-fatal: unrecognized command &#39;gitosis-serve schacon@quaternion&#39;
+ERROR:gitosis.serve.main:Need SSH_ORIGINAL_COMMAND in environment.
   Connection to gitserver closed.</code></pre>
 
 <p>That means Gitosis recognized you but shut you out because you’re not trying to do any Git commands. So, let’s do an actual Git command — you’ll clone the Gitosis control repository:</p>
@@ -70,28 +70,28 @@ $ find .
 [gitosis]
 
 [group gitosis-admin]
-writable = gitosis-admin
-members = scott</code></pre>
+members = scott
+writable = gitosis-admin</code></pre>
 
 <p>It shows you that the &#39;scott&#39; user — the user with whose public key you initialized Gitosis — is the only one who has access to the <code>gitosis-admin</code> project.</p>
 
 <p>Now, let’s add a new project for you. You’ll add a new section called <code>mobile</code> where you’ll list the developers on your mobile team and projects that those developers need access to. Because &#39;scott&#39; is the only user in the system right now, you’ll add him as the only member, and you’ll create a new project called <code>iphone_project</code> to start on:</p>
 
 <pre><code>[group mobile]
-writable = iphone_project
-members = scott</code></pre>
+members = scott
+writable = iphone_project</code></pre>
 
 <p>Whenever you make changes to the <code>gitosis-admin</code> project, you have to commit the changes and push them back up to the server in order for them to take effect:</p>
 
 <pre><code>$ git commit -am &#39;add iphone_project and mobile group&#39;
-[master]: created 8962da8: &quot;changed name&quot;
- 1 files changed, 4 insertions(+), 0 deletions(-)
-$ git push
+[master 8962da8] add iphone_project and mobile group
+ 1 file changed, 4 insertions(+)
+$ git push origin master
 Counting objects: 5, done.
-Compressing objects: 100% (2/2), done.
-Writing objects: 100% (3/3), 272 bytes, done.
-Total 3 (delta 1), reused 0 (delta 0)
-To git@gitserver:/opt/git/gitosis-admin.git
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 272 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@gitserver:gitosis-admin.git
    fb27aec..8962da8  master -&gt; master</code></pre>
 
 <p>You can make your first push to the new <code>iphone_project</code> project by adding your server as a remote to your local version of the project and pushing. You no longer have to manually create a bare repository for new projects on the server — Gitosis creates them automatically when it sees the first push:</p>
@@ -100,7 +100,7 @@ To git@gitserver:/opt/git/gitosis-admin.git
 $ git push origin master
 Initialized empty Git repository in /opt/git/iphone_project.git/
 Counting objects: 3, done.
-Writing objects: 100% (3/3), 230 bytes, done.
+Writing objects: 100% (3/3), 230 bytes | 0 bytes/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
 To git@gitserver:iphone_project.git
  * [new branch]      master -&gt; master</code></pre>
@@ -116,20 +116,20 @@ $ cp /tmp/id_rsa.jessica.pub keydir/jessica.pub</code></pre>
 <p>Now you can add them all to your &#39;mobile&#39; team so they have read and write access to <code>iphone_project</code>:</p>
 
 <pre><code>[group mobile]
-writable = iphone_project
-members = scott john josie jessica</code></pre>
+members = scott john josie jessica
+writable = iphone_project</code></pre>
 
 <p>After you commit and push that change, all four users will be able to read from and write to that project.</p>
 
 <p>Gitosis has simple access controls as well. If you want John to have only read access to this project, you can do this instead:</p>
 
 <pre><code>[group mobile]
-writable = iphone_project
 members = scott josie jessica
+writable = iphone_project
 
 [group mobile_ro]
-readonly = iphone_project
-members = john</code></pre>
+members = john
+readonly = iphone_project</code></pre>
 
 <p>Now John can clone the project and get updates, but Gitosis won’t allow him to push back up to the project. You can create as many of these groups as you want, each containing different users and projects. You can also specify another group as one of the members (using <code>@</code> as prefix), to inherit all of its members automatically:</p>
 
@@ -137,13 +137,13 @@ members = john</code></pre>
 members = scott josie jessica
 
 [group mobile]
-writable  = iphone_project
 members   = @mobile_committers
+writable  = iphone_project
 
 [group mobile_2]
-writable  = another_iphone_project
-members   = @mobile_committers john</code></pre>
+members   = @mobile_committers john
+writable  = another_iphone_project</code></pre>
 
 <p>If you have any issues, it may be useful to add <code>loglevel=DEBUG</code> under the <code>[gitosis]</code> section. If you’ve lost push access by pushing a messed-up configuration, you can manually fix the file on the server under <code>/home/git/.gitosis.conf</code> — the file from which Gitosis reads its info. A push to the project takes the <code>gitosis.conf</code> file you just pushed up and sticks it there. If you edit that file manually, it remains like that until the next successful push to the <code>gitosis-admin</code> project.</p>
 
-</div></div></div></div><div class="footer">Build at: 2014-01-10 16:33:58,Source revision: <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>,version: 0.0.3.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer">Build at: 2014-05-13 09:56:53,Source revision: <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>,Application version: 0.0.4.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

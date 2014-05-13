@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>查看提交历史 - Git 基础 - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">英文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git 基础</a></li><li><a href="ch2_1.html">取得项目的 Git 仓库</a></li><li><a href="ch2_2.html">记录每次更新到仓库</a></li><li><a href="ch2_3.html">查看提交历史</a></li><li><a href="ch2_4.html">撤消操作</a></li><li><a href="ch2_5.html">远程仓库的使用</a></li><li><a href="ch2_6.html">打标签</a></li><li><a href="ch2_7.html">技巧和窍门</a></li><li><a href="ch2_8.html">小结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>查看提交历史</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>查看提交历史 - Git 基础 - Pro Git 简体中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="../en/ch1_0.html">1 Getting Started </a></li><li><a href="../en/ch2_0.html">2 Git Basics </a></li><li><a href="../en/ch3_0.html">3 Git Branching </a></li><li><a href="../en/ch4_0.html">4 Git on the Server </a></li><li><a href="../en/ch5_0.html">5 Distributed Git </a></li><li><a href="../en/ch6_0.html">6 Git Tools </a></li><li><a href="../en/ch7_0.html">7 Customizing Git </a></li><li><a href="../en/ch8_0.html">8 Git and Other Systems </a></li><li><a href="../en/ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="ch1_0.html">1 起步 </a></li><li><a href="ch2_0.html">2 Git 基础 </a></li><li><a href="ch3_0.html">3 Git 分支 </a></li><li><a href="ch4_0.html">4 服务器上的 Git </a></li><li><a href="ch5_0.html">5 分布式 Git </a></li><li><a href="ch6_0.html">6 Git 工具 </a></li><li><a href="ch7_0.html">7 自定义 Git </a></li><li><a href="ch8_0.html">8 Git 与其他系统 </a></li><li><a href="ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">关于</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git 基础</a></li><li><a href="ch2_1.html">取得项目的 Git 仓库</a></li><li><a href="ch2_2.html">记录每次更新到仓库</a></li><li><a href="ch2_3.html">查看提交历史</a></li><li><a href="ch2_4.html">撤消操作</a></li><li><a href="ch2_5.html">远程仓库的使用</a></li><li><a href="ch2_6.html">打标签</a></li><li><a href="ch2_7.html">技巧和窍门</a></li><li><a href="ch2_8.html">小结</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>查看提交历史</h2>
 
 <p>在提交了若干更新之后，又或者克隆了某个项目，想回顾下提交历史，可以使用 <code>git log</code> 命令查看。</p>
 
@@ -44,11 +44,13 @@ diff --git a/Rakefile b/Rakefile
 index a874b73..8f94139 100644
 --- a/Rakefile
 +++ b/Rakefile
-@@ -5,7 +5,7 @@ require &#39;rake/gempackagetask&#39;
+@@ -5,5 +5,5 @@ require &#39;rake/gempackagetask&#39;
  spec = Gem::Specification.new do |s|
+     s.name      =   &quot;simplegit&quot;
 -    s.version   =   &quot;0.1.0&quot;
 +    s.version   =   &quot;0.1.1&quot;
      s.author    =   &quot;Scott Chacon&quot;
+     s.email     =   &quot;schacon@gee-mail.com
 
 commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
 Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
@@ -71,9 +73,31 @@ index a0a60ae..47c6340 100644
 -end
 \ No newline at end of file</code></pre>
 
-<p>在做代码审查，或者要快速浏览其他协作者提交的更新都作了哪些改动时，就可以用这个选项。此外，还有许多摘要选项可以用，比如 <code>--stat</code>，仅显示简要的增改行数统计：</p>
+<p>该选项除了显示基本信息之外，还在附带了每次 commit 的变化。当进行代码审查，或者快速浏览某个搭档提交的 commit 的变化的时候，这个参数就非常有用了。</p>
 
-<pre><code>$ git log --stat 
+<p>某些时候，单词层面的对比，比行层面的对比，更加容易观察。Git 提供了 <code>--word-diff</code> 选项。我们可以将其添加到 <code>git log -p</code> 命令的后面，从而获取单词层面上的对比。在程序代码中进行单词层面的对比常常是没什么用的。不过当你需要在书籍、论文这种很大的文本文件上进行对比的时候，这个功能就显出用武之地了。下面是一个简单的例子：</p>
+
+<pre><code>$ git log -U1 --word-diff
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+
+diff --git a/Rakefile b/Rakefile
+index a874b73..8f94139 100644
+--- a/Rakefile
++++ b/Rakefile
+@@ -7,3 +7,3 @@ spec = Gem::Specification.new do |s|
+    s.name      =   &quot;simplegit&quot;
+    s.version   =   [-&quot;0.1.0&quot;-]{+&quot;0.1.1&quot;+}
+    s.author    =   &quot;Scott Chacon&quot;</code></pre>
+
+<p>如你所见，这里并没有平常看到的添加行或者删除行的信息。这里的对比显示在行间。新增加的单词被 <code>{+ +}</code> 括起来，被删除的单词被 <code>[- -]</code> 括起来。在进行单词层面的对比的时候，你可能希望上下文（ context ）行数从默认的 3 行，减为 1 行，那么可以使用 <code>-U1</code> 选项。上面的例子中，我们就使用了这个选项。 </p>
+
+<p>另外，<code>git log</code> 还提供了许多摘要选项可以用，比如 <code>--stat</code>，仅显示简要的增改行数统计：</p>
+
+<pre><code>$ git log --stat
 commit ca82a6dff817ec66f44342007202690a93763949
 Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
 Date:   Mon Mar 17 21:52:11 2008 -0700
@@ -81,7 +105,7 @@ Date:   Mon Mar 17 21:52:11 2008 -0700
     changed the version number
 
  Rakefile |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
 Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
@@ -90,7 +114,7 @@ Date:   Sat Mar 15 16:40:33 2008 -0700
     removed unnecessary test code
 
  lib/simplegit.rb |    5 -----
- 1 files changed, 0 insertions(+), 5 deletions(-)
+ 1 file changed, 5 deletions(-)
 
 commit a11bef06a3f659402fe7563abf99ad00de2209e6
 Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
@@ -101,9 +125,10 @@ Date:   Sat Mar 15 10:31:28 2008 -0700
  README           |    6 ++++++
  Rakefile         |   23 +++++++++++++++++++++++
  lib/simplegit.rb |   25 +++++++++++++++++++++++++
- 3 files changed, 54 insertions(+), 0 deletions(-)</code></pre>
+ 3 files changed, 54 insertions(+)</code></pre>
 
-<p>每个提交都列出了修改过的文件，以及其中添加和移除的行数，并在最后列出所有增减行数小计。还有个常用的 <code>--pretty</code> 选项，可以指定使用完全不同于默认格式的方式展示提交历史。比如用 <code>oneline</code> 将每个提交放在一行显示，这在提交数很大时非常有用。另外还有 <code>short</code>，<code>full</code> 和 <code>fuller</code> 可以用，展示的信息或多或少有些不同，请自己动手实践一下看看效果如何。</p>
+<p>每个提交都列出了修改过的文件，以及其中添加和移除的行数，并在最后列出所有增减行数小计。
+还有个常用的 <code>--pretty</code> 选项，可以指定使用完全不同于默认格式的方式展示提交历史。比如用 <code>oneline</code> 将每个提交放在一行显示，这在提交数很大时非常有用。另外还有 <code>short</code>，<code>full</code> 和 <code>fuller</code> 可以用，展示的信息或多或少有些不同，请自己动手实践一下看看效果如何。</p>
 
 <pre><code>$ git log --pretty=oneline
 ca82a6dff817ec66f44342007202690a93763949 changed the version number
@@ -118,6 +143,11 @@ ca82a6d - Scott Chacon, 11 months ago : changed the version number
 a11bef0 - Scott Chacon, 11 months ago : first commit</code></pre>
 
 <p>表 2-1 列出了常用的格式占位符写法及其代表的意义。</p>
+
+<p>&lt;!-- Attention to translators: this is a table declaration.
+The lines must be formatted as follows
+&lt;TAB&gt;&lt;First column text&gt;&lt;TAB&gt;&lt;Second column text&gt;
+--&gt;</p>
 
 <pre><code>选项	 说明
 %H	提交对象（commit）的完整哈希字串
@@ -154,8 +184,14 @@ a11bef0 - Scott Chacon, 11 months ago : first commit</code></pre>
 
 <p>以上只是简单介绍了一些 <code>git log</code> 命令支持的选项。表 2-2 还列出了一些其他常用的选项及其释义。</p>
 
+<p>&lt;!-- Attention to translators: this is a table declaration.
+The lines must be formatted as follows
+&lt;TAB&gt;&lt;First column text&gt;&lt;TAB&gt;&lt;Second column text&gt;
+--&gt;</p>
+
 <pre><code>选项	说明
 -p	按补丁格式显示每个更新之间的差异。
+--word-diff	按 word diff 格式显示差异。
 --stat	显示每次更新的文件修改统计信息。
 --shortstat	只显示 --stat 中最后的行数修改添加移除统计。
 --name-only	仅在提交信息后显示已修改的文件清单。
@@ -163,7 +199,8 @@ a11bef0 - Scott Chacon, 11 months ago : first commit</code></pre>
 --abbrev-commit	仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。
 --relative-date	使用较短的相对时间显示（比如，“2 weeks ago”）。
 --graph	显示 ASCII 图形表示的分支合并历史。
---pretty	使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。</code></pre>
+--pretty	使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。
+--oneline	`--pretty=oneline --abbrev-commit` 的简化用法。</code></pre>
 
 <h3>限制输出长度</h3>
 
@@ -180,6 +217,11 @@ a11bef0 - Scott Chacon, 11 months ago : first commit</code></pre>
 <p>另一个真正实用的<code>git log</code>选项是路径(path)，如果只关心某些文件或者目录的历史提交，可以在 <code>git log</code> 选项的最后指定它们的路径。因为是放在最后位置上的选项，所以用两个短划线（<code>--</code>）隔开之前的选项和后面限定的路径名。</p>
 
 <p>表 2-3 还列出了其他常用的类似选项。</p>
+
+<p>&lt;!-- Attention to translators: this is a table declaration.
+The lines must be formatted as follows
+&lt;TAB&gt;&lt;First column text&gt;&lt;TAB&gt;&lt;Second column text&gt;
+--&gt;</p>
 
 <pre><code>选项	说明
 -(n)	仅显示最近的 n 条提交
@@ -210,4 +252,4 @@ b0ad11e - pull: allow &quot;git pull origin $something:$cur</code></pre>
 
 <p>上半个窗口显示的是历次提交的分支祖先图谱，下半个窗口显示当前点选的提交对应的具体差异。</p>
 
-</div></div></div></div><div class="footer">构建时间： 2014-01-10 16:34:01，基于书籍翻译版本： <a href="https://github.com/progit/progit/tree/62bfaffb1cfd6c13f8ba07424d4644983184587b" target="_blank">62bfaff</a>，版本： 0.0.3。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer">构建时间： 2014-05-13 09:56:57，基于书籍源码版本： <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>，程序版本： 0.0.4。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
