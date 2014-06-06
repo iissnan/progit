@@ -76,13 +76,13 @@ ca82a6dff817ec66f44342007202690a93763949</code></pre>
 <p>你可以使用 <code>git reflog</code> 来查看引用日志：</p>
 
 <pre><code>$ git reflog
-734713b... HEAD@{0}: commit: fixed refs handling, added gc auto, updated
-d921970... HEAD@{1}: merge phedders/rdocs: Merge made by recursive.
-1c002dd... HEAD@{2}: commit: added some blame and merge stuff
-1c36188... HEAD@{3}: rebase -i (squash): updating HEAD
-95df984... HEAD@{4}: commit: # This is a combination of two commits.
-1c36188... HEAD@{5}: rebase -i (squash): updating HEAD
-7e05da5... HEAD@{6}: rebase -i (pick): updating HEAD</code></pre>
+734713b HEAD@{0}: commit: fixed refs handling, added gc auto, updated
+d921970 HEAD@{1}: merge phedders/rdocs: Merge made by recursive.
+1c002dd HEAD@{2}: commit: added some blame and merge stuff
+1c36188 HEAD@{3}: rebase -i (squash): updating HEAD
+95df984 HEAD@{4}: commit: # This is a combination of two commits.
+1c36188 HEAD@{5}: rebase -i (squash): updating HEAD
+7e05da5 HEAD@{6}: rebase -i (pick): updating HEAD</code></pre>
 
 <p>每次你的分支顶端因为某些原因被修改时，Git 就会为你将信息保存在这个临时历史记录里面。你也可以使用这份数据来指明更早的分支。如果你想查看仓库中 HEAD 在五次前的值，你可以使用引用日志的输出中的 <code>@{n}</code> 引用：</p>
 
@@ -244,4 +244,4 @@ C</code></pre>
 
 <p>有了以上工具，让Git知道你要察看哪些提交就容易得多了。</p>
 
-</div></div></div></div><div class="footer">构建时间： 2014-05-13 09:56:57，基于书籍源码版本： <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>，程序版本： 0.0.4。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer"><span class="build-date">构建时间： 2014-06-06 09:35:06</span>，<span class="build-source-version">基于书籍源码版本： <a href="https://github.com/progit/progit/tree/11a568ed613ce79764591d6cbb9fcd3adfec6a21" target="_blank">11a568e</a></span>，<span class="application-version">程序版本： 0.0.4</span>。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

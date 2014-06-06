@@ -27,7 +27,7 @@ As you’ll remember, you can create the branch based off your master branch lik
 
 <p>This modifies the files in your working directory. It’s almost identical to running a <code>patch -p1</code> command to apply the patch, although it’s more paranoid and accepts fewer fuzzy matches than patch. It also handles file adds, deletes, and renames if they’re described in the <code>git diff</code> format, which <code>patch</code> won’t do. Finally, <code>git apply</code> is an &quot;apply all or abort all&quot; model where either everything is applied or nothing is, whereas <code>patch</code> can partially apply patchfiles, leaving your working directory in a weird state. <code>git apply</code> is overall much more paranoid than <code>patch</code>. It won’t create a commit for you — after running it, you must stage and commit the changes introduced manually.</p>
 
-<p>You can also use git apply to see if a patch applies cleanly before you try actually applying it — you can run <code>git apply --check</code> with the patch:</p>
+<p>You can also use <code>git apply</code> to see if a patch applies cleanly before you try actually applying it — you can run <code>git apply --check</code> with the patch:</p>
 
 <pre><code>$ git apply --check 0001-seeing-if-this-helps-the-gem.patch
 error: patch failed: ticgit.gemspec:1
@@ -48,7 +48,7 @@ Subject: [PATCH 1/2] add limit to log function
 
 Limit log functionality to the first 20</code></pre>
 
-<p>This is the beginning of the output of the format-patch command that you saw in the previous section. This is also a valid mbox e-mail format. If someone has e-mailed you the patch properly using git send-email, and you download that into an mbox format, then you can point git am to that mbox file, and it will start applying all the patches it sees. If you run a mail client that can save several e-mails out in mbox format, you can save entire patch series into a file and then use git am to apply them one at a time.</p>
+<p>This is the beginning of the output of the format-patch command that you saw in the previous section. This is also a valid mbox e-mail format. If someone has e-mailed you the patch properly using <code>git send-email</code>, and you download that into an mbox format, then you can point <code>git am</code> to that mbox file, and it will start applying all the patches it sees. If you run a mail client that can save several e-mails out in mbox format, you can save entire patch series into a file and then use <code>git am</code> to apply them one at a time.</p>
 
 <p>However, if someone uploaded a patch file generated via <code>format-patch</code> to a ticketing system or something similar, you can save the file locally and then pass that file saved on your disk to <code>git am</code> to apply it:</p>
 
@@ -325,4 +325,4 @@ Tom Preston-Werner (4):
 
 <p>You get a clean summary of all the commits since v1.0.1, grouped by author, that you can e-mail to your list.</p>
 
-</div></div></div></div><div class="footer">Build at: 2014-05-13 09:56:53,Source revision: <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>,Application version: 0.0.4.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer"><span class="build-date">Build at: 2014-06-06 09:35:04</span>,<span class="build-source-version">Source revision: <a href="https://github.com/progit/progit/tree/11a568ed613ce79764591d6cbb9fcd3adfec6a21" target="_blank">11a568e</a></span>,<span class="application-version">Application version: 0.0.4</span>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

@@ -196,7 +196,7 @@ Fast-forwarded master to refs/remotes/trunk.</code></pre>
 
 <h3>Git 分支问题</h3>
 
-<p>习惯了 Git 的工作流程以后，你可能会创建一些特性分支，完成相关的开发工作，然后合并他们。如果要用 git svn 向 Subversion 推送内容，那么最好是每次用衍合来并入一个单一分支，而不是直接合并。使用衍合的原因是 Subversion 只有一个线性的历史而不像 Git 那样处理合并，所以 Git svn 在把快照转换为 Subversion 的 commit 时只能包含第一个祖先。</p>
+<p>习惯了 Git 的工作流程以后，你可能会创建一些特性分支，完成相关的开发工作，然后合并他们。如果要用 <code>git svn</code> 向 Subversion 推送内容，那么最好是每次用衍合来并入一个单一分支，而不是直接合并。使用衍合的原因是 Subversion 只有一个线性的历史而不像 Git 那样处理合并，所以 <code>git svn</code> 在把快照转换为 Subversion 的 commit 时只能包含第一个祖先。</p>
 
 <p>假设分支历史如下：创建一个 <code>experiment</code> 分支，进行两次提交，然后合并到 <code>master</code> 。在 <code>dcommit</code> 的时候会得到如下输出：</p>
 
@@ -225,7 +225,7 @@ Resetting to the latest refs/remotes/trunk</code></pre>
 
 <h3>Subversion 分支</h3>
 
-<p>Subversion 的分支和 Git 中的不尽相同；避免过多的使用可能是最好方案。不过，用 git svn 创建和提交不同的 Subversion 分支仍是可行的。</p>
+<p>Subversion 的分支和 Git 中的不尽相同；避免过多的使用可能是最好方案。不过，用 <code>git svn</code> 创建和提交不同的 Subversion 分支仍是可行的。</p>
 
 <h4>创建新的 SVN 分支</h4>
 
@@ -336,4 +336,4 @@ Last Changed Date: 2009-05-02 16:07:37 -0700 (Sat, 02 May 2009)</code></pre>
 
 <p>如果遵循这些守则，在 Subversion 上工作还可以接受。然而，如果能迁徙到真正的 Git 服务器，则能为团队带来更多好处。</p>
 
-</div></div></div></div><div class="footer">构建时间： 2014-05-13 09:56:57，基于书籍源码版本： <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>，程序版本： 0.0.4。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer"><span class="build-date">构建时间： 2014-06-06 09:35:06</span>，<span class="build-source-version">基于书籍源码版本： <a href="https://github.com/progit/progit/tree/11a568ed613ce79764591d6cbb9fcd3adfec6a21" target="_blank">11a568e</a></span>，<span class="application-version">程序版本： 0.0.4</span>。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

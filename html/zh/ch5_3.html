@@ -255,7 +255,7 @@ You need a passphrase to unlock the secret key for
 user: &quot;Scott Chacon &lt;schacon@gmail.com&gt;&quot;
 1024-bit DSA key, ID F721C45A, created 2009-02-09</code></pre>
 
-<p>完成签名之后，如何分发PGP公钥（public key）是个问题。（译者注：分发公钥是为了验证标签）。还好，Git的设计者想到了解决办法：可以把key（既公钥）作为blob变量写入Git库，然后把它的内容直接写在标签里。<code>gpg --list-keys</code>命令可以显示出你所拥有的key：</p>
+<p>完成签名之后，如何分发PGP公钥（public key）是个问题。（译者注：分发公钥是为了验证标签）。还好，Git的设计者想到了解决办法：可以把key（即公钥）作为blob变量写入Git库，然后把它的内容直接写在标签里。<code>gpg --list-keys</code>命令可以显示出你所拥有的key：</p>
 
 <pre><code>$ gpg --list-keys
 /Users/schacon/.gnupg/pubring.gpg
@@ -325,4 +325,4 @@ Tom Preston-Werner (4):
 
 <p>这就是自从v1.0.1版本以来的所有提交的简介，内容按照作者分组，以便你能快速的发e-mail给他们。</p>
 
-</div></div></div></div><div class="footer">构建时间： 2014-05-13 09:56:57，基于书籍源码版本： <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>，程序版本： 0.0.4。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer"><span class="build-date">构建时间： 2014-06-06 09:35:06</span>，<span class="build-source-version">基于书籍源码版本： <a href="https://github.com/progit/progit/tree/11a568ed613ce79764591d6cbb9fcd3adfec6a21" target="_blank">11a568e</a></span>，<span class="application-version">程序版本： 0.0.4</span>。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>

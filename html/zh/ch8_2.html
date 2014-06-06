@@ -155,7 +155,7 @@ current</code></pre>
 
 <p>为了导入到一个 Git 目录，我们首先回顾一下 Git 储存数据的方式。你可能还记得，Git 本质上是一个 commit 对象的链表，每一个对象指向一个内容的快照。而这里需要做的工作就是告诉 <code>fast-import</code> 内容快照的位置，什么样的 commit 数据指向它们，以及它们的顺序。我们采取一次处理一个快照的策略，为每一个内容目录建立对应的 commit ，每一个 commit 与之前的建立链接。</p>
 
-<p>正如在第七章 &quot;Git 执行策略一例&quot; 一节中一样，我们将使用 Ruby 来编写这个脚本，因为它是我日常使用的语言而且阅读起来简单一些。你可以用任何其他熟悉的语言来重写这个例子——它仅需要把必要的信息打印到标准输出而已。同时，如果你在使用 Windows，这意味着你要特别留意不要在换行的时候引入回车符（译注：carriage returns，Windows 换行时加入的符号，通常说的 <code>\r</code> ）—— Git 的 fast-import 对仅使用换行符（LF）而非 Windows 的回车符（CRLF）要求非常严格。</p>
+<p>正如在第七章 &quot;Git 执行策略一例&quot; 一节中一样，我们将使用 Ruby 来编写这个脚本，因为它是我日常使用的语言而且阅读起来简单一些。你可以用任何其他熟悉的语言来重写这个例子——它仅需要把必要的信息打印到标准输出而已。同时，如果你在使用 Windows，这意味着你要特别留意不要在换行的时候引入回车符（译注：carriage returns，Windows 换行时加入的符号，通常说的 <code>\r</code> ）—— <code>git fast-import</code> 对仅使用换行符（LF）而非 Windows 的回车符（CRLF）要求非常严格。</p>
 
 <p>首先，进入目标目录并且找到所有子目录，每一个子目录将作为一个快照被导入为一个 commit。我们将依次进入每一个子目录并打印所需的命令来导出它们。脚本的主循环大致是这样：</p>
 
@@ -257,7 +257,7 @@ end</code></pre>
 
 <pre><code>return mark</code></pre>
 
-<p>注意：如果你在用 Windows，一定记得添加一项额外的步骤。前面提过，Windows 使用 CRLF 作为换行字符而 Git fast-import 只接受 LF。为了绕开这个问题来满足 git fast-import，你需要让 ruby 用 LF 取代 CRLF：</p>
+<p>注意：如果你在用 Windows，一定记得添加一项额外的步骤。前面提过，Windows 使用 CRLF 作为换行字符而 <code>git fast-import</code> 只接受 LF。为了绕开这个问题来满足 <code>git fast-import</code>，你需要让 ruby 用 LF 取代 CRLF：</p>
 
 <pre><code>$stdout.binmode</code></pre>
 
@@ -340,4 +340,4 @@ file.rb  lib</code></pre>
 
 <p><code>fast-import</code> 还可以做更多——处理不同的文件模式，二进制文件，多重分支与合并，标签，进展标识等等。一些更加复杂的实例可以在 Git 源码的 <code>contib/fast-import</code> 目录里找到；其中较为出众的是前面提过的 <code>git-p4</code> 脚本。</p>
 
-</div></div></div></div><div class="footer">构建时间： 2014-05-13 09:56:57，基于书籍源码版本： <a href="https://github.com/progit/progit/tree/c3fbf20f1cbc4bc4714bbdf074140e87994ac9e2" target="_blank">c3fbf20</a>，程序版本： 0.0.4。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div></div><div class="footer"><span class="build-date">构建时间： 2014-06-06 09:35:06</span>，<span class="build-source-version">基于书籍源码版本： <a href="https://github.com/progit/progit/tree/11a568ed613ce79764591d6cbb9fcd3adfec6a21" target="_blank">11a568e</a></span>，<span class="application-version">程序版本： 0.0.4</span>。</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
