@@ -3,7 +3,7 @@ html
     head
         meta(charset="utf-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title #{title}
+        title= title
 
         block header
 
@@ -20,14 +20,16 @@ html
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                div.navbar-collapse.collapse.navigation !{menu}
+                div.navbar-collapse.collapse.navigation
+                    != menu
 
 
         div.container#main
             div.wrap
                 div.row
                     block row
-            div.footer !{footer}
+            div.footer
+                != footer
 
         block scripts
 

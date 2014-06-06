@@ -10,25 +10,34 @@ block brand
         img.logo(src="assets/img/git-logo.png", alt="git")
 
 block row
+    - var LINK_CREATIVE_COMMON = "http://creativecommons.org/licenses/by-nc-sa/3.0/"
+    - var LINK_BOOK_OFFICIAL = "http://www.git-scm.com/book"
+    - var LINK_BOOK_AMAZON = "http://www.amazon.com/gp/product/1430218339"
+    - var LINK_BOOK_SOURCE = "http://github.com/progit/progit"
+    - var LINK_GIT_OFFICIAL = "http://git-scm.com/"
+    - var LINK_NODEJS_OFFICIAL = "http://nodejs.org"
+    - var LINK_SELF_ISSUE = "https://github.com/iissnan/progit/issues"
+
     div.col-md-12
         div.ph20
             h3 关于《Pro Git》：
             p
                 | 此书由Scott Chacon所著，并且书籍内容完全开源，以
-                a(href="http://creativecommons.org/licenses/by-nc-sa/3.0/", target="_blank") Creative Commons Attribution Non Commercial Share Alike 3.0 license
+                a(href=LINK_CREATIVE_COMMON, target="_blank")
+                    | Creative Commons Attribution Non Commercial Share Alike 3.0 license
                 | 共享。
             p 
                 | 此书的
-                a(href="http://www.git-scm.com/book", target="_blank") 在线版本
+                a(href=LINK_BOOK_OFFICIAL, target="_blank") 在线版本
                 | 已替换Git Community Book成为Git官方推荐书籍。
             p
                 | 打印版本由Apress出版发行，美国亚马逊购买链接：
-                a(href="http://www.amazon.com/gp/product/1430218339?ie=UTF8&tag=prgi-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430218339", target="_blank") Amazon.com Link。
+                a(href=LINK_BOOK_AMAZON, target="_blank") Amazon.com Link。
                 | 出版发行的封面为：
                 img.img-responsive(src="assets/img/pro-git-cover.jpeg", alt="pro-git", width="100")
             p
                 | 书籍源码放置在Github的
-                a(href="http://github.com/progit/progit") progit/progit
+                a(href=LINK_BOOK_SOURCE) progit/progit
                 | 仓库中。
 
             
@@ -39,19 +48,25 @@ block row
                     br 
                     del 
                         | 但自从书籍的在线版本并入
-                        a(href="http://git-scm.com/", target="blank") Git官方网站
+                        a(href=LINK_GIT_OFFICIAL, target="blank") Git官方网站
                         | 后就被白名单认证了。由此以来，想翻阅在线HTML版本就极为麻烦。
                 p
                     | 恰巧最近接触
-                    a(href="http://nodejs.org", target="_blank") Node.js
+                    a(href=LINK_NODEJS_OFFICIAL, target="_blank") Node.js
                     | ，故萌生了制作这个站点的想法。
 
                 p 非常感谢中文版本翻译的热心网友。
 
             h3 反馈
             ul
-                li 如果发现翻译上的错误，可以在GitHub上fork一份<a href="https://github.com/progit/progit/" target="_blank">Pro Git书籍的源代码</a>，修改后发送一个Pull Request。
-                li 如果此站发生错误，可以在<a href="https://github.com/iissnan/progit/issues" target="_blank">这里</a>提交反馈</a>
+                li
+                    | 如果发现翻译上的错误，可以在GitHub上fork一份
+                    a(href=LINK_BOOK_SOURCE, target="_blank") Pro Git书籍的源代码
+                    | ，修改后发送一个Pull Request。
+                li
+                    | 如果此站发生错误，可以在
+                    a(href=LINK_SELF_ISSUE, target="_blank") 这里
+                    | 提交反馈
 
 
 block prepend scripts
