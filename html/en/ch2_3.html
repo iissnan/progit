@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Viewing the Commit History - Git Basics - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html">About</a></li></ul></div></div></div><div id="main" class="container"><div class="wrap"><div class="row"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git Basics</a></li><li><a href="ch2_1.html">Getting a Git Repository</a></li><li><a href="ch2_2.html">Recording Changes to the Repository</a></li><li><a href="ch2_3.html">Viewing the Commit History</a></li><li><a href="ch2_4.html">Undoing Things</a></li><li><a href="ch2_5.html">Working with Remotes</a></li><li><a href="ch2_6.html">Tagging</a></li><li><a href="ch2_7.html">Tips and Tricks</a></li><li><a href="ch2_8.html">Summary</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Viewing the Commit History</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Viewing the Commit History - Git Basics - ProGit</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">English<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">Table Of Contents</a></li><div class="divider"></div><li><a href="ch1_0.html">1 Getting Started </a></li><li><a href="ch2_0.html">2 Git Basics </a></li><li><a href="ch3_0.html">3 Git Branching </a></li><li><a href="ch4_0.html">4 Git on the Server </a></li><li><a href="ch5_0.html">5 Distributed Git </a></li><li><a href="ch6_0.html">6 Git Tools </a></li><li><a href="ch7_0.html">7 Customizing Git </a></li><li><a href="ch8_0.html">8 Git and Other Systems </a></li><li><a href="ch9_0.html">9 Git Internals </a></li></ul></li><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">简体中文版<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.html">目录</a></li><div class="divider"></div><li><a href="../zh/ch1_0.html">1 起步 </a></li><li><a href="../zh/ch2_0.html">2 Git 基础 </a></li><li><a href="../zh/ch3_0.html">3 Git 分支 </a></li><li><a href="../zh/ch4_0.html">4 服务器上的 Git </a></li><li><a href="../zh/ch5_0.html">5 分布式 Git </a></li><li><a href="../zh/ch6_0.html">6 Git 工具 </a></li><li><a href="../zh/ch7_0.html">7 自定义 Git </a></li><li><a href="../zh/ch8_0.html">8 Git 与其他系统 </a></li><li><a href="../zh/ch9_0.html">9 Git 内部原理 </a></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> About</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git Basics</a></li><li><a href="ch2_1.html">Getting a Git Repository</a></li><li><a href="ch2_2.html">Recording Changes to the Repository</a></li><li><a href="ch2_3.html">Viewing the Commit History</a></li><li><a href="ch2_4.html">Undoing Things</a></li><li><a href="ch2_5.html">Working with Remotes</a></li><li><a href="ch2_6.html">Tagging</a></li><li><a href="ch2_7.html">Tips and Tricks</a></li><li><a href="ch2_8.html">Summary</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Viewing the Commit History</h2>
 
 <p>After you have created several commits, or if you have cloned a repository with an existing commit history, you’ll probably want to look back to see what has happened. The most basic and powerful tool to do this is the <code>git log</code> command.</p>
 
@@ -227,15 +227,59 @@ The lines must be formatted as follows
 
 <pre><code>Option	Description
 -(n)	Show only the last n commits
---since, --after	Limit the commits to those made after the specified date.
---until, --before	Limit the commits to those made before the specified date.
+--since, --after	Limit the commits to those whose CommitDate was made on-or-after the specified date/time.
+--until, --before	Limit the commits to those whose CommitDate was made on-or-before the specified date/time.
 --author	Only show commits in which the author entry matches the specified string.
 --committer	Only show commits in which the committer entry matches the specified string.</code></pre>
 
-<p>For example, if you want to see which commits modifying test files in the Git source code history were committed by Junio Hamano in the month of October 2008 and were not merges, you can run something like this:</p>
+<h3>Limiting Log Output according to Date/Time</h3>
 
-<pre><code>$ git log --pretty=&quot;%h - %s&quot; --author=gitster --since=&quot;2008-10-01&quot; \
-   --before=&quot;2008-11-01&quot; --no-merges -- t/
+<p>To determine which commits in the Git source code repository (git://git.kernel.org/pub/scm/git/git.git) have CommitDate on 2014-04-29 relative to your local timezone (as set on your computer), use</p>
+
+<pre><code>$ git log --after=&quot;2014-04-29 00:00:00&quot; --before=&quot;2014-04-29 23:59:59&quot; \
+  --pretty=fuller</code></pre>
+
+<p>As the output will be different according to the timezone where it will be run, it&#39;s recommended to always use an absolute time such as ISO 8601 format (which includes timezone information) as argument to <code>--after</code> and <code>--before</code>, so that everone running the command will get the same repeatable results. </p>
+
+<p>To obtain commits made at a specific instant in time (e.g. 29 April 2013 at 17:07:22 CET), we can use</p>
+
+<pre><code>$ git log  --after=&quot;2013-04-29T17:07:22+0200&quot;      \
+          --before=&quot;2013-04-29T17:07:22+0200&quot; --pretty=fuller
+
+commit de7c201a10857e5d424dbd8db880a6f24ba250f9
+Author:     Ramkumar Ramachandra &lt;artagnon@gmail.com&gt;
+AuthorDate: Mon Apr 29 18:19:37 2013 +0530
+Commit:     Junio C Hamano &lt;gitster@pobox.com&gt;
+CommitDate: Mon Apr 29 08:07:22 2013 -0700
+
+    git-completion.bash: lexical sorting for diff.statGraphWidth
+
+    df44483a (diff --stat: add config option to limit graph width,
+    2012-03-01) added the option diff.startGraphWidth to the list of
+    configuration variables in git-completion.bash, but failed to notice
+    that the list is sorted alphabetically.  Move it to its rightful place
+    in the list.
+
+    Signed-off-by: Ramkumar Ramachandra &lt;artagnon@gmail.com&gt;
+    Signed-off-by: Junio C Hamano &lt;gitster@pobox.com&gt;</code></pre>
+
+<p>The above times (<code>AuthorDate</code>, <code>CommitDate</code>) are displayed in default format (<code>--date=default</code>), which shows timezone information of respective author and commiter.</p>
+
+<p>Other useful formats include <code>--date=iso</code> (ISO 8601), <code>--date=rfc</code> (RFC 2822), <code>--date=raw</code> (seconds since the epoch (1970-01-01 UTC)) <code>--date=local</code> (times according to your local timezone) as well as <code>--date=relative</code> (e.g. &quot;2 hours ago&quot;).</p>
+
+<p>When using <code>git log</code> without specifying time, the time defaults to the time at which the command is run on your computer (keeping the identical offset from UTC).</p>
+
+<p>For example, running a <code>git log</code> at 09:00 on your computer with your timezone currently 3 hours ahead of UTC, makes the following two commands equivalent:</p>
+
+<pre><code>$ git log --after=2008-06-01 --before=2008-07-01
+$ git log --after=&quot;2008-06-01T09:00:00+0300&quot; \
+    --before=&quot;2008-07-01T09:00:00+0300&quot;</code></pre>
+
+<p>As a final example, if you want to see which commits modifying test files in the Git source code history were committed by Junio Hamano with CommitDate being in the month of October 2008 (relative to the timezone of New York) and were not merges, you can run something like this:</p>
+
+<pre><code>    $ git log --pretty=&quot;%h - %s&quot; --author=gitster \
+       --after=&quot;2008-10-01T00:00:00-0400&quot;         \
+      --before=&quot;2008-10-31T23:59:59-0400&quot; --no-merges -- t/
 5610e3b - Fix testcase failure when extended attribute
 acd3b9e - Enhance hold_lock_file_for_{update,append}()
 f563754 - demonstrate breakage of detached checkout wi
@@ -243,7 +287,7 @@ d1a43f2 - reset --hard/read-tree --reset -u: remove un
 51a94af - Fix &quot;checkout --track -b newbranch&quot; on detac
 b0ad11e - pull: allow &quot;git pull origin $something:$cur</code></pre>
 
-<p>Of the nearly 20,000 commits in the Git source code history, this command shows the 6 that match those criteria.</p>
+<p>Of the more than 36,000 commits in the Git source code history, this command shows the 6 that match those criteria.</p>
 
 <h3>Using a GUI to Visualize History</h3>
 
@@ -254,4 +298,4 @@ Figure 2-2. The gitk history visualizer.</p>
 
 <p>You can see the commit history in the top half of the window along with a nice ancestry graph. The diff viewer in the bottom half of the window shows you the changes introduced at any commit you click.</p>
 
-</div></div></div></div><div class="footer"><span class="build-date">Build at: 2014-06-06 09:35:04</span>,<span class="build-source-version">Source revision: <a href="https://github.com/progit/progit/tree/11a568ed613ce79764591d6cbb9fcd3adfec6a21" target="_blank">11a568e</a></span>,<span class="application-version">Application version: 0.0.4</span>.</div></div><script src="../../assets/vendor/jquery/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
+</div></div></div><div class="footer"><span class="build-date">Build at: 2014-07-06 03:50:58</span>,<span class="build-source-version">Source revision: <a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>,<span class="application-version">Application version: 0.0.5</span>.</div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47021013-1' , 'auto');ga('send', 'pageview');</script></body></html>
