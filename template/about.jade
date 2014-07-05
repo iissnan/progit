@@ -1,7 +1,8 @@
 extends layout
 
 block header
-    link(rel="stylesheet", type="text/css", href="assets/vendor/bootstrap/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="assets/vendor/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="assets/vendor/github-buttons/dist/github-buttons.css")
     link(rel="stylesheet", type="text/css", href="assets/css/main.css")
     link(rel="shortcut icon", type="images/x-icon", href="assets/img/favicon.ico")
 
@@ -17,58 +18,98 @@ block row
     - var LINK_GIT_OFFICIAL = "http://git-scm.com/"
     - var LINK_NODEJS_OFFICIAL = "http://nodejs.org"
     - var LINK_SELF_ISSUE = "https://github.com/iissnan/progit/issues"
+    - var LINK_GITHUB = "http://github.com"
+    - var LINK_GITHUB_PAGES = "https://pages.github.com/"
+    - var LINK_BOOTSTRAP = "http://getbootstrap.com/"
 
-    div.col-md-12
+    div.col-md-4.pull-right.about-sidebar
+        div.panel.panel-info
+            div.panel-heading
+                div.panel-title
+                    span.glyphicon.glyphicon-comment
+                    |  错误反馈
+            ul.list-group
+                li.list-group-item
+                    | 翻译错误请在
+                    a(href=LINK_BOOK_SOURCE, target="_blank") 书籍的源码仓库
+                    | 提交反馈，或者PR
+                li.list-group-item
+                    | 站点异常请在
+                    a(href=LINK_SELF_ISSUE, target="_blank") 这里
+                    | 提交反馈
+        p
+            span.github-btn.hide(data-user="iissnan", data-repo="progit", data-type="watch", data-count="1")
+            | &nbsp;
+            span.github-btn.hide(data-user="iissnan", data-repo="progit", data-type="fork", data-count="1")
+            br
+            span.github-btn.hide(data-user="iissnan", data-type="follow")
+    div.col-md-8
         div.ph20
-            h3 关于《Pro Git》：
+            h3 关于此站
+            div
+                p
+                    | Pro Git是入门Git的极佳教材，这本书完全开源，并且拥有多种译文版本！
+                    | 书籍的
+                    a(href=LINK_BOOK_OFFICIAL, target="_blank") 在线版本
+                    | 可以在
+                    a(href=LINK_GIT_OFFICIAL, target="_blank") Git的官方网站
+                    | 上查阅。
+                    | 本站制作的初衷是解决因
+                    del Git官方网站被列入白名单认证
+                    | 而导致无法阅读在线HTML版本。
+                    | 之后，为了满足平时在碎片时间（比如搭车时间）时可以翻阅这本书，
+                    | 于是对站点新增了响应式支持。
+                p
+                    | 也就是说，本站有如下存在的理由：
+                ul
+                    li 影武者
+                    li 响应式支持，兼容多种设备
+                    li Bootstrap给予的有别于官网但摆脱不了菜市场命运的UI
+
+                p
+                    | 本站使用
+                    a(href=LINK_NODEJS_OFFICIAL, target="_blank") Node.js
+                    | 解析书籍的原始内容并生成
+                    code HTML
+
+                    | ，使用
+                    a(href=LINK_BOOTSTRAP, target="_blank") Bootstrap
+                    | 作为UI框架
+                    | ，并通过
+                    a(href=LINK_GITHUB_PAGES, target="_blank") GitHub Pages
+                    | 将生成的
+                    code HTML
+                    | 托管在
+                    a(href=LINK_GITHUB, target="_blank") GitHub
+                    | 上。
+
+            h3 关于Pro Git
             p
                 | 此书由Scott Chacon所著，并且书籍内容完全开源，以
                 a(href=LINK_CREATIVE_COMMON, target="_blank")
                     | Creative Commons Attribution Non Commercial Share Alike 3.0 license
-                | 共享。
-            p 
-                | 此书的
-                a(href=LINK_BOOK_OFFICIAL, target="_blank") 在线版本
-                | 已替换Git Community Book成为Git官方推荐书籍。
-            p
+                | 共享。书籍源码放置在Github的
+                a(href=LINK_BOOK_SOURCE, target="_blank") progit/progit
+                | 仓库中。
                 | 打印版本由Apress出版发行，美国亚马逊购买链接：
                 a(href=LINK_BOOK_AMAZON, target="_blank") Amazon.com Link。
-                | 出版发行的封面为：
-                img.img-responsive(src="assets/img/pro-git-cover.jpeg", alt="pro-git", width="100")
             p
-                | 书籍源码放置在Github的
-                a(href=LINK_BOOK_SOURCE) progit/progit
-                | 仓库中。
-
+                | 本书出版发行的封面为：
+            p
+                img.img-responsive.img-thumbnail(src="assets/img/pro-git-cover.jpeg", alt="pro-git", width="200")
+            p
+                | 此书的
+                a(href=LINK_BOOK_OFFICIAL, target="_blank") 在线版本
+                | 已替换Git Community Book成为
+                a(href=LINK_GIT_OFFICIAL, target="_blank") Git
+                | 官方推荐书籍。
             
-            h3 关于此站：
-            div
-                p 
-                    | 书籍《Pro Git》无疑是Git入门的极佳教材，并且这本书是完全开源，同时拥有多种译文版本！
-                    br 
-                    del 
-                        | 但自从书籍的在线版本并入
-                        a(href=LINK_GIT_OFFICIAL, target="blank") Git官方网站
-                        | 后就被白名单认证了。由此以来，想翻阅在线HTML版本就极为麻烦。
-                p
-                    | 恰巧最近接触
-                    a(href=LINK_NODEJS_OFFICIAL, target="_blank") Node.js
-                    | ，故萌生了制作这个站点的想法。
 
-                p 非常感谢中文版本翻译的热心网友。
 
-            h3 反馈
-            ul
-                li
-                    | 如果发现翻译上的错误，可以在GitHub上fork一份
-                    a(href=LINK_BOOK_SOURCE, target="_blank") Pro Git书籍的源代码
-                    | ，修改后发送一个Pull Request。
-                li
-                    | 如果此站发生错误，可以在
-                    a(href=LINK_SELF_ISSUE, target="_blank") 这里
-                    | 提交反馈
+
 
 
 block prepend scripts
-    script(src="assets/vendor/jquery/jquery.min.js")
-    script(src="assets/vendor/bootstrap/js/bootstrap.min.js")
+    script(src="assets/vendor/jquery/dist/jquery.min.js")
+    script(src="assets/vendor/bootstrap/dist/js/bootstrap.min.js")
+    script(src="assets/vendor/github-buttons/dist/github-buttons.js")
