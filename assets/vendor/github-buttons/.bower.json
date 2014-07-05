@@ -1,0 +1,27 @@
+{
+  "name": "github-buttons",
+  "description": "Script version of @mdo's Github Buttons",
+  "version": "0.0.4",
+  "license": "MIT",
+  "main": [
+    "index.js",
+    "style.css"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "homepage": "https://github.com/jonathanong/github-buttons",
+  "_release": "0.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.4",
+    "commit": "7e639bb0b12d35dff913e32dce408ad67352cf2d"
+  },
+  "_source": "git://github.com/jonathanong/github-buttons.git",
+  "_target": "~0.0.4",
+  "_originalSource": "github-buttons",
+  "_direct": true
+}

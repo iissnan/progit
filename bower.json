@@ -1,0 +1,8 @@
+{
+  "name": "ProGitBook",
+  "version": "0.0.5",
+  "dependencies": {
+    "bootstrap": ">3.0.0",
+    "github-buttons": "~0.0.4"
+  }
+}

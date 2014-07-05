@@ -1,6 +1,10 @@
 {
     "name": "Host.ProGit.book.on.Github",
-    "version": "0.0.4",
+    "version": "0.0.5",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/iissnan/progit.git"
+    },
     "devDependencies": {
         "markdown": "latest",
         "jade": "latest",
