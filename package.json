@@ -9,6 +9,14 @@
         "markdown": "latest",
         "jade": "latest",
         "moment": "latest",
-        "shelljs": "0.2.6"
+        "shelljs": "0.2.6",
+        "gulp" : "*",
+        "gulp-jshint": "*",
+        "gulp-mocha": "*",
+        "coffee-script": "*",
+        "jshint-stylish": "*",
+        "mocha": "*",
+        "chai": "*",
+        "colors": "*"
     }
 }
