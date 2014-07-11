@@ -1,24 +1,31 @@
 This project aims to generate html pages for *Pro Git* book from [*Book Source*](https://github.com/progit/progit) using node.js.
 
-The HTML pages can be host on the [GitHub](http://github.com) via gh-pages. You can find more info about gh-pages [here](http://pages.github.com/).
+The generated HTML pages can be hosted on the [GitHub](http://github.com) via [Github Pages](https://pages.github.com). 
 
-You can visit [Here](http://iissnan.com/progit) to check out the demo.
+Checkout the [demo](http://iissnan.com/progit).
 
-## Build Procedure
+## How to build
 
-1. Download [Node.js](http://nodejs.org).
-2. Fork and clone this repository:
+1. Download and install [Node.js](http://nodejs.org).
+2. Get a copy of this project:
 
     ```
-    git clone https://github.com/yourname/progit.git progit
+    git clone https://github.com/iissnan/progit.git progit
     ```
-3. Install Node Packages:
+
+    If you want to host this pages yourself, you need to fork this project to your account first.
+
+
+3. Install dependencies:
     
     ```
     npm install
     ```
     
 4. Get book source:
+
+    Book source is involved as a git submodule.
+    Run the following command to init the submodule.
 
     ```
     git submodule init
