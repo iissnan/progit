@@ -57,14 +57,10 @@ describe 'Converter', ->
     it "should have a `#{DESTINATION_DIR}/zh` directory", ->
       fs.existsSync(zh.destination).should.be.ok
 
-    it 'should have correct index page name', ->
-      zh.should.have.property 'indexPage', 'index.html'
-      en.should.have.property 'indexPage', 'index.en.html'
-
     it 'should have a chapters array, contains paths of chapters', ->
       zh.should.have.property 'chapters'
 
-    describe '#getTemplate', ->
+    describe '#getRender', ->
       it 'should have jade templates exist', ->
         templates = [
           'layout.jade',
@@ -77,15 +73,15 @@ describe 'Converter', ->
 
         isTemplateExist(template).should.be.ok for template in templates
 
-      it 'should have a `template` property', ->
+      it 'should have a `render` property', ->
         zh.should.have.property 'template'
-        zh.template.should.be.an 'object'
+        zh.render.should.be.an 'object'
 
   describe '#generate', ->
-    describe '#getChapterRawContents', ->
-      it 'should have a `chapterRawContents` property', ->
-        zh.should.have.property 'chapterRawContents'
-        zh.chapterRawContents.should.be.an 'array'
+    describe '#readChaptersContent', ->
+      it 'should have a `chaptersContent` property', ->
+        zh.should.have.property 'chaptersContent'
+        zh.chaptersContent.should.be.an 'array'
 
       it 'should have a `html` property', ->
         zh.should.have.property 'html'
