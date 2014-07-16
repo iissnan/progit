@@ -1,6 +1,30 @@
-ul.nav.navbar-nav !{translations}
+ul.nav.navbar-nav
+    li.dropdown
+        a.dropdown-toggle(data-toggle="dropdown", href="#")
+            = toc.title
+            b.caret
+        ul.dropdown-menu(role="menu")
+            li
+                a(href=toc.index.href)= toc.index.text
+            div.divider
+            each chapter in toc.chapters
+                li
+                    a(href=chapter.href)= chapter.text
+                    ul.menu-section-links
+                        each section in chapter.sections
+                            li
+                                a(href=section.href)= section.text
 
 ul.nav.navbar-nav.navbar-right
+    li.dropdown
+        a.dropdown-toggle(data-toggle="dropdown", href="#")
+            = supportTranslations.title
+            b.caret
+        ul.dropdown-menu(role="menu")
+            each t in supportTranslations.links
+                li
+                    a(href="#{t.link}")= t.text
+
     li
         a(href="#{about.link}")
             span.glyphicon.glyphicon-question-sign
