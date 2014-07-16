@@ -150,3 +150,15 @@ body{
 .about-sidebar {
     margin-top: 20px;
 }
+
+@media (min-width: 768px) {
+    .menu-toc {
+        width: 720px;
+    }
+}
+.menu-toc-chapter {
+    float: left;
+    margin-top: 10px;
+    width: 160px;
+    font-size: 12px;
+}

@@ -3,12 +3,12 @@ ul.nav.navbar-nav
         a.dropdown-toggle(data-toggle="dropdown", href="#")
             = toc.title
             b.caret
-        ul.dropdown-menu(role="menu")
-            li
-                a(href=toc.index.href)= toc.index.text
-            div.divider
+        ul.dropdown-menu.menu-toc(role="menu")
+            //li
+            //    a(href=toc.index.href)= toc.index.text
+            //div.divider
             each chapter in toc.chapters
-                li
+                li.menu-toc-chapter
                     a(href=chapter.href)= chapter.text
                     ul.menu-section-links
                         each section in chapter.sections
