@@ -151,14 +151,25 @@ body{
     margin-top: 20px;
 }
 
-@media (min-width: 768px) {
-    .menu-toc {
-        width: 720px;
-    }
+.menu-toc {
+    width: auto;
 }
-.menu-toc-chapter {
-    float: left;
-    margin-top: 10px;
-    width: 160px;
-    font-size: 12px;
+.menu-section-links {
+    display: none;
+}
+
+@media (min-width: 768px) and (min-height: 768px) {
+    .menu-toc {
+        width: 750px;
+        left: -85px;
+    }
+    .menu-toc-chapter  {
+        float: left;
+        margin-top: 10px;
+        width: 180px;
+        font-size: 12px;
+    }
+    .menu-section-links {
+        display: block;
+    }
 }

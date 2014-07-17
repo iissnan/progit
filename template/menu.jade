@@ -1,12 +1,11 @@
 ul.nav.navbar-nav
     li.dropdown
         a.dropdown-toggle(data-toggle="dropdown", href="#")
+            span.glyphicon.glyphicon-list
+            = " "
             = toc.title
             b.caret
         ul.dropdown-menu.menu-toc(role="menu")
-            //li
-            //    a(href=toc.index.href)= toc.index.text
-            //div.divider
             each chapter in toc.chapters
                 li.menu-toc-chapter
                     a(href=chapter.href)= chapter.text
@@ -18,6 +17,8 @@ ul.nav.navbar-nav
 ul.nav.navbar-nav.navbar-right
     li.dropdown
         a.dropdown-toggle(data-toggle="dropdown", href="#")
+            span.glyphicon.glyphicon-globe
+            = " "
             = supportTranslations.title
             b.caret
         ul.dropdown-menu(role="menu")
