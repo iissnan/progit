@@ -1,0 +1,287 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git 配置 -  - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch7_0.html"></a></li><li><a href="ch7_1.html">Git 配置</a></li><li><a href="ch7_2.html">Git 屬性</a></li><li><a href="ch7_3.html">Git Hooks</a></li><li><a href="ch7_4.html">Git 強制策略實例</a></li><li><a href="ch7_5.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Git 配置</h2>
+
+<p>如第一章所言，用 <code>git config</code> 配置 Git，要做的第一件事就是設置名字和郵箱地址： </p>
+
+<pre><code>$ git config --global user.name &quot;John Doe&quot;
+$ git config --global user.email johndoe@example.com</code></pre>
+
+<p>從現在開始，你會瞭解到一些類似以上但更為有趣的設置選項來自訂 Git。 </p>
+
+<p>先過一遍第一章中提到的 Git 配置細節。Git 使用一系列的設定檔來儲存你定義的偏好，它首先會查找 <code>/etc/gitconfig</code> 檔，該檔所含的設定值對系統上所有使用者都有效，也對他們所擁有的倉庫都有效（譯注：gitconfig 是全域設定檔）， 如果傳遞 <code>--system</code> 選項給 <code>git config</code> 命令， Git 會讀寫這個檔。 </p>
+
+<p>接下來 Git 會尋找每個用戶的 <code>~/.gitconfig</code> 檔，它是針對個別使用者的，你可以傳遞 <code>--global</code> 選項讓 Git 讀寫該檔。 </p>
+
+<p>最後，Git 會尋找你目前使用中的倉庫 Git 目錄下的設定檔（<code>.git/config</code>），該文件中的設定值只對這個倉庫有效。以上闡述的三層配置從一般到特殊層層推進，如果定義的值有衝突，後面層級的設定會面寫前面層級的設定值，例如：在 <code>.git/config</code> 和 <code>/etc/gitconfig</code> 的較量中， <code>.git/config</code> 取得了勝利。雖然你也可以直接手動編輯這些設定檔，但是執行 git config 命令將會來得簡單些。</p>
+
+<h3>用戶端基本配置</h3>
+
+<p>Git 能夠識別的配置項被分為了兩大類：用戶端和伺服器端，其中大部分屬於用戶端配置，這是基於你個人工作偏好所做的設定。儘管有數不盡的選項，但我只闡述其中經常使用、或者會對你的工作流程產生巨大影響的選項。許多選項只在極端的情況下有用，這裏就不多做介紹了。如果你想觀察你的 Git 版本能識別的選項清單，請執行 </p>
+
+<pre><code>$ git config --help</code></pre>
+
+<p><code>git config</code> 的手冊頁（譯注：以 man 命令的顯示方式）非常細緻地羅列了所有可用的配置項。 </p>
+
+<h4>core.editor</h4>
+
+<p>預設情況下，Git 會使用你所設定的「預設文字編輯器」，否則會使用 Vi 來創建和編輯提交以及標籤資訊，你可以使用 <code>core.editor</code> 改變預設編輯器： </p>
+
+<pre><code>$ git config --global core.editor emacs</code></pre>
+
+<p>現在無論你的環境變數 editor 被定義成什麼，Git 都會觸發 Emacs 來編輯相關訊息。 </p>
+
+<h4>commit.template</h4>
+
+<p>如果把這個項目指定為你系統上的一個檔，當你提交的時候，Git 會預設使用該檔定義的內容做為預設的提交訊息。例如：你創建了一個範本檔 <code>$HOME/.gitmessage.txt</code>，它看起來像這樣： </p>
+
+<pre><code>subject line
+
+what happened
+
+[ticket: X]</code></pre>
+
+<p>如下設定 <code>commit.template</code> 可以告訴 Git，把上列內容做為預設訊息，當你執行 <code>git commit</code> 的時候，在你的編輯器中顯示： </p>
+
+<pre><code>$ git config --global commit.template $HOME/.gitmessage.txt
+$ git commit</code></pre>
+
+<p>然後當你提交時，在編輯器中顯示的提交資訊如下： </p>
+
+<pre><code>subject line
+
+what happened
+
+[ticket: X]
+# Please enter the commit message for your changes. Lines starting
+# with &#39;#&#39; will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+#
+# modified:   lib/test.rb
+#
+~
+~
+&quot;.git/COMMIT_EDITMSG&quot; 14L, 297C</code></pre>
+
+<p>如果你對於提交訊息有特定的政策，那就在系統上創建一個範本檔，設定 Git 使用它做為預設值，這樣可以幫助提升你的政策經常被遵守的機會。 </p>
+
+<h4>core.pager</h4>
+
+<p>core.pager 指定 Git 執行諸如 log、diff 等命令時所使用的分頁器，你可以設成用 <code>more</code> 或者任何你喜歡的分頁器（預設用的是 <code>less</code>）， 當然你也可以不用分頁器，只要把它設成空字串： </p>
+
+<pre><code>$ git config --global core.pager &#39;&#39;</code></pre>
+
+<p>這樣不管命令的輸出量多少，都會在一頁顯示所有內容。 </p>
+
+<h4>user.signingkey</h4>
+
+<p>如果你要創建經簽署的含附注的標籤(signed annotated tags)（正如第二章所述），那麼把你的 GPG 簽署金鑰設為配置項會更好，設置金鑰 ID 如下： </p>
+
+<pre><code>$ git config --global user.signingkey &lt;gpg-key-id&gt;</code></pre>
+
+<p>現在你能夠簽署標籤，從而不必每次執行 <code>git tag</code> 命令時定義金鑰： </p>
+
+<pre><code>$ git tag -s &lt;tag-name&gt;</code></pre>
+
+<h4>core.excludesfile</h4>
+
+<p>正如第二章所述，你能在專案倉庫的 <code>.gitignore</code> 檔裡頭用模式(pattern)來定義那些無需納入 Git 管理的檔案，這樣它們不會出現在未追蹤列表，也不會在你執行 <code>git add</code> 後被暫存。然而，如果你想用專案倉庫之外的檔案來定義那些需被忽略的檔的話，可以用 <code>core.excludesfile</code> 來通知 Git 該檔所在的位置，檔案內容則和 .gitignore 類似。 </p>
+
+<h4>help.autocorrect</h4>
+
+<p>這個選置項只在 Git 1.6.1 以上(含)版本有效，假如你在 Git 1.6 中錯打了一條命令，它會像這樣顯示： </p>
+
+<pre><code>$ git com
+git: &#39;com&#39; is not a git-command. See &#39;git --help&#39;.
+
+Did you mean this?
+     commit</code></pre>
+
+<p>如果你把 help.autocorrect 設置成1（譯注：啟動自動修正），那麼在只有一個命令符合的情況下，Git 會自動執行該命令。 </p>
+
+<h3>Git 中的著色</h3>
+
+<p>Git 能夠為輸出到你終端(terminal)的內容著色，以便你可以憑直觀進行快速、簡單地分析，有許多選項能幫你將顏色調成你喜好的。</p>
+
+<h4>color.ui</h4>
+
+<p>Git 會按照你的需要，自動為大部分的輸出加上顏色。你能明確地規定哪些需要著色、以及怎樣著色，設置 color.ui 為 true 來打開所有的預設終端著色：</p>
+
+<pre><code>$ git config --global color.ui true</code></pre>
+
+<p>設置好以後，當輸出到終端時，Git 會為之加上顏色。其他的參數還有 false 和 always，false 意味著不為輸出著色，而 always 則表示在任何情況下都要著色 -- 即使 Git 命令被重定向到文件或 pipe 到另一個命令。Git 1.5.5 版本引進了此項配置，如果你的版本更舊，你必須對顏色有關選項各自進行詳細地設置。 </p>
+
+<p>你會很少用到 <code>color.ui = always</code>，在大多數情況下，如果你想在被重定向的輸出中插入顏色碼，你可以傳遞 <code>--color</code> 旗標給 Git 命令來迫使它這麼做，<code>color.ui = true</code> 應該是你的首選。 </p>
+
+<h4><code>color.*</code></h4>
+
+<p>想要具體指定哪些命令輸出需要被著色，以及怎樣著色，或者 Git 的版本很舊，你就要用到和具體命令有關的顏色配置選項，它們都能被設為 true、false 或 always： </p>
+
+<pre><code>color.branch
+color.diff
+color.interactive
+color.status</code></pre>
+
+<p>除此之外，以上每個選項都有子選項，可以被用來覆蓋其父設置，以達到為輸出的各個部分著色的目的。例如，要讓 diff 輸出的改變資訊 (meta information) 以粗體、藍色前景和黑色背景的形式顯示，你可以執行： </p>
+
+<pre><code>$ git config --global color.diff.meta &quot;blue black bold&quot;</code></pre>
+
+<p>你能設置的顏色值如下：normal、black、red、green、yellow、blue、magenta、cyan、white。正如以上例子設置的粗體屬性，想要設置字體屬性的話，你的選擇有：bold、dim、ul、blink、reverse。 </p>
+
+<p>如果你想配置子選項的話，可以參考 git config 幫助頁。 </p>
+
+<h3>外部的合併與比較工具</h3>
+
+<p>雖然 Git 自己實做了 diff，而且到目前為止你一直在使用它，但你能夠設定一個外部的工具來替代它。你還可以設定用一個圖形化的工具來合併和解決衝突，而不必自己手動解決。有一個不錯且免費的工具可以被用來做比較和合併工作，它就是 P4Merge（譯注：Perforce 圖形化合併工具），我會展示它的安裝過程。 </p>
+
+<p>所以如果你想試試看的話，因為 P4Merge 可以在所有主流平臺上運行，所以你應該可以嘗試看看。對於向你展示的例子，在 Mac 和 Linux 系統上，我會使用路徑名；在 Windows 上，<code>/usr/local/bin</code> 應該被改為你環境中的可執行路徑。 </p>
+
+<p>你可以在這裏下載 P4Merge： </p>
+
+<pre><code>http://www.perforce.com/perforce/downloads/component.html</code></pre>
+
+<p>首先，你要設定一個外部包裝腳本(external wrapper scripts)來執行你要的命令，我會使用 Mac 系統上的路徑來指定該腳本的位置；在其他系統上，它應該被放置在二進位檔案 <code>p4merge</code> 所在的目錄中。創建一個 merge 包裝腳本，名字叫作 <code>extMerge</code>，讓它附帶所有參數呼叫 p4merge 二進位檔案： </p>
+
+<pre><code>$ cat /usr/local/bin/extMerge
+#!/bin/sh
+/Applications/p4merge.app/Contents/MacOS/p4merge $*</code></pre>
+
+<p>diff 包裝腳本首先確定傳遞過來7個參數，隨後把其中2個傳遞給你的 merge 包裝腳本，預設情況下，Git 會傳遞以下參數給 diff： </p>
+
+<pre><code>path old-file old-hex old-mode new-file new-hex new-mode</code></pre>
+
+<p>由於你僅僅需要 <code>old-file</code> 和 <code>new-file</code> 參數，用 diff 包裝腳本來傳遞它們吧。 </p>
+
+<pre><code>$ cat /usr/local/bin/extDiff
+#!/bin/sh
+[ $# -eq 7 ] &amp;&amp; /usr/local/bin/extMerge &quot;$2&quot; &quot;$5&quot;</code></pre>
+
+<p>你還需要確認一下這兩個腳本是可執行的： </p>
+
+<pre><code>$ sudo chmod +x /usr/local/bin/extMerge
+$ sudo chmod +x /usr/local/bin/extDiff</code></pre>
+
+<p>現在來設定使用你自訂的比較和合併工具吧。這需要許多自訂設置：<code>merge.tool</code> 通知 Git 使用哪個合併工具；<code>mergetool.*.cmd</code> 規定命令如何執行；<code>mergetool.trustExitCode</code> 會通知 Git 該程式的退出碼(exit code)是否指示合併操作成功；<code>diff.external</code> 通知 Git 用什麼命令做比較。因此，你可以執行以下4條配置命令： </p>
+
+<pre><code>$ git config --global merge.tool extMerge
+$ git config --global mergetool.extMerge.cmd \
+    &#39;extMerge &quot;$BASE&quot; &quot;$LOCAL&quot; &quot;$REMOTE&quot; &quot;$MERGED&quot;&#39;
+$ git config --global mergetool.trustExitCode false
+$ git config --global diff.external extDiff</code></pre>
+
+<p>或者直接編輯 <code>~/.gitconfig</code> 文件如下： </p>
+
+<pre><code>[merge]
+  tool = extMerge
+[mergetool &quot;extMerge&quot;]
+  cmd = extMerge \&quot;$BASE\&quot; \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot; \&quot;$MERGED\&quot;
+  trustExitCode = false
+[diff]
+  external = extDiff</code></pre>
+
+<p>設置完畢後，如果你像這樣執行 diff 命令： </p>
+
+<pre><code>$ git diff 32d1776b1^ 32d1776b1</code></pre>
+
+<p>不同於在命令列得到 diff 命令的輸出，Git 觸發了剛剛設置的 P4Merge，它看起來像圖7-1這樣： </p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0701-tn.png"></br>
+Figure 7-1. P4Merge.</p>
+
+<p>當你設法合併兩個分支，結果卻有衝突時，執行 <code>git mergetool</code>，Git 會啟用 P4Merge 讓你通過圖形介面來解決衝突。 </p>
+
+<p>設置包裝腳本的好處是你能簡單地改變 diff 和 merge 工具，例如把 <code>extDiff</code> 和 <code>extMerge</code> 改成 KDiff3，要做的僅僅是編輯 <code>extMerge</code> 指令檔： </p>
+
+<pre><code>$ cat /usr/local/bin/extMerge
+#!/bin/sh
+/Applications/kdiff3.app/Contents/MacOS/kdiff3 $*</code></pre>
+
+<p>現在 Git 會使用 KDiff3 來做比較、合併和解決衝突。 </p>
+
+<p>Git 預先設置了許多其他的合併和解決衝突的工具，而你不必設置 cmd。可以把合併工具設置為：kdiff3、opendiff、tkdiff、meld、xxdiff、emerge、vimdiff、gvimdiff。如果你不想用 KDiff3 來做 diff，只是想用它來合併，而且 kdiff3 命令也在你的路徑裏，那麼你可以執行： </p>
+
+<pre><code>$ git config --global merge.tool kdiff3</code></pre>
+
+<p>如果執行了以上命令，沒有設置 <code>extMerge</code> 和 <code>extDiff</code> 檔，Git 會用 KDiff3 做合併，讓平常內建的比較工具來做比較。 </p>
+
+<h3>格式化與空格</h3>
+
+<p>格式化與空格是許多開發人員在協同工作時，特別是在跨平臺情況下，遇到的令人頭疼的細小問題。在一些大家合作的工作或提交的補丁中，很容易因為編輯器安靜無聲地加入一些小空格，或者 Windows 程式師在跨平臺專案中的檔案行尾加入了回車分行符號(carriage return)。Git 的一些配置選項可以幫助解決這些問題。 </p>
+
+<h4>core.autocrlf</h4>
+
+<p>如果你在 Windows 上寫程式，或者你不是用 Windows，但和其他在 Windows 上寫程式的人合作，在這些情況下，你可能會遇到換行符號的問題。這是因為 Windows 使用回車(carriage-return)和換行(linefeed)兩個字元來結束一行，而 Mac 和 Linux 只使用一個換行字元。雖然這是小問題，但它會極大地擾亂跨平臺協作。 </p>
+
+<p>Git 可以在你提交時自動地把換行符號 CRLF 轉換成 LF，而在簽出代碼時把 LF 轉換成 CRLF。用 <code>core.autocrlf</code> 來打開此項功能，如果是在Windows 系統上，把它設置成 <code>true</code>，這樣當 check out 程式的時候，LF 會被轉換成 CRLF： </p>
+
+<pre><code>$ git config --global core.autocrlf true</code></pre>
+
+<p>Linux 或 Mac 系統使用 LF 作為行結束符，因此你不希望 Git 在 check out 檔案時進行自動的轉換；但是，當一個以 CRLF 做為換行符號的檔案不小心被引入時，你肯定希望 Git 可以修正它。你可以把 <code>core.autocrlf</code> 設置成 input 來告訴 Git 在提交時把 CRLF 轉換成 LF，check out 時不轉換： </p>
+
+<pre><code>$ git config --global core.autocrlf input</code></pre>
+
+<p>這樣會在 Windows 系統上的 check out 檔案中保留 CRLF，而在 Mac 和 Linux 系統上，以及倉庫中保留 LF。 </p>
+
+<p>如果你是 Windows 程式師，且正在開發僅運行在 Windows 上的專案，可以設置 <code>false</code> 取消此功能，把 carriage returns 記錄在倉庫中： </p>
+
+<pre><code>$ git config --global core.autocrlf false</code></pre>
+
+<h4>core.whitespace</h4>
+
+<p>Git 預先設置了一些選項來探測和修正空格問題，其中有四個主要選項，有2個預設開啟，2個預設關閉，你可以自由地打開或關閉它們。 </p>
+
+<p>預設開啟的2個選項是：<code>trailing-space</code> 會查找每行結尾的空格，<code>space-before-tab</code> 會查找每行開頭的定位字元前的空格。 </p>
+
+<p>預設關閉的2個選項是：<code>indent-with-non-tab</code> 會查找8個以上空格（非定位字元）開頭的行，<code>cr-at-eol</code> 告訴 Git carriage returns 是合法的。 </p>
+
+<p>設置 <code>core.whitespace</code>，按照你的需要來打開或關閉選項，設定值之間以逗號分隔。從設定字串裏把設定值去掉，就可以關閉這個設定，或是在設定值前面加上減號 <code>-</code> 也可以。例如，如果你想要打開除了 cr-at-eol 之外的所有選項，你可以這麼做： </p>
+
+<pre><code>$ git config --global core.whitespace \
+    trailing-space,space-before-tab,indent-with-non-tab</code></pre>
+
+<p>當你執行 <code>git diff</code> 命令且為輸出著色時，Git 會偵測這些問題，因此你有可能在提交前修復它們。當你用 <code>git apply</code> 打補丁時，它也同樣會使用這些設定值來幫助你。你可以要 Git 警告你，如果正準備運用的補丁有特別的空白問題： </p>
+
+<pre><code>$ git apply --whitespace=warn &lt;patch&gt;</code></pre>
+
+<p>或者讓 Git 在打上補丁嘗試自動修正此問題：</p>
+
+<pre><code>$ git apply --whitespace=fix &lt;patch&gt;</code></pre>
+
+<p>這些選項也能運用於衍合。如果提交了有空格問題的檔但還沒推送到上游，你可以執行帶有 <code>--whitespace=fix</code> 選項的 <code>rebase</code> 來讓 Git 在重寫補丁時自動修正它們。</p>
+
+<h3>伺服器端配置</h3>
+
+<p>Git 伺服器端的配置選項並不多，但仍有一些有趣的選項值得你一看。</p>
+
+<h4>receive.fsckObjects</h4>
+
+<p>Git 預設情況下不會在推送期間檢查所有物件的一致性。Git 雖然會檢查確認每個物件仍然符合它的 SHA-1 checksum，所指向的物件也都是有效的，但是預設 Git 不會在每次推送時都做這種檢查。對於 Git 來說，倉庫或推送的檔越大，這個操作代價就相對越高，每次推送會消耗更多時間。如果想讓 Git 在每次推送時都檢查物件一致性，可以設定 <code>receive.fsckObjects</code> 為 true 來強迫它這麼做： </p>
+
+<pre><code>$ git config --system receive.fsckObjects true</code></pre>
+
+<p>現在 Git 會在每次推送被接受前檢查庫的完整性，確保有問題的用戶端沒有引入破壞性的資料。 </p>
+
+<h4>receive.denyNonFastForwards</h4>
+
+<p>如果對已經被推送的提交歷史做衍合，繼而再推送；或是要將某個提交推送到遠端分支，而該提交歷史未包含這個遠端分支目前指向的 commit，這樣的推送會被拒絕。這通常是個很好的禁止策略，但有時你在做衍合的時候，你可能很確定自己在做什麼，那就可以在 push 命令後加 <code>-f</code> 旗標來強制更新遠端分支。</p>
+
+<p>要禁用這樣的強制更新遠端分支 non-fast-forward references 的功能，可以如下設定 <code>receive.denyNonFastForwards</code>： </p>
+
+<pre><code>$ git config --system receive.denyNonFastForwards true</code></pre>
+
+<p>稍後你會看到，用伺服器端的 receive hooks 也能達到同樣的目的。這個方法可以做更細緻的控制，例如：拒絕某些特定的使用者強制更新 non-fast-forwards。 </p>
+
+<h4>receive.denyDeletes</h4>
+
+<p>避開 <code>denyNonFastForwards</code> 策略的方法之一就是使用者刪除分支，然後推回新的引用(reference)。在更新的 Git 版本中（從1.6.1版本開始），你可以把 receive.denyDeletes 設置為 true： </p>
+
+<pre><code>$ git config --system receive.denyDeletes true</code></pre>
+
+<p>這樣會在推送過程中阻止刪除分支和標籤 — 沒有使用者能夠這麼做。要刪除遠端分支，必須從伺服器手動刪除引用檔(ref files)。通過用戶存取控制清單也能這麼做，在本章結尾將會介紹這些有趣的方式。 </p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

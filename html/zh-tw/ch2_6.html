@@ -1,0 +1,212 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>標籤 - Git 基礎 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git 基礎</a></li><li><a href="ch2_1.html">取得Git儲存庫</a></li><li><a href="ch2_2.html">提交更新到儲存庫</a></li><li><a href="ch2_3.html">檢視提交的歷史記錄</a></li><li><a href="ch2_4.html">復原</a></li><li><a href="ch2_5.html">與遠端協同工作</a></li><li><a href="ch2_6.html">標籤</a></li><li><a href="ch2_7.html">提示和技巧</a></li><li><a href="ch2_8.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>標籤</h2>
+
+<p>就像大多數的版本管理系統，Git具備在特定時間點加入標籤去註明其重要性的功能。一般而言，我們會使用這個功能去標記出發行版本(如V1.0等等)。這個小節中，你將會學到如何列出既有的標籤、建立新標籤以及各種不同標籤間的差異。</p>
+
+<h3>列出標籤</h3>
+
+<p>在Git中列出既有的標籤是非常簡單的。直接輸入<code>git tag</code>：</p>
+
+<pre><code>$ git tag
+v0.1
+v1.3</code></pre>
+
+<p>這個指令將以字母順序列出標籤；所以這個順序並不代表其重要性。</p>
+
+<p>你也可以用特定的字串規則去搜尋標籤。以Git本身的儲存庫為例，其中包含超過240個標籤。當你只對1.4.2感興趣時，你可以執行以下指令：</p>
+
+<pre><code>$ git tag -l &#39;v1.4.2.*&#39;
+v1.4.2.1
+v1.4.2.2
+v1.4.2.3
+v1.4.2.4</code></pre>
+
+<h3>建立標簽</h3>
+
+<p>Git使用兩大類的標籤：輕量級(lightweight)和含附註(annotated)。輕量級標籤就像是沒有更動的分支，實際上它僅是指到特定commit的指標。然而，含附註的標籤則是實際存在Git資料庫上的完整物件。它具備檢查碼、e-mail和日期，也包含標籤訊息，並可以被GNU Privacy Guard (GPG)簽署和驗證。一般而言，我們都建議使用含附註的標籤以便保留相關訊息；但如果只是臨時加註標籤或不需要保留其他訊息，就是使用輕量級標籤的時機。</p>
+
+<h3>含附註的標籤</h3>
+
+<p>建立一個含附註的標籤很簡單。最容易的方法是加入<code>-a</code>到<code>tag</code>指令上：</p>
+
+<pre><code>$ git tag -a v1.4 -m &#39;my version 1.4&#39;
+$ git tag
+v0.1
+v1.3
+v1.4</code></pre>
+
+<p>而<code>-m</code>選項用來設定標籤訊息。如果你沒有設定該訊息，Git會啟動文字編輯器讓你輸入。</p>
+
+<p>透過<code>git show</code>可看到指定標籤的資料與對應的commit。</p>
+
+<pre><code>$ git show v1.4
+tag v1.4
+Tagger: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Feb 9 14:45:11 2009 -0800
+
+my version 1.4
+
+commit 15027957951b64cf874c3557a0f3547bd83b3ff6
+Merge: 4a447f7... a6b4c97...
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sun Feb 8 19:02:46 2009 -0800
+
+    Merge branch &#39;experiment&#39;</code></pre>
+
+<p>在列出commit資訊前，我們可以看到這個標籤的設定者資訊，下標籤時間與附註訊息。</p>
+
+<h3>簽署標籤</h3>
+
+<p>假設你有私鑰(private key)，你也可以用GPG簽署在標籤上。只要用<code>-s</code>取代<code>-a</code>：</p>
+
+<pre><code>$ git tag -s v1.5 -m &#39;my signed 1.5 tag&#39;
+You need a passphrase to unlock the secret key for
+user: &quot;Scott Chacon &lt;schacon@gee-mail.com&gt;&quot;
+1024-bit DSA key, ID F721C45A, created 2009-02-09</code></pre>
+
+<p>再對這個標籤執行<code>git show</code>，你就能看到你的GPG簽章以經附在裡面：</p>
+
+<pre><code>$ git show v1.5
+tag v1.5
+Tagger: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Feb 9 15:22:20 2009 -0800
+
+my signed 1.5 tag
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.8 (Darwin)
+
+iEYEABECAAYFAkmQurIACgkQON3DxfchxFr5cACeIMN+ZxLKggJQf0QYiQBwgySN
+Ki0An2JeAVUCAiJ7Ox6ZEtK+NvZAj82/
+=WryJ
+-----END PGP SIGNATURE-----
+commit 15027957951b64cf874c3557a0f3547bd83b3ff6
+Merge: 4a447f7... a6b4c97...
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sun Feb 8 19:02:46 2009 -0800
+
+    Merge branch &#39;experiment&#39;</code></pre>
+
+<p>稍後你會看到如何驗證已簽署的標籤。</p>
+
+<h3>輕量級的標簽</h3>
+
+<p>另一種則是輕量級的標簽。基本上就是只保存commit檢查碼的文件。要建立這樣的標籤，不必下任何選項，直接設定標籤名稱即可。</p>
+
+<pre><code>$ git tag v1.4-lw
+$ git tag
+v0.1
+v1.3
+v1.4
+v1.4-lw
+v1.5</code></pre>
+
+<p>這樣一來，當執行<code>git show</code>查看這個標籤時，你不會看到其他標籤資訊，只會顯示對應的commit：</p>
+
+<pre><code>$ git show v1.4-lw
+commit 15027957951b64cf874c3557a0f3547bd83b3ff6
+Merge: 4a447f7... a6b4c97...
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sun Feb 8 19:02:46 2009 -0800
+
+    Merge branch &#39;experiment&#39;</code></pre>
+
+<h3>驗證標籤</h3>
+
+<p>想要驗證已簽署的標籤，需要使用<code>git tag -v [tag-name]</code>。這個指令透過GPG去驗證簽章。而且在你的keyring中需要有簽署者的公鑰才能進行驗證：</p>
+
+<pre><code>$ git tag -v v1.4.2.1
+object 883653babd8ee7ea23e6a5c392bb739348b1eb61
+type commit
+tag v1.4.2.1
+tagger Junio C Hamano &lt;junkio@cox.net&gt; 1158138501 -0700
+
+GIT 1.4.2.1
+
+Minor fixes since 1.4.2, including git-mv and git-http with alternates.
+gpg: Signature made Wed Sep 13 02:08:25 2006 PDT using DSA key ID F3119B9A
+gpg: Good signature from &quot;Junio C Hamano &lt;junkio@cox.net&gt;&quot;
+gpg:                 aka &quot;[jpeg image of size 1513]&quot;
+Primary key fingerprint: 3565 2A26 2040 E066 C9A7  4A7D C0C6 D9A4 F311 9B9A</code></pre>
+
+<p>如果沒有簽署者的公鑰，則會看到下列訊息：</p>
+
+<pre><code>gpg: Signature made Wed Sep 13 02:08:25 2006 PDT using DSA key ID F3119B9A
+gpg: Can&#39;t check signature: public key not found
+error: could not verify the tag &#39;v1.4.2.1&#39;</code></pre>
+
+<h3>追加標籤</h3>
+
+<p>你也可以對過去的commit上加入標籤。假設你的commit歷史如下：</p>
+
+<pre><code>$ git log --pretty=oneline
+15027957951b64cf874c3557a0f3547bd83b3ff6 Merge branch &#39;experiment&#39;
+a6b4c97498bd301d84096da251c98a07c7723e65 beginning write support
+0d52aaab4479697da7686c15f77a3d64d9165190 one more thing
+6d52a271eda8725415634dd79daabbc4d9b6008e Merge branch &#39;experiment&#39;
+0b7434d86859cc7b8c3d5e1dddfed66ff742fcbc added a commit function
+4682c3261057305bdd616e23b64b0857d832627b added a todo file
+166ae0c4d3f420721acbb115cc33848dfcc2121a started write support
+9fceb02d0ae598e95dc970b74767f19372d61af8 updated rakefile
+964f16d36dfccde844893cac5b347e7b3d44abbc commit the todo
+8a5cbc430f1a9c3d00faaeffd07798508422908a updated readme</code></pre>
+
+<p>如果你之前忘了將&quot;updated rakefile&quot;這個commit加入v1.2標籤。仍然可在事後設定。要完成這個動作，你必須加入該次commit的檢查碼(或前幾碼即可)到以下指令：</p>
+
+<pre><code>$ git tag -a v1.2 9fceb02</code></pre>
+
+<p>你可以看到標籤已經補上：</p>
+
+<pre><code>$ git tag
+v0.1
+v1.2
+v1.3
+v1.4
+v1.4-lw
+v1.5
+
+$ git show v1.2
+tag v1.2
+Tagger: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Feb 9 15:32:16 2009 -0800
+
+version 1.2
+commit 9fceb02d0ae598e95dc970b74767f19372d61af8
+Author: Magnus Chacon &lt;mchacon@gee-mail.com&gt;
+Date:   Sun Apr 27 20:43:35 2008 -0700
+
+    updated rakefile
+...</code></pre>
+
+<h3>分享標籤</h3>
+
+<p>在預設的情況下，<code>git push</code>指令並不會將標籤傳到遠端伺服器上。當建立新標籤後，你必須特別下指令才會將它推送到遠端儲存庫上。類似將分支推送到遠端的過程，透過<code>git push origin [tagname]</code>指令。</p>
+
+<pre><code>$ git push origin v1.5
+Counting objects: 50, done.
+Compressing objects: 100% (38/38), done.
+Writing objects: 100% (44/44), 4.56 KiB, done.
+Total 44 (delta 18), reused 8 (delta 1)
+To git@github.com:schacon/simplegit.git
+* [new tag]         v1.5 -&gt; v1.5</code></pre>
+
+<p>如果你有很多標籤需要一次推送上去，你也可以加入<code>--tags</code>選項到<code>git push</code>指令中。這將會傳送所有尚未在遠端伺服器上的標籤。</p>
+
+<pre><code>$ git push origin --tags
+Counting objects: 50, done.
+Compressing objects: 100% (38/38), done.
+Writing objects: 100% (44/44), 4.56 KiB, done.
+Total 44 (delta 18), reused 8 (delta 1)
+To git@github.com:schacon/simplegit.git
+ * [new tag]         v0.1 -&gt; v0.1
+ * [new tag]         v1.2 -&gt; v1.2
+ * [new tag]         v1.4 -&gt; v1.4
+ * [new tag]         v1.4-lw -&gt; v1.4-lw
+ * [new tag]         v1.5 -&gt; v1.5</code></pre>
+
+<p>現在，當其他使用者clone或pull你的儲存庫時，他們也同時會取得所有你的標籤。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

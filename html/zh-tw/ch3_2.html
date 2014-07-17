@@ -1,0 +1,212 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>分支的新建與合併 - Git 分支 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch3_0.html">Git 分支</a></li><li><a href="ch3_1.html">何謂分支</a></li><li><a href="ch3_2.html">分支的新建與合併</a></li><li><a href="ch3_3.html">分支的管理</a></li><li><a href="ch3_4.html">利用分支進行開發的工作流程</a></li><li><a href="ch3_5.html">遠端分支</a></li><li><a href="ch3_6.html">分支的衍合</a></li><li><a href="ch3_7.html">小結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>分支的新建與合併</h2>
+
+<p>現在讓我們來看一個簡單的分支與合併的例子，實際工作中大體也會用到這樣的工作流程：</p>
+
+<ol><li>開發某個網站。</li><li>為實現某個新的需求，創建一個分支。</li><li>在這個分支上開展工作。</li></ol>
+
+<p>假設此時，你突然接到一個電話說有個很嚴重的問題需要緊急修補，那麼可以按照下面的方式處理：</p>
+
+<ol><li>返回到原先已經發佈到生產伺服器上的分支。</li><li>為這次緊急修補建立一個新分支，並在其中修復問題。</li><li>通過測試後，回到生產伺服器所在的分支，將修補分支合併進來，然後再推送到生產伺服器上。</li><li>切換到之前實現新需求的分支，繼續工作。</li></ol>
+
+<h3>分支的新建與切換</h3>
+
+<p>首先，我們假設你正在專案中愉快地工作，並且已經提交了幾次更新（見圖 3-10）。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0310-tn.png"></br>
+圖 3-10. 一個簡短的提交歷史</p>
+
+<p>現在，你決定要修補問題追蹤系統上的 #53 問題。順帶說明下，Git 並不同任何特定的問題追蹤系統打交道。這裡為了說明要解決的問題，才把新建的分支取名為 iss53。要新建並切換到該分支，運行 <code>git checkout</code> 並加上 <code>-b</code> 參數：</p>
+
+<pre><code>$ git checkout -b iss53
+Switched to a new branch &#39;iss53&#39;</code></pre>
+
+<p>這相當於執行下面這兩條命令：</p>
+
+<pre><code>$ git branch iss53
+$ git checkout iss53</code></pre>
+
+<p>圖 3-11 示意該命令的執行結果。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0311-tn.png"></br>
+圖 3-11. 創建了一個新分支的指標</p>
+
+<p>接著你開始嘗試修復問題，在提交了若干次更新後，<code>iss53</code> 分支的指標也會隨著向前推進，因為它就是當前分支（換句話說，當前的 <code>HEAD</code> 指標正指向 <code>iss53</code>，見圖 3-12）：</p>
+
+<pre><code>$ vim index.html
+$ git commit -a -m &#39;added a new footer [issue 53]&#39;</code></pre>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0312-tn.png"></br>
+圖 3-12. iss53 分支隨工作進展向前推進</p>
+
+<p>現在你就接到了那個網站問題的緊急電話，需要馬上修補。有了 Git ，我們就不需要同時發佈這個補丁和 <code>iss53</code> 裡作出的修改，也不需要在創建和發佈該補丁到伺服器之前花費大力氣來復原這些修改。唯一需要的僅僅是切換回 <code>master</code> 分支。</p>
+
+<p>不過在此之前，留心你的暫存區或者工作目錄裡，那些還沒有提交的修改，它會和你即將檢出的分支產生衝突從而阻止 Git 為你切換分支。切換分支的時候最好保持一個清潔的工作區域。稍後會介紹幾個繞過這種問題的辦法（分別叫做 stashing 和 commit amending）。目前已經提交了所有的修改，所以接下來可以正常轉換到 <code>master</code> 分支：</p>
+
+<pre><code>$ git checkout master
+Switched to branch &#39;master&#39;</code></pre>
+
+<p>此時工作目錄中的內容和你在解決問題 #53 之前一模一樣，你可以集中精力進行緊急修補。這一點值得牢記：Git 會把工作目錄的內容恢復為檢出某分支時它所指向的那個提交物件的快照。它會自動添加、刪除和修改檔以確保目錄的內容和你當時提交時完全一樣。</p>
+
+<p>接下來，你得進行緊急修補。我們創建一個緊急修補分支 <code>hotfix</code> 來開展工作，直到搞定（見圖 3-13）：</p>
+
+<pre><code>$ git checkout -b hotfix
+Switched to a new branch &#39;hotfix&#39;
+$ vim index.html
+$ git commit -a -m &#39;fixed the broken email address&#39;
+[hotfix 3a0874c] fixed the broken email address
+ 1 files changed, 1 deletion(-)</code></pre>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0313-tn.png"></br>
+圖 3-13. hotfix 分支是從 master 分支所在點分化出來的</p>
+
+<p>有必要作些測試，確保修補是成功的，然後回到 <code>master</code> 分支並把它合併進來，然後發佈到生產伺服器。用 <code>git merge</code> 命令來進行合併：</p>
+
+<pre><code>$ git checkout master
+$ git merge hotfix
+Updating f42c576..3a0874c
+Fast-forward
+ README | 1 -
+ 1 file changed, 1 deletion(-)</code></pre>
+
+<p>請注意，合併時出現了“Fast forward”的提示。由於當前 <code>master</code> 分支所在的提交物件是要併入的 <code>hotfix</code> 分支的直接上游，Git 只需把 <code>master</code> 分支指標直接右移。換句話說，如果順著一個分支走下去可以到達另一個分支的話，那麼 Git 在合併兩者時，只會簡單地把指標右移，因為這種單線的歷史分支不存在任何需要解決的分歧，所以這種合併過程可以稱為快進（Fast forward）。</p>
+
+<p>現在最新的修改已經在當前 <code>master</code> 分支所指向的提交物件中了，可以部署到生產伺服器上去了（見圖 3-14）。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0314-tn.png"></br>
+圖 3-14. 合併之後，master 分支和 hotfix 分支指向同一位置。</p>
+
+<p>在那個超級重要的修補發佈以後，你想要回到被打擾之前的工作。由於當前 <code>hotfix</code> 分支和 <code>master</code> 都指向相同的提交物件，所以 <code>hotfix</code> 已經完成了歷史使命，可以刪掉了。使用 <code>git branch</code> 的 <code>-d</code> 選項執行刪除操作：</p>
+
+<pre><code>$ git branch -d hotfix
+Deleted branch hotfix (was 3a0874c).</code></pre>
+
+<p>現在回到之前未完成的 #53 問題修復分支上繼續工作（圖 3-15）：</p>
+
+<pre><code>$ git checkout iss53
+Switched to branch &#39;iss53&#39;
+$ vim index.html
+$ git commit -a -m &#39;finished the new footer [issue 53]&#39;
+[iss53 ad82d7a] finished the new footer [issue 53]
+ 1 file changed, 1 insertion(+)</code></pre>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0315-tn.png"></br>
+圖 3-15. iss53 分支可以不受影響繼續推進。</p>
+
+<p>值得注意的是之前 <code>hotfix</code> 分支的修改內容尚未包含到 <code>iss53</code> 中來。如果需要納入此次修補，可以用 <code>git merge master</code> 把 master 分支合併到 <code>iss53</code>；或者等 <code>iss53</code> 完成之後，再將 <code>iss53</code> 分支中的更新併入 <code>master</code>。</p>
+
+<h3>分支的合併</h3>
+
+<p>在問題 #53 相關的工作完成之後，可以合併回 <code>master</code> 分支。實際操作同前面合併 <code>hotfix</code> 分支差不多，只需回到 <code>master</code> 分支，運行 <code>git merge</code> 命令指定要合併進來的分支：</p>
+
+<pre><code>$ git checkout master
+$ git merge iss53
+Auto-merging README
+Merge made by the &#39;recursive&#39; strategy.
+ README | 1 +
+ 1 file changed, 1 insertion(+)</code></pre>
+
+<p>請注意，這次合併操作的底層實現，並不同於之前 <code>hotfix</code> 的併入方式。因為這次你的開發歷史是從更早的地方開始分叉的。由於當前 <code>master</code> 分支所指向的提交物件（C4）並不是 <code>iss53</code> 分支的直接祖先，Git 不得不進行一些額外處理。就此例而言，Git 會用兩個分支的末端（C4 和 C5）以及它們的共同祖先（C2）進行一次簡單的三方合併計算。圖 3-16 用紅框標出了 Git 用於合併的三個提交對象：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0316-tn.png"></br>
+圖 3-16. Git 為分支合併自動識別出最佳的同源合併點。</p>
+
+<p>這次，Git 沒有簡單地把分支指標右移，而是對三方合併後的結果重新做一個新的快照，並自動創建一個指向它的提交物件（C6）（見圖 3-17）。這個提交物件比較特殊，它有兩個祖先（C4 和 C5）。</p>
+
+<p>值得一提的是 Git 可以自己裁決哪個共同祖先才是最佳合併基礎；這和 CVS 或 Subversion（1.5 以後的版本）不同，它們需要開發者手工指定合併基礎。所以此特性讓 Git 的合併操作比其他系統都要簡單不少。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0317-tn.png"></br>
+圖 3-17. Git 自動創建了一個包含了合併結果的提交物件。</p>
+
+<p>既然之前的工作成果已經合併到 <code>master</code> 了，那麼 <code>iss53</code> 也就沒用了。你可以就此刪除它，並在問題追蹤系統裡關閉該問題。</p>
+
+<pre><code>$ git branch -d iss53</code></pre>
+
+<h3>遇到衝突時的分支合併</h3>
+
+<p>有時候合併操作並不會如此順利。如果在不同的分支中都修改了同一個檔的同一部分，Git 就無法乾淨地把兩者合到一起（譯注：邏輯上說，這種問題只能由人來裁決。）。如果你在解決問題 #53 的過程中修改了 <code>hotfix</code> 中修改的部分，將得到類似下面的結果：</p>
+
+<pre><code>$ git merge iss53
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+
+<p>Git 作了合併，但沒有提交，它會停下來等你解決衝突。要看看哪些檔在合併時發生衝突，可以用 <code>git status</code> 查閱：</p>
+
+<pre><code>$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run &quot;git commit&quot;)
+
+Unmerged paths:
+  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)
+
+        both modified:      index.html
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
+
+<p>任何包含未解決衝突的檔都會以未合併（unmerged）的狀態列出。Git 會在有衝突的檔裡加入標準的衝突解決標記，可以通過它們來手工定位並解決這些衝突。可以看到此檔包含類似下面這樣的部分：</p>
+
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+&lt;div id=&quot;footer&quot;&gt;contact : email.support@github.com&lt;/div&gt;
+=======
+&lt;div id=&quot;footer&quot;&gt;
+  please contact us at support@github.com
+&lt;/div&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; iss53</code></pre>
+
+<p>可以看到 <code>=======</code> 隔開的上半部分，是 <code>HEAD</code>（即 <code>master</code> 分支，在運行 <code>merge</code> 命令時所切換到的分支）中的內容，下半部分是在 <code>iss53</code> 分支中的內容。解決衝突的辦法無非是二者選其一或者由你親自整合到一起。比如你可以通過把這段內容替換為下面這樣來解決：</p>
+
+<pre><code>&lt;div id=&quot;footer&quot;&gt;
+please contact us at email.support@github.com
+&lt;/div&gt;</code></pre>
+
+<p>這個解決方案各採納了兩個分支中的一部分內容，而且我還刪除了 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>，<code>=======</code> 和 <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 這些行。在解決了所有檔裡的所有衝突後，運行 <code>git add</code> 將把它們標記為已解決狀態（譯注：實際上就是來一次快照保存到暫存區域。）。因為一旦暫存，就表示衝突已經解決。如果你想用一個有圖形介面的工具來解決這些問題，不妨運行 <code>git mergetool</code>，它會調用一個視覺化的合併工具並引導你解決所有衝突：</p>
+
+<pre><code>$ git mergetool
+
+This message is displayed because &#39;merge.tool&#39; is not configured.
+See &#39;git mergetool --tool-help&#39; or &#39;git help config&#39; for more details.
+&#39;git mergetool&#39; will now attempt to use one of the following tools:
+opendiff kdiff3 tkdiff xxdiff meld tortoisemerge gvimdiff diffuse diffmerge ecmerge p4merge araxis bc3 codecompare vimdiff emerge
+Merging:
+index.html
+
+Normal merge conflict for &#39;index.html&#39;:
+  {local}: modified file
+  {remote}: modified file
+Hit return to start merge resolution tool (opendiff):</code></pre>
+
+<p>如果不想用默認的合併工具（Git 為我默認選擇了 <code>opendiff</code>，因為我在 Mac 上運行了該命令），你可以在上方&quot;merge tool candidates&quot;裡找到可用的合併工具列表，輸入你想用的工具名。我們將在第七章討論怎樣改變環境中的預設值。</p>
+
+<p>退出合併工具以後，Git 會詢問你合併是否成功。如果回答是，它會為你把相關檔暫存起來，以表明狀態為已解決。</p>
+
+<p>再運行一次 <code>git status</code> 來確認所有衝突都已解決：</p>
+
+<pre><code>$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        modified:   index.html</code></pre>
+
+<p>如果覺得滿意了，並且確認所有衝突都已解決，也就是進入了暫存區，就可以用 <code>git commit</code> 來完成這次合併提交。提交的記錄差不多是這樣：</p>
+
+<pre><code>Merge branch &#39;iss53&#39;
+
+Conflicts:
+  index.html
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#       .git/MERGE_HEAD
+# and try again.
+#</code></pre>
+
+<p>如果想給將來看這次合併的人一些方便，可以修改該資訊，提供更多合併細節。比如你都作了哪些改動，以及這麼做的原因。有時候裁決衝突的理由並不直接或明顯，有必要略加注解。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

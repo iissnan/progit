@@ -1,0 +1,224 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>重寫歷史 - Git 工具 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch6_0.html">Git 工具</a></li><li><a href="ch6_1.html">選擇修訂版本</a></li><li><a href="ch6_2.html">互動式暫存</a></li><li><a href="ch6_3.html">儲藏 (Stashing)</a></li><li><a href="ch6_4.html">重寫歷史</a></li><li><a href="ch6_5.html">使用 Git 做 Debug</a></li><li><a href="ch6_6.html">子模組 (Submodules)</a></li><li><a href="ch6_7.html">子樹合併</a></li><li><a href="ch6_8.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>重寫歷史</h2>
+
+<p>很多時候，在 Git 上工作的時候，你也許會由於某種原因想要修訂你的提交歷史。Git 的一個卓越之處就是它允許你在最後可能的時刻再作決定。你可以在你即將提交暫存區時決定什麼檔歸入哪一次提交，你可以使用 stash 命令來決定你暫時擱置的工作，你可以重寫已經發生的提交以使它們看起來是另外一種樣子。這個包括改變提交的次序、改變說明或者修改提交中包含的檔，將提交歸併(squash)、拆分或者完全刪除——這一切在你尚未開始將你的工作和別人共用前都是可以的。 </p>
+
+<p>在這一節中，你會學到如何完成這些很有用的任務，使得你的提交歷史在你將其共用給別人之前變成你想要的樣子。 </p>
+
+<h3>改變最後一次提交</h3>
+
+<p>改變最後一次提交也許是最常見的重寫歷史的行為。對於你的最近一次提交，你經常想做兩件基本事情：改變提交說明，或者經由增加、改變、移除檔案而改變你剛記錄的快照。</p>
+
+<p>如果你只想修改最近一次提交說明，這非常簡單： </p>
+
+<pre><code>$ git commit --amend</code></pre>
+
+<p>這會把你帶入文字編輯器，裡面包含了你最近一次提交的說明訊息，供你修改。當你保存並退出編輯器，這個編輯器會寫入一個新的提交，裡面包含了那個說明，並且讓它成為你的新的最後提交。</p>
+
+<p>如果你完成提交後又想修改被提交的快照，增加或者修改其中的檔案，可能因為你最初提交時，忘了添加一個新建的檔，這個過程基本上一樣。你通過修改檔案然後對其執行 <code>git add</code> 或對一個已被記錄的檔執行 <code>git rm</code>，隨後的 <code>git commit --amend</code> 會獲取你當前的暫存區並將它作為新提交對應的快照。 </p>
+
+<p>使用這項技術的時候你必須小心，因為修正會改變提交的SHA-1值。這個很像是一次非常小的 rebase——不要在你最近一次提交被推送後還去修正它。 </p>
+
+<h3>修改多個提交訊息</h3>
+
+<p>要修改歷史中更早的提交，你必須採用更複雜的工具。Git 沒有一個修改歷史的工具，但是你可以使用 rebase 工具來衍合一系列的提交到它們原來所在的 HEAD 上而不是移到新的上。依靠這個互動式的 rebase 工具，你就可以停留在每一次提交後，如果你想修改或改變說明、增加檔案或做任何事情。在 <code>git rebase</code> 增加 <code>-i</code> 選項可以對話模式執行 rebase。你必須告訴 rebase 命令要衍合到哪次提交，來指明你想要重寫的提交要回溯到多遠。 </p>
+
+<p>例如，你想修改最近三次的提交說明，或者其中任意一次，你必須給 <code>git rebase -i</code> 提供一個參數，指明你想要修改的提交的父提交，例如 <code>HEAD~2^</code> 或者 <code>HEAD~3</code>。可能記住 <code>~3</code> 更加容易，因為你想修改最近三次提交；但是請記住你事實上所指的是四次提交之前，即你想修改的提交的父提交。</p>
+
+<pre><code>$ git rebase -i HEAD~3</code></pre>
+
+<p>再次提醒這是一個衍合命令—— <code>HEAD~3..HEAD</code> 範圍內的每一次提交都會被重寫，無論你是否修改說明。不要涵蓋你已經推送到中心伺服器的提交——這麼做會使其他開發者產生混亂，因為你提供了同樣變更的不同版本。 </p>
+
+<p>執行這個命令會在你的文字編輯器提供一個提交列表，看起來像下面這樣：</p>
+
+<pre><code>pick f7f3f6d changed my name a bit
+pick 310154e updated README formatting and added blame
+pick a5f4a0d added cat-file
+
+# Rebase 710f0f8..a5f4a0d onto 710f0f8
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like &quot;squash&quot;, but discard this commit&#39;s log message
+#  x, exec = run command (the rest of the line) using shell
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out</code></pre>
+
+<p>很重要的一點是你得注意這些提交的順序與你通常通過 <code>log</code> 命令看到的是相反的。如果你執行 <code>log</code>，你會看到下面這樣的結果： </p>
+
+<pre><code>$ git log --pretty=format:&quot;%h %s&quot; HEAD~3..HEAD
+a5f4a0d added cat-file
+310154e updated README formatting and added blame
+f7f3f6d changed my name a bit</code></pre>
+
+<p>請注意這裡的順序是相反的。互動式的 rebase 給了你一個即將執行的腳本。它會從你在命令列上指明的提交開始(<code>HEAD~3</code>)然後自上至下重播每次提交裡引入的變更。它將最早的列在頂上而不是最近的，因為這是第一個需要重播的。 </p>
+
+<p>你需要修改這個腳本來讓它停留在你想修改的變更上。要做到這一點，你只要將你想修改的每一次提交前面的 pick 改為 edit。例如，只想修改第三次提交說明的話，你就像下面這樣修改文件：</p>
+
+<pre><code>edit f7f3f6d changed my name a bit
+pick 310154e updated README formatting and added blame
+pick a5f4a0d added cat-file</code></pre>
+
+<p>當你存檔並退出編輯器，Git 會倒回至列表中的最後一次提交，然後把你送到命令列中，同時顯示以下資訊： </p>
+
+<pre><code>$ git rebase -i HEAD~3
+Stopped at 7482e0d... updated the gemspec to hopefully work better
+You can amend the commit now, with
+
+       git commit --amend
+
+Once you’re satisfied with your changes, run
+
+       git rebase --continue</code></pre>
+
+<p>這些指示很明確地告訴了你該幹什麼。輸入 </p>
+
+<pre><code>$ git commit --amend</code></pre>
+
+<p>修改提交說明，退出編輯器。然後，執行 </p>
+
+<pre><code>$ git rebase --continue</code></pre>
+
+<p>這個命令會自動應用其他兩次提交，你就完成任務了。如果你將更多行的 pick 改為 edit ，你就能對你想修改的提交重複這些步驟。Git 每次都會停下，讓你修正提交，完成後繼續執行。</p>
+
+<h3>重排(Reordering) 提交</h3>
+
+<p>你也可以使用互動式的衍合來徹底重排或刪除提交。如果你想刪除 ”added cat-file” 這個提交並且修改其他兩次提交引入的順序，你將 rebase 腳本從這個 </p>
+
+<pre><code>pick f7f3f6d changed my name a bit
+pick 310154e updated README formatting and added blame
+pick a5f4a0d added cat-file</code></pre>
+
+<p>改為這個:</p>
+
+<pre><code>pick 310154e updated README formatting and added blame
+pick f7f3f6d changed my name a bit</code></pre>
+
+<p>當你存檔並退出編輯器，Git 將分支倒回至這些提交的父提交，應用 <code>310154e</code>，然後 <code>f7f3f6d</code>，接著停止。你有效地修改了這些提交的順序並且徹底刪除了 ”added cat-file” 這次提交。</p>
+
+<h3>擠壓(Squashing) 提交</h3>
+
+<p>互動式的衍合工具還可以將一系列提交擠壓為單一提交。腳本在 rebase 的資訊裡放了一些有用的指示： </p>
+
+<pre><code>#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like &quot;squash&quot;, but discard this commit&#39;s log message
+#  x, exec = run command (the rest of the line) using shell
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out</code></pre>
+
+<p>如果不用 ”pick” 或者 ”edit”，而是指定 ”squash”，Git 會同時應用那個變更和它之前的變更並將提交說明歸併。因此，如果你想將這三個提交合併為單一提交，你可以將腳本修改成這樣： </p>
+
+<pre><code>pick f7f3f6d changed my name a bit
+squash 310154e updated README formatting and added blame
+squash a5f4a0d added cat-file</code></pre>
+
+<p>當你儲存並退出編輯器，Git 會應用全部三次變更然後將你送回編輯器來歸併三次提交說明。 </p>
+
+<pre><code># This is a combination of 3 commits.
+# The first commit&#39;s message is:
+changed my name a bit
+
+# This is the 2nd commit message:
+
+updated README formatting and added blame
+
+# This is the 3rd commit message:
+
+added cat-file</code></pre>
+
+<p>當你儲存之後，你就擁有了一個包含前三次提交的全部變更的單一提交。 </p>
+
+<h3>拆分(Splitting) 提交</h3>
+
+<p>拆分提交就是撤銷一次提交，然後多次部分地暫存或提交直到結束。例如，假設你想將三次提交中的中間一次拆分。將「updated README formatting and added blame」拆分成兩次提交：第一次為「updated README formatting」，第二次為「added blame」。你可以在 <code>rebase -i</code> 腳本中修改你想拆分的提交前的指令為 ”edit”： </p>
+
+<pre><code>pick f7f3f6d changed my name a bit
+edit 310154e updated README formatting and added blame
+pick a5f4a0d added cat-file</code></pre>
+
+<p>然後，這個腳本就將你帶入命令列，你重置那次提交，提取被重置的變更，從中創建多次提交。當你儲存並退出編輯器，Git 倒回到列表中第一次提交的父提交，應用第一次提交（<code>f7f3f6d</code>），應用第二次提交（<code>310154e</code>），然後將你帶到控制台。那裡你可以用 <code>git reset HEAD^</code> 對那次提交進行一次混合的重置，這將撤銷那次提交並且將修改的檔從暫存區撤回。此時你可以暫存並提交檔案，直到你擁有多次提交，結束後，執行 <code>git rebase --continue</code>。 </p>
+
+<pre><code>$ git reset HEAD^
+$ git add README
+$ git commit -m &#39;updated README formatting&#39;
+$ git add lib/simplegit.rb
+$ git commit -m &#39;added blame&#39;
+$ git rebase --continue</code></pre>
+
+<p>Git 在腳本中應用了最後一次提交（<code>a5f4a0d</code>），你的歷史看起來就像這樣了： </p>
+
+<pre><code>$ git log -4 --pretty=format:&quot;%h %s&quot;
+1c002dd added cat-file
+9b29157 added blame
+35cfb2b updated README formatting
+f3cc40e changed my name a bit</code></pre>
+
+<p>再次提醒，這會修改你列表中的提交的 SHA 值，所以請確保這個列表裡不包含你已經推送到共用倉庫的提交。 </p>
+
+<h3>核彈級選項: filter-branch</h3>
+
+<p>如果你想用腳本的方式修改大量的提交，還有一個重寫歷史的選項可以用——例如，全域性地修改電子郵寄地址或者將一個檔從所有提交中刪除。這個命令是 <code>filter-branch</code>，這會大面積地修改你的歷史，所以你很有可能不該去用它，除非你的專案尚未公開，沒有其他人在你準備修改的提交的基礎上工作。儘管如此，這個可以非常有用。你會學習一些常見用法，借此對它的能力有所認識。 </p>
+
+<h4>從所有提交中刪除一個檔</h4>
+
+<p>這個經常發生。有些人不經思考使用 <code>git add .</code>，意外地提交了一個巨大的二進位檔案，你想將它從所有地方刪除。也許你不小心提交了一個包含密碼的檔，而你想讓你的專案成為 open source。<code>filter-branch</code> 大概會是你用來清理整個歷史的工具。要從整個歷史中刪除一個名叫 password.txt 的檔，你可以在 <code>filter-branch</code> 上使用 <code>--tree-filter</code> 選項： </p>
+
+<pre><code>$ git filter-branch --tree-filter &#39;rm -f passwords.txt&#39; HEAD
+Rewrite 6b9b3cf04e7c5686a9cb838c3f36a8cb6a0fc2bd (21/21)
+Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
+
+<p><code>--tree-filter</code> 選項會在每次 checkout 專案時先執行指定的命令然後重新提交結果。在這個例子中，你會在所有快照中刪除一個名叫 password.txt 的檔，無論它是否存在。如果你想刪除所有不小心提交上去的編輯器備份檔案，你可以執行類似 <code>git filter-branch --tree-filter &quot;find * -type f -name &#39;*~&#39; -delete&quot; HEAD</code> 的命令。 </p>
+
+<p>你可以觀察到 Git 重寫目錄樹並且提交，然後將分支指標移到末尾。一個比較好的辦法是在一個測試分支上做這件事，然後在你確定結果真的是你所要的之後，再 hard-reset 你的主分支。要在你所有的分支上運行 <code>filter-branch</code> 的話，你可以傳遞一個 <code>--all</code> 參數給該命令。 </p>
+
+<h4>將一個子目錄設置為新的根目錄</h4>
+
+<p>假設你完成了從另外一個代碼控制系統的導入工作，得到了一些沒有意義的子目錄（trunk, tags 等等）。如果你想讓 trunk 子目錄成為每一次提交的新的專案根目錄，<code>filter-branch</code> 也可以幫你做到： </p>
+
+<pre><code>$ git filter-branch --subdirectory-filter trunk HEAD
+Rewrite 856f0bf61e41a27326cdae8f09fe708d679f596f (12/12)
+Ref &#39;refs/heads/master&#39; was rewritten</code></pre>
+
+<p>現在你的專案根目錄就是 trunk 子目錄了。Git 會自動地刪除不對這個子目錄產生影響的提交。</p>
+
+<h4>全域性地更換電子郵寄地址</h4>
+
+<p>另一個常見的案例是你在開始時忘了執行 <code>git config</code> 來設置你的姓名和電子郵寄地址，也許你想開源一個專案，把你所有的工作電子郵寄地址修改為個人位址。無論哪種情況你都可以用 <code>filter-branch</code> 來更換多次提交裡的電子郵寄地址。你必須小心一些，只改變屬於你的電子郵寄地址，所以你使用 <code>--commit-filter</code>： </p>
+
+<pre><code>$ git filter-branch --commit-filter &#39;
+        if [ &quot;$GIT_AUTHOR_EMAIL&quot; = &quot;schacon@localhost&quot; ];
+        then
+                GIT_AUTHOR_NAME=&quot;Scott Chacon&quot;;
+                GIT_AUTHOR_EMAIL=&quot;schacon@example.com&quot;;
+                git commit-tree &quot;$@&quot;;
+        else
+                git commit-tree &quot;$@&quot;;
+        fi&#39; HEAD</code></pre>
+
+<p>這樣會巡迴並重寫所有提交使之擁有你的新地址。因為提交裡包含了它們的父提交的 SHA-1 值，這個命令會修改你的歷史中的所有提交，而不僅僅是包含了匹配的電子郵寄地址的那些。 </p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

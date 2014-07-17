@@ -1,0 +1,534 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>為專案作貢獻 - 分散式 Git - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch5_0.html">分散式 Git</a></li><li><a href="ch5_1.html">分散式工作流程</a></li><li><a href="ch5_2.html">為專案作貢獻</a></li><li><a href="ch5_3.html">專案的管理</a></li><li><a href="ch5_4.html">小結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>為專案作貢獻</h2>
+
+<p>接下來，我們來學習一下作為專案貢獻者，會有哪些常見的工作模式。</p>
+
+<p>不過要說清楚整個協作過程真的很難，Git 如此靈活，人們的協作方式便可以各式各樣，沒有固定不變的範式可循，而每個專案的具體情況又多少會有些不同，比如說參與者的規模，所選擇的工作流程，每個人的提交許可權，以及 Git 以外貢獻等等，都會影響到具體操作的細節。</p>
+
+<p>首當其衝的是參與者規模。專案中有多少開發者是經常提交代碼的？經常又是多久呢？大多數兩至三人的小團隊，一天大約只有幾次提交，如果不是什麼熱門項目的話就更少了。可要是在大公司裡，或者大項目中，參與者可以多到上千，每天都會有十幾個上百個補丁提交上來。這種差異帶來的影響是顯著的，越是多的人參與進來，就越難保證每次合併正確無誤。你正在工作的代碼，可能會因為合併進來其他人的更新而變得過時，甚至受創無法運行。而已經提交上去的更新，也可能在等著審核合併的過程中變得過時。那麼，我們該怎樣做才能確保代碼是最新的，提交的補丁也是可用的呢？</p>
+
+<p>接下來便是專案所採用的工作流。是集中式的，每個開發者都具有等同的寫許可權？專案是否有專人負責檢查所有補丁？是不是所有補丁都做過同行複閱（peer-review）再通過審核的？你是否參與審核過程？如果使用副官系統，那你是不是限定于只能向此副官提交？</p>
+
+<p>還有你的提交許可權。有或沒有向主專案提交更新的許可權，結果完全不同，直接決定最終採用怎樣的工作流。如果不能直接提交更新，那該如何貢獻自己的代碼呢？是不是該有個什麼策略？你每次貢獻代碼會有多少量？提交頻率呢？</p>
+
+<p>所有以上這些問題都會或多或少影響到最終採用的工作流。接下來，我會在一系列由簡入繁的具體用例中，逐一闡述。此後在實踐時，應該可以借鑒這裡的例子，略作調整，以滿足實際需要構建自己的工作流。</p>
+
+<h3>提交指南</h3>
+
+<p>開始分析特定用例之前，先來瞭解下如何撰寫提交說明。一份好的提交指南可以説明協作者更輕鬆更有效地配合。Git 項目本身就提供了一份文檔（Git 專案原始程式碼目錄中 <code>Documentation/SubmittingPatches</code>），列數了大量提示，從如何編撰提交說明到提交補丁，不一而足。</p>
+
+<p>首先，請不要在更新中提交多餘的白字元（whitespace）。Git 有種檢查此類問題的方法，在提交之前，先運行 <code>git diff --check</code>，會把可能的多餘白字元修正列出來。下面的示例，我已經把終端中顯示為紅色的白字元用 <code>X</code> 替換掉：</p>
+
+<pre><code>$ git diff --check
+lib/simplegit.rb:5: trailing whitespace.
++    @git_dir = File.expand_path(git_dir)XX
+lib/simplegit.rb:7: trailing whitespace.
++ XXXXXXXXXXX
+lib/simplegit.rb:26: trailing whitespace.
++    def command(git_cmd)XXXX</code></pre>
+
+<p>這樣在提交之前你就可以看到這類問題，及時解決以免困擾其他開發者。</p>
+
+<p>接下來，請將每次提交限定於完成一次邏輯功能。並且可能的話，適當地分解為多次小更新，以便每次小型提交都更易於理解。請不要在週末窮追猛打一次性解決五個問題，而最後拖到週一再提交。就算是這樣也請盡可能利用暫存區域，將之前的改動分解為每次修復一個問題，再分別提交和加注說明。如果針對兩個問題改動的是同一個檔，可以試試看 <code>git add --patch</code> 的方式將部分內容置入暫存區域（我們會在第六章再詳細介紹）。無論是五次小提交還是混雜在一起的大提交，最終分支末端的專案快照應該還是一樣的，但分解開來之後，更便於其他開發者複閱。這麼做也方便自己將來取消某個特定問題的修復。我們將在第六章介紹一些重寫提交歷史，同暫存區域交互的技巧和工具，以便最終得到一個乾淨有意義，且易於理解的提交歷史。</p>
+
+<p>最後需要謹記的是提交說明的撰寫。寫得好可以讓大家協作起來更輕鬆。一般來說，提交說明最好限制在一行以內，50 個字元以下，簡明扼要地描述更新內容，空開一行後，再展開詳細注解。Git 專案本身需要開發者撰寫詳盡注解，包括本次修訂的因由，以及前後不同實現之間的比較，我們也該借鑒這種做法。另外，提交說明應該用祈使現在式語態，比如，不要說成 “I added tests for” 或 “Adding tests for” 而應該用 “Add tests for”。
+下麵是來自 tpope.net 的 Tim Pope 原創的提交說明格式模版，供參考：</p>
+
+<pre><code>本次更新的簡要描述（50 個字元以內）
+
+如果必要，此處展開詳盡闡述。段落寬度限定在 72 個字元以內。
+某些情況下，第一行的簡要描述將用作郵件標題，其餘部分作為郵件正文。
+其間的空行是必要的，以區分兩者（當然沒有正文另當別論）。
+如果並在一起，rebase 這樣的工具就可能會迷惑。
+
+另起空行後，再進一步補充其他說明。
+
+ - 可以使用這樣的條目列舉式。
+
+ - 一般以單個空格緊跟短劃線或者星號作為每項條目的起始符。每個條目間用一空行隔開。
+   不過這裡按自己項目的約定，可以略作變化。</code></pre>
+
+<p>如果你的提交說明都用這樣的格式來書寫，好多事情就可以變得十分簡單。Git 專案本身就是這樣要求的，我強烈建議你到 Git 專案倉庫下運行 <code>git log --no-merges</code> 看看，所有提交歷史的說明是怎樣撰寫的。（譯注：如果現在還沒有克隆 git 項目原始程式碼，是時候 <code>git clone git://git.kernel.org/pub/scm/git/git.git</code> 了。）</p>
+
+<p>為簡單起見，在接下來的例子（及本書隨後的所有演示）中，我都不會用這種格式，而使用 <code>-m</code> 選項提交 <code>git commit</code>。不過請還是按照我之前講的做，別學我這裡偷懶的方式。</p>
+
+<h3>私有的小型團隊</h3>
+
+<p>我們從最簡單的情況開始，一個私有專案，與你一起協作的還有另外一到兩位開發者。這裡說私有，是指原始程式碼不公開，其他人無法訪問項目倉庫。而你和其他開發者則都具有推送資料到倉庫的許可權。</p>
+
+<p>這種情況下，你們可以用 Subversion 或其他集中式版本控制系統類似的工作流來協作。你仍然可以得到 Git 帶來的其他好處：離線提交，快速分支與合併等等，但工作流程還是差不多的。主要區別在於，合併操作發生在用戶端而非伺服器上。
+讓我們來看看，兩個開發者一起使用同一個共用倉庫，會發生些什麼。第一個人，John，克隆了倉庫，作了些更新，在本地提交。（下面的例子中省略了常規提示，用 <code>...</code> 代替以節約版面。）</p>
+
+<pre><code># John&#39;s Machine
+$ git clone john@githost:simplegit.git
+Initialized empty Git repository in /home/john/simplegit/.git/
+...
+$ cd simplegit/
+$ vim lib/simplegit.rb
+$ git commit -am &#39;removed invalid default value&#39;
+[master 738ee87] removed invalid default value
+ 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+
+<p>第二個開發者，Jessica，一樣這麼做：克隆倉庫，提交更新：</p>
+
+<pre><code># Jessica&#39;s Machine
+$ git clone jessica@githost:simplegit.git
+Initialized empty Git repository in /home/jessica/simplegit/.git/
+...
+$ cd simplegit/
+$ vim TODO
+$ git commit -am &#39;add reset task&#39;
+[master fbff5bc] add reset task
+ 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+
+<p>現在，Jessica 將她的工作推送到伺服器上：</p>
+
+<pre><code># Jessica&#39;s Machine
+$ git push origin master
+...
+To jessica@githost:simplegit.git
+   1edee6b..fbff5bc  master -&gt; master</code></pre>
+
+<p>John 也嘗試推送自己的工作上去：</p>
+
+<pre><code># John&#39;s Machine
+$ git push origin master
+To john@githost:simplegit.git
+ ! [rejected]        master -&gt; master (non-fast forward)
+error: failed to push some refs to &#39;john@githost:simplegit.git&#39;</code></pre>
+
+<p>John 的推送操作被駁回，因為 Jessica 已經推送了新的資料上去。請注意，特別是你用慣了 Subversion 的話，這裡其實修改的是兩個檔，而不是同一個檔的同一個地方。Subversion 會在伺服器端自動合併提交上來的更新，而 Git 則必須先在本地合併後才能推送。於是，John 不得不先把 Jessica 的更新拉下來：</p>
+
+<pre><code>$ git fetch origin
+...
+From john@githost:simplegit
+ + 049d078...fbff5bc master     -&gt; origin/master</code></pre>
+
+<p>此刻，John 的本地倉庫如圖 5-4 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0504-tn.png"></br>
+圖 5-4. John 的倉庫歷史</p>
+
+<p>雖然 John 下載了 Jessica 推送到伺服器的最近更新（fbff5），但目前只是 <code>origin/master</code> 指標指向它，而當前的本地分支 <code>master</code> 仍然指向自己的更新（738ee），所以需要先把她的提交合併過來，才能繼續推送資料：</p>
+
+<pre><code>$ git merge origin/master
+Merge made by recursive.
+ TODO |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+
+<p>還好，合併過程非常順利，沒有衝突，現在 John 的提交歷史如圖 5-5 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0505-tn.png"></br>
+圖 5-5. 合併 origin/master 後 John 的倉庫歷史</p>
+
+<p>現在，John 應該再測試一下代碼是否仍然正常工作，然後將合併結果（72bbc）推送到伺服器上：</p>
+
+<pre><code>$ git push origin master
+...
+To john@githost:simplegit.git
+   fbff5bc..72bbc59  master -&gt; master</code></pre>
+
+<p>最終，John 的提交歷史變為圖 5-6 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0506-tn.png"></br>
+圖 5-6. 推送後 John 的倉庫歷史</p>
+
+<p>而在這段時間，Jessica 已經開始在另一個特性分支工作了。她創建了 <code>issue54</code> 並提交了三次更新。她還沒有下載 John 提交的合併結果，所以提交歷史如圖 5-7 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0507-tn.png"></br>
+圖 5-7. Jessica 的提交歷史</p>
+
+<p>Jessica 想要先和伺服器上的資料同步，所以先下載資料：</p>
+
+<pre><code># Jessica&#39;s Machine
+$ git fetch origin
+...
+From jessica@githost:simplegit
+   fbff5bc..72bbc59  master     -&gt; origin/master</code></pre>
+
+<p>於是 Jessica 的本地倉庫歷史多出了 John 的兩次提交（738ee 和 72bbc），如圖 5-8 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0508-tn.png"></br>
+圖 5-8. 獲取 John 的更新之後 Jessica 的提交歷史</p>
+
+<p>此時，Jessica 在特性分支上的工作已經完成，但她想在推送資料之前，先確認下要並進來的資料究竟是什麼，於是運行 <code>git log</code> 查看：</p>
+
+<pre><code>$ git log --no-merges origin/master ^issue54
+commit 738ee872852dfaa9d6634e0dea7a324040193016
+Author: John Smith &lt;jsmith@example.com&gt;
+Date:   Fri May 29 16:01:27 2009 -0700
+
+    removed invalid default value</code></pre>
+
+<p>現在，Jessica 可以將特性分支上的工作並到 <code>master</code> 分支，然後再併入 John 的工作（<code>origin/master</code>）到自己的 <code>master</code> 分支，最後再推送回伺服器。當然，得先切回主分支才能集成所有資料：</p>
+
+<pre><code>$ git checkout master
+Switched to branch &quot;master&quot;
+Your branch is behind &#39;origin/master&#39; by 2 commits, and can be fast-forwarded.</code></pre>
+
+<p>要合併 <code>origin/master</code> 或 <code>issue54</code> 分支，誰先誰後都沒有關係，因為它們都在上游（upstream）（譯注：想像分叉的更新像是匯流成河的源頭，所以上游 upstream 是指最新的提交），所以無所謂先後順序，最終合併後的內容快照都是一樣的，而僅是提交歷史看起來會有些先後差別。Jessica 選擇先合併 <code>issue54</code>：</p>
+
+<pre><code>$ git merge issue54
+Updating fbff5bc..4af4298
+Fast forward
+ README           |    1 +
+ lib/simplegit.rb |    6 +++++-
+ 2 files changed, 6 insertions(+), 1 deletions(-)</code></pre>
+
+<p>正如所見，沒有衝突發生，僅是一次簡單快進。現在 Jessica 開始合併 John 的工作（<code>origin/master</code>）：</p>
+
+<pre><code>$ git merge origin/master
+Auto-merging lib/simplegit.rb
+Merge made by recursive.
+ lib/simplegit.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+
+<p>所有的合併都非常乾淨。現在 Jessica 的提交歷史如圖 5-9 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0509-tn.png"></br>
+圖 5-9. 合併 John 的更新後 Jessica 的提交歷史</p>
+
+<p>現在 Jessica 已經可以在自己的 <code>master</code> 分支中訪問 <code>origin/master</code> 的最新改動了，所以她應該可以成功推送最後的合併結果到伺服器上（假設 John 此時沒再推送新資料上來）：</p>
+
+<pre><code>$ git push origin master
+...
+To jessica@githost:simplegit.git
+   72bbc59..8059c15  master -&gt; master</code></pre>
+
+<p>至此，每個開發者都提交了若干次，且成功合併了對方的工作成果，最新的提交歷史如圖 5-10 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0510-tn.png"></br>
+圖 5-10. Jessica 推送資料後的提交歷史</p>
+
+<p>以上就是最簡單的協作方式之一：先在自己的特性分支中工作一段時間，完成後合併到自己的 <code>master</code> 分支；然後下載合併 <code>origin/master</code> 上的更新（如果有的話），再推回遠端伺服器。一般的協作流程如圖 5-11 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0511-tn.png"></br>
+圖 5-11. 多使用者共用倉庫協作方式的一般工作流程時序</p>
+
+<h3>私有團隊間協作</h3>
+
+<p>現在我們來看更大一點規模的私有團隊協作。如果有幾個小組分頭負責若干特性的開發和集成，那他們之間的協作過程是怎樣的。</p>
+
+<p>假設 John 和 Jessica 一起負責開發某項特性 A，而同時 Jessica 和 Josie 一起負責開發另一項功能 B。公司使用典型的集成管理員式工作流，每個組都有一名管理員負責集成本組代碼，及更新專案主倉庫的 <code>master</code> 分支。所有開發都在代表小組的分支上進行。</p>
+
+<p>讓我們跟隨 Jessica 的視角看看她的工作流程。她參與開發兩項特性，同時和不同小組的開發者一起協作。克隆生成本地倉庫後，她打算先著手開發特性 A。於是創建了新的 <code>featureA</code> 分支，繼而編寫代碼：</p>
+
+<pre><code># Jessica&#39;s Machine
+$ git checkout -b featureA
+Switched to a new branch &quot;featureA&quot;
+$ vim lib/simplegit.rb
+$ git commit -am &#39;add limit to log function&#39;
+[featureA 3300904] add limit to log function
+ 1 files changed, 1 insertions(+), 1 deletions(-)</code></pre>
+
+<p>此刻，她需要分享目前的進展給 John，於是她將自己的 <code>featureA</code> 分支提交到伺服器。由於 Jessica 沒有許可權推送資料到主倉庫的 <code>master</code> 分支（只有集成管理員有此許可權），所以只能將此分支推上去同 John 共用協作：</p>
+
+<pre><code>$ git push origin featureA
+...
+To jessica@githost:simplegit.git
+ * [new branch]      featureA -&gt; featureA</code></pre>
+
+<p>Jessica 發郵件給 John 讓他上來看看 <code>featureA</code> 分支上的進展。在等待他的回饋之前，Jessica 決定繼續工作，和 Josie 一起開發 <code>featureB</code> 上的特性 B。當然，先創建此分支，分叉點以伺服器上的 <code>master</code> 為起點：</p>
+
+<pre><code># Jessica&#39;s Machine
+$ git fetch origin
+$ git checkout -b featureB origin/master
+Switched to a new branch &quot;featureB&quot;</code></pre>
+
+<p>隨後，Jessica 在 <code>featureB</code> 上提交了若干更新：</p>
+
+<pre><code>$ vim lib/simplegit.rb
+$ git commit -am &#39;made the ls-tree function recursive&#39;
+[featureB e5b0fdc] made the ls-tree function recursive
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+$ vim lib/simplegit.rb
+$ git commit -am &#39;add ls-files&#39;
+[featureB 8512791] add ls-files
+ 1 files changed, 5 insertions(+), 0 deletions(-)</code></pre>
+
+<p>現在 Jessica 的更新歷史如圖 5-12 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0512-tn.png"></br>
+圖 5-12. Jessica 的更新歷史</p>
+
+<p>Jessica 正準備推送自己的進展上去，卻收到 Josie 的來信，說是她已經將自己的工作推到伺服器上的 <code>featureBee</code> 分支了。這樣，Jessica 就必須先將 Josie 的代碼合併到自己本地分支中，才能再一起推送回伺服器。她用 <code>git fetch</code> 下載 Josie 的最新代碼：</p>
+
+<pre><code>$ git fetch origin
+...
+From jessica@githost:simplegit
+ * [new branch]      featureBee -&gt; origin/featureBee</code></pre>
+
+<p>然後 Jessica 使用 <code>git merge</code> 將此分支合併到自己分支中：</p>
+
+<pre><code>$ git merge origin/featureBee
+Auto-merging lib/simplegit.rb
+Merge made by recursive.
+ lib/simplegit.rb |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)</code></pre>
+
+<p>合併很順利，但另外有個小問題：她要推送自己的 <code>featureB</code> 分支到伺服器上的 <code>featureBee</code> 分支上去。當然，她可以使用冒號（:）格式指定目標分支：</p>
+
+<pre><code>$ git push origin featureB:featureBee
+...
+To jessica@githost:simplegit.git
+   fba9af8..cd685d1  featureB -&gt; featureBee</code></pre>
+
+<p>我們稱此為<em>refspec</em>。更多有關於 Git refspec 的討論和使用方式會在第九章作詳細闡述。</p>
+
+<p>接下來，John 發郵件給 Jessica 告訴她，他看了之後作了些修改，已經推回伺服器 <code>featureA</code> 分支，請她過目下。於是 Jessica 運行 <code>git fetch</code> 下載最新資料：</p>
+
+<pre><code>$ git fetch origin
+...
+From jessica@githost:simplegit
+   3300904..aad881d  featureA   -&gt; origin/featureA</code></pre>
+
+<p>接下來便可以用 <code>git log</code> 查看更新了些什麼：</p>
+
+<pre><code>$ git log origin/featureA ^featureA
+commit aad881d154acdaeb2b6b18ea0e827ed8a6d671e6
+Author: John Smith &lt;jsmith@example.com&gt;
+Date:   Fri May 29 19:57:33 2009 -0700
+
+    changed log output to 30 from 25</code></pre>
+
+<p>最後，她將 John 的工作合併到自己的 <code>featureA</code> 分支中：</p>
+
+<pre><code>$ git checkout featureA
+Switched to branch &quot;featureA&quot;
+$ git merge origin/featureA
+Updating 3300904..aad881d
+Fast forward
+ lib/simplegit.rb |   10 +++++++++-
+1 files changed, 9 insertions(+), 1 deletions(-)</code></pre>
+
+<p>Jessica 稍做一番修整後同步到伺服器：</p>
+
+<pre><code>$ git commit -am &#39;small tweak&#39;
+[featureA 774b3ed] small tweak
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+$ git push origin featureA
+...
+To jessica@githost:simplegit.git
+   3300904..774b3ed  featureA -&gt; featureA</code></pre>
+
+<p>現在的 Jessica 提交歷史如圖 5-13 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0513-tn.png"></br>
+圖 5-13. 在特性分支中提交更新後的提交歷史</p>
+
+<p>現在，Jessica，Josie 和 John 通知集成管理員伺服器上的 <code>featureA</code> 及 <code>featureBee</code> 分支已經準備好，可以併入主線了。在管理員完成集成工作後，主分支上便多出一個新的合併提交（5399e），用 fetch 命令更新到本地後，提交歷史如圖 5-14 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0514-tn.png"></br>
+圖 5-14. 合併特性分支後的 Jessica 提交歷史</p>
+
+<p>許多開發小組改用 Git 就是因為它允許多個小組間並行工作，而在稍後恰當時機再行合併。通過共用遠端分支的方式，無需干擾整體專案代碼便可以開展工作，因此使用 Git 的小型團隊間協作可以變得非常靈活自由。以上工作流程的時序如圖 5-15 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0515-tn.png"></br>
+圖 5-15. 團隊間協作工作流程基本時序</p>
+
+<h3>公開的小型專案</h3>
+
+<p>上面說的是私有專案協作，但要給公開專案作貢獻，情況就有些不同了。因為你沒有直接更新主倉庫分支的許可權，得尋求其它方式把工作成果交給專案維護人。下面會介紹兩種方法，第一種使用 git 託管服務商提供的倉庫複製功能，一般稱作 fork，比如 repo.or.cz 和 GitHub 都支援這樣的操作，而且許多項目管理員都希望大家使用這樣的方式。另一種方法是通過電子郵件寄送檔補丁。</p>
+
+<p>但不管哪種方式，起先我們總需要克隆原始倉庫，而後創建特性分支開展工作。基本工作流程如下：</p>
+
+<pre><code>$ git clone (url)
+$ cd project
+$ git checkout -b featureA
+$ (work)
+$ git commit
+$ (work)
+$ git commit</code></pre>
+
+<p>你可能想到用 <code>rebase -i</code> 將所有更新先變作單個提交，又或者想重新安排提交之間的差異補丁，以方便專案維護者審閱 -- 有關互動式衍合操作的細節見第六章。</p>
+
+<p>在完成了特性分支開發，提交給專案維護者之前，先到原始專案的頁面上點擊“Fork”按鈕，創建一個自己可寫的公共倉庫（譯注：即下面的 url 部分，參照後續的例子，應該是 <code>git://githost/simplegit.git</code>）。然後將此倉庫添加為本地的第二個遠端倉庫，姑且稱為 <code>myfork</code>：</p>
+
+<pre><code>$ git remote add myfork (url)</code></pre>
+
+<p>你需要將本地更新推送到這個倉庫。要是將遠端 master 合併到本地再推回去，還不如把整個特性分支推上去來得乾脆直接。而且，假若項目維護者未採納你的貢獻的話（不管是直接合併還是 cherry pick），都不用回退（rewind）自己的 master 分支。但若維護者合併或 cherry-pick 了你的工作，最後總還可以從他們的更新中同步這些代碼。好吧，現在先把 featureA 分支整個推上去：</p>
+
+<pre><code>$ git push myfork featureA</code></pre>
+
+<p>然後通知專案管理員，讓他來抓取你的代碼。通常我們把這件事叫做 pull request。可以直接用 GitHub 等網站提供的 “pull request” 按鈕自動發送請求通知；或手工把 <code>git request-pull</code> 命令輸出結果電郵給專案管理員。</p>
+
+<p><code>request-pull</code> 命令接受兩個參數，第一個是本地特性分支開始前的原始分支，第二個是請求對方來抓取的 Git 倉庫 URL（譯注：即下面 <code>myfork</code> 所指的，自己可寫的公共倉庫）。比如現在Jessica 準備要給 John 發一個 pull requst，她之前在自己的特性分支上提交了兩次更新，並把分支整個推到了伺服器上，所以運行該命令會看到：</p>
+
+<pre><code>$ git request-pull origin/master myfork
+The following changes since commit 1edee6b1d61823a2de3b09c160d7080b8d1b3a40:
+  John Smith (1):
+        added a new function
+
+are available in the git repository at:
+
+  git://githost/simplegit.git featureA
+
+Jessica Smith (2):
+      add limit to log function
+      change log output to 30 from 25
+
+ lib/simplegit.rb |   10 +++++++++-
+ 1 files changed, 9 insertions(+), 1 deletions(-)</code></pre>
+
+<p>輸出的內容可以直接發郵件給管理者，他們就會明白這是從哪次提交開始旁支出去的，該到哪裡去抓取新的代碼，以及新的代碼增加了哪些功能等等。</p>
+
+<p>像這樣隨時保持自己的 <code>master</code> 分支和官方 <code>origin/master</code> 同步，並將自己的工作限制在特性分支上的做法，既方便又靈活，採納和丟棄都輕而易舉。就算原始主幹發生變化，我們也能重新衍合提供新的補丁。比如現在要開始第二項特性的開發，不要在原來已推送的特性分支上繼續，還是按原始 <code>master</code> 開始：</p>
+
+<pre><code>$ git checkout -b featureB origin/master
+$ (work)
+$ git commit
+$ git push myfork featureB
+$ (email maintainer)
+$ git fetch origin</code></pre>
+
+<p>現在，A、B 兩個特性分支各不相擾，如同竹筒裡的兩顆豆子，佇列中的兩個補丁，你隨時都可以分別從頭寫過，或者衍合，或者修改，而不用擔心特性代碼的交叉混雜。如圖 5-16 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0516-tn.png"></br>
+圖 5-16. featureB 以後的提交歷史</p>
+
+<p>假設項目管理員接納了許多別人提交的補丁後，準備要採納你提交的第一個分支，卻發現因為代碼基準不一致，合併工作無法正確乾淨地完成。這就需要你再次衍合到最新的 <code>origin/master</code>，解決相關衝突，然後重新提交你的修改：</p>
+
+<pre><code>$ git checkout featureA
+$ git rebase origin/master
+$ git push -f myfork featureA</code></pre>
+
+<p>自然，這會重寫提交歷史，如圖 5-17 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0517-tn.png"></br>
+圖 5-17. featureA 重新衍合後的提交歷史</p>
+
+<p>注意，此時推送分支必須使用 <code>-f</code> 選項（譯注：表示 force，不作檢查強制重寫）替換遠端已有的 <code>featureA</code> 分支，因為新的 commit 並非原來的後續更新。當然你也可以直接推送到另一個新的分支上去，比如稱作 <code>featureAv2</code>。</p>
+
+<p>再考慮另一種情形：管理員看過第二個分支後覺得思路新穎，但想請你改下具體實現。我們只需以當前 <code>origin/master</code> 分支為基準，開始一個新的特性分支 <code>featureBv2</code>，然後把原來的 <code>featureB</code> 的更新拿過來，解決衝突，按要求重新實現部分代碼，然後將此特性分支推送上去：</p>
+
+<pre><code>$ git checkout -b featureBv2 origin/master
+$ git merge --no-commit --squash featureB
+$ (change implementation)
+$ git commit
+$ git push myfork featureBv2</code></pre>
+
+<p>這裡的 <code>--squash</code> 選項將目標分支上的所有更改全拿來應用到當前分支上，而 <code>--no-commit</code> 選項告訴 Git 此時無需自動生成和記錄（合併）提交。這樣，你就可以在原來代碼基礎上，繼續工作，直到最後一起提交。</p>
+
+<p>好了，現在可以請管理員抓取 <code>featureBv2</code> 上的最新代碼了，如圖 5-18 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0518-tn.png"></br>
+圖 5-18. featureBv2 之後的提交歷史</p>
+
+<h3>公開的大型專案</h3>
+
+<p>許多大型專案都會立有一套自己的接受補丁流程，你應該注意下其中細節。但多數專案都允許通過開發者郵寄清單接受補丁，現在我們來看具體例子。</p>
+
+<p>整個工作流程類似上面的情形：為每個補丁創建獨立的特性分支，而不同之處在於如何提交這些補丁。不需要創建自己可寫的公共倉庫，也不用將自己的更新推送到自己的伺服器，你只需將每次提交的差異內容以電子郵件的方式依次發送到郵寄清單中即可。</p>
+
+<pre><code>$ git checkout -b topicA
+$ (work)
+$ git commit
+$ (work)
+$ git commit</code></pre>
+
+<p>如此一番後，有了兩個提交要發到郵寄清單。我們可以用 <code>git format-patch</code> 命令來生成 mbox 格式的檔然後作為附件發送。每個提交都會封裝為一個 <code>.patch</code> 尾碼的 mbox 檔，但其中只包含一封郵件，郵件標題就是提交消息（譯注：額外有首碼，看例子），郵件內容包含補丁正文和 Git 版本號。這種方式的妙處在於接受補丁時仍可保留原來的提交消息，請看接下來的例子：</p>
+
+<pre><code>$ git format-patch -M origin/master
+0001-add-limit-to-log-function.patch
+0002-changed-log-output-to-30-from-25.patch</code></pre>
+
+<p><code>format-patch</code> 命令依次創建補丁文件，並輸出檔案名。上面的 <code>-M</code> 選項允許 Git 檢查是否有對檔重命名的提交。我們來看看補丁檔的內容：</p>
+
+<pre><code>$ cat 0001-add-limit-to-log-function.patch
+From 330090432754092d704da8e76ca5c05c198e71a8 Mon Sep 17 00:00:00 2001
+From: Jessica Smith &lt;jessica@example.com&gt;
+Date: Sun, 6 Apr 2008 10:17:23 -0700
+Subject: [PATCH 1/2] add limit to log function
+
+Limit log functionality to the first 20
+
+---
+ lib/simplegit.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/lib/simplegit.rb b/lib/simplegit.rb
+index 76f47bc..f9815f1 100644
+--- a/lib/simplegit.rb
++++ b/lib/simplegit.rb
+@@ -14,7 +14,7 @@ class SimpleGit
+   end
+
+   def log(treeish = &#39;master&#39;)
+-    command(&quot;git log #{treeish}&quot;)
++    command(&quot;git log -n 20 #{treeish}&quot;)
+   end
+
+   def ls_tree(treeish = &#39;master&#39;)
+--
+1.6.2.rc1.20.g8c5b.dirty</code></pre>
+
+<p>如果有額外資訊需要補充，但又不想放在提交消息中說明，可以編輯這些補丁檔，在第一個 <code>---</code> 行之前添加說明，但不要修改下面的補丁正文，比如例子中的 <code>Limit log functionality to the first 20</code> 部分。這樣，其它開發者能閱讀，但在採納補丁時不會將此合併進來。</p>
+
+<p>你可以用郵件用戶端軟體發送這些補丁檔，也可以直接在命令列發送。有些所謂智慧的郵件用戶端軟體會自作主張幫你調整格式，所以粘貼補丁到郵件正文時，有可能會丟失分行符號和若干空格。Git 提供了一個通過 IMAP 發送補丁檔的工具。接下來我會演示如何通過 Gmail 的 IMAP 伺服器發送。另外，在 Git 原始程式碼中有個 <code>Documentation/SubmittingPatches</code> 檔，可以仔細讀讀，看看其它郵件程式的相關導引。</p>
+
+<p>首先在 <code>~/.gitconfig</code> 檔中配置 imap 項。每個選項都可用 <code>git config</code> 命令分別設置，當然直接編輯檔添加以下內容更便捷：</p>
+
+<pre><code>[imap]
+  folder = &quot;[Gmail]/Drafts&quot;
+  host = imaps://imap.gmail.com
+  user = user@gmail.com
+  pass = p4ssw0rd
+  port = 993
+  sslverify = false</code></pre>
+
+<p>如果你的 IMAP 伺服器沒有啟用 SSL，就無需配置最後那兩行，並且 host 應該以 <code>imap://</code> 開頭而不再是有 <code>s</code> 的 <code>imaps://</code>。
+保存設定檔後，就能用 <code>git send-email</code> 命令把補丁作為郵件依次發送到指定的 IMAP 伺服器上的資料夾中（譯注：這裡就是 Gmail 的 <code>[Gmail]/Drafts</code> 資料夾。但如果你的語言設置不是英文，此處的資料夾 Drafts 字樣會變為對應的語言。）：</p>
+
+<pre><code>$ cat *.patch |git imap-send
+Resolving imap.gmail.com... ok
+Connecting to [74.125.142.109]:993... ok
+Logging in...
+sending 2 messages
+100% (2/2) done</code></pre>
+
+<p>At this point, you should be able to go to your Drafts folder, change the To field to the mailing list you’re sending the patch to, possibly CC the maintainer or person responsible for that section, and send it off.</p>
+
+<p>You can also send the patches through an SMTP server. As before, you can set each value separately with a series of <code>git config</code> commands, or you can add them manually in the sendemail section in your <code>~/.gitconfig</code> file:</p>
+
+<pre><code>[sendemail]
+  smtpencryption = tls
+  smtpserver = smtp.gmail.com
+  smtpuser = user@gmail.com
+  smtpserverport = 587</code></pre>
+
+<p>After this is done, you can use <code>git send-email</code> to send your patches:</p>
+
+<pre><code>$ git send-email *.patch
+0001-added-limit-to-log-function.patch
+0002-changed-log-output-to-30-from-25.patch
+Who should the emails appear to be from? [Jessica Smith &lt;jessica@example.com&gt;]
+Emails will be sent from: Jessica Smith &lt;jessica@example.com&gt;
+Who should the emails be sent to? jessica@example.com
+Message-ID to be used as In-Reply-To for the first email? y</code></pre>
+
+<p>接下來，Git 會根據每個補丁依次輸出類似下面的日誌：</p>
+
+<pre><code>(mbox) Adding cc: Jessica Smith &lt;jessica@example.com&gt; from
+  \line &#39;From: Jessica Smith &lt;jessica@example.com&gt;&#39;
+OK. Log says:
+Sendmail: /usr/sbin/sendmail -i jessica@example.com
+From: Jessica Smith &lt;jessica@example.com&gt;
+To: jessica@example.com
+Subject: [PATCH 1/2] added limit to log function
+Date: Sat, 30 May 2009 13:29:15 -0700
+Message-Id: &lt;1243715356-61726-1-git-send-email-jessica@example.com&gt;
+X-Mailer: git-send-email 1.6.2.rc1.20.g8c5b.dirty
+In-Reply-To: &lt;y&gt;
+References: &lt;y&gt;
+
+Result: OK</code></pre>
+
+<h3>小結</h3>
+
+<p>本節主要介紹了常見 Git 專案協作的工作流程，還有一些説明處理這些工作的命令和工具。接下來我們要看看如何維護 Git 項目，並成為一個合格的項目管理員，或是集成經理。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>提交更新到儲存庫 - Git 基礎 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git 基礎</a></li><li><a href="ch2_1.html">取得Git儲存庫</a></li><li><a href="ch2_2.html">提交更新到儲存庫</a></li><li><a href="ch2_3.html">檢視提交的歷史記錄</a></li><li><a href="ch2_4.html">復原</a></li><li><a href="ch2_5.html">與遠端協同工作</a></li><li><a href="ch2_6.html">標籤</a></li><li><a href="ch2_7.html">提示和技巧</a></li><li><a href="ch2_8.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>提交更新到儲存庫</h2>
+
+<p>讀者現在有一個貨真價實的Git儲存庫，而且有一份已放到工作複本的該專案的檔案。 讀者需要做一些修改並提交這些更動的快照到儲存庫，當這些修改到達讀者想要記錄狀態的情況。</p>
+
+<p>記住工作目錄內的每個檔案可能為兩種狀態的任一種：追蹤或者尚未被追蹤。 被追蹤的檔案是最近的快照；它們可被復原、修改，或者暫存。 未被追蹤的檔案則是其它未在最近快照也未被暫存的任何檔案。 當讀者第一次複製儲存器時，讀者所有檔案都是被追蹤且未被修改的。 因為讀者剛取出它們而且尚未更改做任何修改。</p>
+
+<p>只要讀者編輯任何已被追蹤的檔案。 Git將它們視為被更動的，因為讀者將它們改成與最後一次提交不同。 讀者暫存這些已更動檔案並提供所有被暫存的更新， 並重複此週期。 此生命週期如圖2-1所示。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0201-tn.png"></br>
+圖2-1. 檔案狀態的生命週期。</p>
+
+<h3>檢視檔案的狀態</h3>
+
+<p>主要給讀者用來檢視檔案的狀態是 git status 命令。 若讀者在複製完複本後馬上執行此命令，會看到如下的文字：</p>
+
+<pre><code>$ git status
+On branch master
+nothing to commit, working directory clean</code></pre>
+
+<p>Wokring directory clean意謂著目前的工作目錄沒有未被追蹤或已被修改的檔案。Git未看到任何未被追蹤的檔案，否則會將它們列出。 最後，這個命令告訴讀者目前在哪一個分支(branch)。到目前為止，一直都是master，這是預設的。下一個章節會詳細介紹分支(branch)，目前我們先不考慮它。</p>
+
+<p>假設讀者新增一些檔案到專案，如<code>README</code>。 若該檔案先前並不存在，執行 <code>git status</code> 命令後，讀者會看到未被追蹤的檔案，如下：</p>
+
+<pre><code>$ vim README
+$ git status
+On branch master
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+        README
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
+
+<p>我們可以看到新增的<code>README</code>尚未被追蹤，因為它被列在輸出訊息的 Untracked files 下方。 除非我們明確指定要將該檔案加入提交的快照，Git不會主動將它加入。這樣可以避免加入一些二進位格式的檔案或其它使用者不想列入追蹤的檔案。 不過在這個例子中，我們的確是要將 <code>README</code> 檔案加入追蹤:</p>
+
+<h3>追蹤新檔案</h3>
+
+<p>要追蹤新增的檔案，我們可以使用<code>git add</code>命令。例如:要追蹤<code>README</code>檔案，可執行：</p>
+
+<pre><code>$ git add README</code></pre>
+
+<p>如此一來，我們重新檢查狀態(status)時，可看到<code>README</code>檔案已被列入追蹤並且已被暫存：</p>
+
+<pre><code>$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README</code></pre>
+
+<p>因為它被放在Changes to be commited文字下方，讀者可得知它已被暫存起來。 若讀者此時提交更新，剛才執行<code>git add</code>加進來的檔案就會被記錄在歷史的快照。 讀者可能可回想一下先前執行<code>git init</code>後也有執行過<code>git add</code>，開始追蹤目錄內的檔案。<code>git add</code>命令可接受檔名或者目錄名。 若是目錄名，Git會以遞迴(recursive)的方式會將整個目錄下所有檔案及子目錄都加進來。</p>
+
+<h3>暫存已修改檔案</h3>
+
+<p>讓我們修改已被追蹤的檔案。 若讀者修改先前已被追蹤的檔案，名為<code>benchmarks.rb</code>，並檢查目前儲存庫的狀態。我們會看到類似以下文字：</p>
+
+<pre><code>$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb</code></pre>
+
+<p><code>benchmarks.rb</code>檔案出現在 “Changes not staged for commit” 下方，代表著這個檔案已被追蹤，而且位於工作目錄的該檔案已被修改，但尚未暫存。 要暫存該檔案，可執行<code>git add</code>命令（這是一個多重用途的指令）。現在，讀者使用 <code>git add</code> 將<code>benchmarks.rb</code>檔案暫存起來，並再度執行<code>git status</code>：</p>
+
+<pre><code>$ git add benchmarks.rb
+$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+        modified:   benchmarks.rb</code></pre>
+
+<p>這兩個檔案目前都被暫存起來，而且會進入下一次的提交。 假設讀者記得仍需要對<code>benchmarks.rb</code>做一點修改後才要提交，可再度開啟並編輯該檔案。 然而，當我們再度執行<code>git status</code>：</p>
+
+<pre><code>$ vim benchmarks.rb
+$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+        modified:   benchmarks.rb
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb</code></pre>
+
+<p>到底發生了什麼事？ 現在<code>benchmarks.rb</code>同時被列在已被暫存及未被暫存。 這怎麼可能？ 這表示Git的確在讀者執行<code>git add</code>命令後，將檔案暫存起來。 若讀者現在提交更新，最近一次執行<code>git add</code>命令時暫存的<code>benchmarks.rb</code>會被提交。 若讀者在<code>git add</code>後修改檔案，需要再度執行<code>git add</code>將最新版的檔案暫存起來：</p>
+
+<pre><code>$ git add benchmarks.rb
+$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+        modified:   benchmarks.rb</code></pre>
+
+<h3>忽略某些檔案</h3>
+
+<p>通常讀者會有一類不想讓Git自動新增，也不希望它們被列入未被追蹤的檔案。 這些通常是自動產生的檔案，例如：記錄檔或者編譯系統產生的檔案。 在這情況下，讀者可建立一個名為<code>.gitignore</code>檔案，列出符合這些檔案檔名的特徵。 以下是一個範例：</p>
+
+<pre><code>$ cat .gitignore
+*.[oa]
+*~</code></pre>
+
+<p>第一列告訴Git忽略任何檔名為<code>.o</code>或<code>.a</code>結尾的檔案，它們是可能是編譯系統建置讀者的程式碼時產生的目的檔及程式庫。 第二列告訴Git忽略所有檔名為~結尾的檔案，通常被很多文書編輯器，如：Emacs，使用的暫存檔案。 讀者可能會想一併將log、tmp、pid目錄及自動產生的文件等也一併加進來。 依據類推。在讀者要開始開發之前將<code>.gitignore</code>設定好，通常是一個不錯的點子。這樣子讀者不會意外地將真的不想追蹤的檔案提交到Git儲存庫。</p>
+
+<p>編寫<code>.gitignore</code>檔案的規則如下：</p>
+
+<ul><li>空白列或者以#開頭的列會被忽略。</li><li>可使用標準的Glob pattern。</li><li>可以/結尾，代表是目錄。</li><li>可使用!符號將特徵反過來使用。</li></ul>
+
+<p>Glob pattern就像是shell使用的簡化版正規運算式。 星號（<code>*</code>）匹配零個或多個字元；<code>[abc]</code>匹配中括弧內的任一字元（此例為<code>a</code>、<code>b</code>、<code>c</code>）；問號（<code>?</code>）匹配單一個字元；中括孤內的字以連字符連接（如：<code>[0-9]</code>），用來匹配任何符合該範圍的字（此例為0到9）。</p>
+
+<p>以下是另一個<code>.gitignore</code>的範例檔案：</p>
+
+<pre><code># 註解，會被忽略。
+# 不要追蹤檔名為 .a 結尾的檔案
+*.a
+# 但是要追蹤 lib.a，即使上方已指定忽略所有的 .a 檔案
+!lib.a
+# 只忽略根目錄下的 TODO 檔案。 不包含子目錄下的 TODO
+/TODO
+# 忽略build/目錄下所有檔案
+build/
+# 忽略doc/notes.txt但不包含doc/server/arch.txt
+doc/*.txt
+# ignore all .txt files in the doc/ directory
+doc/**/*.txt</code></pre>
+
+<p>A <code>**/</code> pattern is available in Git since version 1.8.2.</p>
+
+<h3>檢視已暫存及尚未暫存的更動</h3>
+
+<p>在某些情況下，<code>git status</code>指令提供的資訊就太過簡要。
+有的時候我們不只想知道那些檔案被更動，而是想更進一步知道被檔案的內容被做了那些修改，這時我們可以使用<code>git diff</code>命令。稍後我們會有更詳盡講解該命令。讀者使用它時通常會是為了瞭解兩個問題：目前已做的修改但尚未暫存的內容是哪些？以及將被提交的暫存資料有哪些？儘管<code>git status</code>指令可以大略回答這些問題，但<code>git diff</code>可顯示檔案裡的哪些列被加入或刪除，以修補檔(patch)方式表達。</p>
+
+<p>假設讀者編輯並暫存(stage)<code>README</code>，接著修改<code>benchmarks.rb</code>檔案，卻未暫存。若讀者檢視目前的狀況，會看到類似下方文字：</p>
+
+<pre><code>$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb</code></pre>
+
+<p>想瞭解尚未暫存的修改，執行<code>git diff</code>，不用帶任何參數：</p>
+
+<pre><code>$ git diff
+diff --git a/benchmarks.rb b/benchmarks.rb
+index 3cb747f..da65585 100644
+--- a/benchmarks.rb
++++ b/benchmarks.rb
+@@ -36,6 +36,10 @@ def main
+           @commit.parents[0].parents[0].parents[0]
+         end
+
++        run_code(x, &#39;commits 1&#39;) do
++          git.commits.size
++        end
++
+         run_code(x, &#39;commits 2&#39;) do
+           log = git.commits(&#39;master&#39;, 15)
+           log.size</code></pre>
+
+<p>這命令會比對目前工作目錄(working directory)及暫存區域(stage area)的版本，然後顯示尚未被存入暫存區(stage area)的變更。</p>
+
+<p>若讀者想比對暫存區域(stage)及最後一次提交(commit)的差異，可用<code>git diff --cached</code>指令（Git 1.6.1之後的版本，可用較易記的<code>git diff --staged</code> 指令）:</p>
+
+<pre><code>$ git diff --cached
+diff --git a/README b/README
+new file mode 100644
+index 0000000..03902a1
+--- /dev/null
++++ b/README2
+@@ -0,0 +1,5 @@
++grit
++ by Tom Preston-Werner, Chris Wanstrath
++ http://github.com/mojombo/grit
++
++Grit is a Ruby library for extracting information from a Git repository</code></pre>
+
+<p>很重要的一點是<code>git diff</code>不會顯示最後一次commit後的所有變更；只會顯示尚未存入暫存區(即unstaged)的變更。這麼說可能會混淆，舉個例子來說，若讀者已暫存(stage)所有的變更，輸入<code>git diff</code>不會顯示任何資訊。</p>
+
+<p>舉其它例子，若讀者暫存<code>benchmarks.rb</code>檔案後又編輯，可使用<code>git diff</code>看已暫存的版本與工作目錄內版本尚未暫存的變更：</p>
+
+<pre><code>$ git add benchmarks.rb
+$ echo &#39;# test line&#39; &gt;&gt; benchmarks.rb
+$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        modified:   benchmarks.rb
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb</code></pre>
+
+<p>現在讀者可使用<code>git diff</code>檢視哪些部份尚未被暫存：</p>
+
+<pre><code>$ git diff
+diff --git a/benchmarks.rb b/benchmarks.rb
+index e445e28..86b2f7c 100644
+--- a/benchmarks.rb
++++ b/benchmarks.rb
+@@ -127,3 +127,4 @@ end
+ main()
+
+ ##pp Grit::GitRuby.cache_client.stats
++# test line</code></pre>
+
+<p>以及使用<code>git diff --cached</code>檢視目前已暫存的變更：</p>
+
+<pre><code>$ git diff --cached
+diff --git a/benchmarks.rb b/benchmarks.rb
+index 3cb747f..e445e28 100644
+--- a/benchmarks.rb
++++ b/benchmarks.rb
+@@ -36,6 +36,10 @@ def main
+          @commit.parents[0].parents[0].parents[0]
+        end
+
++        run_code(x, &#39;commits 1&#39;) do
++          git.commits.size
++        end
++
+        run_code(x, &#39;commits 2&#39;) do
+          log = git.commits(&#39;master&#39;, 15)
+          log.size</code></pre>
+
+<h3>提交修改</h3>
+
+<p>現在讀者的暫存區域已被更新為讀者想畏的，可開始提交變更的部份。 要記得任何尚未被暫存的新建檔案或已被修改但尚未使用git add暫存的檔案將不會被記錄在本次的提交中。 它們仍會以被修改的檔案的身份存在磁碟中。
+在這情況下，最後一次執行<code>git status</code>，讀者會看到所有已被暫存的檔案，讀者也準備好要提交修改。 最簡單的提交是執行<code>git commit</code>：</p>
+
+<pre><code>$ git commit</code></pre>
+
+<p>執行此命令會叫出讀者指定的編輯器。（由讀者shell的$EDITOR環境變數指定，通常是vim或emacs。讀者也可以如同第1章介紹的，使用<code>git config --global core.editor</code> 命令指定）</p>
+
+<p>編輯器會顯示如下文字（此範例為Vim的畫面）：</p>
+
+<pre><code># Please enter the commit message for your changes. Lines starting
+# with &#39;#&#39; will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#       new file:   README
+#       modified:   benchmarks.rb
+#
+~
+~
+~
+&quot;.git/COMMIT_EDITMSG&quot; 10L, 283C</code></pre>
+
+<p>讀者可看到預設的提交訊息包含最近一次<code>git status</code>的輸出以註解方式呈現，以及螢幕最上方有一列空白列。 讀者可移除這些註解後再輸入提交的訊息，或者保留它們，提醒你現在正在進行提交。（若想知道更動的內容，可傳遞-v參數給<code>git commit</code>。如此一來連比對的結果也會一併顯示在編輯器內，方便讀者明確看到有什麼變更。） 當讀者離開編輯器，Git會利用這些提交訊息產生新的提交（註解及比對的結果會先被濾除）。</p>
+
+<p>另一種方式則是在commit命令後方以<code>-m</code>參數指定提交訊息，如下：</p>
+
+<pre><code>$ git commit -m &quot;Story 182: Fix benchmarks for speed&quot;
+[master 463dc4f] Story 182: Fix benchmarks for speed
+ 2 files changed, 3 insertions(+)
+ create mode 100644 README</code></pre>
+
+<p>現在讀者已建立第一個提交！ 讀者可從輸出的訊息看到此提交、放到哪個分支（<code>master</code>）、SHA-1查核碼（<code>463dc4f</code>）、有多少檔案被更動，以及統計此提交有多少列被新增及移除。</p>
+
+<p>記得提交記錄讀者放在暫存區的快照。 任何讀者未暫存的仍然保持在已被修改狀態；讀者可進行其它的提交，將它增加到歷史。 每一次讀者執行提供，都是記錄專案的快照，而且以後可用來比對或者復原。</p>
+
+<h3>跳過暫存區域</h3>
+
+<p>雖然優秀好用的暫存區域能很有技巧且精確的提交讀者想記錄的資訊，有時候暫存區域也比讀者實際需要的工作流程繁瑣。 若讀者想跳過暫存區域，Git提供了簡易的使用方式。 在<code>git commit</code>命令後方加上<code>-a</code>參數，Git自動將所有已被追蹤且被修改的檔案送到暫存區域並開始提交程序，讓讀者略過<code>git add</code>的步驟：</p>
+
+<pre><code>$ git status
+On branch master
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   benchmarks.rb
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+$ git commit -a -m &#39;added new benchmarks&#39;
+[master 83e38c7] added new benchmarks
+ 1 files changed, 5 insertions(+)</code></pre>
+
+<p>留意本次的提交之前，讀者並不需要執行<code>git add</code>將<code>benchmarks.rb</code>檔案加入。</p>
+
+<h3>刪除檔案</h3>
+
+<p>要從Git刪除檔案，讀者需要將它從已被追蹤檔案中移除（更精確的來說，是從暫存區域移除），並且提交。 <code>git rm</code>命令除了完成此工作外，也會將該檔案從工作目錄移除。 因此讀者以後不會在未被追蹤檔案列表看到它。</p>
+
+<p>若讀者僅僅是將檔案從工作目錄移除，那麼在<code>git status</code>的輸出，可看見該檔案將會被視為“已被變更且尚未被更新”（也就是尚未存到暫存區域）：</p>
+
+<pre><code>$ rm grit.gemspec
+$ git status
+On branch master
+Changes not staged for commit:
+  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        deleted:    grit.gemspec
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
+
+<p>接著，若執行<code>git rm</code>，則會將暫存區域內的該檔案移除：</p>
+
+<pre><code>$ git rm grit.gemspec
+rm &#39;grit.gemspec&#39;
+$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        deleted:    grit.gemspec</code></pre>
+
+<p>下一次提交時，該檔案將會消失而且不再被追蹤。 若已更動過該檔案且將它記錄到暫存區域。 必須使用<code>-f</code>參數才能將它強制移除。 這是為了避免已被記錄的快照意外被移除且再也無法使用Git復原。</p>
+
+<p>其它有用的技巧是保留工作目錄內的檔案，但從暫存區域移除。 換句話說，或許讀者想在磁碟機上的檔案且不希望Git繼續追蹤它。 這在讀者忘記將某些檔案記錄到<code>.gitignore</code>且不小心將它增加到暫存區域時特別有用。 比如說：巨大的記錄檔、或大量在編譯時期產生的<code>.a</code>檔案。 欲使用此功能，加上<code>--cached</code>參數：</p>
+
+<pre><code>$ git rm --cached readme.txt</code></pre>
+
+<p>除了檔名、目錄名以外，還可以指定簡化的正規運算式給<code>git rm</code>命令。 這意謂著可執行類似下列指令：</p>
+
+<pre><code>$ git rm log/\*.log</code></pre>
+
+<p>注意倒斜線（<code>\</code>）前方的星號（<code>*</code>）。 這是必須的，因為Git會在shell以上執行檔案的擴展。 此命令移除log目錄下所有檔名以<code>.log</code>結尾的檔案。 讀者也可以執行類似下列命令：</p>
+
+<pre><code>$ git rm \*~</code></pre>
+
+<p>此命令移除所有檔名以<code>~</code>結尾的檔案。</p>
+
+<h3>搬動檔案</h3>
+
+<p>Git並不像其它檔案控制系統一樣，明確地追蹤檔案的移動。 若將被Git追蹤的檔名更名，並沒有任何元數據儲存在Git中去標示此更名動作。 然而Git能很聰明地指出這一點。 稍後會介紹關於偵測檔案的搬動。</p>
+
+<p>因此Git存在<code>mv</code>這個指令會造成一點混淆。 若想要在Git中更名某個檔案，可執行以下命令：</p>
+
+<pre><code>$ git mv file_from file_to</code></pre>
+
+<p>而且這命令可正常工作。 事實上，在執行完更名的動作後檢視一下狀態。 可看到Git認為該檔案被更名：</p>
+
+<pre><code>$ git mv README.txt README
+$ git status
+On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        renamed:    README.txt -&gt; README</code></pre>
+
+<p>不過，這就相當於執行下列命令：</p>
+
+<pre><code>$ mv README.txt README
+$ git rm README.txt
+$ git add README</code></pre>
+
+<p>Git會在背後判斷檔案是否被更名，因此不管是用上述方法還是&#39;mv&#39;命令都沒有差別。 實際上唯一不同的是&#39;mv&#39;是一個命令，而不是三個。 使用上較方便。 更重要的是讀者可使用任何慣用的工具更名，再使用add/rm，接著才提交。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>專案的管理 - 分散式 Git - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch5_0.html">分散式 Git</a></li><li><a href="ch5_1.html">分散式工作流程</a></li><li><a href="ch5_2.html">為專案作貢獻</a></li><li><a href="ch5_3.html">專案的管理</a></li><li><a href="ch5_4.html">小結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>專案的管理</h2>
+
+<p>既然是相互協作，在貢獻代碼的同時，也免不了要維護管理自己的專案。像是怎麼處理別人用 <code>format-patch</code> 生成的補丁，或是集成遠端倉庫上某個分支上的變化等等。但無論是管理代碼倉庫，還是幫忙審核收到的補丁，都需要同貢獻者約定某種長期可持續的工作方式。</p>
+
+<h3>使用特性分支進行工作</h3>
+
+<p>如果想要集成新的代碼進來，最好局限在特性分支上做。臨時的特性分支可以讓你隨意嘗試，進退自如。比如碰上無法正常工作的補丁，可以先擱在那邊，直到有時間仔細核查修復為止。創建的分支可以用相關的主題關鍵字命名，比如 <code>ruby_client</code> 或者其它類似的描述性詞語，以幫助將來回憶。Git 專案本身還時常把分支名稱分置於不同命名空間下，比如 <code>sc/ruby_client</code> 就說明這是 <code>sc</code> 這個人貢獻的。
+現在從當前主幹分支為基礎，新建臨時分支：</p>
+
+<pre><code>$ git branch sc/ruby_client master</code></pre>
+
+<p>另外，如果你希望立即轉到分支上去工作，可以用 <code>checkout -b</code>：</p>
+
+<pre><code>$ git checkout -b sc/ruby_client master</code></pre>
+
+<p>好了，現在已經準備妥當，可以試著將別人貢獻的代碼合併進來了。之後評估一下有沒有問題，最後再決定是不是真的要併入主幹。</p>
+
+<h3>採納來自郵件的補丁</h3>
+
+<p>如果收到一個通過電郵發來的補丁，你應該先把它應用到特性分支上進行評估。有兩種應用補丁的方法：<code>git apply</code> 或者 <code>git am</code>。</p>
+
+<h4>使用 apply 命令應用補丁</h4>
+
+<p>如果收到的補丁文件是用 <code>git diff</code> 或由其它 Unix 的 <code>diff</code> 命令生成，就該用 <code>git apply</code> 命令來應用補丁。假設補丁文件存在 <code>/tmp/patch-ruby-client.patch</code>，可以這樣運行：</p>
+
+<pre><code>$ git apply /tmp/patch-ruby-client.patch</code></pre>
+
+<p>這會修改當前工作目錄下的檔，效果基本與運行 <code>patch -p1</code> 打補丁一樣，但它更為嚴格，且不會出現混亂。如果是 <code>git diff</code> 格式描述的補丁，此命令還會相應地添加，刪除，重命名檔。當然，普通的 <code>patch</code> 命令是不會這麼做的。另外請注意，<code>git apply</code> 是一個事務性操作的命令，也就是說，要麼所有補丁都打上去，要麼全部放棄。所以不會出現 <code>patch</code> 命令那樣，一部分檔打上了補丁而另一部分卻沒有，這樣一種不上不下的修訂狀態。所以總的來說，<code>git apply</code> 要比 <code>patch</code> 嚴謹許多。因為僅僅是更新當前的檔，所以此命令不會自動生成提交物件，你得手工緩存相應檔的更新狀態並執行提交命令。</p>
+
+<p>在實際打補丁之前，可以先用 <code>git apply --check</code> 查看補丁是否能夠乾淨順利地應用到當前分支中：</p>
+
+<pre><code>$ git apply --check 0001-seeing-if-this-helps-the-gem.patch
+error: patch failed: ticgit.gemspec:1
+error: ticgit.gemspec: patch does not apply</code></pre>
+
+<p>如果沒有任何輸出，表示我們可以順利採納該補丁。如果有問題，除了報告錯誤資訊之外，該命令還會返回一個非零的狀態，所以在 shell 腳本裡可用於檢測狀態。</p>
+
+<h4>使用 am 命令應用補丁</h4>
+
+<p>如果貢獻者也用 Git，且擅於製作 <code>format-patch</code> 補丁，那你的合併工作將會非常輕鬆。因為這些補丁中除了檔內容差異外，還包含了作者資訊和提交消息。所以請鼓勵貢獻者用 <code>format-patch</code> 生成補丁。對於傳統的 <code>diff</code> 命令生成的補丁，則只能用 <code>git apply</code> 處理。</p>
+
+<p>對於 <code>format-patch</code> 製作的新式補丁，應當使用 <code>git am</code> 命令。從技術上來說，<code>git am</code>  能夠讀取 mbox 格式的檔。這是種簡單的純文字檔，可以包含多封電郵，格式上用 From 加空格以及隨便什麼輔助資訊所組成的行作為分隔行，以區分每封郵件，就像這樣：</p>
+
+<pre><code>From 330090432754092d704da8e76ca5c05c198e71a8 Mon Sep 17 00:00:00 2001
+From: Jessica Smith &lt;jessica@example.com&gt;
+Date: Sun, 6 Apr 2008 10:17:23 -0700
+Subject: [PATCH 1/2] add limit to log function
+
+Limit log functionality to the first 20</code></pre>
+
+<p>這是 <code>format-patch</code> 命令輸出的開頭幾行，也是一個有效的 mbox 檔案格式。如果有人用 <code>git send-email</code> 給你發了一個補丁，你可以將此郵件下載到本地，然後運行 <code>git am</code> 命令來應用這個補丁。如果你的郵件用戶端能將多封電郵匯出為 mbox 格式的檔，就可以用 <code>git am</code> 一次性應用所有匯出的補丁。</p>
+
+<p>如果貢獻者將 <code>format-patch</code> 生成的補丁檔上傳到類似 Request Ticket 一樣的任務處理系統，那麼可以先下載到本地，繼而使用 <code>git am</code> 應用該補丁：</p>
+
+<pre><code>$ git am 0001-limit-log-function.patch
+Applying: add limit to log function</code></pre>
+
+<p>你會看到它被乾淨地應用到本地分支，並自動創建了新的提交物件。作者資訊取自郵件頭 <code>From</code> 和 <code>Date</code>，提交消息則取自 <code>Subject</code> 以及正文中補丁之前的內容。來看具體實例，採納之前展示的那個 mbox 電郵補丁後，最新的提交對象為：</p>
+
+<pre><code>$ git log --pretty=fuller -1
+commit 6c5e70b984a60b3cecd395edd5b48a7575bf58e0
+Author:     Jessica Smith &lt;jessica@example.com&gt;
+AuthorDate: Sun Apr 6 10:17:23 2008 -0700
+Commit:     Scott Chacon &lt;schacon@gmail.com&gt;
+CommitDate: Thu Apr 9 09:19:06 2009 -0700
+
+   add limit to log function
+
+   Limit log functionality to the first 20</code></pre>
+
+<p><code>Commit</code> 部分顯示的是採納補丁的人，以及採納的時間。而 <code>Author</code> 部分則顯示的是原作者，以及創建補丁的時間。</p>
+
+<p>有時，我們也會遇到打不上補丁的情況。這多半是因為主幹分支和補丁的基礎分支相差太遠，但也可能是因為某些依賴補丁還未應用。這種情況下，<code>git am</code> 會報錯並詢問該怎麼做：</p>
+
+<pre><code>$ git am 0001-seeing-if-this-helps-the-gem.patch
+Applying: seeing if this helps the gem
+error: patch failed: ticgit.gemspec:1
+error: ticgit.gemspec: patch does not apply
+Patch failed at 0001.
+When you have resolved this problem run &quot;git am --resolved&quot;.
+If you would prefer to skip this patch, instead run &quot;git am --skip&quot;.
+To restore the original branch and stop patching run &quot;git am --abort&quot;.</code></pre>
+
+<p>Git 會在有衝突的檔裡加入衝突解決標記，這同合併或衍合操作一樣。解決的辦法也一樣，先編輯檔消除衝突，然後暫存檔，最後運行 <code>git am --resolved</code> 提交修正結果：</p>
+
+<pre><code>$ (fix the file)
+$ git add ticgit.gemspec
+$ git am --resolved
+Applying: seeing if this helps the gem</code></pre>
+
+<p>如果想讓 Git 更智慧地處理衝突，可以用 <code>-3</code> 選項進行三方合併。如果當前分支未包含該補丁的基礎代碼或其祖先，那麼三方合併就會失敗，所以該選項預設為關閉狀態。一般來說，如果該補丁是基於某個公開的提交製作而成的話，你總是可以通過同步來獲取這個共同祖先，所以用三方合併選項可以解決很多麻煩：</p>
+
+<pre><code>$ git am -3 0001-seeing-if-this-helps-the-gem.patch
+Applying: seeing if this helps the gem
+error: patch failed: ticgit.gemspec:1
+error: ticgit.gemspec: patch does not apply
+Using index info to reconstruct a base tree...
+Falling back to patching base and 3-way merge...
+No changes -- Patch already applied.</code></pre>
+
+<p>像上面的例子，對於打過的補丁我又再打一遍，自然會產生衝突，但因為加上了 <code>-3</code> 選項，所以它很聰明地告訴我，無需更新，原有的補丁已經應用。</p>
+
+<p>對於一次應用多個補丁時所用的 mbox 格式檔，可以用 <code>am</code> 命令的交互模式選項 <code>-i</code>，這樣就會在打每個補丁前停住，詢問該如何操作：</p>
+
+<pre><code>$ git am -3 -i mbox
+Commit Body is:
+--------------------------
+seeing if this helps the gem
+--------------------------
+Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all</code></pre>
+
+<p>在多個補丁要打的情況下，這是個非常好的辦法，一方面可以預覽下補丁內容，同時也可以有選擇性的接納或跳過某些補丁。</p>
+
+<p>打完所有補丁後，如果測試下來新特性可以正常工作，那就可以安心地將當前特性分支合併到長期分支中去了。</p>
+
+<h3>檢出遠端分支</h3>
+
+<p>如果貢獻者有自己的 Git 倉庫，並將修改推送到此倉庫中，那麼當你拿到倉庫的訪問位址和對應分支的名稱後，就可以加為遠端分支，然後在本地進行合併。</p>
+
+<p>比如，Jessica 發來一封郵件，說在她代碼庫中的 <code>ruby-client</code> 分支上已經實現了某個非常棒的新功能，希望我們能幫忙測試一下。我們可以先把她的倉庫加為遠端倉庫，然後抓取資料，完了再將她所說的分支檢出到本地來測試：</p>
+
+<pre><code>$ git remote add jessica git://github.com/jessica/myproject.git
+$ git fetch jessica
+$ git checkout -b rubyclient jessica/ruby-client</code></pre>
+
+<p>若是不久她又發來郵件，說還有個很棒的功能實現在另一分支上，那我們只需重新抓取下最新資料，然後檢出那個分支到本地就可以了，無需重複設置遠端倉庫。</p>
+
+<p>這種做法便於同別人保持長期的合作關係。但前提是要求貢獻者有自己的伺服器，而我們也需要為每個人建一個遠端分支。有些貢獻者提交代碼補丁並不是很頻繁，所以通過郵件接收補丁效率會更高。同時我們自己也不會希望建上百來個分支，卻只從每個分支取一兩個補丁。但若是用腳本程式來管理，或直接使用代碼倉庫託管服務，就可以簡化此過程。當然，選擇何種方式取決於你和貢獻者的喜好。</p>
+
+<p>使用遠端分支的另外一個好處是能夠得到提交歷史。不管代碼合併是不是會有問題，至少我們知道該分支的歷史分叉點，所以默認會從共同祖先開始自動進行三方合併，無需 <code>-3</code> 選項，也不用像打補丁那樣祈禱存在共同的基準點。</p>
+
+<p>如果只是臨時合作，只需用 <code>git pull</code> 命令抓取遠端倉庫上的資料，合併到本地臨時分支就可以了。一次性的抓取動作自然不會把該倉庫位址加為遠程倉庫。</p>
+
+<pre><code>$ git pull git://github.com/onetimeguy/project.git
+From git://github.com/onetimeguy/project
+ * branch            HEAD       -&gt; FETCH_HEAD
+Merge made by recursive.</code></pre>
+
+<h3>決斷代碼取捨</h3>
+
+<p>現在特性分支上已合併好了貢獻者的代碼，是時候決斷取捨了。本節將回顧一些之前學過的命令，以看清將要合併到主幹的是哪些代碼，從而理解它們到底做了些什麼，是否真的要併入。</p>
+
+<p>一般我們會先看下，特性分支上都有哪些新增的提交。比如在 <code>contrib</code> 特性分支上打了兩個補丁，僅查看這兩個補丁的提交資訊，可以用 <code>--not</code> 選項指定要遮罩的分支 <code>master</code>，這樣就會剔除重複的提交歷史：</p>
+
+<pre><code>$ git log contrib --not master
+commit 5b6235bd297351589efc4d73316f0a68d484f118
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri Oct 24 09:53:59 2008 -0700
+
+    seeing if this helps the gem
+
+commit 7482e0d16d04bea79d0dba8988cc78df655f16a0
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Mon Oct 22 19:38:36 2008 -0700
+
+    updated the gemspec to hopefully work better</code></pre>
+
+<p>還可以查看每次提交的具體修改。請牢記，在 <code>git log</code> 後加 <code>-p</code> 選項將展示每次提交的內容差異。</p>
+
+<p>如果想看當前分支同其他分支合併時的完整內容差異，有個小竅門：</p>
+
+<pre><code>$ git diff master</code></pre>
+
+<p>雖然能得到差異內容，但請記住，結果有可能和我們的預期不同。一旦主幹 <code>master</code> 在特性分支創建之後有所修改，那麼通過 <code>diff</code> 命令來比較的，是最新主幹上的提交快照。顯然，這不是我們所要的。比方在 <code>master</code> 分支中某個檔裡添了一行，然後運行上面的命令，簡單的比較最新快照所得到的結論只能是，特性分支中刪除了這一行。</p>
+
+<p>這個很好理解：如果 <code>master</code> 是特性分支的直接祖先，不會產生任何問題；如果它們的提交歷史在不同的分叉上，那麼產生的內容差異，看起來就像是增加了特性分支上的新代碼，同時刪除了 <code>master</code> 分支上的新代碼。</p>
+
+<p>實際上我們真正想要看的，是新加入到特性分支的代碼，也就是合併時會併入主幹的代碼。所以，準確地講，我們應該比較特性分支和它同 <code>master</code> 分支的共同祖先之間的差異。</p>
+
+<p>我們可以手工定位它們的共同祖先，然後與之比較：</p>
+
+<pre><code>$ git merge-base contrib master
+36c7dba2c95e6bbb78dfa822519ecfec6e1ca649
+$ git diff 36c7db</code></pre>
+
+<p>但這麼做很麻煩，所以 Git 提供了便捷的 <code>...</code> 語法。對於 <code>diff</code> 命令，可以把 <code>...</code> 加在原始分支（擁有共同祖先）和當前分支之間：</p>
+
+<pre><code>$ git diff master...contrib</code></pre>
+
+<p>現在看到的，就是實際將要引入的新代碼。這是一個非常有用的命令，應該牢記。</p>
+
+<h3>代碼集成</h3>
+
+<p>一旦特性分支準備停當，接下來的問題就是如何集成到更靠近主線的分支中。此外還要考慮維護專案的總體步驟是什麼。雖然有很多選擇，不過我們這裡只介紹其中一部分。</p>
+
+<h4>合併流程</h4>
+
+<p>一般最簡單的情形，是在 <code>master</code> 分支中維護穩定代碼，然後在特性分支上開發新功能，或是審核測試別人貢獻的代碼，接著將它併入主幹，最後刪除這個特性分支，如此反復。來看示例，假設當前代碼庫中有兩個分支，分別為 <code>ruby_client</code> 和 <code>php_client</code>，如圖 5-19 所示。然後先把 <code>ruby_client</code> 合併進主幹，再合併 <code>php_client</code>，最後的提交歷史如圖 5-20 所示。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0519-tn.png"></br>
+圖 5-19. 多個特性分支</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0520-tn.png"></br>
+圖 5-20. 合併特性分支之後</p>
+
+<p>這是最簡單的流程，所以在處理大一些的項目時可能會有問題。</p>
+
+<p>對於大型專案，至少需要維護兩個長期分支 <code>master</code> 和 <code>develop</code>。新代碼（圖 5-21 中的 <code>ruby_client</code>）將首先併入 <code>develop</code> 分支（圖 5-22 中的 <code>C8</code>），經過一個階段，確認 <code>develop</code> 中的代碼已穩定到可發行時，再將 <code>master</code> 分支快進到穩定點（圖 5-23 中的 <code>C8</code>）。而平時這兩個分支都會被推送到公開的代碼庫。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0521-tn.png"></br>
+圖 5-21. 特性分支合併前</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0522-tn.png"></br>
+圖 5-22. 特性分支合併後</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0523-tn.png"></br>
+圖 5-23. 特性分支發佈後</p>
+
+<p>這樣，在人們克隆倉庫時就有兩種選擇：既可檢出最新穩定版本，確保正常使用；也能檢出開發版本，試用最前沿的新特性。
+你也可以擴展這個概念，先將所有新代碼合併到臨時特性分支，等到該分支穩定下來並通過測試後，再併入 <code>develop</code> 分支。然後，讓時間檢驗一切，如果這些代碼確實可以正常工作相當長一段時間，那就有理由相信它已經足夠穩定，可以放心併入主幹分支發佈。</p>
+
+<h4>大專案的合併流程</h4>
+
+<p>Git 專案本身有四個長期分支：用於發佈的 <code>master</code> 分支、用於合併基本穩定特性的 <code>next</code> 分支、用於合併仍需改進特性的 <code>pu</code> 分支（pu 是 proposed updates 的縮寫），以及用於除錯維護的 <code>maint</code> 分支（maint 取自 maintenance）。維護者可以按照之前介紹的方法，將貢獻者的代碼引入為不同的特性分支（如圖 5-24 所示），然後測試評估，看哪些特性能穩定工作，哪些還需改進。穩定的特性可以併入 <code>next</code> 分支，然後再推送到公共倉庫，以供其他人試用。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0524-tn.png"></br>
+圖 5-24. 管理複雜的並行貢獻</p>
+
+<p>仍需改進的特性可以先併入 <code>pu</code> 分支。直到它們完全穩定後再併入 <code>master</code>。同時一併檢查下 <code>next</code> 分支，將足夠穩定的特性也併入 <code>master</code>。所以一般來說，<code>master</code> 始終是在快進，<code>next</code> 偶爾做下衍合，而 <code>pu</code> 則是頻繁衍合，如圖 5-25 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0525-tn.png"></br>
+圖 5-25. 將特性併入長期分支</p>
+
+<p>併入 <code>master</code> 後的特性分支，已經無需保留分支索引，放心刪除好了。Git 專案還有一個 <code>maint</code> 分支，它是以最近一次發行版本為基礎分化而來的，用於維護除錯補丁。所以克隆 Git 項目倉庫後會得到這四個分支，通過檢出不同分支可以瞭解各自進展，或是試用前沿特性，或是貢獻代碼。而維護者則通過管理這些分支，逐步有序地併入協力廠商貢獻。</p>
+
+<h4>衍合與挑揀（cherry-pick）的流程</h4>
+
+<p>一些維護者更喜歡衍合或者挑揀貢獻者的代碼，而不是簡單的合併，因為這樣能夠保持線性的提交歷史。如果你完成了一個特性的開發，並決定將它引入到主幹代碼中，你可以轉到那個特性分支然後執行衍合命令，好在你的主幹分支上（也可能是<code>develop</code>分支之類的）重新提交這些修改。如果這些代碼工作得很好，你就可以快進<code>master</code>分支，得到一個線性的提交歷史。</p>
+
+<p>另一個引入代碼的方法是挑揀。挑揀類似於針對某次特定提交的衍合。它首先提取某次提交的補丁，然後試著應用在當前分支上。如果某個特性分支上有多個commits，但你只想引入其中之一就可以使用這種方法。也可能僅僅是因為你喜歡用挑揀，討厭衍合。假設你有一個類似圖 5-26 的工程。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0526-tn.png"></br>
+圖 5-26. 挑揀（cherry-pick）之前的歷史 </p>
+
+<p>如果你希望拉取<code>e43a6</code>到你的主幹分支，可以這樣：</p>
+
+<pre><code>$ git cherry-pick e43a6fd3e94888d76779ad79fb568ed180e5fcdf
+Finished one cherry-pick.
+[master]: created a0a41a9: &quot;More friendly message when locking the index fails.&quot;
+ 3 files changed, 17 insertions(+), 3 deletions(-)</code></pre>
+
+<p>這將會引入<code>e43a6</code>的代碼，但是會得到不同的SHA-1值，因為應用日期不同。現在你的歷史看起來像圖 5-27.</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0527-tn.png"></br>
+圖 5-27. 挑揀（cherry-pick）之後的歷史</p>
+
+<p>現在，你可以刪除這個特性分支並丟棄你不想引入的那些commit。</p>
+
+<h3>給發行版本簽名</h3>
+
+<p>你可以刪除上次發佈的版本並重新打標籤，也可以像第二章所說的那樣建立一個新的標籤。如果你決定以維護者的身份給發行版本簽名，應該這樣做：</p>
+
+<pre><code>$ git tag -s v1.5 -m &#39;my signed 1.5 tag&#39;
+You need a passphrase to unlock the secret key for
+user: &quot;Scott Chacon &lt;schacon@gmail.com&gt;&quot;
+1024-bit DSA key, ID F721C45A, created 2009-02-09</code></pre>
+
+<p>完成簽名之後，如何分發PGP公開金鑰（public key）是個問題。（譯者注：分發公開金鑰是為了驗證標籤）。還好，Git的設計者想到了解決辦法：可以把key（既公開金鑰）作為blob變數寫入Git庫，然後把它的內容直接寫在標籤裡。<code>gpg --list-keys</code>命令可以顯示出你所擁有的key：</p>
+
+<pre><code>$ gpg --list-keys
+/Users/schacon/.gnupg/pubring.gpg
+---------------------------------
+pub   1024D/F721C45A 2009-02-09 [expires: 2010-02-09]
+uid                  Scott Chacon &lt;schacon@gmail.com&gt;
+sub   2048g/45D02282 2009-02-09 [expires: 2010-02-09]</code></pre>
+
+<p>然後，匯出key的內容並經由管道符傳遞給<code>git hash-object</code>，之後鑰匙會以blob類型寫入Git中，最後返回這個blob量的SHA-1值：</p>
+
+<pre><code>$ gpg -a --export F721C45A | git hash-object -w --stdin
+659ef797d181633c87ec71ac3f9ba29fe5775b92</code></pre>
+
+<p>現在你的Git已經包含了這個key的內容了，可以通過不同的SHA-1值指定不同的key來創建標籤。</p>
+
+<pre><code>$ git tag -a maintainer-pgp-pub 659ef797d181633c87ec71ac3f9ba29fe5775b92</code></pre>
+
+<p>在運行<code>git push --tags</code>命令之後，<code>maintainer-pgp-pub</code>標籤就會公佈給所有人。如果有人想要校驗標籤，他可以使用如下命令導入你的key：</p>
+
+<pre><code>$ git show maintainer-pgp-pub | gpg --import</code></pre>
+
+<p>人們可以用這個key校驗你簽名的所有標籤。另外，你也可以在標籤資訊裡寫入一個操作嚮導，用戶只需要運行<code>git show &lt;tag&gt;</code>查看標籤資訊，然後按照你的嚮導就能完成校驗。</p>
+
+<h3>生成內部版本號</h3>
+
+<p>因為Git不會為每次提交自動附加類似&#39;v123&#39;的遞增序列，所以如果你想要得到一個便於理解的提交號可以運行<code>git describe</code>命令。Git將會返回一個字串，由三部分組成：最近一次標定的版本號，加上自那次標定之後的提交次數，再加上一段所描述的提交的SHA-1值：</p>
+
+<pre><code>$ git describe master
+v1.6.2-rc1-20-g8c5b85c</code></pre>
+
+<p>這個字串可以作為快照的名字，方便人們理解。如果你的Git是你自己下載源碼然後編譯安裝的，你會發現<code>git --version</code>命令的輸出和這個字串差不多。如果在一個剛剛打完標籤的提交上運行<code>describe</code>命令，只會得到這次標定的版本號，而沒有後面兩項資訊。</p>
+
+<p><code>git describe</code>命令只適用於有標注的標籤（通過<code>-a</code>或者<code>-s</code>選項創建的標籤），所以發行版本的標籤都應該是帶有標注的，以保證<code>git describe</code>能夠正確的執行。你也可以把這個字串作為<code>checkout</code>或者<code>show</code>命令的目標，因為他們最終都依賴於一個簡短的SHA-1值，當然如果這個SHA-1值失效他們也跟著失效。最近Linux內核為了保證SHA-1值的唯一性，將位數由8位擴展到10位，這就導致擴展之前的<code>git describe</code>輸出完全失效了。</p>
+
+<h3>準備發佈</h3>
+
+<p>現在可以發佈一個新的版本了。首先要將代碼的壓縮包歸檔，方便那些可憐的還沒有使用Git的人們。可以使用<code>git archive</code>：</p>
+
+<pre><code>$ git archive master --prefix=&#39;project/&#39; | gzip &gt; `git describe master`.tar.gz
+$ ls *.tar.gz
+v1.6.2-rc1-20-g8c5b85c.tar.gz</code></pre>
+
+<p>這個壓縮包解壓出來的是一個資料夾，裡面是你項目的最新代碼快照。你也可以用類似的方法建立一個zip壓縮包，在<code>git archive</code>加上<code>--format=zip</code>選項：</p>
+
+<pre><code>$ git archive master --prefix=&#39;project/&#39; --format=zip &gt; `git describe master`.zip</code></pre>
+
+<p>現在你有了一個tar.gz壓縮包和一個zip壓縮包，可以把他們上傳到你網站上或者用e-mail發給別人。</p>
+
+<h3>製作簡報</h3>
+
+<p>是時候通知郵寄清單裡的朋友們來檢驗你的成果了。使用<code>git shortlog</code>命令可以方便快捷的製作一份修改日誌（changelog），告訴大家上次發佈之後又增加了哪些特性和修復了哪些bug。實際上這個命令能夠統計給定範圍內的所有提交;假如你上一次發佈的版本是v1.0.1，下面的命令將給出自從上次發佈之後的所有提交的簡介：</p>
+
+<pre><code>$ git shortlog --no-merges master --not v1.0.1
+Chris Wanstrath (8):
+      Add support for annotated tags to Grit::Tag
+      Add packed-refs annotated tag support.
+      Add Grit::Commit#to_patch
+      Update version and History.txt
+      Remove stray `puts`
+      Make ls_tree ignore nils
+
+Tom Preston-Werner (4):
+      fix dates in history
+      dynamic version method
+      Version bump to 1.0.2
+      Regenerated gemspec for version 1.0.2</code></pre>
+
+<p>這就是自從v1.0.1版本以來的所有提交的簡介，內容按照作者分組，以便你能快速的發e-mail給他們。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

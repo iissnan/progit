@@ -1,0 +1,251 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>選擇修訂版本 - Git 工具 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch6_0.html">Git 工具</a></li><li><a href="ch6_1.html">選擇修訂版本</a></li><li><a href="ch6_2.html">互動式暫存</a></li><li><a href="ch6_3.html">儲藏 (Stashing)</a></li><li><a href="ch6_4.html">重寫歷史</a></li><li><a href="ch6_5.html">使用 Git 做 Debug</a></li><li><a href="ch6_6.html">子模組 (Submodules)</a></li><li><a href="ch6_7.html">子樹合併</a></li><li><a href="ch6_8.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>選擇修訂版本</h2>
+
+<p>Git 允許你通過幾種方法來指明特定的或者一定範圍內的提交。瞭解它們並不是必需的，但是瞭解一下總沒壞處。 </p>
+
+<h3>單個修訂版本</h3>
+
+<p>顯然你可以使用給出的 SHA-1 值來指明一次提交，不過也有更加人性化的方法來做同樣的事。本節概述了指明單個提交的諸多方法。 </p>
+
+<h3>簡短的 SHA</h3>
+
+<p>Git 很聰明，它能夠通過你提供的前幾個字元來識別你想要的那次提交，只要你提供的那部分 SHA-1 不短於四個字元，並且沒有歧義——也就是說，當前倉庫中只有一個物件以這段 SHA-1 開頭。 </p>
+
+<p>例如，想要查看一次指定的提交，假設你執行 <code>git log</code> 命令並找到你增加了功能的那次提交： </p>
+
+<pre><code>$ git log
+commit 734713bc047d87bf7eac9674765ae793478c50d3
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri Jan 2 18:32:33 2009 -0800
+
+    fixed refs handling, added gc auto, updated tests
+
+commit d921970aadf03b3cf0e71becdaab3147ba71cdef
+Merge: 1c002dd... 35cfb2b...
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Thu Dec 11 15:08:43 2008 -0800
+
+    Merge commit &#39;phedders/rdocs&#39;
+
+commit 1c002dd4b536e7479fe34593e72e6c6c1819e53b
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Thu Dec 11 14:58:32 2008 -0800
+
+    added some blame and merge stuff</code></pre>
+
+<p>假設是 <code>1c002dd</code>.... 。如果你想 <code>git show</code> 這次提交，下面命令的作用是相同的（假設簡短的版本沒有歧義）： </p>
+
+<pre><code>$ git show 1c002dd4b536e7479fe34593e72e6c6c1819e53b
+$ git show 1c002dd4b536e7479f
+$ git show 1c002d</code></pre>
+
+<p>Git 可以為你的 SHA-1 值生成出簡短且唯一的縮寫。如果你傳遞 <code>--abbrev-commit</code> 給 <code>git log</code> 命令，輸出結果裡就會使用簡短且唯一的值；它預設使用七個字元來表示，不過必要時為了避免 SHA-1 的歧義，會增加字元數： </p>
+
+<pre><code>$ git log --abbrev-commit --pretty=oneline
+ca82a6d changed the version number
+085bb3b removed unnecessary test code
+a11bef0 first commit</code></pre>
+
+<p>通常在一個專案中，使用八到十個字元來避免 SHA-1 歧義已經足夠了。最大的 Git 專案之一，Linux 內核，目前也只需要最長 40 個字元中的 12 個字元來保持唯一性。 </p>
+
+<h3>關於 SHA-1 的簡短說明</h3>
+
+<p>許多人可能會擔心一個問題：在隨機的偶然情況下，在他們的倉庫裡會出現兩個具有相同 SHA-1 值的物件。那會怎麼樣呢？ </p>
+
+<p>如果你真的向倉庫裡提交了一個跟之前的某個物件具有相同 SHA-1 值的物件，Git 將會發現之前的那個物件已經存在在 Git 資料庫中，並認為它已經被寫入了。如果什麼時候你想再次檢出那個物件時，你會總是得到先前的那個物件的資料。 </p>
+
+<p>不過，你應該瞭解到，這種情況發生的概率是多麼微小。SHA-1 摘要長度是 20 位元組，也就是 160 位元。為了保證有 50% 的概率出現一次衝突，需要 2^80 個隨機雜湊的物件（計算衝突機率的公式是 p = (n(n-1)/2) * (1/2^160))。2^80 是 1.2 x 10^24，也就是一億億億，那是地球上沙粒總數的 1200 倍。 </p>
+
+<p>現在舉例說一下怎樣才能產生一次 SHA-1 衝突。如果地球上 65 億的人類都在程式設計，每人每秒都在產生相當於整個 Linux 內核歷史（一百萬個 Git 物件）的代碼，並將之提交到一個巨大的 Git 倉庫裡面，那將花費 5 年的時間才會產生足夠的物件，使其擁有 50% 的概率產生一次 SHA-1 物件衝突。這要比你程式設計團隊的成員同一個晚上在互不相干的意外中被狼襲擊並殺死的機率還要小。 </p>
+
+<h3>分支引用 (Branch References)</h3>
+
+<p>指明一次提交的最直接的方法是有一個指向它的分支引用。這樣，你就可以在任何需要一個提交物件或者 SHA-1 值的 Git 命令中使用該分支名稱了。如果你想要顯示一個分支的最後一次提交的物件，例如假設 topic1 分支指向 ca82a6d，那麼下面的命令是相等的： </p>
+
+<pre><code>$ git show ca82a6dff817ec66f44342007202690a93763949
+$ git show topic1</code></pre>
+
+<p>如果你想知道某個分支指向哪個特定的 SHA，或者想看任何一個例子中被簡寫的 SHA-1，你可以使用一個叫做 <code>rev-parse</code> 的 Git plumbing 工具。在第 9 章你可以看到關於 plumbing 工具的更多信息；簡單來說，<code>rev-parse</code> 是為了底層操作而不是日常操作設計的。不過，有時你想看 Git 現在到底處於什麼狀態時，它可能會很有用。現在，你可以對你的分支執行 <code>rev-parse</code>：</p>
+
+<pre><code>$ git rev-parse topic1
+ca82a6dff817ec66f44342007202690a93763949</code></pre>
+
+<h3>引用日誌(RefLog)裡的簡稱</h3>
+
+<p>在你工作的同時，Git 在後臺的工作之一就是保存一份引用日誌(reflog)——一份記錄最近幾個月你的 HEAD 和分支引用的日誌。 </p>
+
+<p>你可以使用 <code>git reflog</code> 來查看引用日誌：</p>
+
+<pre><code>$ git reflog
+734713b HEAD@{0}: commit: fixed refs handling, added gc auto, updated
+d921970 HEAD@{1}: merge phedders/rdocs: Merge made by recursive.
+1c002dd HEAD@{2}: commit: added some blame and merge stuff
+1c36188 HEAD@{3}: rebase -i (squash): updating HEAD
+95df984 HEAD@{4}: commit: # This is a combination of two commits.
+1c36188 HEAD@{5}: rebase -i (squash): updating HEAD
+7e05da5 HEAD@{6}: rebase -i (pick): updating HEAD</code></pre>
+
+<p>每次你的分支頂端因為某些原因被修改時，Git 就會為你將資訊保存在這個臨時歷史記錄裡面。你也可以使用這份資料來指明更早的分支。如果你想查看倉庫中 HEAD 在五次前的值，你可以使用引用日誌的輸出中的 @{n} 引用： </p>
+
+<pre><code>$ git show HEAD@{5}</code></pre>
+
+<p>你也可以使用這個語法來查看一定時間前分支指向哪裡。例如，想看你的 <code>master</code> 分支昨天在哪，你可以輸入 </p>
+
+<pre><code>$ git show master@{yesterday}</code></pre>
+
+<p>它就會顯示昨天分支的頂端在哪。這項技術只對還在你引用日誌裡的資料有用，所以不能用來查看比幾個月前還早的提交。 </p>
+
+<p>想要看類似於 <code>git log</code> 輸出格式的引用日誌資訊，你可以執行 <code>git log -g</code>：</p>
+
+<pre><code>$ git log -g master
+commit 734713bc047d87bf7eac9674765ae793478c50d3
+Reflog: master@{0} (Scott Chacon &lt;schacon@gmail.com&gt;)
+Reflog message: commit: fixed refs handling, added gc auto, updated
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri Jan 2 18:32:33 2009 -0800
+
+    fixed refs handling, added gc auto, updated tests
+
+commit d921970aadf03b3cf0e71becdaab3147ba71cdef
+Reflog: master@{1} (Scott Chacon &lt;schacon@gmail.com&gt;)
+Reflog message: merge phedders/rdocs: Merge made by recursive.
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Thu Dec 11 15:08:43 2008 -0800
+
+    Merge commit &#39;phedders/rdocs&#39;</code></pre>
+
+<p>需要注意的是，日誌引用資訊只存在於本地——這是一個你在倉庫裡做過什麼的日誌。這些引用不會和其他人的倉庫拷貝裡的相同；當你新 clone 一個倉庫的時候，引用日誌是空的，因為你在倉庫裡還沒有操作。只有你克隆了一個專案至少兩個月，<code>git show HEAD@{2.months.ago}</code> 才會有用——如果你是五分鐘前克隆的倉庫，將不會有結果回傳。</p>
+
+<h3>祖先引用 (Ancestry References)</h3>
+
+<p>另一種指明某次提交的常用方法是通過它的祖先。如果你在引用最後加上一個 <code>^</code>，Git 將其理解為此次提交的父提交。 假設你的專案歷史是這樣的：</p>
+
+<pre><code>$ git log --pretty=format:&#39;%h %s&#39; --graph
+* 734713b fixed refs handling, added gc auto, updated tests
+*   d921970 Merge commit &#39;phedders/rdocs&#39;
+|\
+| * 35cfb2b Some rdoc changes
+* | 1c002dd added some blame and merge stuff
+|/
+* 1c36188 ignore *.gem
+* 9b29157 add open3_detach to gemspec file list</code></pre>
+
+<p>那麼，想看上一次提交，你可以使用 <code>HEAD^</code>，意思是「HEAD 的父提交」： </p>
+
+<pre><code>$ git show HEAD^
+commit d921970aadf03b3cf0e71becdaab3147ba71cdef
+Merge: 1c002dd... 35cfb2b...
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Thu Dec 11 15:08:43 2008 -0800
+
+    Merge commit &#39;phedders/rdocs&#39;</code></pre>
+
+<p>你也可以在 <code>^</code> 後添加一個數字——例如，<code>d921970^2</code> 意思是「d921970 的第二父提交」。這種語法只在合併提交時有用，因為合併提交可能有多個父提交。第一父提交是你合併時所在分支，而第二父提交是你所合併進來的分支： </p>
+
+<pre><code>$ git show d921970^
+commit 1c002dd4b536e7479fe34593e72e6c6c1819e53b
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Thu Dec 11 14:58:32 2008 -0800
+
+    added some blame and merge stuff
+
+$ git show d921970^2
+commit 35cfb2b795a55793d7cc56a6cc2060b4bb732548
+Author: Paul Hedderly &lt;paul+git@mjr.org&gt;
+Date:   Wed Dec 10 22:22:03 2008 +0000
+
+    Some rdoc changes</code></pre>
+
+<p>另外一個指明祖先提交的方法是 <code>~</code>。這也是指向第一父提交，所以 <code>HEAD~</code> 和 <code>HEAD^</code> 是相等的。當你指定數字的時候就明顯不一樣了。<code>HEAD~2</code> 是指「第一父提交的第一父提交」，也就是「祖父提交」——它會根據你指定的次數檢索第一父提交。例如，在上面列出的歷史記錄裡面，<code>HEAD~3</code> 會是 </p>
+
+<pre><code>$ git show HEAD~3
+commit 1c3618887afb5fbcbea25b7c013f4e2114448b8d
+Author: Tom Preston-Werner &lt;tom@mojombo.com&gt;
+Date:   Fri Nov 7 13:47:59 2008 -0500
+
+    ignore *.gem</code></pre>
+
+<p>也可以寫成 HEAD^^^，同樣是第一父提交的第一父提交的第一父提交： </p>
+
+<pre><code>$ git show HEAD^^^
+commit 1c3618887afb5fbcbea25b7c013f4e2114448b8d
+Author: Tom Preston-Werner &lt;tom@mojombo.com&gt;
+Date:   Fri Nov 7 13:47:59 2008 -0500
+
+    ignore *.gem</code></pre>
+
+<p>你也可以混合使用這些語法——你可以通過 <code>HEAD~3^2</code> 指明先前引用的第二父提交（假設它是一個合併提交），依此類推。 </p>
+
+<h3>提交範圍</h3>
+
+<p>現在你已經可以指明單次的提交，讓我們來看看怎樣指明一定範圍的提交。這在你管理分支的時候尤顯重要——如果你有很多分支，你可以指明範圍來圈定一些問題的答案，比如：「這個分支上我有哪些工作還沒合併到主分支的？」 </p>
+
+<h4>雙點</h4>
+
+<p>最常用的指明範圍的方法是雙點的語法。這種語法主要是讓 Git 區分出可從一個分支中獲得而不能從另一個分支中獲得的提交。例如，假設你有類似於圖 6-1 的提交歷史。 </p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0601-tn.png"></br>
+Figure 6-1. 範圍選擇的提交歷史實例</p>
+
+<p>你想要查看你的試驗分支(experiment)上哪些沒有被提交到主分支，那麼你就可以使用 <code>master..experiment</code> 來讓 Git 顯示這些提交的日誌——這句話的意思是「所有可從 experiment 分支中獲得而不能從 master 分支中獲得的提交」。為了使例子簡單明瞭，我使用了圖示中提交物件的字母，來代替它們在實際的日誌輸出裏的顯示順序： </p>
+
+<pre><code>$ git log master..experiment
+D
+C</code></pre>
+
+<p>另一方面，如果你想看相反的——所有在 <code>master</code> 而不在 <code>experiment</code> 中的分支——你可以交換分支的名字。experiment..master 顯示所有可在 master 獲得而在 experiment 中不能獲得的提交： </p>
+
+<pre><code>$ git log experiment..master
+F
+E</code></pre>
+
+<p>這在你想將 <code>experiment</code> 分支維持在最新狀態，並預覽你將合併的提交的時候特別有用。這個語法的另一種常見用途是查看你將把什麼推送到遠端： </p>
+
+<pre><code>$ git log origin/master..HEAD</code></pre>
+
+<p>這條命令顯示任何在你當前分支上而不在遠端 <code>origin</code> 上的 <code>master</code> 分支上的提交。如果你執行 <code>git push</code> 並且你的當前分支正在追蹤 <code>origin/master</code>，被 <code>git log origin/master..HEAD</code> 列出的提交就是將被傳輸到伺服器上的提交。
+你也可以省略語法中的一邊讓 Git 來假定它是 HEAD。例如，輸入 git log origin/master.. 將得到和上面的例子一樣的結果—— Git 使用 HEAD 來代替不存在的一邊。</p>
+
+<h4>多點</h4>
+
+<p>雙點語法就像速記一樣有用；但是你也許會想針對兩個以上的分支來指明修訂版本，比如查看哪些提交被包含在某些分支中的一個，但是不在你當前的分支上。Git 允許你在引用前使用 <code>^</code> 字元或者 <code>--not</code> 指明你不希望提交被包含其中的分支。因此下面三個命令是等同的： </p>
+
+<pre><code>$ git log refA..refB
+$ git log ^refA refB
+$ git log refB --not refA</code></pre>
+
+<p>這樣很好，因為它允許你在查詢中指定多於兩個的引用，而這是雙點語法所做不到的。例如，如果你想查找所有從 <code>refA</code> 或 <code>refB</code> 包含的但是不被 <code>refC</code> 包含的提交，你可以輸入下面中的一個</p>
+
+<pre><code>$ git log refA refB ^refC
+$ git log refA refB --not refC</code></pre>
+
+<p>這建立了一個非常強大的修訂版本查詢系統，應該可以幫助你了解你的分支裡有些什麼東西。 </p>
+
+<h4>三點</h4>
+
+<p>最後一種主要的範圍選擇語法是三點語法，這個可以指定被兩個引用中的一個包含但又不被兩者同時包含的分支。回過頭來看一下圖6-1裡所列的提交歷史的例子。
+如果你想查看 <code>master</code> 或者 <code>experiment</code> 中包含的但不是兩者共有的引用，你可以執行 </p>
+
+<pre><code>$ git log master...experiment
+F
+E
+D
+C</code></pre>
+
+<p>這個再次給出你普通的 <code>log</code> 輸出但是只顯示那四次提交的資訊，按照傳統的提交日期排列。 </p>
+
+<p>這種情形下，<code>log</code> 命令的一個常用參數是 <code>--left-right</code>，它會顯示每個提交到底處於哪一側的分支。這使得資料更加有用。 </p>
+
+<pre><code>$ git log --left-right master...experiment
+&lt; F
+&lt; E
+&gt; D
+&gt; C</code></pre>
+
+<p>有了以上工具，讓 Git 知道你要察看哪些提交就容易得多了。 </p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

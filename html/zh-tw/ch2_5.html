@@ -1,0 +1,146 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>與遠端協同工作 - Git 基礎 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git 基礎</a></li><li><a href="ch2_1.html">取得Git儲存庫</a></li><li><a href="ch2_2.html">提交更新到儲存庫</a></li><li><a href="ch2_3.html">檢視提交的歷史記錄</a></li><li><a href="ch2_4.html">復原</a></li><li><a href="ch2_5.html">與遠端協同工作</a></li><li><a href="ch2_6.html">標籤</a></li><li><a href="ch2_7.html">提示和技巧</a></li><li><a href="ch2_8.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>與遠端協同工作</h2>
+
+<p>想要在任何Git控管的專案協同作業，需要瞭解如何管理遠端的儲存庫。 遠端儲存庫是置放在網際網路或網路其它地方中的專案版本。 讀者可設定多個遠端儲存庫，具備唯讀或可讀寫的權限。 與他人協同作業時，需要管理這些遠端儲存庫，並在需要分享工作時上傳或下載資料。
+管理遠端儲存庫包含瞭解如何新增遠端儲存庫、移除已失效的儲存庫、管理許多分支及定義是否要追蹤它們等等。 本節包含如何遠端管理的技巧。</p>
+
+<h3>顯示所有的遠端儲存庫</h3>
+
+<p>欲瞭解目前已加進來的遠端儲存庫，可執行 <code>git remote</code> 命令。 它會列出當初加入遠端儲存庫時指定的名稱。 若目前所在儲存庫是從其它儲存庫複製過來的，至少應該看到 <em>origin</em>，也就是 Git 複製儲存庫時預設名字：</p>
+
+<pre><code>$ git clone git://github.com/schacon/ticgit.git
+Cloning into &#39;ticgit&#39;...
+remote: Reusing existing pack: 1857, done.
+remote: Total 1857 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (1857/1857), 374.35 KiB | 193.00 KiB/s, done.
+Resolving deltas: 100% (772/772), done.
+Checking connectivity... done.
+$ cd ticgit
+$ git remote
+origin</code></pre>
+
+<p>也可以再加上 <code>-v</code> 參數，將會在名稱後方顯示其URL：</p>
+
+<pre><code>$ git remote -v
+origin  git://github.com/schacon/ticgit.git (fetch)
+origin  git://github.com/schacon/ticgit.git (push)</code></pre>
+
+<p>若有一個以上遠端儲存庫，此命令會全部列出。 例如：我的 Grit 儲存庫包含以下遠端儲存庫。</p>
+
+<pre><code>$ cd grit
+$ git remote -v
+bakkdoor  git://github.com/bakkdoor/grit.git
+cho45     git://github.com/cho45/grit.git
+defunkt   git://github.com/defunkt/grit.git
+koke      git://github.com/koke/grit.git
+origin    git@github.com:mojombo/grit.git</code></pre>
+
+<p>這意謂著我可以很容易從這些伙伴的儲存庫取得最新的更新。 要留意的是只有 origin 遠端的 URL 是 SSH。 因此它是唯一我能上傳的遠端的儲存庫。（關於這部份將在第四章介紹） </p>
+
+<h3>新增遠端儲存庫</h3>
+
+<p>在先前章節已提到並示範如何新增遠端儲存庫，這邊會很明確的說明如何做這項工作。 欲新增遠端儲存庫並取一個簡短的名字，執行 <code>git remote add [shortname] [url]</code>： </p>
+
+<pre><code>$ git remote
+origin
+$ git remote add pb git://github.com/paulboone/ticgit.git
+$ git remote -v
+origin	git://github.com/schacon/ticgit.git
+pb	git://github.com/paulboone/ticgit.git</code></pre>
+
+<p>現在可看到命令列中的 <code>pb</code> 字串取代了整個 URL。 例如，若想取得 Paul 上傳的且本地端儲存庫沒有的更新，可執行 <code>git fetch pb</code>：</p>
+
+<pre><code>$ git fetch pb
+remote: Counting objects: 58, done.
+remote: Compressing objects: 100% (41/41), done.
+remote: Total 44 (delta 24), reused 1 (delta 0)
+Unpacking objects: 100% (44/44), done.
+From git://github.com/paulboone/ticgit
+ * [new branch]      master     -&gt; pb/master
+ * [new branch]      ticgit     -&gt; pb/ticgit</code></pre>
+
+<p>現在可在本地端使用 <code>pb/master</code> 存取 Paul 的 master 分支。 讀者可將它合併到本地端任一分支、或者建立一個本地端的分支指向它，如果讀者想監看它。</p>
+
+<h3>從遠端儲存庫擷取或合併</h3>
+
+<p>如剛才所示，欲從遠端擷取資料，可執行：</p>
+
+<pre><code>$ git fetch [remote-name]</code></pre>
+
+<p>此命令到該遠端專案將所有本地端沒有的資料拉下來。 在執行此動作後，讀者應該有參考到該遠端專案所有分支的參考點，可在任何時間點用來合併或監看。（在第三章將會提及更多關於如何使用分支的細節）</p>
+
+<p>若複製了一個儲存庫，會自動將該遠端儲存庫命令為 <em>origin</em>。 因此 <code>git fetch origin</code> 取出所有在複製或最後一下擷取後被上傳到該儲存庫的更新。 需留意的是 <code>fetch</code> 命令僅僅將資料拉到本地端的儲存庫，並未自動將它合併進來，也沒有修改任何目前工作的項目。 讀者得在必要時將它們手動合併進來。</p>
+
+<p>若讀者設定一個會追蹤遠端分支的分支（參考下一節及第三章，取得更多資料），可使用 <code>git pull</code> 命令自動擷取及合併遠端分支到目錄的分支。 這對讀者來說或許是較合適的工作流程。 而且 <code>git clone</code> 命令預設情況下會自動設定本地端的 master 分支追蹤被複製的遠端儲存庫的 master 分支。（假設該儲存庫有 master 分支） 執行 <code>git pull</code> 一般來說會從當初複製時的來源儲存庫擷取資料並自動試著合併到目前工作的版本。</p>
+
+<h3>上傳到遠端儲存庫</h3>
+
+<p>當讀者有想分享出去的專案，可將更新上傳到上游。 執行此動作的命令很簡單：<code>git push [remote-name] [branch-name]</code>。 若想要上傳 master 分支到 <code>origin</code> 伺服器（再說一次，複製時通常自動設定此名字），接著執行以下命令即可上傳到伺服器：</p>
+
+<pre><code>$ git push origin master</code></pre>
+
+<p>此命令只有在被複製的伺服器開放寫入權限給使用者，而且同一時間內沒有其它人在上傳。 若讀者在其它同樣複製該伺服器的使用者上傳一些更新後上傳到上游，該上傳動作將會被拒絕。 讀者必須先將其它使用者上傳的資料拉下來並整合進來後才能上傳。 參考第三章瞭解如何上傳到遠端儲存庫的細節。</p>
+
+<h3>監看遠端儲存庫</h3>
+
+<p>若讀者想取得遠端儲存庫某部份更詳盡的資料，可執行 <code>git remote show [remote-name]</code>。 若執行此命令時加上特定的遠端名字，比如說： <code>origin</code>。 會看到類似以下輸出：</p>
+
+<pre><code>$ git remote show origin
+* remote origin
+  URL: git://github.com/schacon/ticgit.git
+  Remote branch merged with &#39;git pull&#39; while on branch master
+    master
+  Tracked remote branches
+    master
+    ticgit</code></pre>
+
+<p>它將同時列出遠端儲存庫的URL位置和追蹤分支資訊。特別是告訴你如果你在master分支時用<code>git pull</code>時，會去自動抓取數據合併到本地的master分支。它也列出所有曾經被抓取過的遠端分支。</p>
+
+<p>當你使用Git更頻繁之後，你或許會想利用 <code>git remote show</code> 去看到更多的資訊。</p>
+
+<pre><code>$ git remote show origin
+* remote origin
+  URL: git@github.com:defunkt/github.git
+  Remote branch merged with &#39;git pull&#39; while on branch issues
+    issues
+  Remote branch merged with &#39;git pull&#39; while on branch master
+    master
+  New remote branches (next fetch will store in remotes/origin)
+    caching
+  Stale tracking branches (use &#39;git remote prune&#39;)
+    libwalker
+    walker2
+  Tracked remote branches
+    acl
+    apiv2
+    dashboard2
+    issues
+    master
+    postgres
+  Local branch pushed with &#39;git push&#39;
+    master:master</code></pre>
+
+<p>這個指令顯示當你執行<code>git push</code>會自動推送的哪個分支(最後兩行)。它也顯示哪些遠端分支還沒被同步到本地端(在這個例子是caching)，哪些已同步到本地的遠端分支在遠端已被刪除(libwalker和walker2)，以及當執行<code>git pull</code>時會自動被合併的分支。</p>
+
+<h3>移除或更名遠端儲存庫</h3>
+
+<p>在新版 Git 中可以用 <code>git remote rename</code> 命令修改某個遠端儲存庫在本地的簡稱，舉例而言，想把 <code>pb</code> 改成 <code>paul</code>，可以執行下列指令：</p>
+
+<pre><code>$ git remote rename pb paul
+$ git remote
+origin
+paul</code></pre>
+
+<p>值得留意的是這也改變了遠端分支的名稱，原來的 <code>pb/master</code> 分支現在變成 <code>paul/master</code>。</p>
+
+<p>當你為了種種原因想要移除某個遠端，像是換伺服器或是已不再使用某個特別的鏡像，又或是某個貢獻者已不再貢獻時。你可以使用<code>git remote rm</code>：</p>
+
+<pre><code>$ git remote rm paul
+$ git remote
+origin</code></pre>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git 託管服務 - 伺服器上的 Git - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch4_0.html">伺服器上的 Git</a></li><li><a href="ch4_1.html">協議</a></li><li><a href="ch4_2.html">在伺服器上部署 Git</a></li><li><a href="ch4_3.html">生成 SSH 公開金鑰</a></li><li><a href="ch4_4.html">架設伺服器</a></li><li><a href="ch4_5.html">公共訪問</a></li><li><a href="ch4_6.html">GitWeb</a></li><li><a href="ch4_7.html">Gitosis</a></li><li><a href="ch4_8.html">Gitolite</a></li><li><a href="ch4_9.html">Git 守護進程</a></li><li><a href="ch4_10.html">Git 託管服務</a></li><li><a href="ch4_11.html">小結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Git 託管服務</h2>
+
+<p>如果不想經歷自己架設 Git 伺服器的麻煩，網路上有幾個專業的倉庫託管服務可供選擇。這樣做有幾大優點：託管帳戶的建立通常比較省時，方便專案的啟動，而且不涉及伺服器的維護和監控。即使內部創建並運行著自己的伺服器，同時為開源項目提供一個公共託管網站還是有好處的 — 讓開源社區更方便地找到該專案，並給予幫助。</p>
+
+<p>目前，可供選擇的託管服務數量繁多，各有利弊。在 Git 官方 wiki 上的 Githosting 頁面有一個最新的託管服務清單：</p>
+
+<pre><code>https://git.wiki.kernel.org/index.php/GitHosting</code></pre>
+
+<p>由於本書無法全部一一介紹，而本人（譯注：指本書作者 Scott Chacon。）剛好在其中一家公司工作，所以接下來我們將會介紹如何在 GitHub 上建立新帳戶並啟動專案。至於其他託管服務大體也是這麼一個過程，基本的想法都是差不多的。</p>
+
+<p>GitHub 是目前為止最大的開源 Git 託管服務，並且還是少數同時提供公共代碼和私有代碼託管服務的網站之一，所以你可以在上面同時保存開源和商業代碼。事實上，本書就是放在 GitHub 上合作編著的。（譯注：本書的翻譯也是放在 GitHub 上廣泛協作的。）</p>
+
+<h3>GitHub</h3>
+
+<p>GitHub 和大多數的代碼託管網站在處理專案命名空間的方式上略有不同。GitHub 的設計更側重於用戶，而不是完全基於專案。也就是說，如果我在 GitHub 上託管一個名為 <code>grit</code> 的項目的話，它的位址不會是 <code>github.com/grit</code>，而是按在用戶底下 <code>github.com/shacon/grit</code> （譯注：本書作者 Scott Chacon 在 GitHub 上的用戶名是 <code>shacon</code>。）。不存在所謂某個項目的官方版本，所以假如第一作者放棄了某個項目，它可以無縫轉移到其它用戶的名下。</p>
+
+<p>GitHub 同時也是一個向使用私有倉庫的用戶收取費用的商業公司，但任何人都可以方便快捷地申請到一個免費帳戶，並在上面託管數量不限的開源項目。接下來我們快速介紹一下 GitHub 的基本使用。</p>
+
+<h3>建立新帳戶</h3>
+
+<p>首先註冊一個免費帳戶。訪問 Pricing and Signup 頁面 <code>http://github.com/plans</code> 並點擊 Free acount 裡的 Sign Up 按鈕（見圖 4-2），進入註冊頁面。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0402-tn.png"></br>
+圖 4-2. GitHub 服務簡介頁面</p>
+
+<p>選擇一個系統中尚未使用的用戶名，提供一個與之相關聯的電郵位址，並輸入密碼（見圖 4-3）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0403-tn.png"></br>
+圖 4-3. GitHub 用戶註冊表單</p>
+
+<p>如果方便，現在就可以提供你的 SSH 公開金鑰。我們在前文的&quot;小型安裝&quot; 一節介紹過生成新公開金鑰的方法。把新生成的公開金鑰複製粘貼到 SSH Public Key 文字方塊中即可。要是對生成公開金鑰的步驟不太清楚，也可以點擊 &quot;explain ssh keys&quot; 連結，會顯示各個主流作業系統上完成該步驟的介紹。
+點擊 &quot;I agree，sign me up&quot; 按鈕完成使用者註冊，並轉到該使用者的 dashboard 頁面（見圖 4-4）:</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0404-tn.png"></br>
+圖 4-4. GitHub 的用戶面板</p>
+
+<p>接下來就可以建立新倉庫了。</p>
+
+<h3>建立新倉庫</h3>
+
+<p>點擊用戶面板上倉庫旁邊的 &quot;create a new one&quot; 連結，顯示 Create a New Repository 的表單（見圖 4-5）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0405-tn.png"></br>
+圖 4-5. 在 GitHub 上建立新倉庫</p>
+
+<p>當然，項目名稱是必不可少的，此外也可以適當描述一下專案的情況或者給出官方網站的位址。然後點擊 &quot;Create Repository&quot; 按鈕，新倉庫就建立起來了（見圖 4-6）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0406-tn.png"></br>
+圖 4-6. GitHub 上各個專案的概要資訊</p>
+
+<p>由於尚未提交代碼，點擊專案位址後 GitHub 會顯示一個簡要的指南，告訴你如何新建一個專案並推送上來，如何從現有項目推送，以及如何從一個公共的 Subversion 倉庫導入項目（見圖 4-7）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0407-tn.png"></br>
+圖 4-7. 新倉庫指南</p>
+
+<p>該指南和本書前文介紹的類似，對於新的專案，需要先在本地初始化為 Git 專案，添加要管理的檔並作首次提交：</p>
+
+<pre><code>$ git init
+$ git add .
+$ git commit -m &#39;initial commit&#39;</code></pre>
+
+<p>然後在這個本地倉庫內把 GitHub 添加為遠端倉庫，並推送 master 分支上來：</p>
+
+<pre><code>$ git remote add origin git@github.com:testinguser/iphone_project.git
+$ git push origin master</code></pre>
+
+<p>現在該項目就託管在 GitHub 上了。你可以把它的 URL 分享給每位對此項目感興趣的人。本例的 URL 是 <code>http://github.com/testinguser/iphone_project</code>。而在專案頁面的摘要部分，你會發現有兩個 Git URL 位址（見圖 4-8）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0408-tn.png"></br>
+圖 4-8. 項目摘要中的公共 URL 和私有 URL</p>
+
+<p>Public Clone URL 是一個公開的，唯讀的 Git URL，任何人都可以通過它克隆該專案。可以隨意散播這個 URL，比如發佈到個人網站之類的地方等等。</p>
+
+<p>Your Clone URL 是一個基於 SSH 協議的可讀可寫 URL，只有使用與上傳的 SSH 公開金鑰對應的金鑰來連接時，才能通過它進行讀寫操作。其他使用者訪問該專案頁面時只能看到之前那個公共的 URL，看不到這個私有的 URL。</p>
+
+<h3>從 Subversion 導入項目</h3>
+
+<p>如果想把某個公共 Subversion 項目導入 Git，GitHub 可以幫忙。在指南的最後有一個指嚮導入 Subversion 頁面的連結。點擊它會看到一個表單，包含有關導入流程的資訊以及一個用來粘貼公共 Subversion 項目連接的文字方塊（見圖 4-9）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0409-tn.png"></br>
+圖 4-9. Subversion 導入介面</p>
+
+<p>如果專案很大，採用非標準結構，或者是私有的，那就無法借助該工具實現導入。到第 7 章，我們會介紹如何手工導入複雜工程的具體方法。</p>
+
+<h3>添加協作開發者</h3>
+
+<p>現在把團隊裡的其他人也加進來。如果 John，Josie 和 Jessica 都在 GitHub 註冊了帳戶，要賦予他們對該倉庫的推送許可權，可以把他們加為專案協作者。這樣他們就可以通過各自的公開金鑰訪問我的這個倉庫了。</p>
+
+<p>點擊專案頁面上方的 &quot;edit&quot; 按鈕或者頂部的 Admin 標籤，進入該專案的管理頁面（見圖 4-10）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0410-tn.png"></br>
+圖 4-10. GitHub 的專案管理頁面</p>
+
+<p>為了給另一個用戶添加項目的寫許可權，點擊 &quot;Add another collaborator&quot; 連結，出現一個用於輸入用戶名的表單。在輸入的同時，它會自動跳出一個符合條件的候選名單。找到正確用戶名之後，點 Add 按鈕，把該使用者設為專案協作者（見圖 4-11）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0411-tn.png"></br>
+圖 4-11. 為專案添加協作者</p>
+
+<p>添加完協作者之後，就可以在 Repository Collaborators 區域看到他們的名單（見圖 4-12）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0412-tn.png"></br>
+圖 4-12. 專案協作者名單</p>
+
+<p>如果要取消某人的訪問權，點擊 &quot;revoke&quot; 即可取消他的推送許可權。對於將來的專案，你可以從現有專案複製協作者名單，或者直接借用協作者群組。</p>
+
+<h3>專案頁面</h3>
+
+<p>在推送或從 Subversion 導入項目之後，你會看到一個類似圖 4-13 的項目主頁：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0413-tn.png"></br>
+圖 4-13. GitHub 上的項目主頁</p>
+
+<p>別人訪問你的專案時看到的就是這個頁面。它有若干導航標籤，Commits 標籤用於顯示提交歷史，最新的提交位於最上方，這和 <code>git log</code> 命令的輸出類似。Network 標籤展示所有派生了該專案並做出貢獻的用戶的關係圖譜。Downloads 標籤允許你上傳項目的二進位檔案，提供下載該項目各個版本的 tar/zip 包。Wiki 標籤提供了一個用於撰寫文檔或其他專案相關資訊的 wiki 網站。Graphs 標籤包含了一些視覺化的專案資訊與資料。預設打開的 Source 標籤頁面，則列出了該專案的目錄結構和概要資訊，並在下方自動展示 README 檔的內容（如果該檔存在的話），此外還會顯示最近一次提交的相關資訊。</p>
+
+<h3>派生項目</h3>
+
+<p>如果要為一個自己沒有推送許可權的項目貢獻代碼，GitHub 鼓勵使用派生（fork）。到那個感興趣的項目主頁上，點擊頁面上方的 &quot;fork&quot; 按鈕，GitHub 就會為你複製一份該項目的副本到你的倉庫中，這樣你就可以向自己的這個副本推送資料了。</p>
+
+<p>採取這種辦法的好處是，專案擁有者不必忙於應付賦予他人推送許可權的工作。隨便誰都可以通過派生得到一個專案副本並在其中展開工作，事後只需要專案維護者將這些副本倉庫加為遠端倉庫，然後提取更新合併即可。</p>
+
+<p>要派生一個專案，到原始專案的頁面（本例中是 mojombo/chronic）點擊 &quot;fork&quot; 按鈕（見圖 4-14）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0414-tn.png"></br>
+圖 4-14. 點擊 &quot;fork&quot; 按鈕獲得任意專案的可寫副本</p>
+
+<p>幾秒鐘之後，你將進入新建的專案頁面，會顯示該專案派生自哪一個項目（見圖 4-15）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0415-tn.png"></br>
+圖 4-15. 派生後得到的項目副本</p>
+
+<h3>GitHub 小結</h3>
+
+<p>關於 GitHub 就先介紹這麼多，能夠快速達成這些事情非常重要（譯注：門檻的降低和完成基本任務的簡單高效，對於推動開源專案的協作發展有著舉足輕重的意義。）。短短幾分鐘內，你就能創建一個新帳戶，添加一個專案並開始推送。如果專案是開源的，整個龐大的開發者社區都可以立即訪問它，提供各式各樣的幫助和貢獻。最起碼，這也是一種 Git 新手立即體驗嘗試 Git 的捷徑。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

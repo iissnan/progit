@@ -1,0 +1,127 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>分支的衍合 - Git 分支 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch3_0.html">Git 分支</a></li><li><a href="ch3_1.html">何謂分支</a></li><li><a href="ch3_2.html">分支的新建與合併</a></li><li><a href="ch3_3.html">分支的管理</a></li><li><a href="ch3_4.html">利用分支進行開發的工作流程</a></li><li><a href="ch3_5.html">遠端分支</a></li><li><a href="ch3_6.html">分支的衍合</a></li><li><a href="ch3_7.html">小結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>分支的衍合</h2>
+
+<p>把一個分支中的修改整合到另一個分支的辦法有兩種：<code>merge</code> 和 <code>rebase</code>（譯注：<code>rebase</code> 的翻譯暫定為“衍合”，大家知道就可以了。）。在本章我們會學習什麼是衍合，如何使用衍合，為什麼衍合操作如此富有魅力，以及我們應該在什麼情況下使用衍合。</p>
+
+<h3>基本的衍合操作</h3>
+
+<p>請回顧之前有關合併的一節（見圖 3-27），你會看到開發進程分叉到兩個不同分支，又各自提交了更新。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0327-tn.png"></br>
+圖 3-27. 最初分叉的提交歷史。</p>
+
+<p>之前介紹過，最容易的整合分支的方法是 <code>merge</code> 命令，它會把兩個分支最新的快照（C3 和 C4）以及二者最新的共同祖先（C2）進行三方合併，合併的結果是產生一個新的提交物件（C5）。如圖 3-28 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0328-tn.png"></br>
+圖 3-28. 通過合併一個分支來整合分叉了的歷史。</p>
+
+<p>其實，還有另外一個選擇：你可以把在 C3 裡產生的變化補丁在 C4 的基礎上重新打一遍。在 Git 裡，這種操作叫做<em>衍合（rebase）</em>。有了 <code>rebase</code> 命令，就可以把在一個分支裡提交的改變移到另一個分支裡重放一遍。</p>
+
+<p>在上面這個例子中，運行：</p>
+
+<pre><code>$ git checkout experiment
+$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: added staged command</code></pre>
+
+<p>它的原理是回到兩個分支最近的共同祖先，根據當前分支（也就是要進行衍合的分支 <code>experiment</code>）後續的歷次提交物件（這裡只有一個 C3），生成一系列檔補丁，然後以基底分支（也就是主幹分支 <code>master</code>）最後一個提交物件（C4）為新的出發點，逐個應用之前準備好的補丁檔，最後會生成一個新的合併提交物件（C3&#39;），從而改寫 <code>experiment</code> 的提交歷史，使它成為 <code>master</code> 分支的直接下游，如圖 3-29 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0329-tn.png"></br>
+圖 3-29. 把 C3 裡產生的改變到 C4 上重演一遍。</p>
+
+<p>現在回到 <code>master</code> 分支，進行一次快進合併（見圖 3-30）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0330-tn.png"></br>
+圖 3-30. master 分支的快進。</p>
+
+<p>現在的 C3&#39; 對應的快照，其實和普通的三方合併，即上個例子中的 C5 對應的快照內容一模一樣了。雖然最後整合得到的結果沒有任何區別，但衍合能產生一個更為整潔的提交歷史。如果視察一個衍合過的分支的歷史記錄，看起來會更清楚：仿佛所有修改都是在一根線上先後進行的，儘管實際上它們原本是同時並行發生的。</p>
+
+<p>一般我們使用衍合的目的，是想要得到一個能在遠端分支上乾淨應用的補丁 — 比如某些項目你不是維護者，但想幫點忙的話，最好用衍合：先在自己的一個分支裡進行開發，當準備向主專案提交補丁的時候，根據最新的 <code>origin/master</code> 進行一次衍合操作然後再提交，這樣維護者就不需要做任何整合工作（譯注：實際上是把解決分支補丁同最新主幹代碼之間衝突的責任，化轉為由提交補丁的人來解決。），只需根據你提供的倉庫位址作一次快進合併，或者直接採納你提交的補丁。</p>
+
+<p>請注意，合併結果中最後一次提交所指向的快照，無論是通過衍合，還是三方合併，都會得到相同的快照內容，只不過提交歷史不同罷了。衍合是按照每行的修改次序重演一遍修改，而合併是把最終結果合在一起。</p>
+
+<h3>有趣的衍合</h3>
+
+<p>衍合也可以放到其他分支進行，並不一定非得根據分化之前的分支。以圖 3-31 的歷史為例，我們為了給伺服器端代碼添加一些功能而創建了特性分支 <code>server</code>，然後提交 C3 和 C4。然後又從 C3 的地方再增加一個 <code>client</code> 分支來對用戶端代碼進行一些相應修改，所以提交了 C8 和 C9。最後，又回到 <code>server</code> 分支提交了 C10。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0331-tn.png"></br>
+圖 3-31. 從一個特性分支裡再分出一個特性分支的歷史。</p>
+
+<p>假設在接下來的一次軟體發佈中，我們決定先把用戶端的修改並到主線中，而暫緩併入服務端軟體的修改（因為還需要進一步測試）。這個時候，我們就可以把基於 <code>server</code> 分支而非 <code>master</code> 分支的改變（即 C8 和 C9），跳過 <code>server</code> 直接放到 <code>master</code> 分支中重演一遍，但這需要用 <code>git rebase</code> 的 <code>--onto</code> 選項指定新的基底分支 <code>master</code>：</p>
+
+<pre><code>$ git rebase --onto master server client</code></pre>
+
+<p>這好比在說：“取出 <code>client</code> 分支，找出 <code>client</code> 分支和 <code>server</code> 分支的共同祖先之後的變化，然後把它們在 <code>master</code> 上重演一遍”。是不是有點複雜？不過它的結果如圖 3-32 所示，非常酷（譯注：雖然 <code>client</code> 裡的 C8, C9 在 C3 之後，但這僅表明時間上的先後，而非在 C3 修改的基礎上進一步改動，因為 <code>server</code> 和 <code>client</code> 這兩個分支對應的代碼應該是兩套檔，雖然這麼說不是很嚴格，但應理解為在 C3 時間點之後，對另外的檔所做的 C8，C9 修改，放到主幹重演。）：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0332-tn.png"></br>
+圖 3-32. 將特性分支上的另一個特性分支衍合到其他分支。</p>
+
+<p>現在可以快進 <code>master</code> 分支了（見圖 3-33）：</p>
+
+<pre><code>$ git checkout master
+$ git merge client</code></pre>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0333-tn.png"></br>
+圖 3-33. 快進 master 分支，使之包含 client 分支的變化。</p>
+
+<p>現在我們決定把 <code>server</code> 分支的變化也包含進來。我們可以直接把 <code>server</code> 分支衍合到 <code>master</code>，而不用手工切換到 <code>server</code> 分支後再執行衍合操作 — <code>git rebase [主分支] [特性分支]</code> 命令會先取出特性分支 <code>server</code>，然後在主分支 <code>master</code> 上重演：</p>
+
+<pre><code>$ git rebase master server</code></pre>
+
+<p>於是，<code>server</code> 的進度應用到 <code>master</code> 的基礎上，如圖 3-34 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0334-tn.png"></br>
+圖 3-34. 在 master 分支上衍合 server 分支。</p>
+
+<p>然後就可以快進主幹分支 <code>master</code> 了：</p>
+
+<pre><code>$ git checkout master
+$ git merge server</code></pre>
+
+<p>現在 <code>client</code> 和 <code>server</code> 分支的變化都已經集成到主幹分支來了，可以刪掉它們了。最終我們的提交歷史會變成圖 3-35 的樣子：</p>
+
+<pre><code>$ git branch -d client
+$ git branch -d server</code></pre>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0335-tn.png"></br>
+圖 3-35. 最終的提交歷史</p>
+
+<h3>衍合的風險</h3>
+
+<p>呃，奇妙的衍合也並非完美無缺，要用它得遵守一條準則：</p>
+
+<p><strong>一旦分支中的提交物件發佈到公共倉庫，就千萬不要對該分支進行衍合操作。</strong></p>
+
+<p>如果你遵循這條金科玉律，就不會出差錯。否則，人民群眾會仇恨你，你的朋友和家人也會嘲笑你，唾棄你。</p>
+
+<p>在進行衍合的時候，實際上拋棄了一些現存的提交物件而創造了一些類似但不同的新的提交物件。如果你把原來分支中的提交物件發佈出去，並且其他人更新下載後在其基礎上開展工作，而稍後你又用 <code>git rebase</code> 拋棄這些提交物件，把新的重演後的提交物件發佈出去的話，你的合作者就不得不重新合併他們的工作，這樣當你再次從他們那裡獲取內容時，提交歷史就會變得一團糟。</p>
+
+<p>下面我們用一個實際例子來說明為什麼公開的衍合會帶來問題。假設你從一個中央伺服器克隆然後在它的基礎上搞了一些開發，提交歷史類似圖 3-36 所示：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0336-tn.png"></br>
+圖 3-36. 克隆一個倉庫，在其基礎上工作一番。</p>
+
+<p>現在，某人在 C1 的基礎上做了些改變，併合並他自己的分支得到結果 C6，推送到中央伺服器。當你抓取併合並這些資料到你本地的開發分支中後，會得到合併結果 C7，歷史提交會變成圖 3-37 這樣：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0337-tn.png"></br>
+圖 3-37. 抓取他人提交，併入自己主幹。</p>
+
+<p>接下來，那個推送 C6 上來的人決定用衍合取代之前的合併操作；繼而又用 <code>git push --force</code> 覆蓋了伺服器上的歷史，得到 C4&#39;。而之後當你再從伺服器上下載最新提交後，會得到：</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0338-tn.png"></br>
+圖 3-38. 有人推送了衍合後得到的 C4&#39;，丟棄了你作為開發基礎的 C4 和 C6。</p>
+
+<p>下載更新後需要合併，但此時衍合產生的提交物件 C4&#39; 的 SHA-1 校驗值和之前 C4 完全不同，所以 Git 會把它們當作新的提交物件處理，而實際上此刻你的提交歷史 C7 中早已經包含了 C4 的修改內容，於是合併操作會把 C7 和 C4&#39; 合併為 C8（見圖 3-39）:</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0339-tn.png"></br>
+圖 3-39. 你把相同的內容又合併了一遍，生成一個新的提交 C8。</p>
+
+<p>C8 這一步的合併是遲早會發生的，因為只有這樣你才能和其他協作者提交的內容保持同步。而在 C8 之後，你的提交歷史裡就會同時包含 C4 和 C4&#39;，兩者有著不同的 SHA-1 校驗值，如果用 <code>git log</code> 查看歷史，會看到兩個提交擁有相同的作者日期與說明，令人費解。而更糟的是，當你把這樣的歷史推送到伺服器後，會再次把這些衍合後的提交引入到中央伺服器，進一步困擾其他人（譯注：這個例子中，出問題的責任方是那個發佈了 C6 後又用衍合發佈 C4&#39; 的人，其他人會因此回饋雙重歷史到共用主幹，從而混淆大家的視聽。）。</p>
+
+<p>如果把衍合當成一種在推送之前清理提交歷史的手段，而且僅僅衍合那些尚未公開的提交物件，就沒問題。如果衍合那些已經公開的提交物件，並且已經有人基於這些提交物件開展了後續開發工作的話，就會出現叫人沮喪的麻煩。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

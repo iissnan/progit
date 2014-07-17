@@ -1,0 +1,153 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>傳輸協議 - Git 內部原理 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch9_0.html">Git 內部原理</a></li><li><a href="ch9_1.html">底層命令 (Plumbing) 和高層命令 (Porcelain)</a></li><li><a href="ch9_2.html">Git 物件</a></li><li><a href="ch9_3.html">Git References</a></li><li><a href="ch9_4.html">Packfiles</a></li><li><a href="ch9_5.html">The Refspec</a></li><li><a href="ch9_6.html">傳輸協議</a></li><li><a href="ch9_7.html">維護及資料復原</a></li><li><a href="ch9_8.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>傳輸協議</h2>
+
+<p>Git 可以用兩種主要的方式跨越兩個倉庫傳輸資料：基於 HTTP 協定之上，和 <code>file://</code>, <code>ssh://</code>, 和 <code>git://</code> 等智慧傳輸協議。這一節帶你快速流覽這兩種主要的協議操作過程。</p>
+
+<h3>啞協議</h3>
+
+<p>Git 基於 HTTP 之上傳輸通常被稱為啞協議，這是因為它在服務端不需要有針對 Git 特有的代碼。這個獲取過程僅僅是一系列 GET 請求，用戶端可以假定服務端的 Git 倉庫中的佈局。讓我們以 simplegit 倉庫為例來看看 <code>http-fetch</code> 的過程： </p>
+
+<pre><code>$ git clone http://github.com/schacon/simplegit-progit.git</code></pre>
+
+<p>它做的第一件事情就是獲取 <code>info/refs</code> 檔。這個檔是在服務端運行了 <code>update-server-info</code> 所產生的，這也解釋了為什麼在服務端要想使用 HTTP 傳輸，必須要開啟 <code>post-receive</code> 鉤子(hook)： </p>
+
+<pre><code>=&gt; GET info/refs
+ca82a6dff817ec66f44342007202690a93763949     refs/heads/master</code></pre>
+
+<p>現在你有一個遠端引用和 SHA 值的列表。下一步是尋找 HEAD 引用，這樣你就知道了在完成後，什麼應該被檢出到工作目錄：</p>
+
+<pre><code>=&gt; GET HEAD
+ref: refs/heads/master</code></pre>
+
+<p>這說明在完成獲取後，需要檢出(check out) <code>master</code> 分支。
+這時，已經可以開始漫遊操作(walking process)了。因為你的起點是在 <code>info/refs</code> 檔中所提到的 <code>ca82a6</code> commit 物件，你的開始操作就是獲取它： </p>
+
+<pre><code>=&gt; GET objects/ca/82a6dff817ec66f44342007202690a93763949
+(179 bytes of binary data)</code></pre>
+
+<p>然後你取回了這個物件 － 這在服務端是一個鬆散格式的物件，你使用的是靜態的 HTTP GET 請求獲取的。可以使用 zlib 解壓縮它，去除檔頭，查看它的 commmit 內容： </p>
+
+<pre><code>$ git cat-file -p ca82a6dff817ec66f44342007202690a93763949
+tree cfda3bf379e4f8dba8717dee55aab78aef7f4daf
+parent 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+author Scott Chacon &lt;schacon@gmail.com&gt; 1205815931 -0700
+committer Scott Chacon &lt;schacon@gmail.com&gt; 1240030591 -0700
+
+changed the version number</code></pre>
+
+<p>這樣，就得到了兩個需要進一步獲取的物件 － <code>cfda3b</code> 是這個 commit 物件所對應的 tree 物件，和 <code>085bb3</code> 是它的父物件：</p>
+
+<pre><code>=&gt; GET objects/08/5bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+(179 bytes of data)</code></pre>
+
+<p>這樣就取得了這它的下一步 commit 物件，再抓取 tree 物件： </p>
+
+<pre><code>=&gt; GET objects/cf/da3bf379e4f8dba8717dee55aab78aef7f4daf
+(404 - Not Found)</code></pre>
+
+<p>哎呀! - 看起來這個 tree 物件在服務端並不以鬆散格式對象存在，所以得到了404回應，代表在 HTTP 服務端沒有找到該物件。這有好幾個原因 － 這個物件可能在替代倉庫裡面，或者在打包檔裡面，Git 會首先檢查任何列出的替代倉庫： </p>
+
+<pre><code>=&gt; GET objects/info/http-alternates
+(empty file)</code></pre>
+
+<p>如果這回傳了幾個替代倉庫列表，那麼它會去那些地方檢查鬆散格式物件和檔案 － 這是一種在軟體分叉(forks)之間共用物件以節省磁碟的好方法。然而，在這個例子中，沒有替代倉庫。所以你所需要的物件肯定在某個打包檔中。要檢查服務端有哪些打包格式檔，你需要獲取 <code>objects/info/packs</code> 檔，這裡面包含有打包檔列表（是的，它也是被 <code>update-server-info</code> 所產生的）：</p>
+
+<pre><code>=&gt; GET objects/info/packs
+P pack-816a9b2334da9953e530f27bcac22082a9f5b835.pack</code></pre>
+
+<p>這裡服務端只有一個打包檔，所以你要的物件顯然就在裡面。但是你可以先檢查它的索引檔以確認。這在服務端有多個打包檔時也很有用，因為這樣就可以先檢查你所需要的物件空間是在哪一個打包檔裡面了： </p>
+
+<pre><code>=&gt; GET objects/pack/pack-816a9b2334da9953e530f27bcac22082a9f5b835.idx
+(4k of binary data)</code></pre>
+
+<p>現在你有了這個打包檔的索引，你可以看看你要的物件是否在裡面 － 因為索引檔列出了這個打包檔所包含的所有物件的SHA值，和該物件存在於打包檔中的偏移量，所以你只需要簡單地獲取整個打包檔： </p>
+
+<pre><code>=&gt; GET objects/pack/pack-816a9b2334da9953e530f27bcac22082a9f5b835.pack
+(13k of binary data)</code></pre>
+
+<p>現在你也有了這個 tree 物件，你可以繼續在 commit 物件上漫遊。它們全部都在這個你已經下載到的打包檔裡面，所以你不用繼續向服務端請求更多下載了。在這完成之後，由於下載開始時已探明 HEAD 引用是指向 <code>master</code> 分支，Git 會將它檢出到工作目錄。 </p>
+
+<p>整個過程看起來就像這樣： </p>
+
+<pre><code>$ git clone http://github.com/schacon/simplegit-progit.git
+Initialized empty Git repository in /private/tmp/simplegit-progit/.git/
+got ca82a6dff817ec66f44342007202690a93763949
+walk ca82a6dff817ec66f44342007202690a93763949
+got 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+Getting alternates list for http://github.com/schacon/simplegit-progit.git
+Getting pack list for http://github.com/schacon/simplegit-progit.git
+Getting index for pack 816a9b2334da9953e530f27bcac22082a9f5b835
+Getting pack 816a9b2334da9953e530f27bcac22082a9f5b835
+ which contains cfda3bf379e4f8dba8717dee55aab78aef7f4daf
+walk 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+walk a11bef06a3f659402fe7563abf99ad00de2209e6</code></pre>
+
+<h3>智慧協議</h3>
+
+<p>HTTP 方法是很簡單但效率不是很高。使用智慧協定是傳送資料的更常用的方法。這些協定在遠端都有 Git 智慧型程序(process)在服務 － 它可以讀出本地資料並計算出用戶端所需要的，並產生合適的資料給它，這有兩類傳輸資料的程序：一對用於上傳資料和一對用於下載。 </p>
+
+<h4>上傳資料</h4>
+
+<p>為了上傳資料至遠端，Git 使用 <code>send-pack</code> 和 <code>receive-pack</code> 程序。這個 <code>send-pack</code> 程序運行在用戶端上，它連接至遠端運行的 <code>receive-pack</code> 程序。 </p>
+
+<p>舉例來說，你在你的專案上執行了 <code>git push origin master</code>, 並且 <code>origin</code> 被定義為一個使用 SSH 協議的 URL。Git 會使用 <code>send-pack</code> 程序，它會啟動一個基於 SSH 的連接(connection)到伺服器。它嘗試像這樣透過 SSH 在服務端運行命令： </p>
+
+<pre><code>$ ssh -x git@github.com &quot;git-receive-pack &#39;schacon/simplegit-progit.git&#39;&quot;
+005bca82a6dff817ec66f4437202690a93763949 refs/heads/master report-status delete-refs
+003e085bb3bcb608e1e84b2432f8ecbe6306e7e7 refs/heads/topic
+0000</code></pre>
+
+<p>這裡的 <code>git-receive-pack</code> 命令會立即對它所擁有的每一個引用回應一行 － 在這個例子中，只有 <code>master</code> 分支和它的SHA值。這裡第1行也包含了服務端的能力清單（這裡是 <code>report-status</code> 和 <code>delete-refs</code>）。 </p>
+
+<p>每一行以4位元組的十六進位開始，用於指定整行的長度。你看到第1行以005b開始，這在十六進位中表示91，意味著第1行有91位元組長。下一行以003e起始，表示有62位元組長，所以需要讀剩下的62位元組。再下一行是0000開始，表示伺服器已完成了引用列表過程。 </p>
+
+<p>現在它知道了服務端的狀態，你的 <code>send-pack</code> 程序會判斷哪些 commit 是它所擁有但服務端沒有的。針對每個引用，這次推送都會告訴對端的 <code>receive-pack</code> 這個資訊。舉例說，如果你在更新 <code>master</code> 分支，並且增加 <code>experiment</code> 分支，這個 <code>send-pack</code> 將會是像這樣：</p>
+
+<pre><code>0085ca82a6dff817ec66f44342007202690a93763949  15027957951b64cf874c3557a0f3547bd83b3ff6 refs/heads/master report-status
+00670000000000000000000000000000000000000000 cdfdb42577e2506715f8cfeacdbabc092bf63e8d refs/heads/experiment
+0000</code></pre>
+
+<p>這裡全部是’0’的SHA-1值表示之前沒有過這個物件 － 因為你是在添加新的 experiment 引用。如果你在刪除一個引用，你會看到相反的： 就是右邊全部是’0’。 </p>
+
+<p>Git 針對每個引用發送這樣一行資訊，就是舊的SHA值，新的SHA值，和將要更新的引用的名稱。第1行還會包含有用戶端的能力。下一步，用戶端會發送一個所有那些服務端所沒有的物件的一個打包檔。最後，服務端以成功(或者失敗)來回應： </p>
+
+<pre><code>000Aunpack ok</code></pre>
+
+<h4>下載資料</h4>
+
+<p>當你在下載資料時，<code>fetch-pack</code> 和 <code>upload-pack</code> 程序就起作用了。用戶端啟動 <code>fetch-pack</code> 程序，連接至遠端的 <code>upload-pack</code> 程序，以協商後續資料傳輸過程。 </p>
+
+<p>在遠端倉庫有不同的方式啟動 <code>upload-pack</code> 程序。你可以使用與 <code>receive-pack</code> 相同的透過 SSH 管道的方式，也可以通過 Git 後臺來啟動這個進程，它預設監聽在 9418 號埠上。這裡 <code>fetch-pack</code> 程序在連接後像這樣向後臺發送資料： </p>
+
+<pre><code>003fgit-upload-pack schacon/simplegit-progit.git\0host=myserver.com\0</code></pre>
+
+<p>它也是以4位元組指定後續位元組長度的方式開始，然後是要執行的命令，和一個空位元組，然後是服務端的主機名稱，再跟隨一個最後的空位元組。Git 後臺程序會檢查這個命令是否可以執行，以及那個倉庫是否存在，以及是否具有公開許可權。如果所有檢查都通過了，它會啟動這個 <code>upload-pack</code> 程序並將用戶端的請求移交給它。 </p>
+
+<p>如果你透過 SSH 使用獲取(fetch)功能，<code>fetch-pack</code> 會像這樣運行： </p>
+
+<pre><code>$ ssh -x git@github.com &quot;git-upload-pack &#39;schacon/simplegit-progit.git&#39;&quot;</code></pre>
+
+<p>不管哪種方式，在 <code>fetch-pack</code> 連接之後， <code>upload-pack</code> 都會以這種形式回傳： </p>
+
+<pre><code>0088ca82a6dff817ec66f44342007202690a93763949 HEAD\0multi_ack thin-pack \
+  side-band side-band-64k ofs-delta shallow no-progress include-tag
+003fca82a6dff817ec66f44342007202690a93763949 refs/heads/master
+003e085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7 refs/heads/topic
+0000</code></pre>
+
+<p>這與 <code>receive-pack</code> 回應很類似，但是這裡指的能力是不同的。而且它還會指出 HEAD 引用，讓用戶端可以檢查是否是一份 clone。 </p>
+
+<p>在這裡，<code>fetch-pack</code> 程序檢查它自己所擁有的物件和所有它需要的物件，通過發送 “want” 和所需物件的 SHA 值，發送 “have” 和所有它已擁有的物件的 SHA 值。在列表完成時，再發送 “done” 通知 <code>upload-pack</code> 程序開始發送所需物件的打包檔。這個過程看起來像這樣： </p>
+
+<pre><code>0054want ca82a6dff817ec66f44342007202690a93763949 ofs-delta
+0032have 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+0000
+0009done</code></pre>
+
+<p>這是傳輸協議的一個很基礎的例子，在更複雜的例子中，用戶端可能會支援 <code>multi_ack</code> 或者 <code>side-band</code> 能力；但是這個例子中展示了智慧協議的基本交互過程。 </p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

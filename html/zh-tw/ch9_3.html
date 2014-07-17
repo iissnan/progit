@@ -1,0 +1,134 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git References - Git 內部原理 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch9_0.html">Git 內部原理</a></li><li><a href="ch9_1.html">底層命令 (Plumbing) 和高層命令 (Porcelain)</a></li><li><a href="ch9_2.html">Git 物件</a></li><li><a href="ch9_3.html">Git References</a></li><li><a href="ch9_4.html">Packfiles</a></li><li><a href="ch9_5.html">The Refspec</a></li><li><a href="ch9_6.html">傳輸協議</a></li><li><a href="ch9_7.html">維護及資料復原</a></li><li><a href="ch9_8.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Git References</h2>
+
+<p>你可以執行像 <code>git log 1a410e</code> 這樣的命令來查看完整的歷史，但是這樣你就要記得 <code>1a410e</code> 是你最後一次提交，這樣才能在提交歷史中找到這些物件。你需要一個檔來用一個簡單的名字來記錄這些 SHA-1 值，這樣你就可以用這些指標而不是原來的 SHA-1 值去檢索了。 </p>
+
+<p>在 Git 中，這些我們稱之為「引用」（references 或者 refs，譯者注）。你可以在 <code>.git/refs</code> 目錄下面找到這些包含 SHA-1 值的檔。在這個專案裡，這個目錄還沒不包含任何檔，但是包含這樣一個簡單的結構： </p>
+
+<pre><code>$ find .git/refs
+.git/refs
+.git/refs/heads
+.git/refs/tags
+$ find .git/refs -type f
+$</code></pre>
+
+<p>如果想要創建一個新的引用幫助你記住最後一次提交，技術上你可以這樣做： </p>
+
+<pre><code>$ echo &quot;1a410efbd13591db07496601ebc7a059dd55cfe9&quot; &gt; .git/refs/heads/master</code></pre>
+
+<p>現在，你就可以在 Git 命令中使用你剛才創建的引用而不是 SHA-1 值： </p>
+
+<pre><code>$ git log --pretty=oneline  master
+1a410efbd13591db07496601ebc7a059dd55cfe9 third commit
+cac0cab538b970a37ea1e769cbbde608743bc96d second commit
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+
+<p>當然，我們並不鼓勵你直接修改這些引用檔。如果你確實需要更新一個引用，Git 提供了一個比較安全的命令 <code>update-ref</code>： </p>
+
+<pre><code>$ git update-ref refs/heads/master 1a410efbd13591db07496601ebc7a059dd55cfe9</code></pre>
+
+<p>基本上 Git 中的一個分支其實就是一個指向某個工作版本一條 HEAD 記錄的指標或引用。你可以用這條命令創建一個指向第二次提交的分支： </p>
+
+<pre><code>$ git update-ref refs/heads/test cac0ca</code></pre>
+
+<p>這樣你的分支將會只包含那次提交以及之前的工作： </p>
+
+<pre><code>$ git log --pretty=oneline test
+cac0cab538b970a37ea1e769cbbde608743bc96d second commit
+fdf4fc3344e67ab068f836878b6c4951e3b15f3d first commit</code></pre>
+
+<p>現在，你的 Git 資料庫應該看起來像圖 9-4 一樣。 </p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0904-tn.png"></br>
+Figure 9-4. 包含分支引用的 Git 目錄物件 </p>
+
+<p>每當你執行 <code>git branch (分支名稱)</code> 這樣的命令，Git 基本上就是執行 <code>update-ref</code> 命令，把你現在所在分支中最後一次提交的 SHA-1 值，添加到你要創建的分支的引用。 </p>
+
+<h3>HEAD 標記</h3>
+
+<p>現在的問題是，當你執行 <code>git branch (分支名稱)</code> 這條命令的時候，Git 怎麼知道最後一次提交的 SHA-1 值呢？答案就是 HEAD 檔。HEAD 檔是一個指向你當前所在分支的引用識別字。這樣的引用識別字——它看起來並不像一個普通的引用——其實並不包含 SHA-1 值，而是一個指向另外一個引用的指標。如果你看一下這個檔，通常你將會看到這樣的內容： </p>
+
+<pre><code>$ cat .git/HEAD
+ref: refs/heads/master</code></pre>
+
+<p>如果你執行 <code>git checkout test</code>，Git 就會更新這個檔，看起來像這樣： </p>
+
+<pre><code>$ cat .git/HEAD
+ref: refs/heads/test</code></pre>
+
+<p>當你再執行 <code>git commit</code> 命令，它就創建了一個 commit 物件，把這個 commit 物件的父級設置為 HEAD 指向的引用的 SHA-1 值。 </p>
+
+<p>你也可以手動編輯這個檔，但是同樣有一個更安全的方法可以這樣做：<code>symbolic-ref</code>。你可以用下面這條命令讀取 HEAD 的值： </p>
+
+<pre><code>$ git symbolic-ref HEAD
+refs/heads/master</code></pre>
+
+<p>你也可以設置 HEAD 的值： </p>
+
+<pre><code>$ git symbolic-ref HEAD refs/heads/test
+$ cat .git/HEAD
+ref: refs/heads/test</code></pre>
+
+<p>但是你不能設置成 refs 以外的形式： </p>
+
+<pre><code>$ git symbolic-ref HEAD test
+fatal: Refusing to point HEAD outside of refs/</code></pre>
+
+<h3>Tags</h3>
+
+<p>你剛剛已經重溫過了 Git 的三個主要物件類型，現在這是第四種。Tag 物件非常像一個 commit 物件——包含一個標籤，一組資料，一個消息和一個指標。最主要的區別就是 Tag 物件指向一個 commit 而不是一個 tree。它就像是一個分支引用，但是不會變化——永遠指向同一個 commit，僅僅是提供一個更加友好的名字。 </p>
+
+<p>正如我們在第二章所討論的，Tag 有兩種類型：annotated 和 lightweight 。你可以類似下面這樣的命令建立一個 lightweight tag： </p>
+
+<pre><code>$ git update-ref refs/tags/v1.0 cac0cab538b970a37ea1e769cbbde608743bc96d</code></pre>
+
+<p>這就是 lightweight tag 的全部 —— 一個永遠不會發生變化的分支。 annotated tag 要更複雜一點。如果你創建一個 annotated tag，Git 會創建一個 tag 物件，然後寫入一個 reference 指向這個 tag，而不是直接指向 commit。你可以這樣創建一個 annotated tag（<code>-a</code> 參數表明這是一個 annotated tag）： </p>
+
+<pre><code>$ git tag -a v1.1 1a410efbd13591db07496601ebc7a059dd55cfe9 –m &#39;test tag&#39;</code></pre>
+
+<p>這是所創建物件的 SHA-1 值：</p>
+
+<pre><code>$ cat .git/refs/tags/v1.1
+9585191f37f7b0fb9444f35a9bf50de191beadc2</code></pre>
+
+<p>現在你可以執行 <code>cat-file</code> 命令檢查這個 SHA-1 值： </p>
+
+<pre><code>$ git cat-file -p 9585191f37f7b0fb9444f35a9bf50de191beadc2
+object 1a410efbd13591db07496601ebc7a059dd55cfe9
+type commit
+tag v1.1
+tagger Scott Chacon &lt;schacon@gmail.com&gt; Sat May 23 16:48:58 2009 -0700
+
+test tag</code></pre>
+
+<p>值得注意的是這個物件指向你所標記的 commit 物件的 SHA-1 值。同時需要注意的是它並不是必須要指向一個 commit 物件；你可以標記任何 Git 物件。例如，在 Git 的原始程式碼裡，管理者添加了一個 GPG 公開金鑰（這是一個 blob 物件）對它做了一個標籤。你可以執行以下命令來查看 </p>
+
+<pre><code>$ git cat-file blob junio-gpg-pub</code></pre>
+
+<p>Git 原始程式碼裡的公開金鑰. Linux kernel 也有一個不是指向 commit 物件的 tag —— 第一個 tag 是在導入原始程式碼的時候創建的，它指向初始 tree （initial tree，譯者注）。</p>
+
+<h3>Remotes</h3>
+
+<p>你將會看到的第三種 reference 是 remote reference（遠端參照，譯者注）。如果你添加了一個 remote 然後推送代碼過去，Git 會把你最後一次推送到這個 remote 的每個分支的值都記錄在 <code>refs/remotes</code> 目錄下。例如，你可以添加一個叫做 <code>origin</code> 的 remote 然後把你的 <code>master</code> 分支推送上去： </p>
+
+<pre><code>$ git remote add origin git@github.com:schacon/simplegit-progit.git
+$ git push origin master
+Counting objects: 11, done.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (7/7), 716 bytes, done.
+Total 7 (delta 2), reused 4 (delta 1)
+To git@github.com:schacon/simplegit-progit.git
+   a11bef0..ca82a6d  master -&gt; master</code></pre>
+
+<p>然後查看 <code>refs/remotes/origin/master</code> 這個檔，你就會發現 <code>origin</code> remote 中的 <code>master</code> 分支就是你最後一次和伺服器的通信。 </p>
+
+<pre><code>$ cat .git/refs/remotes/origin/master
+ca82a6dff817ec66f44342007202690a93763949</code></pre>
+
+<p>Remote references 和分支(<code>refs/heads</code> references)的主要區別在於他們是不能被 check out 的。Git 把他們當作是標記了這些分支在伺服器上最後狀態的一種書簽。 </p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

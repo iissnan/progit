@@ -1,0 +1,336 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git 強制策略實例 -  - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch7_0.html"></a></li><li><a href="ch7_1.html">Git 配置</a></li><li><a href="ch7_2.html">Git 屬性</a></li><li><a href="ch7_3.html">Git Hooks</a></li><li><a href="ch7_4.html">Git 強制策略實例</a></li><li><a href="ch7_5.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>Git 強制策略實例</h2>
+
+<p>在本節中，我們應用前面學到的知識建立這樣一個 Git 工作流程：檢查提交資訊的格式，只接受純 fast-forward 內容的推送，並且指定專案中的某些特定用戶只能修改某些特定子目錄。我們將撰寫一個用戶端腳本來提示開發人員他們推送的內容是否會被拒絕，以及一個伺服端腳本來實際執行這些策略。 </p>
+
+<p>我使用 Ruby 來撰寫這些腳本，一方面因為它是我喜好的指令碼語言(scripting language)，也因為我覺得它是最接近偽代碼(pseudocode-looking)的指令碼語言；因而即便你不使用 Ruby 也能大致看懂。不過任何其他語言也一樣適用。所有 Git 自帶的範例腳本都是用 Perl 或 Bash 寫的，所以從這些腳本中能找到相當多的這兩種語言的掛鉤範例。</p>
+
+<h3>服務端掛鉤</h3>
+
+<p>所有服務端的工作都在 hooks（掛鉤）目錄的 update（更新）腳本中制定。update 腳本為每一個得到推送的分支運行一次；它接受推送目標的索引(reference)、該分支原來指向的位置、以及被推送的新內容。如果推送是通過 SSH 進行的，還可以獲取發出此次操作的用戶。如果設定所有操作都通過公鑰授權的單一帳號（比如＂git＂）進行，就有必要通過一個 shell 包裝(wrapper)依據公鑰來判斷用戶的身份，並且設定環境變數來表示該使用者的身份。下面假設嘗試連接的使用者儲存在 <code>$USER</code> 環境變數裡，我們的 update 腳本首先搜集一切需要的資訊： </p>
+
+<pre><code>#!/usr/bin/env ruby
+
+refname = ARGV[0]
+oldrev  = ARGV[1]
+newrev  = ARGV[2]
+user    = ENV[&#39;USER&#39;]
+
+puts &quot;Enforcing Policies... \n(#{refname}) (#{oldrev[0,6]}) (#{newrev[0,6]})&quot;</code></pre>
+
+<h4>強制特定的提交資訊格式</h4>
+
+<p>我們的第一項任務是指定每一條提交資訊都必須遵循某種特殊的格式。只是設定一個目標，假定每一條資訊必須包含一條形似 “ref: 1234” 這樣的字串，因為我們需要把每一次提交連結到專案問題追蹤系統裏面的工作項目。我們要逐一檢查每一條推送上來的提交內容，看看提交資訊是否包含這麼一個字串，然後，如果該提交裡不包含這個字串，以非零返回值退出從而拒絕此次推送。</p>
+
+<p>把 <code>$newrev</code> 和 <code>$oldrev</code> 變數的值傳給一個叫做 <code>git rev-list</code> 的 Git plumbing 命令可以獲取所有提交內容 SHA-1 值的列表。<code>git rev-list</code> 基本上是個 <code>git log</code> 命令，但它預設只輸出 SHA-1 值而已，沒有其他資訊。所以要獲取由 SHA 值表示的從一次提交到另一次提交之間的所有 SHA 值，可以執行： </p>
+
+<pre><code>$ git rev-list 538c33..d14fc7
+d14fc7c847ab946ec39590d87783c69b031bdfb7
+9f585da4401b0a3999e84113824d15245c13f0be
+234071a1be950e2a8d078e6141f5cd20c1e61ad3
+dfa04c9ef3d5197182f13fb5b9b1fb7717d2222a
+17716ec0f1ff5c77eff40b7fe912f9f6cfd0e475</code></pre>
+
+<p>取得這些輸出內容，迴圈遍歷其中每一個提交的 SHA 值，找出與之對應的提交資訊，然後用規則運算式(regular expression)來測試該資訊是否符合某個 pattern。</p>
+
+<p>下面要搞定如何從所有的提交內容中提取出提交資訊。使用另一個叫做 <code>git cat-file</code> 的 Git plumbing 工具可以獲得原始的提交資料。我們將在第九章瞭解到這些 plumbing 工具的細節；現在暫時先看一下這條命令會給你什麼： </p>
+
+<pre><code>$ git cat-file commit ca82a6
+tree cfda3bf379e4f8dba8717dee55aab78aef7f4daf
+parent 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+author Scott Chacon &lt;schacon@gmail.com&gt; 1205815931 -0700
+committer Scott Chacon &lt;schacon@gmail.com&gt; 1240030591 -0700
+
+changed the version number</code></pre>
+
+<p>通過 SHA-1 值獲得提交內容中的提交資訊的一個簡單辦法是找到提交的第一個空白行，然後取出它之後的所有內容。可以使用 Unix 系統的 <code>sed</code> 命令來實現這個效果： </p>
+
+<pre><code>$ git cat-file commit ca82a6 | sed &#39;1,/^$/d&#39;
+changed the version number</code></pre>
+
+<p>這條咒語從每一個待提交內容裡提取提交訊息，並且會在提交訊息不符合要求的情況下退出。為了退出腳本和拒絕此次推送，返回一個非零值。整個 method 大致如下： </p>
+
+<pre><code>$regex = /\[ref: (\d+)\]/
+
+# enforced custom commit message format
+def check_message_format
+  missed_revs = `git rev-list #{$oldrev}..#{$newrev}`.split(&quot;\n&quot;)
+  missed_revs.each do |rev|
+    message = `git cat-file commit #{rev} | sed &#39;1,/^$/d&#39;`
+    if !$regex.match(message)
+      puts &quot;[POLICY] Your message is not formatted correctly&quot;
+      exit 1
+    end
+  end
+end
+check_message_format</code></pre>
+
+<p>把這一段放在 <code>update</code> 腳本裡，所有包含不符合指定規則的提交都會遭到拒絕。 </p>
+
+<h4>實現基於使用者的存取權限控制清單（ACL）系統</h4>
+
+<p>假設你需要添加一個使用存取權限控制列表 (access control list, ACL) 的機制來指定哪些使用者對專案的哪些部分有推送許可權。某些使用者具有全部的存取權，其他人只對某些子目錄或者某些特定的檔案具有推送許可權。要搞定這一點，所有的規則將被寫入一個位於伺服器的原始 Git 倉庫的 <code>acl</code> 檔。我們讓 update 掛鉤檢閱這些規則，審視推送的提交內容中需要修改的所有檔案，然後判定執行推送的用戶是否對所有這些檔案都有許可權。 </p>
+
+<p>我們首先要創建這個列表。這裡使用的格式和 CVS 的 ACL 機制十分類似：它由若干行構成，第一欄的內容是 <code>avail</code> 或者 <code>unavail</code>；下一欄是由逗號分隔的使用者清單，列出這條規則會對哪些使用者生效；最後一欄是這條規則會對哪個目錄生效（空白表示開放訪問）。這些欄位由 pipe (<code>|</code>) 字元隔開。 </p>
+
+<p>下例中，我們指定幾個管理員，幾個對 <code>doc</code> 目錄具有許可權的文件作者，以及一個只對 <code>lib</code> 和 <code>tests</code> 目錄具有許可權的開發人員，ACL 檔看起來像這樣： </p>
+
+<pre><code>avail|nickh,pjhyett,defunkt,tpw
+avail|usinclair,cdickens,ebronte|doc
+avail|schacon|lib
+avail|schacon|tests</code></pre>
+
+<p>首先把這些資料讀入到你所能使用的資料結構中。本例中，為保持簡潔，我們暫時只實做 <code>avail</code> 的規則（譯注：也就是省略了 unavail 部分）。下面這個 method 產生一個關聯式陣列，它的主鍵是用戶名，對應的值是一個該用戶有寫入許可權的所有目錄組成的陣列： </p>
+
+<pre><code>def get_acl_access_data(acl_file)
+  # read in ACL data
+  acl_file = File.read(acl_file).split(&quot;\n&quot;).reject { |line| line == &#39;&#39; }
+  access = {}
+  acl_file.each do |line|
+    avail, users, path = line.split(&#39;|&#39;)
+    next unless avail == &#39;avail&#39;
+    users.split(&#39;,&#39;).each do |user|
+      access[user] ||= []
+      access[user] &lt;&lt; path
+    end
+  end
+  access
+end</code></pre>
+
+<p>針對之前給出的 ACL 規則檔，這個 <code>get_acl_access_data</code> method 回傳的資料結構如下： </p>
+
+<pre><code>{&quot;defunkt&quot;=&gt;[nil],
+ &quot;tpw&quot;=&gt;[nil],
+ &quot;nickh&quot;=&gt;[nil],
+ &quot;pjhyett&quot;=&gt;[nil],
+ &quot;schacon&quot;=&gt;[&quot;lib&quot;, &quot;tests&quot;],
+ &quot;cdickens&quot;=&gt;[&quot;doc&quot;],
+ &quot;usinclair&quot;=&gt;[&quot;doc&quot;],
+ &quot;ebronte&quot;=&gt;[&quot;doc&quot;]}</code></pre>
+
+<p>搞定了使用者許可權的資料，下面需要找出這次推送的提交之中，哪些位置被修改，從而確保試圖推送的使用者對這些位置都有許可權。 </p>
+
+<p>使用 <code>git log</code> 的 <code>--name-only</code> 選項（在第二章裡簡單的提過）我們可以輕而易舉的找出一次提交裡有哪些被修改的檔案： </p>
+
+<pre><code>$ git log -1 --name-only --pretty=format:&#39;&#39; 9f585d
+
+README
+lib/test.rb</code></pre>
+
+<p>使用 <code>get_acl_access_data</code> 回傳的 ACL 結構來一一核對每一次提交修改的檔案列表，就能判定該用戶是否有許可權推送所有的提交內容: </p>
+
+<pre><code># only allows certain users to modify certain subdirectories in a project
+def check_directory_perms
+  access = get_acl_access_data(&#39;acl&#39;)
+
+  # see if anyone is trying to push something they can&#39;t
+  new_commits = `git rev-list #{$oldrev}..#{$newrev}`.split(&quot;\n&quot;)
+  new_commits.each do |rev|
+    files_modified = `git log -1 --name-only --pretty=format:&#39;&#39; #{rev}`.split(&quot;\n&quot;)
+    files_modified.each do |path|
+      next if path.size == 0
+      has_file_access = false
+      access[$user].each do |access_path|
+        if !access_path || # user has access to everything
+          (path.index(access_path) == 0) # access to this path
+          has_file_access = true
+        end
+      end
+      if !has_file_access
+        puts &quot;[POLICY] You do not have access to push to #{path}&quot;
+        exit 1
+      end
+    end
+  end
+end
+
+check_directory_perms</code></pre>
+
+<p>以上的大部分內容應該還算容易理解。通過 <code>git rev-list</code> 獲取推送到伺服器的提交清單。然後，針對其中每一項，找出它試圖修改的檔案，然後確保執行推送的用戶對這些檔案具有許可權。一個不太容易理解的 Ruby 技巧是 <code>path.index(access_path) ==0</code> 這句，如果路徑以 <code>access_path</code> 開頭，它會回傳 True——這是為了確保 <code>access_path</code> 並不是只在允許的路徑之一，而是所有准許全選的目錄都在該目錄之下。</p>
+
+<p>現在，如果提交資訊的格式不對的話，或是修改的檔案在允許的路徑之外的話，你的用戶就不能推送這些提交。 </p>
+
+<h4>只允許 Fast-Forward 類型的推送</h4>
+
+<p>剩下的最後一項任務是指定只接受 fast-forward 的推送。在 Git 1.6 或者較新的版本裡，只需要設定 <code>receive.denyDeletes</code> 和 <code>receive.denyNonFastForwards</code> 選項就可以了。但是用掛鉤來實做這個功能，便可以在舊版本的 Git 上運作，並且通過一定的修改，它可以做到只針對某些用戶執行，或者更多以後可能用到的規則。</p>
+
+<p>檢查的邏輯是看看是否有任何的提交在舊版本(revision)裡能找到、但在新版本裡卻找不到。如果沒有，那這是一次純 fast-forward 的推送；如果有，那我們拒絕此次推送： </p>
+
+<pre><code># enforces fast-forward only pushes
+def check_fast_forward
+  missed_refs = `git rev-list #{$newrev}..#{$oldrev}`
+  missed_ref_count = missed_refs.split(&quot;\n&quot;).size
+  if missed_ref_count &gt; 0
+    puts &quot;[POLICY] Cannot push a non fast-forward reference&quot;
+    exit 1
+  end
+end
+
+check_fast_forward</code></pre>
+
+<p>一切都設定好了。如果現在執行 <code>chmod u+x .git/hooks/update</code> —— 這是包含以上內容的案，我們修改它的許可權，然後嘗試推送一個包含非 fast-forward 類型的索引，會得到類似如下： </p>
+
+<pre><code>$ git push -f origin master
+Counting objects: 5, done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 323 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+Enforcing Policies...
+(refs/heads/master) (8338c5) (c5b616)
+[POLICY] Cannot push a non fast-forward reference
+error: hooks/update exited with error code 1
+error: hook declined to update refs/heads/master
+To git@gitserver:project.git
+ ! [remote rejected] master -&gt; master (hook declined)
+error: failed to push some refs to &#39;git@gitserver:project.git&#39;</code></pre>
+
+<p>這裡有幾個有趣的資訊。首先，我們可以看到掛鉤執行的起點： </p>
+
+<pre><code>Enforcing Policies...
+(refs/heads/master) (8338c5) (c5b616)</code></pre>
+
+<p>注意這是你在 update 腳本一開頭的地方印出到標準輸出的東西。所有從腳本印出到 stdout 的東西都會發送到用戶端，這點很重要。 </p>
+
+<p>下一個值得注意的部分是錯誤資訊。 </p>
+
+<pre><code>[POLICY] Cannot push a non fast-forward reference
+error: hooks/update exited with error code 1
+error: hook declined to update refs/heads/master</code></pre>
+
+<p>第一行是我們的腳本輸出的，在往下是 Git 在告訴我們 update 腳本退出時傳回了非零值，因而推送遭到了拒絕。最後一點：</p>
+
+<pre><code>To git@gitserver:project.git
+ ! [remote rejected] master -&gt; master (hook declined)
+error: failed to push some refs to &#39;git@gitserver:project.git&#39;</code></pre>
+
+<p>每一個被掛鉤拒絕的索引(reference)，你都會看到一條遠端拒絕訊息，解釋它被拒絕是因為一個掛鉤失敗的原因。 </p>
+
+<p>而且，如果 ref 標記字串(譯註: 例如 ref: 1234)沒有包含在任何的提交裡，我們將看到前面腳本裡印出的錯誤資訊： </p>
+
+<pre><code>[POLICY] Your message is not formatted correctly</code></pre>
+
+<p>又或者某人想修改一個自己不具備許可權的檔，然後推送了一個包含它的提交，他將看到類似的提示。比如，一個文件作者嘗試推送一個修改了 <code>lib</code> 目錄下某些東西的提交，他會看到 </p>
+
+<pre><code>[POLICY] You do not have access to push to lib/test.rb</code></pre>
+
+<p>都做好了。從這裡開始，只要 <code>update</code> 腳本存在並且可執行，我們的倉庫永遠都不會遭到回轉(rewound)，或者包含不符合要求資訊的提交內容，並且使用者都被鎖在了沙箱裡面。 </p>
+
+<h3>用戶端掛鉤</h3>
+
+<p>這種方法的缺點在於使用者推送內容遭到拒絕後幾乎無法避免的抱怨。辛辛苦苦寫成的代碼在最後時刻慘遭拒絕是令人十分沮喪、迷惑的；更可憐的是他們不得不修改提交歷史來解決問題，有時候這可不是隨便哪個人都做得來的。</p>
+
+<p>這種兩難境地的解答是提供一些用戶端的掛鉤，讓使用者可以用來在他們作出伺服器可能會拒絕的事情時給以警告。這樣的話，用戶們就能在提交--問題變得更難修正之前修正問題。由於掛鉤本身不跟隨 clone 的專案副本分發，所以必須通過其他途徑把這些掛鉤分發到用戶的 <code>.git/hooks</code> 目錄並設為可執行檔。雖然可以在專案裏或用另一個專案分發這些掛鉤，不過全自動的解決方案是不存在的。</p>
+
+<p>首先，你應該在每次提交前檢查你的提交說明訊息，這樣你才能確保伺服器不會因為不合格式的提交說明訊息而拒絕你的更改。為了達到這個目的，你可以增加 <code>commit-msg</code> 掛鉤。如果你使用該掛鉤來讀取第一個參數傳遞的檔案裏的訊息，並且與規定的模式(pattern)作對比，你就可以使 Git 在提交說明訊息不符合條件的情況下，拒絕執行提交。</p>
+
+<pre><code>#!/usr/bin/env ruby
+message_file = ARGV[0]
+message = File.read(message_file)
+
+$regex = /\[ref: (\d+)\]/
+
+if !$regex.match(message)
+  puts &quot;[POLICY] Your message is not formatted correctly&quot;
+  exit 1
+end</code></pre>
+
+<p>如果這個腳本放在這個位置 (<code>.git/hooks/commit-msg</code>) 並且是可執行的, 而你的提交說明訊息沒有做適當的格式化，你會看到： </p>
+
+<pre><code>$ git commit -am &#39;test&#39;
+[POLICY] Your message is not formatted correctly</code></pre>
+
+<p>在這個實例中，提交沒有成功。然而如果你的提交說明訊息符合要求的，Git 會允許你提交： </p>
+
+<pre><code>$ git commit -am &#39;test [ref: 132]&#39;
+[master e05c914] test [ref: 132]
+ 1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+
+<p>接下來我們要保證沒有修改到 ACL 允許範圍之外的檔案。如果你的專案 <code>.git</code> 目錄裡有前面使用過的 ACL 檔，那麼以下的 <code>pre-commit</code> 腳本將執行裡面的限制規定：</p>
+
+<pre><code>#!/usr/bin/env ruby
+
+$user    = ENV[&#39;USER&#39;]
+
+# [ insert acl_access_data method from above ]
+
+# only allows certain users to modify certain subdirectories in a project
+def check_directory_perms
+  access = get_acl_access_data(&#39;.git/acl&#39;)
+
+  files_modified = `git diff-index --cached --name-only HEAD`.split(&quot;\n&quot;)
+  files_modified.each do |path|
+    next if path.size == 0
+    has_file_access = false
+    access[$user].each do |access_path|
+    if !access_path || (path.index(access_path) == 0)
+      has_file_access = true
+    end
+    if !has_file_access
+      puts &quot;[POLICY] You do not have access to push to #{path}&quot;
+      exit 1
+    end
+  end
+end
+
+check_directory_perms</code></pre>
+
+<p>這和服務端的腳本幾乎一樣，除了兩個重要區別。第一，ACL 檔的位置不同，因為這個腳本在當前工作目錄執行，而非 Git 目錄。ACL 檔的目錄必須由這個</p>
+
+<pre><code>access = get_acl_access_data(&#39;acl&#39;)</code></pre>
+
+<p>改成這個:</p>
+
+<pre><code>access = get_acl_access_data(&#39;.git/acl&#39;)</code></pre>
+
+<p>另一個重要區別是獲取「被修改檔案清單」的方式。在服務端的時候使用了查看提交紀錄的方式，可是目前的提交都還沒被記錄下來呢，所以這個清單只能從暫存區域獲取。原來是這樣：</p>
+
+<pre><code>files_modified = `git log -1 --name-only --pretty=format:&#39;&#39; #{ref}`</code></pre>
+
+<p>現在要用這樣：</p>
+
+<pre><code>files_modified = `git diff-index --cached --name-only HEAD`</code></pre>
+
+<p>不同的就只有這兩點——除此之外，該腳本完全相同。一個小陷阱在於它假設在本地執行的帳戶和推送到遠端服務端的相同。如果這二者不一樣，則需要手動設置一下 <code>$user</code> 變數。</p>
+
+<p>最後一項任務是檢查確認推送內容中不包含非 fast-forward 類型的索引(reference)，不過這個需求比較少見。以下情況會得到一個非 fast-forward 類型的索引，要麼在某個已經推送過的提交上做衍合，要麼從本地不同分支推送到遠端相同的分支上。</p>
+
+<p>既然伺服器會告訴你不能推送非 fast-forward 內容，而且上面的掛鉤也能阻止強制的推送，唯一剩下的潛在問題就是衍合已經推送過的提交內容。</p>
+
+<p>下面是一個檢查這個問題的 pre-rabase 腳本的例子。它獲取一個所有即將重寫的提交內容的清單，然後檢查它們是否在遠端的索引(reference)裡已經存在。一旦發現某個提交可以從遠端索引裡衍變過來，它就放棄衍合操作：</p>
+
+<pre><code>#!/usr/bin/env ruby
+
+base_branch = ARGV[0]
+if ARGV[1]
+  topic_branch = ARGV[1]
+else
+  topic_branch = &quot;HEAD&quot;
+end
+
+target_shas = `git rev-list #{base_branch}..#{topic_branch}`.split(&quot;\n&quot;)
+remote_refs = `git branch -r`.split(&quot;\n&quot;).map { |r| r.strip }
+
+target_shas.each do |sha|
+  remote_refs.each do |remote_ref|
+    shas_pushed = `git rev-list ^#{sha}^@ refs/remotes/#{remote_ref}`
+    if shas_pushed.split(&quot;\n&quot;).include?(sha)
+      puts &quot;[POLICY] Commit #{sha} has already been pushed to #{remote_ref}&quot;
+      exit 1
+    end
+  end
+end</code></pre>
+
+<p>這個腳本利用了一個第六章「修訂版本選擇」一節中不曾提到的語法。執行這個命令可以獲得一個所有已經完成推送的提交的列表：</p>
+
+<pre><code>git rev-list ^#{sha}^@ refs/remotes/#{remote_ref}</code></pre>
+
+<p><code>SHA^@</code> 語法解析該次提交的所有祖先。我們尋找任何一個提交，這個提交可以從遠端最後一次提交衍變獲得(reachable)，但從我們嘗試推送的任何一個提交的 SHA 值的任何一個祖先都無法衍變獲得——也就是 fast-forward 的內容。</p>
+
+<p>這個解決方案的缺點在於它可能會很慢而且通常是沒有必要的——只要不用 -f 來強制推送，伺服器會自動給出警告並且拒絕推送內容。然而，這是個不錯的練習，而且理論上能幫助用戶避免一個將來不得不回頭修改的衍合操作。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>

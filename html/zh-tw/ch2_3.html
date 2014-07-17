@@ -1,0 +1,262 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>檢視提交的歷史記錄 - Git 基礎 - Pro Git 繁體中文版</title><link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/dist/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="../../assets/css/main.css"><link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.ico"></head><body><a href="#main" class="sr-only">SKIP TO CONTENT</a><div id="header" class="navbar navbar-fixed-top navbar-inverse"><div class="container"><div class="navbar-header"><a id="brand" href="/progit/"><img src="../../assets/img/git-logo.png" alt="git" class="logo"></a><button type="button" data-toggle="collapse" data-target=".navigation" class="navbar-toggle"><span class="sr-only">Toggle Navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="navbar-collapse collapse navigation"><ul class="nav navbar-nav"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-list"></span> 目錄<b class="caret"></b></a><ul role="menu" class="dropdown-menu menu-toc"><li class="menu-toc-chapter"><a href="ch1_0.html">1   開始 </a><ul class="menu-section-links"><li><a href="ch1_1.html">1.1   關於版本控制 </a></li><li><a href="ch1_2.html">1.2   Git 的簡史 </a></li><li><a href="ch1_3.html">1.3   Git 基礎要點 </a></li><li><a href="ch1_4.html">1.4   安裝Git </a></li><li><a href="ch1_5.html">1.5   初次設定Git </a></li><li><a href="ch1_6.html">1.6   取得說明文件 </a></li><li><a href="ch1_7.html">1.7   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch2_0.html">2   Git 基礎 </a><ul class="menu-section-links"><li><a href="ch2_1.html">2.1   取得Git儲存庫 </a></li><li><a href="ch2_2.html">2.2   提交更新到儲存庫 </a></li><li><a href="ch2_3.html">2.3   檢視提交的歷史記錄 </a></li><li><a href="ch2_4.html">2.4   復原 </a></li><li><a href="ch2_5.html">2.5   與遠端協同工作 </a></li><li><a href="ch2_6.html">2.6   標籤 </a></li><li><a href="ch2_7.html">2.7   提示和技巧 </a></li><li><a href="ch2_8.html">2.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch3_0.html">3   Git 分支 </a><ul class="menu-section-links"><li><a href="ch3_1.html">3.1   何謂分支 </a></li><li><a href="ch3_2.html">3.2   分支的新建與合併 </a></li><li><a href="ch3_3.html">3.3   分支的管理 </a></li><li><a href="ch3_4.html">3.4   利用分支進行開發的工作流程 </a></li><li><a href="ch3_5.html">3.5   遠端分支 </a></li><li><a href="ch3_6.html">3.6   分支的衍合 </a></li><li><a href="ch3_7.html">3.7   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch4_0.html">4   伺服器上的 Git </a><ul class="menu-section-links"><li><a href="ch4_1.html">4.1   協議 </a></li><li><a href="ch4_2.html">4.2   在伺服器上部署 Git </a></li><li><a href="ch4_3.html">4.3   生成 SSH 公開金鑰 </a></li><li><a href="ch4_4.html">4.4   架設伺服器 </a></li><li><a href="ch4_5.html">4.5   公共訪問 </a></li><li><a href="ch4_6.html">4.6   GitWeb </a></li><li><a href="ch4_7.html">4.7   Gitosis </a></li><li><a href="ch4_8.html">4.8   Gitolite </a></li><li><a href="ch4_9.html">4.9   Git 守護進程 </a></li><li><a href="ch4_10.html">4.10   Git 託管服務 </a></li><li><a href="ch4_11.html">4.11   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch5_0.html">5   分散式 Git </a><ul class="menu-section-links"><li><a href="ch5_1.html">5.1   分散式工作流程 </a></li><li><a href="ch5_2.html">5.2   為專案作貢獻 </a></li><li><a href="ch5_3.html">5.3   專案的管理 </a></li><li><a href="ch5_4.html">5.4   小結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch6_0.html">6   Git 工具 </a><ul class="menu-section-links"><li><a href="ch6_1.html">6.1   選擇修訂版本 </a></li><li><a href="ch6_2.html">6.2   互動式暫存 </a></li><li><a href="ch6_3.html">6.3   儲藏 (Stashing) </a></li><li><a href="ch6_4.html">6.4   重寫歷史 </a></li><li><a href="ch6_5.html">6.5   使用 Git 做 Debug </a></li><li><a href="ch6_6.html">6.6   子模組 (Submodules) </a></li><li><a href="ch6_7.html">6.7   子樹合併 </a></li><li><a href="ch6_8.html">6.8   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch7_0.html">7   Git 客製化 </a><ul class="menu-section-links"><li><a href="ch7_1.html">7.1   Git 配置 </a></li><li><a href="ch7_2.html">7.2   Git 屬性 </a></li><li><a href="ch7_3.html">7.3   Git Hooks </a></li><li><a href="ch7_4.html">7.4   Git 強制策略實例 </a></li><li><a href="ch7_5.html">7.5   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch8_0.html">8   Git 與其他系統 </a><ul class="menu-section-links"><li><a href="ch8_1.html">8.1   Git 與 Subversion </a></li><li><a href="ch8_2.html">8.2   遷移到 Git </a></li><li><a href="ch8_3.html">8.3   總結 </a></li></ul></li><li class="menu-toc-chapter"><a href="ch9_0.html">9   Git 內部原理 </a><ul class="menu-section-links"><li><a href="ch9_1.html">9.1   底層命令 (Plumbing) 和高層命令 (Porcelain) </a></li><li><a href="ch9_2.html">9.2   Git 物件 </a></li><li><a href="ch9_3.html">9.3   Git References </a></li><li><a href="ch9_4.html">9.4   Packfiles </a></li><li><a href="ch9_5.html">9.5   The Refspec </a></li><li><a href="ch9_6.html">9.6   傳輸協議 </a></li><li><a href="ch9_7.html">9.7   維護及資料復原 </a></li><li><a href="ch9_8.html">9.8   總結 </a></li></ul></li></ul></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-globe"></span> 其他语言<b class="caret"></b></a><ul role="menu" class="dropdown-menu"><li><a href="../../index.en.html">English</a></li><li><a href="../../index.html">简体中文</a></li><li><a href="../../index.zh-tw.html">正體中文</a></li></ul></li><li><a href="../../about.html"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li></ul></div></div></div><div id="main" class="container"><div class="row wrap"><div class="col-md-4"><div class="ph20"><ul class="nav sub-nav"><li class="nav-header"><a href="ch2_0.html">Git 基礎</a></li><li><a href="ch2_1.html">取得Git儲存庫</a></li><li><a href="ch2_2.html">提交更新到儲存庫</a></li><li><a href="ch2_3.html">檢視提交的歷史記錄</a></li><li><a href="ch2_4.html">復原</a></li><li><a href="ch2_5.html">與遠端協同工作</a></li><li><a href="ch2_6.html">標籤</a></li><li><a href="ch2_7.html">提示和技巧</a></li><li><a href="ch2_8.html">總結</a></li></ul></div></div><div class="col-md-8"><div class="ph20"><h2>檢視提交的歷史記錄</h2>
+
+<p>在提交數個更新，或者複製已有一些歷史記錄的儲存庫後。 或許會想希望檢視之前發生過什麼事。 最基本也最具威力的工具就是 <code>git log</code> 命令。</p>
+
+<p>以下採用非常簡單，名為 <code>simplegit</code> 的專案做展示。 欲取得此專案，執行以下命令：</p>
+
+<pre><code>git clone git://github.com/schacon/simplegit-progit.git</code></pre>
+
+<p>在此專案目錄內執行 <code>git log</code>，應該會看到類似以下訊息：</p>
+
+<pre><code>$ git log
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+
+commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 16:40:33 2008 -0700
+
+    removed unnecessary test code
+
+commit a11bef06a3f659402fe7563abf99ad00de2209e6
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 10:31:28 2008 -0700
+
+    first commit</code></pre>
+
+<p>在未加任何參數情況下，<code>git log</code>以新到舊的順序列出儲存庫的提交的歷史記錄。 也就是說最新的更新會先被列出來。 同時也會列出每個更新的 SHA-1 查核值、作者大名及電子郵件地址、及提交時輸入的訊息。</p>
+
+<p><code>git log</code>命令有很多樣化的選項，供讀者精確指出想搜尋的結果。 接下來會介紹一些常用的選項。</p>
+
+<p>最常用的選項之一為 <code>-p</code>，用來顯示每個更新之間差別的內容。 另外還可以加上 <code>-2</code> 參數，限制為只輸出最後兩個更新。</p>
+
+<pre><code>$ git log -p -2
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+
+diff --git a/Rakefile b/Rakefile
+index a874b73..8f94139 100644
+--- a/Rakefile
++++ b/Rakefile
+@@ -5,5 +5,5 @@ require &#39;rake/gempackagetask&#39;
+ spec = Gem::Specification.new do |s|
+     s.name      =   &quot;simplegit&quot;
+-    s.version   =   &quot;0.1.0&quot;
++    s.version   =   &quot;0.1.1&quot;
+     s.author    =   &quot;Scott Chacon&quot;
+     s.email     =   &quot;schacon@gee-mail.com
+
+commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 16:40:33 2008 -0700
+
+    removed unnecessary test code
+
+diff --git a/lib/simplegit.rb b/lib/simplegit.rb
+index a0a60ae..47c6340 100644
+--- a/lib/simplegit.rb
++++ b/lib/simplegit.rb
+@@ -18,8 +18,3 @@ class SimpleGit
+     end
+
+ end
+-
+-if $0 == __FILE__
+-  git = SimpleGit.new
+-  puts git.show
+-end
+\ No newline at end of file</code></pre>
+
+<p>這個選項除了顯示相同的資訊外，還另外附上每個更新的差異。 這對於重新檢視或者快速的瀏覽協同工作伙伴新增的更新非常有幫助。</p>
+
+<p>有時候用 word level 的方式比 line level 更容易看懂變化。在 <code>git log -p</code> 後面附加 <code>--word-diff</code> 選項，就可以取代預設的  line level 模式。當你在看原始碼的時候 word level 還挺有用的，還有一些大型文字檔，如書籍或論文就派上用場了，範例如下：</p>
+
+<pre><code>$ git log -U1 --word-diff
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+
+diff --git a/Rakefile b/Rakefile
+index a874b73..8f94139 100644
+--- a/Rakefile
++++ b/Rakefile
+@@ -7,3 +7,3 @@ spec = Gem::Specification.new do |s|
+    s.name      =   &quot;simplegit&quot;
+    s.version   =   [-&quot;0.1.0&quot;-]{+&quot;0.1.1&quot;+}
+    s.author    =   &quot;Scott Chacon&quot;</code></pre>
+
+<p>如你所見，輸出範例中沒有列出新增與刪除的行，變動的地方用內嵌的方式顯示，你可以看到新增的字被包括在 <code>{+ +}</code> 內，而刪除的則包括在 <code>{- -}</code> 內，如果你想再減少顯示的資訊，將上述的三行再減少到只顯示變動的那行。你可以用 <code>-U1</code> 選項，就像上述的範例中那樣。</p>
+
+<p>另外也可以使用<code>git log</code>提供的一系統摘要選項。 例如：若想檢視每個更新的簡略統計資訊，可使用 <code>--stat</code> 選項：</p>
+
+<pre><code>$ git log --stat
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+
+ Rakefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 16:40:33 2008 -0700
+
+    removed unnecessary test code
+
+ lib/simplegit.rb |    5 -----
+ 1 file changed, 5 deletions(-)
+
+commit a11bef06a3f659402fe7563abf99ad00de2209e6
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 10:31:28 2008 -0700
+
+    first commit
+
+ README           |    6 ++++++
+ Rakefile         |   23 +++++++++++++++++++++++
+ lib/simplegit.rb |   25 +++++++++++++++++++++++++
+ 3 files changed, 54 insertions(+)</code></pre>
+
+<p>如以上所示，<code>--stat</code>選項在每個更新項目的下方列出被更動的檔案、有多少檔案被更動，以及有多行列被加入或移出該檔案。 也會在最後印出摘要的訊息。
+其它實用的選項是 <code>--pretty</code>。 這個選項改變原本預設輸出的格式。 有數個內建的選項供讀者選用。 其中 <code>oneline</code> 選項將每一個更新印到單獨一行，對於檢視很多更新時很有用。 更進一步，<code>short</code>、<code>full</code>、<code>fuller</code> 選項輸出的格式大致相同，但會少一些或者多一些資訊。</p>
+
+<pre><code>$ git log --pretty=oneline
+ca82a6dff817ec66f44342007202690a93763949 changed the version number
+085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7 removed unnecessary test code
+a11bef06a3f659402fe7563abf99ad00de2209e6 first commit</code></pre>
+
+<p>最有趣的選項是 <code>format</code>，允許讀者指定自訂的輸出格式。 當需要輸出給機器分析時特別有用。 因為明確地指定了格式，即可確定它不會因為更新 Git 而被更動：</p>
+
+<pre><code>$ git log --pretty=format:&quot;%h - %an, %ar : %s&quot;
+ca82a6d - Scott Chacon, 11 months ago : changed the version number
+085bb3b - Scott Chacon, 11 months ago : removed unnecessary test code
+a11bef0 - Scott Chacon, 11 months ago : first commit</code></pre>
+
+<p>表格2-1列出一些 <code>format</code> 支援的選項。</p>
+
+<p>&lt;!-- Attention to translators: this is a table declaration.
+The lines must be formatted as follows
+&lt;TAB&gt;&lt;First column text&gt;&lt;TAB&gt;&lt;Second column text&gt;
+--&gt;</p>
+
+<pre><code>選項	選項的說明
+%H	該更新的SHA1雜湊值
+%h	該更新的簡短SHA1雜湊值
+%T	存放該更新的根目錄的Tree物件的SHA1雜湊值
+%t	存放該更新的根目錄的Tree物件的簡短SHA1雜湊值
+%P	該更新的父更新的SHA1雜湊值
+%p	該更新的父更新的簡短SHA1雜湊值
+%an	作者名字
+%ae	作者電子郵件
+%ad	作者的日期 (格式依據 date 選項而不同)
+%ar	相對於目前時間的作者的日期
+%cn	提交者的名字
+%ce	提交者的電子郵件
+%cd	提交的日期
+%cr	相對於目前時間的提交的日期
+%s	標題</code></pre>
+
+<p>讀者可能會好奇 <strong>作者</strong> 與 <strong>提交者</strong> 之間的差別。 <strong>作者</strong> 是完成該工作的人，而 <strong>提交者</strong> 則是最後將該工作提交出來的人。 因此，若讀者將某個專案的修補檔送出，而且該專案的核心成員中一員套用該更新，則讀者與該成員皆會被列入該更新。 讀者即 <strong>作者</strong>，而該成員則是 <strong>提交者</strong>。 在第五章會提到較多之間的差別。</p>
+
+<p><code>oneline</code> 及 <code>format</code> 選項對於另一個名為 <code>--graph</code> 的選項特別有用。 該選項以 ASCII 畫出分支的分歧及合併的歷史。 可參考我們的 Grit 的儲存庫：</p>
+
+<pre><code>$ git log --pretty=format:&quot;%h %s&quot; --graph
+* 2d3acf9 ignore errors from SIGCHLD on trap
+*  5e3ee11 Merge branch &#39;master&#39; of git://github.com/dustin/grit
+|\
+| * 420eac9 Added a method for getting the current branch.
+* | 30e367c timeout code and tests
+* | 5a09431 add timeout protection to grit
+* | e1193f8 support for heads with slashes in them
+|/
+* d6016bc require time for xmlschema
+*  11d191e Merge branch &#39;defunkt&#39; into local</code></pre>
+
+<p>這些只是一些簡單的 <code>git log</code> 的選項，還有許多其它的。 表格2-2列出目前我們涵蓋的及一些可能有用的格式選項，以及它們如何更動 <code>log</code> 命令的輸出格式。</p>
+
+<p>&lt;!-- Attention to translators: this is a table declaration.
+The lines must be formatted as follows
+&lt;TAB&gt;&lt;First column text&gt;&lt;TAB&gt;&lt;Second column text&gt;
+--&gt;</p>
+
+<pre><code>選項	選項的說明
+-p	顯示每個更新與上一個的差異。
+--word-diff	使用 word diff 格式顯示 patch 內容。
+--stat	顯示每個更新更動的檔案的統計及摘要資訊。
+--shortstat	僅顯示--stat提供的的訊息中關於更動、插入、刪除的文字。
+--name-only	在更新的訊息後方顯示更動的檔案列表。
+--name-status	顯示新增、更動、刪除的檔案列表。
+--abbrev-commit	僅顯示SHA1查核值的前幾位數，而不是顯示全部的40位數。
+--relative-date	以相對於目前時間方式顯示日期（例如：“2 weeks ago”），而不是完整的日期格式。
+--graph	以 ASCII 在 log 輸出旁邊畫出分支的分歧及合併。
+--pretty	以其它格式顯示更新。 可用的選項包含oneline、short、full、fuller及可自訂格式的format。
+--oneline	`--pretty=oneline --abbrev-commit` 的簡短用法。</code></pre>
+
+<h3>限制 log 的輸出範圍</h3>
+
+<p>除了輸出格式的選項，<code>git log</code>也接受一些好用的選項。 也就是指定只顯示某一個子集合的更新。 先前已介紹過僅顯示最後兩筆更新的 <code>-2</code> 選項。 實際上可指定 <code>-&lt;n&gt;</code>，而 <code>n</code> 是任何整數，用來顯示最後的 <code>n</code> 個更新。 不過讀者可能不太會常用此選項，因為 Git 預設將所有的輸出導到分頁程式，故一次只會看到一頁。</p>
+
+<p>然而，像 <code>--since</code> 及 <code>--until</code> 限制時間的選項就很有用。 例如，以下命令列出最近兩週的更新：</p>
+
+<pre><code>$ git log --since=2.weeks</code></pre>
+
+<p>此命令支援多種格式。 可指定特定日期（如：“2008-01-15”）或相對的日期，如：“2 years 1 day 3 minutes ago”。</p>
+
+<p>使用者也可以過濾出符合某些搜尋條件的更新。 <code>--author</code> 選項允許使用者過濾出特定作者，而 <code>--grep</code> 選項允許以關鍵字搜尋提交的訊息。（注意：若同時使用作者名字及字串比對，該命令會列出同時符合二個條件的更新。）</p>
+
+<p>若希望比對多個字串，需要再加上 <code>--all-match</code>；否則只會列出符合任一條件的更新。</p>
+
+<p>最後一個有用的選項是過濾路徑。 若指定目錄或檔案名稱，可僅印出更動到這些檔案的更新。 這選項永遠放在最後，而且一般來說會在前方加上 -- 以資區別。</p>
+
+<p>在表格2-3，我們列出這些選項以及少數其它常見選項以供參考。</p>
+
+<p>&lt;!-- Attention to translators: this is a table declaration.
+The lines must be formatted as follows
+&lt;TAB&gt;&lt;First column text&gt;&lt;TAB&gt;&lt;Second column text&gt;
+--&gt;</p>
+
+<pre><code>選項	選項的說明文字
+-(n)	僅顯示最後 n 個更新
+--since, --after	列出特定日期後的更新。
+--until, --before	列出特定日期前的更新。
+--author	列出作者名稱符合指定字串的更新。
+--committer	列出提交者名稱符合指定字串的更新。</code></pre>
+
+<p>例如：若想檢視 Git 的原始碼中，Junio Hamano 在 2008 年十月提交且不是合併用的更新。 可執行以下命令：</p>
+
+<pre><code>$ git log --pretty=&quot;%h - %s&quot; --author=gitster --since=&quot;2008-10-01&quot; \
+   --before=&quot;2008-11-01&quot; --no-merges -- t/
+5610e3b - Fix testcase failure when extended attribute
+acd3b9e - Enhance hold_lock_file_for_{update,append}()
+f563754 - demonstrate breakage of detached checkout wi
+d1a43f2 - reset --hard/read-tree --reset -u: remove un
+51a94af - Fix &quot;checkout --track -b newbranch&quot; on detac
+b0ad11e - pull: allow &quot;git pull origin $something:$cur</code></pre>
+
+<p>Git 原始碼的更新歷史接近二萬筆更新，本命令顯示符合條件的六筆更新。</p>
+
+<h3>使用圖形界面檢視歷史</h3>
+
+<p>若讀者較偏向使用圖形界面檢視歷史，或與會想看一下隨著 Git 發佈的，名為 <code>gitk</code> 的 Tcl/Tk 程式。 Gitk 基本上就是 <code>git log</code> 的圖形界面版本，而且幾乎接受所有 <code>git log</code> 支援的過濾用選項。 若在專案所在目錄下執行 gitk 命令，將會看到如圖2-2的畫面。</p>
+
+<p><img class="img-responsive center-block" src="../../book_src/figures/18333fig0202-tn.png"></br>
+圖2-2。 gitk檢視歷史程式。</p>
+
+<p>在上圖中可看到視窗的上半部顯示相當棒的更新歷史圖。 視窗下半部則顯示當時被點選的更新引入的變更。</p>
+
+</div></div></div><div class="footer"><div class="pull-left"><span class="build-date">構建時間：2014-07-17 13:44:11</span>，<span class="build-source-version">基於書籍源碼版本：<a href="https://github.com/progit/progit/tree/4cefecd70de786da8da0387de831f4e273d63066" target="_blank">4cefecd</a></span>，<span class="application-version">程式版本：0.0.6</span>。</div><div class="pull-right">製作者<a href="http://iissnan.com"> iissnan</a></div></div></div><script src="../../assets/vendor/jquery/dist/jquery.min.js"></script><script src="../../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script><script src="../../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47021013-1' , 'auto');
+ga('send', 'pageview');</script></body></html>
