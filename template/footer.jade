@@ -1,14 +1,19 @@
-span.build-date
-    = buildDate
+div.pull-left
+    span.build-date
+        = buildDate
 
-= symbolComma
+    = symbolComma
 
-span.build-source-version
-    != buildSourceRevision
+    span.build-source-version
+        != buildSourceRevision
 
-= symbolComma
+    = symbolComma
 
-span.application-version
-    = applicationVersion
+    span.application-version
+        = applicationVersion
 
-= symbolPeriod
+    = symbolPeriod
+
+div.pull-right
+    = madeBy
+    a(href="http://iissnan.com")  iissnan
