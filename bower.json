@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "dependencies": {
     "bootstrap": ">3.0.0",
-    "github-buttons": "~0.0.4"
+    "github-buttons": "~0.0.4",
+    "octicons": "~2.1.0"
   }
 }
