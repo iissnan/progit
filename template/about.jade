@@ -2,6 +2,7 @@ extends layout
 
 block header
     link(rel="stylesheet", type="text/css", href="assets/vendor/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="assets/vendor/octicons/octicons/octicons.css")
     link(rel="stylesheet", type="text/css", href="assets/vendor/github-buttons/dist/github-buttons.css")
     link(rel="stylesheet", type="text/css", href="assets/css/main.css")
     link(rel="shortcut icon", type="images/x-icon", href="assets/img/favicon.ico")
@@ -37,6 +38,10 @@ block row
                     | 站点异常请在
                     a(href=LINK_SELF_ISSUE, target="_blank") 这里
                     | 提交反馈
+                li.list-group-item
+                    a(href="https://github.com/iissnan/progit")
+                        span.octicon.octicon-mark-github
+                        |  Fork on GitHub
         p
             span.github-btn.hide(data-user="iissnan", data-repo="progit", data-type="watch", data-count="1")
             | &nbsp;

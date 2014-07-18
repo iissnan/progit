@@ -1,7 +1,7 @@
 ul.nav.navbar-nav
     li.dropdown
         a.dropdown-toggle(data-toggle="dropdown", href="#")
-            span.glyphicon.glyphicon-list
+            span.octicon.octicon-list-unordered
             = " "
             = toc.title
             b.caret
@@ -17,7 +17,7 @@ ul.nav.navbar-nav
 ul.nav.navbar-nav.navbar-right
     li.dropdown
         a.dropdown-toggle(data-toggle="dropdown", href="#")
-            span.glyphicon.glyphicon-globe
+            span.octicon.octicon-globe
             = " "
             = supportTranslations.title
             b.caret
@@ -28,5 +28,5 @@ ul.nav.navbar-nav.navbar-right
 
     li
         a(href="#{about.link}")
-            span.glyphicon.glyphicon-question-sign
+            span.octicon.octicon-question
             |  #{about.text}
