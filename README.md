@@ -12,6 +12,12 @@ The generated HTML pages can be hosted on the [GitHub](http://github.com) via [G
  - [Tablet](assets/img/preview-tablet.png?raw=true)
  - [Mobile](assets/img/preview-mobile.png?raw=true)
 
+
+ ![Mobile](assets/img/preview-mobile.png?raw=true)
+
+
+
+
 ## How to build
 
 1. Download and install [Node.js](http://nodejs.org).
@@ -51,4 +57,8 @@ The generated HTML pages can be hosted on the [GitHub](http://github.com) via [G
     ```
     git push origin gh-pages
     ```
+
+
+
+
 
