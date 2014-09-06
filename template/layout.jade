@@ -10,25 +10,26 @@ html
     body
         a.sr-only(href="#main") SKIP TO CONTENT
 
-        div#header.navbar.navbar-fixed-top.navbar-inverse
-            div.container
-                div.navbar-header
-                    block brand
+        div#pjax-container
+            div#header.navbar.navbar-fixed-top.navbar-inverse
+                div.container
+                    div.navbar-header
+                        block brand
 
-                    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navigation")
-                        span.sr-only Toggle Navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                div.navbar-collapse.collapse.navigation
-                    != menu
+                        button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navigation")
+                            span.sr-only Toggle Navigation
+                            span.icon-bar
+                            span.icon-bar
+                            span.icon-bar
+                    div.navbar-collapse.collapse.navigation
+                        != menu
 
 
-        div.container#main
-            div.row.wrap
-                block row
-            div.footer
-                != footer
+            div.container#main
+                div.row.wrap
+                    block row
+                div.footer
+                    != footer
 
         block scripts
 
