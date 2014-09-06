@@ -4,6 +4,8 @@
   "dependencies": {
     "bootstrap": ">3.0.0",
     "github-buttons": "~0.0.4",
-    "octicons": "~2.1.0"
+    "octicons": "~2.1.0",
+    "jquery-pjax": "~1.9.2",
+    "nprogress": "~0.1.6"
   }
 }
